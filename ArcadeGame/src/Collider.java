@@ -8,10 +8,10 @@ import processing.core.PImage;
 public class Collider {
 	
 	    private double x, y, width, height, health, initX, initY;
-	    private PImage[] images;
+	    private String[] images;
 	    private int currentImage = 0;
 	    
-	    public Collider(PImage[] images, int health, int x, int y, int width, int height) {
+	    public Collider(String[] images, double health, double x, double y, double width, double height) {
 	    	this.health = health;
 	    	this.images = images;
 	    	this.x = x;
@@ -22,15 +22,10 @@ public class Collider {
 	    	this.height = height;
 	    }
 	    
-	    /** 
-		 * Determines whether this rectangle is touching the other rectangle.
-		 * 
-		 * @param other The other rectangle to test intersection.
-		 * @pre The object passed in must be of type Rectangle.
-		 * @return true if the rectangles are overlapping or touching, false otherwise.
-		 */
+	 
 		public boolean[] intersects(Collider[] colliderList) {
-			boolean[] directions = new boolean[4]; // north, east, south, west
+			
+			boolean[] data = new boolean[4]; // north, east, south, west
 			
 			for (int i = 0; i < colliderList.length; i++) {
 				Collider collider = colliderList[i];
@@ -41,13 +36,35 @@ public class Collider {
 					for (int k = 0; k < 4; k++) {
 						Line otherLine = otherLines[k];
 						if (line.intersects(otherLine)) {
-							directions[k] = true;
+//							changeHealth(-1 * getDamageOnImpact(collider));
+//							if (!(collider instanceof Projectile)) {
+//								data[k] = 1;
+//							}
 						}
 					}
 				}
 			}
-			return directions;
+			return data;
 			
+		}
+		
+		/**
+		 * use this method for checking if something collides with a specific object. E.g. mobile enemy
+		 * collides with player.
+		 */
+		public boolean intersects(Collider collider) {
+			Line[] otherLines = collider.getLines();
+			Line[] lines = this.getLines();
+			for (int j = 0; j < 4; j++) {
+				Line line = lines[j]; // top, right, bottom, left
+				for (int k = 0; k < 4; k++) {
+					Line otherLine = otherLines[k];
+					if (line.intersects(otherLine)) {
+						return true;
+					}
+				}
+			}
+			return false;
 		}
 		
 		
@@ -74,7 +91,7 @@ public class Collider {
 		 */
 		public void draw(PApplet marker) {
 			marker.push();
-			marker.image(images[currentImage], (float) x, (float) y, (float) width, (float) height);
+			marker.image(marker.loadImage(images[currentImage]), (float) x, (float) y, (float) width, (float) height);
 //			setDrawSettings(marker);
 //			marker.rect((float) getX(), (float) getY(), (float) width, (float) height);
 			marker.pop();
@@ -121,11 +138,11 @@ public class Collider {
 		
 
 
-		private double getY() {
+		public double getY() {
 			return y;
 		}
 
-		private double getX() {
+		public double getX() {
 			return x;
 		}
 
@@ -188,6 +205,14 @@ public class Collider {
 		 */
 		public String toString() {
 			return super.toString() + "\nWidth: " + width + "\nHeight: " + height;
+		}
+
+		public double getInitX() {
+			return initX;
+		}
+
+		public double getInitY() {
+			return initY;
 		}
    
 
