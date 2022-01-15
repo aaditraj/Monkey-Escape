@@ -87,17 +87,6 @@ public class Line {
 		double largerY2 = Math.max(other.getY1(), other.getY2());
 		boolean onLine1 = xIntersect >= smallerX1 && xIntersect <= largerX1 && yIntersect >= smallerY1 && yIntersect <= largerY1;
 		boolean onLine2 = xIntersect >= smallerX2 && xIntersect <= largerX2 && yIntersect >= smallerY2 && yIntersect <= largerY2;
-//			System.out.println("xIntersect: " + xIntersect);
-//			System.out.println("yIntersect: " + yIntersect);
-//			System.out.println("smaller raindrop x: " + smallerX1);
-//			System.out.println("larger raindrop x: " + largerX1);
-//			System.out.println("smaller raindrop y: " + smallerY1);
-//			System.out.println("larger raindrop y: " + largerY1);
-//			System.out.println("smaller roof x: " + smallerX2);
-//			System.out.println("larger roof x: " + largerX2);
-//			System.out.println("smaller roof y: " + smallerY2);
-//			System.out.println("larger  roof y: " + largerY2);
-//			System.out.println("Intersecting: " + (onLine1 && onLine2));
 		
 		return (onLine1 && onLine2);
 	}
