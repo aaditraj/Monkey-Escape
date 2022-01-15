@@ -8,10 +8,11 @@ import processing.core.PImage;
 public class Collider {
 	
 	    private double x, y, width, height, health, initX, initY;
+	    protected double vx, vy;
 	    private String[] images;
 	    private int currentImage = 0;
 	    
-	    public Collider(String[] images, double health, double x, double y, double width, double height) {
+	    public Collider(String[] images, double health, double x, double y, double width, double height, double vx, double vy) {
 	    	this.health = health;
 	    	this.images = images;
 	    	this.x = x;
@@ -20,6 +21,8 @@ public class Collider {
 	    	this.initY = y;
 	    	this.width = width;
 	    	this.height = height;
+	    	this.vx = vx; 
+	    	this.vy = vy; 
 	    }
 	    
 	 
@@ -180,6 +183,13 @@ public class Collider {
 			return lines;
 		}
 		
+		public void act(Collider[] colliders) {
+			moveBy(vx, vy, colliders);
+			
+			vx *= 0.01; 
+			vy *= 0.01; 
+		}
+		
 		/** 
 		 * Calculates and returns the perimeter of the rectangle.
 		 * 
@@ -214,6 +224,15 @@ public class Collider {
 		public double getInitY() {
 			return initY;
 		}
+		
+		public double getVX() {
+			return vx;
+		}
+
+		public double getVY() {
+			return vy;
+		}
+   
    
 
 }
