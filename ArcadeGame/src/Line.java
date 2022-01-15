@@ -16,6 +16,7 @@ public class Line {
 		G = 0;
 		B = 0;
 		strokeWeight = 1;
+		//test
 	}
 	
 	public void setColor(int R, int G, int B) {
