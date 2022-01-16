@@ -11,6 +11,7 @@ public class Collider {
 	    protected double vx, vy;
 	    private String[] images;
 	    private int currentImage = 0;
+	    private final double DEFAULT_SPEED = Math.sqrt(5); 
 	    
 	    public Collider(String[] images, double health, double x, double y, double width, double height, double vx, double vy) {
 	    	this.health = health;
@@ -186,8 +187,8 @@ public class Collider {
 		public void act(Collider[] colliders) {
 			moveBy(vx, vy, colliders);
 			
-			vx *= 0.01; 
-			vy *= 0.01; 
+			vx *= 1.01; 
+			vy *= 1.01; 
 		}
 		
 		/** 
@@ -234,5 +235,17 @@ public class Collider {
 		}
    
    
+		public void setVelocity(double run, double rise) {
+			double currentSpeed = Math.sqrt(Math.pow(rise, 2) + Math.pow(run, 2));
+			if (currentSpeed > DEFAULT_SPEED) {
+				rise /= currentSpeed/DEFAULT_SPEED;
+				run /= currentSpeed/DEFAULT_SPEED;
+			} else {
+				rise *= DEFAULT_SPEED/currentSpeed;
+				run *=  DEFAULT_SPEED/currentSpeed;
+			}
+			this.vx = run;
+			this.vy = rise;
+		}
 
 }
