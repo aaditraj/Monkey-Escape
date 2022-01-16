@@ -33,6 +33,7 @@ public class DrawingSurface extends PApplet {
 		fill(0, 255, 0);
 		collider2.draw(this);
 		
+
 		fill(0, 0, 255);
 		Line[] l = collider1.getLines();
 		
@@ -63,7 +64,7 @@ public class DrawingSurface extends PApplet {
 		l2[6].draw(this);
 	
 		
-		
+
 		
 		
 	}
