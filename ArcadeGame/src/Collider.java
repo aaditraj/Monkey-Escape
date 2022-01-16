@@ -36,9 +36,9 @@ public class Collider {
 				Collider collider = colliderList[i];
 				Line[] otherLines = collider.getLines();
 				Line[] lines = this.getLines();
-				for (int j = 0; j < 4; j++) {
+				for (int j = 0; j < 8; j++) {
 					Line line = lines[j]; // top, right, bottom, left
-					for (int k = 0; k < 4; k++) {
+					for (int k = 0; k < 8; k++) {
 						Line otherLine = otherLines[k];
 						if (line.intersects(otherLine)) {
 //							changeHealth(-1 * getDamageOnImpact(collider));
@@ -46,7 +46,7 @@ public class Collider {
 //								data[k] = 1;
 							
 //							}
-							data[k] = true;
+							data[k/2] = true;
 						}
 					}
 				}
@@ -63,7 +63,9 @@ public class Collider {
 			Line[] otherLines = collider.getLines();
 			Line[] lines = this.getLines();
 			for (int j = 0; j < 4; j++) {
-				Line line = lines[j]; // top, right, bottom, left
+				Line line = lines[j]; 
+				// top, right, bottom, left, vert middle top, vert middle bottom, 
+				// horiz middle left, horiz middle right
 				for (int k = 0; k < 4; k++) {
 					Line otherLine = otherLines[k];
 					if (line.intersects(otherLine)) {
@@ -183,13 +185,20 @@ public class Collider {
 		}
 		
 		public Line[] getLines() {
-			Line[] lines = new Line[4];
-			lines[0] = new Line(x, y, x + width, y);
-			lines[1] = new Line(x + width, y, x + width, y + height);
-			lines[2] = new Line(x, y + height, x + width, y + height);
-			lines[3] = new Line(x, y, x, y + height);
+			Line[] lines = new Line[8];
+			lines[0] = new Line(x, y, x + width, y); // top
+			lines[1] = new Line(getCenterX(), y, getCenterX(), y + height/2); // vertical middle
+			lines[2] = new Line(x + width, y, x + width, y + height); // right
+			lines[3] = new Line(x + width/2, getCenterY(), x + width, getCenterY()); // horiz middle
+			lines[4] = new Line(x, y + height, x + width, y + height); // bottom
+			lines[5] = new Line(getCenterX(), y + height/2, getCenterX(), y + height); // vertical middle
+			lines[6] = new Line(x, y, x, y + height); // left
+			lines[7] = new Line(x, getCenterY(), x + width/2, getCenterY()); // horiz middle
 			return lines;
+			
 		}
+		
+		
 		
 		public void act(Collider[] colliders) {
 			moveBy(vx, vy, colliders);

@@ -14,8 +14,8 @@ public class DrawingSurface extends PApplet {
 		                           // health, startx, starty, endx, endy, width, height, vx, vy, direction
 //		collider1 = new MobileEnemy(10d, 0d, 150d, 400d, 150d, 20d, 20d, 5d, 0d, 1);
 //		collider2 = new MobileEnemy(10d, 400d, 150d, 0d, 150d, 20d, 20d, -5d, 0d, 1);
-		collider1 = new Collider(new String[5], 10d, 0d, 150d, 40d, 30d, 5d, 0d);
-		collider2 = new Collider(new String[5], 10d, 400d, 150d, 20d, 20d, -5d, 0d);
+		collider1 = new Collider(new String[5], 10d, 0d, 150d, 40d, 30d, 2d, 0d);
+		collider2 = new Collider(new String[5], 10d, 400d, 150d, 20d, 20d, -2d, 0d);
 	}
 	
 	
@@ -32,6 +32,14 @@ public class DrawingSurface extends PApplet {
 		collider1.draw(this);
 		fill(0, 255, 0);
 		collider2.draw(this);
+		
+		fill(0);
+		for (Line l : collider1.getLines()) {
+			l.draw(this);
+		}
+		for (Line l : collider2.getLines()) {
+			l.draw(this);
+		}
 		
 		
 	}

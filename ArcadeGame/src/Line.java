@@ -74,7 +74,7 @@ public class Line {
 		if (exactXIntersect.isInfinite() || exactYIntersect.isInfinite()) { // Parallel
 			return false;
 		} else if (exactXIntersect.isNaN() && exactYIntersect.isNaN()) { // Collinear
-			return true;
+			return false;
 		}
 		int xIntersect = (int) ((double) exactXIntersect); // cast to int to accommodate roundoff error
 		int yIntersect = (int) ((double) exactYIntersect); // cast to int to accommodate roundoff error
@@ -88,6 +88,8 @@ public class Line {
 		double largerY2 = Math.max(other.getY1(), other.getY2());
 		boolean onLine1 = xIntersect >= smallerX1 && xIntersect <= largerX1 && yIntersect >= smallerY1 && yIntersect <= largerY1;
 		boolean onLine2 = xIntersect >= smallerX2 && xIntersect <= largerX2 && yIntersect >= smallerY2 && yIntersect <= largerY2;
+		
+		
 		
 		return (onLine1 && onLine2);
 	}
