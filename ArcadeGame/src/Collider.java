@@ -95,7 +95,8 @@ public class Collider {
 		 */
 		public void draw(PApplet marker) {
 			marker.push();
-			marker.image(marker.loadImage(images[currentImage]), (float) x, (float) y, (float) width, (float) height);
+//			marker.image(marker.loadImage(images[currentImage]), (float) x, (float) y, (float) width, (float) height);
+			marker.rect((float) x, (float) y, (float) width * 10, (float) height * 10);
 //			setDrawSettings(marker);
 //			marker.rect((float) getX(), (float) getY(), (float) width, (float) height);
 			marker.pop();

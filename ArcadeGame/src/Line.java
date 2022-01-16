@@ -70,7 +70,7 @@ public class Line {
 	public boolean intersects(Line other) {
 		Double exactXIntersect = getIntersectionX(other);
 		Double exactYIntersect = getIntersectionY(other);
-		System.out.println(exactXIntersect + " " + exactYIntersect);
+//		System.out.println(exactXIntersect + " " + exactYIntersect);
 		if (exactXIntersect.isInfinite() || exactYIntersect.isInfinite()) { // Parallel
 			return false;
 		} else if (exactXIntersect.isNaN() && exactYIntersect.isNaN()) { // Collinear
