@@ -34,10 +34,10 @@ public class DrawingSurface extends PApplet {
 		collider2.draw(this);
 		
 		fill(0);
-		for (Line l : collider1.getLines()) {
+		for (Line l : collider1.getLinesCross()) {
 			l.draw(this);
 		}
-		for (Line l : collider2.getLines()) {
+		for (Line l : collider2.getLinesCross()) {
 			l.draw(this);
 		}
 		
