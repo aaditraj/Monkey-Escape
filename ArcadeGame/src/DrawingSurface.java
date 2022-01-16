@@ -26,8 +26,8 @@ public class DrawingSurface extends PApplet {
 	
 	public void draw() {
 		background(50);
-		collider1.act(new Collider[] {collider2}, 1);
-		collider2.act(new Collider[] {collider1}, 0);
+//		collider1.act(new Collider[] {collider2}, 1);
+//		collider2.act(new Collider[] {collider1}, 0);
 		fill(255, 0, 0);
 		collider1.draw(this);
 		fill(0, 255, 0);
@@ -75,11 +75,32 @@ public class DrawingSurface extends PApplet {
 	
 	public void keyPressed() {
 		if (keyCode == UP) { 
-			
+			collider1.moveBy(0, -5, new Collider[] {collider2}, 1);
 			
 		} else if (keyCode == DOWN) { 
+			collider1.moveBy(0, 5, new Collider[] {collider2}, 1);
+
 			
-			
+		} else if (keyCode == RIGHT) {
+			collider1.moveBy(5, 0, new Collider[] {collider2}, 1);
+
+		} else if (keyCode == LEFT) {
+			collider1.moveBy(-5, 0, new Collider[] {collider2}, 1);
+
+		} else if (key == 'w') {
+			collider2.moveBy(0, -5, new Collider[] {collider1}, 0);
+
+		} else if (key == 'd') {
+			collider2.moveBy(5, 0, new Collider[] {collider1}, 0);
+
+		}
+		else if (key == 's') {
+				collider2.moveBy(0, 5, new Collider[] {collider1}, 0);
+		
+		}
+		else if (key == 'a') {
+			collider2.moveBy(-5, 0, new Collider[] {collider1}, 0);
+	
 		}
 		//etc.
 	}
