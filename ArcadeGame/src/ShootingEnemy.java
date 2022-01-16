@@ -43,6 +43,7 @@ public class ShootingEnemy extends Collider{
 		for(Collider coconut: coconuts)
 		{
 			coconut.draw(marker);
+			coconut.vx *= 1.01;
 		}
 	 }
 }

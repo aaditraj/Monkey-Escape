@@ -22,7 +22,7 @@ public class MobileEnemy extends Collider {
 	
 	// call this method before draw
 	public void act(Collider[] colliders) {
-		super.moveBy(getVX(), getVY(), colliders);
+		super.moveBy(vx, vy, colliders);
 		double largerX = Math.max(getInitX(), endX);
 		double smallerX = Math.min(getInitY(), endY);
 		double largerY = Math.max(getInitY(), endY);
