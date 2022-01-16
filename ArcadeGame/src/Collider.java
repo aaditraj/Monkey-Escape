@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.util.Arrays;
 
 import javax.swing.*;
 
@@ -43,7 +44,9 @@ public class Collider {
 //							changeHealth(-1 * getDamageOnImpact(collider));
 //							if (!(collider instanceof Projectile)) {
 //								data[k] = 1;
+							
 //							}
+							data[k] = true;
 						}
 					}
 				}
@@ -96,7 +99,7 @@ public class Collider {
 		public void draw(PApplet marker) {
 			marker.push();
 //			marker.image(marker.loadImage(images[currentImage]), (float) x, (float) y, (float) width, (float) height);
-			marker.rect((float) x, (float) y, (float) width * 10, (float) height * 10);
+			marker.rect((float) x, (float) y, (float) width, (float) height);
 //			setDrawSettings(marker);
 //			marker.rect((float) getX(), (float) getY(), (float) width, (float) height);
 			marker.pop();
@@ -122,6 +125,9 @@ public class Collider {
 		 */
 		public void moveBy(double x, double y, Collider[] colliders) {
 			boolean[] directions = intersects(colliders);
+			if (directions[0] || directions[1] || directions[2] || directions[3]) {
+				System.out.println(Arrays.toString(directions));
+			}
 			if ((!directions[0] && y < 0) || (!directions[2] && y > 0)) {
 				this.y += y;
 			} 
