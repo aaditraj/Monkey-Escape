@@ -38,14 +38,18 @@ public class DrawingSurface extends PApplet {
 		Line[] l = collider1.getLines();
 		
 		Line[] l2 = collider2.getLines();
-	
-	
+		for(Line line : l) {
+			line.draw(this);
+		}
+		for(Line line : l2) {
+			line.draw(this);
+		}
 		
 //		l[2].setStrokeWeight(10);
 //		l[2].draw(this);
 		
-		l[3].setStrokeWeight(10);
-		l[3].draw(this);
+		//l[3].setStrokeWeight(1);
+		//l[3].draw(this);
 		
 //		l[0].setStrokeWeight(10);
 //		l[0].draw(this);
@@ -60,8 +64,8 @@ public class DrawingSurface extends PApplet {
 //		l2[3].setStrokeWeight(10);
 //		l2[3].draw(this);
 		
-		l2[6].setStrokeWeight(10);
-		l2[6].draw(this);
+		//l2[6].setStrokeWeight(10);
+		//l2[6].draw(this);
 	
 		
 
