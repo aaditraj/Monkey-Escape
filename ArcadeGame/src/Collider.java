@@ -13,7 +13,7 @@ public class Collider {
 	    private String[] images;
 	    private int currentImage = 0;
 	    private final double DEFAULT_SPEED = Math.sqrt(5); 
-	    
+	    private int maxSpeed = 10;
 	    public Collider(String[] images, double health, double x, double y, double width, double height, double vx, double vy) {
 	    	this.health = health;
 	    	this.images = images;
@@ -34,21 +34,36 @@ public class Collider {
 			
 			for (int i = 0; i < colliderList.length; i++) {
 				Collider collider = colliderList[i];
-				Line[] otherLines = collider.getLines();
+				Line[] otherLines = collider.getLinesBundle(maxSpeed);
 				Line[] lines = this.getLines();
-				for (int j = 0; j < 8; j++) {
+				for (int j = 0; j < 4; j++) {
 					Line line = lines[j]; // top, right, bottom, left
-					for (int k = 0; k < 8; k++) {
+					for (int k = 0; k < 4*maxSpeed; k++) {
 						Line otherLine = otherLines[k];
 
-						if (line.intersects(otherLine)) {
+						if (line.isCollinear(otherLine)) {
 //							changeHealth(-1 * getDamageOnImpact(collider));
 //							if (!(collider instanceof Projectile)) {
 //								data[k] = 1;
 							
 //							}
 							System.out.println("J: " + j + "K: " + k + Arrays.toString(colliderList));
-							data[j/2] = true;
+							int moveDist = k%maxSpeed;
+							switch(j) {
+								case 0:
+									y += moveDist;
+								break;
+								case 1:
+									x -= moveDist;
+								break;
+								case 2:
+									y-=moveDist;
+								break;
+								case 3:
+									x += moveDist;
+								break;	
+							}
+							data[j] = true;
 
 						
 					}
@@ -67,11 +82,11 @@ public class Collider {
 		public boolean intersects(Collider collider) {
 			Line[] otherLines = collider.getLines();
 			Line[] lines = this.getLines();
-			for (int j = 0; j < 8; j++) {
+			for (int j = 0; j < 4; j++) {
 				Line line = lines[j]; 
 				// top, right, bottom, left, vert middle top, vert middle bottom, 
 				// horiz middle left, horiz middle right
-				for (int k = 0; k < 8; k++) {
+				for (int k = 0; k < 4; k++) {
 					Line otherLine = otherLines[k];
 					if (line.intersects(otherLine)) {
 						
@@ -193,21 +208,41 @@ public class Collider {
 			return height;
 		}
 		
-		public Line[] getLines() {
-			Line[] lines = new Line[8];
-			lines[0] = new Line(x, y, x + width, y); // top
-			lines[1] = new Line(getCenterX(), y, getCenterX(), y + height/2); // vertical middle
-			lines[2] = new Line(x + width, y, x + width, y + height); // right
-			lines[3] = new Line(x + width/2, getCenterY(), x + width, getCenterY()); // horiz middle
-			lines[4] = new Line(x, y + height, x + width, y + height); // bottom
-			lines[5] = new Line(getCenterX(), y + height/2, getCenterX(), y + height); // vertical middle
-			lines[6] = new Line(x, y, x, y + height); // left
-			lines[7] = new Line(x, getCenterY(), x + width/2, getCenterY()); // horiz middle
+		public Line[] getLinesBundle(int maxSpeed) {
+			Line[] lines = new Line[4*maxSpeed];
+			for(int i = 0; i < maxSpeed; i++) {
+				lines[i] = new Line(x, y+i, x + width, y+i);
+			}
+			for (int i = 0; i < maxSpeed; i++) {
+				lines[i+maxSpeed] = new Line(x + width-i, y, x + width-i, y + height);
+			}
+			for (int i = 0; i < maxSpeed; i++) {
+				lines[i + 2 *maxSpeed] = new Line(x, y + height-i, x + width, y + height-i);
+			}
+			for (int i = 0; i < maxSpeed; i++) {
+				lines[i+3*maxSpeed] = new Line(x+i, y, x+i, y + height);
+			}
+			//Old line system
+			//lines[0] = new Line(x, y, x + width, y); // top
+			//lines[1] = new Line(getCenterX(), y, getCenterX(), y + height/2); // vertical middle
+			//lines[2] = new Line(x + width, y, x + width, y + height); // right
+			//lines[3] = new Line(x + width/2, getCenterY(), x + width, getCenterY()); // horiz middle
+			//lines[4] = new Line(x, y + height, x + width, y + height); // bottom
+			//lines[5] = new Line(getCenterX(), y + height/2, getCenterX(), y + height); // vertical middle
+			//lines[6] = new Line(x, y, x, y + height); // left
+			//lines[7] = new Line(x, getCenterY(), x + width/2, getCenterY()); // horiz middle
 			return lines;
 			
 		}
-		
-		
+		public Line[] getLines() {
+			Line[] lines = new Line[4];
+			lines[0] = new Line(x, y, x + width, y); // top
+			lines[1] = new Line(x + width, y, x + width, y + height); //right
+			lines[2] = new Line(x, y + height, x + width, y + height); // bottom
+			lines[3] = new Line(x, y, x, y + height); // left
+			return lines;
+			
+		}
 		
 		public void act(Collider[] colliders, int number) {
 			moveBy(vx, vy, colliders, number);
