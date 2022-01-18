@@ -14,8 +14,8 @@ public class DrawingSurface extends PApplet {
 		                           // health, startx, starty, endx, endy, width, height, vx, vy, direction
 //		collider1 = new MobileEnemy(10d, 0d, 150d, 400d, 150d, 20d, 20d, 5d, 0d, 1);
 //		collider2 = new MobileEnemy(10d, 400d, 150d, 0d, 150d, 20d, 20d, -5d, 0d, 1);
-		collider1 = new Collider(new String[] {"assets/MobileEnemy/gorilla-2.png"}, 10d, 0d, 151d, 405d/4, 438d/4, 2d, 0d);
-		collider2 = new Collider(new String[] {"assets/MobileEnemy/gorilla.png"}, 10d, 400d, 151d, 424d/4, 469d/4, -2d, 0d);
+		collider1 = new Collider(new String[] {"assets/MobileEnemy/gorilla-2.png"}, 10d, 0d, 151d, (int)404d/4, (int)434d/4, 2d, 0d);
+		collider2 = new Collider(new String[] {"assets/MobileEnemy/gorilla.png"}, 10d, 400d, 151d, (int)424d/4, (int)464d/4, -2d, 0d);
 	}
 	
 	
