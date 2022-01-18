@@ -3,7 +3,6 @@ import processing.core.PImage;
 
 public class MobileEnemy extends Collider {
 	
-	private int direction;
 	private double endX, endY;
 	private static final String[] images = new String[] {"assets/MobileEnemy/gorilla.png",
 			"assets/MobileEnemy/gorilla-2.png", "assets/MobileEnemy/gorilla-3.png", "assets/MobileEnemy/gorilla-4.png"};

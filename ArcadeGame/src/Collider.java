@@ -45,7 +45,6 @@ public class Collider {
 //							changeHealth(-1 * getDamageOnImpact(collider));
 //							if (!(collider instanceof Projectile)) {
 //								data[k] = 1;
-							
 //							}
 							System.out.println("J: " + j + "K: " + k + Arrays.toString(colliderList));
 							int moveDist = k%maxSpeed;
@@ -123,10 +122,9 @@ public class Collider {
 		 */
 		public void draw(PApplet marker) {
 			marker.push();
-//			marker.image(marker.loadImage(images[currentImage]), (float) x, (float) y, (float) width, (float) height);
-			marker.rect((float) x, (float) y, (float) width, (float) height);
+			marker.image(marker.loadImage(images[currentImage]), (float) x, (float) y, (float) width, (float) height);
+//			marker.rect((float) x, (float) y, (float) width, (float) height);
 //			setDrawSettings(marker);
-//			marker.rect((float) getX(), (float) getY(), (float) width, (float) height);
 			marker.pop();
 		}
 		
@@ -148,9 +146,9 @@ public class Collider {
 		 * @param x The horizontal distance added to the x-coordinate of the reference point.
 		 * @param y The vertical distance added to the y-coordinate of the reference point.
 		 */
-		public void moveBy(double x, double y, Collider[] colliders, int number) {
+		public void moveBy(double x, double y, Collider[] colliders) {
 			boolean[] directions = intersects(colliders);
-			if ((directions[0] || directions[1] || directions[2] || directions[3]) && number == 1) {
+			if ((directions[0] || directions[1] || directions[2] || directions[3])) {
 //				System.out.println(Arrays.toString(directions));
 			}
 			
@@ -244,8 +242,8 @@ public class Collider {
 			
 		}
 		
-		public void act(Collider[] colliders, int number) {
-			moveBy(vx, vy, colliders, number);
+		public void act(Collider[] colliders) {
+			moveBy(vx, vy, colliders);
 			
 			System.out.println(vx);
 			vx *= 1.01; 
