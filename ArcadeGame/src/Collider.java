@@ -7,8 +7,8 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 public class Collider {
-	
-	    private double x, y, width, height, health, initX, initY;
+	    private double x, y;
+	    private double width, height, health, initX, initY;
 	    protected double vx, vy;
 	    private String[] images;
 	    private int currentImage = 0;
@@ -122,7 +122,7 @@ public class Collider {
 		 */
 		public void draw(PApplet marker) {
 			marker.push();
-			marker.image(marker.loadImage(images[currentImage]), (float) x, (float) y, (float) width, (float) height);
+			marker.image(marker.loadImage(images[currentImage]), (float)(int)(x), (float)(int)y, (float)width, (float) height);
 //			marker.rect((float) x, (float) y, (float) width, (float) height);
 //			setDrawSettings(marker);
 			marker.pop();
@@ -134,7 +134,7 @@ public class Collider {
 		 * @param x The new x-coordinate of the reference point.
 		 * @param y The new y-coordinate of the reference point.
 		 */
-		public void setPoint(double x, double y) {
+		public void setPoint(int x, int y) {
 			this.x = x;
 			this.y = y;
 		}
@@ -207,16 +207,16 @@ public class Collider {
 		public Line[] getLinesBundle(int maxSpeed) {
 			Line[] lines = new Line[4*maxSpeed];
 			for(int i = 0; i < maxSpeed; i++) {
-				lines[i] = new Line(x, y+i, x + width, y+i);
+				lines[i] = new Line((int)x, (int)y+i, (int)x + width, (int)y+i);
 			}
 			for (int i = 0; i < maxSpeed; i++) {
-				lines[i+maxSpeed] = new Line(x + width-i, y, x + width-i, y + height);
+				lines[i+maxSpeed] = new Line((int)x + width-i, (int)y,(int) x + width-i, (int)y + height);
 			}
 			for (int i = 0; i < maxSpeed; i++) {
-				lines[i + 2 *maxSpeed] = new Line(x, y + height-i, x + width, y + height-i);
+				lines[i + 2 *maxSpeed] = new Line((int)x, (int)y + height-i, (int)x + width, (int)y + height-i);
 			}
 			for (int i = 0; i < maxSpeed; i++) {
-				lines[i+3*maxSpeed] = new Line(x+i, y, x+i, y + height);
+				lines[i+3*maxSpeed] = new Line((int)x+i, (int)y, (int)x+i, (int)y + height);
 			}
 			//Old line system
 			//lines[0] = new Line(x, y, x + width, y); // top
@@ -232,10 +232,10 @@ public class Collider {
 		}
 		public Line[] getLines() {
 			Line[] lines = new Line[4];
-			lines[0] = new Line(x, y, x + width, y); // top
-			lines[1] = new Line(x + width, y, x + width, y + height); //right
-			lines[2] = new Line(x, y + height, x + width, y + height); // bottom
-			lines[3] = new Line(x, y, x, y + height); // left
+			lines[0] = new Line((int)x, (int)y, (int)x + width, (int)y); // top
+			lines[1] = new Line((int)x + width, (int)y, (int)x + width, (int)y + height); //right
+			lines[2] = new Line((int)x, (int)y + height, (int)x + width, (int)y + height); // bottom
+			lines[3] = new Line((int)x, (int)y, (int)x, (int)y + height); // left
 			return lines;
 			
 		}
@@ -243,9 +243,9 @@ public class Collider {
 		public void act(Collider[] colliders) {
 			moveBy(vx, vy, colliders);
 			
-			System.out.println(vx);
-			vx *= 1.01; 
-			vy *= 1.01; 
+			//System.out.println(vx);
+			//vx *= 1; 
+			//vy *= 1; 
 		}
 		
 		/** 

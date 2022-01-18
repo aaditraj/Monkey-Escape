@@ -13,7 +13,7 @@ public class ShootingEnemy extends Collider{
 	private final ArrayList<Collider> coconuts;
 	
 	
-	public ShootingEnemy(int health, int x, int y, int width, int height, double projectileVX, double projectileVY) {
+	public ShootingEnemy(int health, double x, double y, int width, int height, double projectileVX, double projectileVY) {
 		super(new String[] {"monkey.png"}, health, x, y, width, height, 0, 0);
 		
 		projectile = new Collider(coconutImages, health, x, y, width, height, projectileVX, projectileVY);

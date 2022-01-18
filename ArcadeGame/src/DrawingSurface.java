@@ -9,13 +9,19 @@ public class DrawingSurface extends PApplet {
 
 	private Collider collider1;
 	private Collider collider2;
-	
+	private ShootingPlayer player;
+	private MobileEnemy enemy1;
+	private ShootingEnemy enemy2;
+	private SideShooter sideShooter;
+	ArrayList<Collider> bullets = new ArrayList<>();
+	int playerSpeed = 5;
 	public DrawingSurface() {
+		player = new ShootingPlayer(100,100,100,150d,100d,0,0,3000);
 		                           // health, startx, starty, endx, endy, width, height, vx, vy, direction
-//		collider1 = new MobileEnemy(10d, 0d, 150d, 400d, 150d, 20d, 20d, 5d, 0d, 1);
-//		collider2 = new MobileEnemy(10d, 400d, 150d, 0d, 150d, 20d, 20d, -5d, 0d, 1);
-		collider1 = new Collider(new String[] {"assets/MobileEnemy/gorilla-2.png"}, 10d, 0d, 151d, (int)404d/4, (int)434d/4, 2d, 0d);
-		collider2 = new Collider(new String[] {"assets/MobileEnemy/gorilla.png"}, 10d, 400d, 151d, (int)424d/4, (int)464d/4, -2d, 0d);
+		//collider1 = new MobileEnemy(10d, 0d, 150d, 400d, 150d, 20d, 20d, 5d, 0d, 1);
+		//collider2 = new MobileEnemy(10d, 400d, 150d, 0d, 150d, 20d, 20d, -5d, 0d, 1);
+		//collider1 = new Collider(new String[] {"assets/MobileEnemy/gorilla-2.png"}, 10d, 0d, 151d, (int)404d/4, (int)434d/4, 2d, 0d);
+		collider2 = new Collider(new String[] {"assets/MobileEnemy/gorilla.png"}, 100, 400, 150, (int)424d/4, (int)464d/4, -2d, 0d);
 	}
 	
 	
@@ -28,23 +34,30 @@ public class DrawingSurface extends PApplet {
 		background(50);
 //		collider1.act(new Collider[] {collider2}, 1);
 //		collider2.act(new Collider[] {collider1}, 0);
-		fill(255, 0, 0);
-		collider1.draw(this);
-		fill(0, 255, 0);
+		player.draw(this);
 		collider2.draw(this);
-		
-
-		fill(0, 0, 255);
-		Line[] l = collider1.getLines();
-		
-		Line[] l2 = collider2.getLines();
-		for(Line line : l) {
-			line.draw(this);
+		for(Collider bullet : bullets) {
+			bullet.draw(this);
+			bullet.getX();
+			bullet.act(new Collider[] {collider2});
 		}
-		for(Line line : l2) {
-			line.draw(this);
-		}
-		
+//		fill(255, 0, 0);
+//		collider1.draw(this);
+//		fill(0, 255, 0);
+//		collider2.draw(this);
+//		
+//
+//		fill(0, 0, 255);
+//		Line[] l = collider1.getLines();
+//		
+//		Line[] l2 = collider2.getLines();
+//		for(Line line : l) {
+//			line.draw(this);
+//		}
+//		for(Line line : l2) {
+//			line.draw(this);
+//		}
+//		
 //		l[2].setStrokeWeight(10);
 //		l[2].draw(this);
 		
@@ -75,35 +88,39 @@ public class DrawingSurface extends PApplet {
 	
 	
 	public void mousePressed() {
+		bullets.add(player.shoot(mouseX, mouseY));
 	}		
 	
 	public void keyPressed() {
 		if (keyCode == UP) { 
-			collider1.moveBy(0, -10, new Collider[] {collider2});
+			player.moveBy(0, -playerSpeed, new Collider[] {collider2});
 			
-		} else if (keyCode == DOWN) { 
-			collider1.moveBy(0, 10, new Collider[] {collider2});
-
-			
-		} else if (keyCode == RIGHT) {
-			collider1.moveBy(10, 0, new Collider[] {collider2});
-
-		} else if (keyCode == LEFT) {
-			collider1.moveBy(-10, 0, new Collider[] {collider2});
-
-		} else if (key == 'w') {
-			collider2.moveBy(0, -10, new Collider[] {collider1});
-
-		} else if (key == 'd') {
-			collider2.moveBy(10, 0, new Collider[] {collider1});
+		} 
+		if (keyCode == DOWN) { 
+			player.moveBy(0, playerSpeed, new Collider[] {collider2});
+		}
+		if (keyCode == RIGHT) {
+			player.moveBy(playerSpeed, 0, new Collider[] {collider2});
 
 		}
-		else if (key == 's') {
-				collider2.moveBy(0, 10, new Collider[] {collider1});
+		if (keyCode == LEFT) {
+			player.moveBy(-playerSpeed, 0, new Collider[] {collider2});
+
+		}
+		if (key == 'w') {
+			player.moveBy(0, -playerSpeed, new Collider[] {collider1});
+
+		} 
+		if (key == 'd') {
+			player.moveBy(playerSpeed, 0, new Collider[] {collider1});
+
+		}
+		if (key == 's') {
+			player.moveBy(0, playerSpeed, new Collider[] {collider1});
 		
 		}
-		else if (key == 'a') {
-			collider2.moveBy(-10, 0, new Collider[] {collider1});
+		if (key == 'a') {
+			player.moveBy(-playerSpeed, 0, new Collider[] {collider1});
 	
 		}
 		//etc.
