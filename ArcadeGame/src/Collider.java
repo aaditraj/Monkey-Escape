@@ -148,9 +148,7 @@ public class Collider {
 		 */
 		public void moveBy(double x, double y, Collider[] colliders) {
 			boolean[] directions = intersects(colliders);
-			if ((directions[0] || directions[1] || directions[2] || directions[3])) {
-//				System.out.println(Arrays.toString(directions));
-			}
+
 			
 			if ((!directions[0] && y < 0) || (!directions[2] && y > 0)) {
 				this.y += y;
