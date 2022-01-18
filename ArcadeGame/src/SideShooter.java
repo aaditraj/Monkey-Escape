@@ -17,4 +17,5 @@ public class SideShooter extends Collider {
 		mc.setVelocity(direction * 3, 0);
 		return mc;
 	}
+	
 }
