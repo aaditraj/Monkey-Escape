@@ -104,6 +104,7 @@ public class DrawingSurface extends PApplet {
 		}
 		else if (key == 'a') {
 			collider2.moveBy(-10, 0, new Collider[] {collider1}, 0);
+
 	
 		}
 		//etc.
