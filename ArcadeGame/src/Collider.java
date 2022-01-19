@@ -42,10 +42,7 @@ public class Collider {
 						Line otherLine = otherLines[k];
 
 						if (line.isCollinear(otherLine)) {
-//							changeHealth(-1 * getDamageOnImpact(collider));
-//							if (!(collider instanceof Projectile)) {
-//								data[k] = 1;
-//							}
+							changeHealth(-1 * collide(collider));
 							System.out.println("J: " + j + "K: " + k + Arrays.toString(colliderList));
 							int moveDist = k%maxSpeed;
 							switch(j) {
@@ -165,8 +162,8 @@ public class Collider {
 			}
 		}
 		
-		public void changeHealth(int amount) {
-			health += amount;
+		public void changeHealth(double d) {
+			health += d;
 		}
 		
 
@@ -247,6 +244,11 @@ public class Collider {
 			return lines;
 			
 		}
+		
+		//returns how much damage to take and does other actions to collider
+		public double collide(Collider collider) {
+			return 0.0;
+		};
 		
 		public void act(Collider[] colliders) {
 			moveBy(vx, vy, colliders);
