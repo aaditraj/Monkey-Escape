@@ -22,7 +22,7 @@ public class DrawingSurface extends PApplet {
 	int playerSpeed = 5;
 	public DrawingSurface() {
 		player = new ShootingPlayer(100,100,100,150d,100d,0,0,3000);
-		lava = new Lava(0, 0, 300, 650, 100, 5.5);
+		lava = new Lava(0, 0, 300, 650, 100, 5);
 		barrel = new Barrel(0,0,10,50,50,0,0);
 		leaderboard = new Leaderboard(this);
 		                           // health, startx, starty, endx, endy, width, height, vx, vy, direction

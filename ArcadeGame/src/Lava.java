@@ -16,6 +16,7 @@ public class Lava extends Collider{
 	public void increaseHeight()
 	{
 		this.changeHeight(riseRate);
+		this.moveBy(0, riseRate)
 	}
 	
 
