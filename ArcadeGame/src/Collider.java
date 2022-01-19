@@ -201,6 +201,14 @@ public class Collider {
 			return height;
 		}
 		
+		public void changeWidth(double width) {
+			this.width += width;
+		}
+		
+		public void changeHeight(double height) {
+			this.height += height;
+		}
+		
 		public Line[] getLinesBundle(int maxSpeed) {
 			Line[] lines = new Line[4*maxSpeed];
 			for(int i = 0; i < maxSpeed; i++) {
