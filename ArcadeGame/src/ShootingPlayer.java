@@ -8,7 +8,7 @@ public class ShootingPlayer extends Player{
 	
 	public Collider shoot(int mouseX, int mouseY)
 	{
-		Collider mc = new Collider(new String[] {"assets/bullet.png"}, 1, this.getX(), this.getY(), 2.0, 2.0, 0.0, 0.0);
+		Collider mc = new Collider(new String[] {"assets/ShootingEnemy/coconut.png"}, 1, this.getX(), this.getY(), 5.0, 5.0, 0.0, 0.0);
 		mc.setVelocity(mouseX - this.getX(), mouseY - this.getY());
 		return mc;
 	}
