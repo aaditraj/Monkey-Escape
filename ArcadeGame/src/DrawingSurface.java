@@ -22,7 +22,7 @@ public class DrawingSurface extends PApplet {
 	int playerSpeed = 5;
 	public DrawingSurface() {
 		player = new ShootingPlayer(100,100,100,150d,100d,0,0,3000);
-		lava = new Lava(0, 0, 300, 650, 100, 5);
+		lava = new Lava(0, 0, 300, 650, 100, 0.1);
 		barrel = new Barrel(0,0,10,50,50,0,0);
 		leaderboard = new Leaderboard(this);
 		                           // health, startx, starty, endx, endy, width, height, vx, vy, direction
@@ -39,60 +39,23 @@ public class DrawingSurface extends PApplet {
 	
 	public void draw() {
 		background(50);
-		leaderboard.draw();
-//		collider1.act(new Collider[] {collider2}, 1);
-		
-//		collider2.act(new Collider[] {collider1}, 0);
+//		leaderboard.draw();
 		lava.draw(this);
 		lava.increaseHeight();
 		player.draw(this);
 		barrel.draw(this);
 		collider2.draw(this);
-		bullets.add(collider2);
-		for(Collider bullet : bullets) {
-			//System.out.println("hi");
-			bullet.draw(this);
-			bullet.act(bullets);
+		
+		for (int i = 0; i < bullets.size(); i++) {
+			Collider bullet = bullets.get(i);
+			if (bullet.getX() <= width && bullet.getX() >= 0 && bullet.getY() <= height && bullet.getY() >= 0) {
+				bullet.draw(this);
+				bullet.act((ArrayList<Collider>)bullets);
+			} else {
+				bullets.remove(i);
+			}
 		}
-//		fill(255, 0, 0);
-//		collider1.draw(this);
-//		fill(0, 255, 0);
-//		collider2.draw(this);
-//		
-//
-//		fill(0, 0, 255);
-//		Line[] l = collider1.getLines();
-//		
-//		Line[] l2 = collider2.getLines();
-//		for(Line line : l) {
-//			line.draw(this);
-//		}
-//		for(Line line : l2) {
-//			line.draw(this);
-//		}
-//		
-//		l[2].setStrokeWeight(10);
-//		l[2].draw(this);
-		
-		//l[3].setStrokeWeight(1);
-		//l[3].draw(this);
-		
-//		l[0].setStrokeWeight(10);
-//		l[0].draw(this);
-	
-		
-//		l2[7].setStrokeWeight(10);
-//		l2[7].draw(this);
-//		
-//		l2[0].setStrokeWeight(10);
-//		l2[0].draw(this);
-//		
-//		l2[3].setStrokeWeight(10);
-//		l2[3].draw(this);
-		
-		//l2[6].setStrokeWeight(10);
-		//l2[6].draw(this);
-	
+		System.out.println(bullets);	
 		
 
 		
