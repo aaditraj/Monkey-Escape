@@ -21,7 +21,7 @@ public class DrawingSurface extends PApplet {
 		//collider1 = new MobileEnemy(10d, 0d, 150d, 400d, 150d, 20d, 20d, 5d, 0d, 1);
 		//collider2 = new MobileEnemy(10d, 400d, 150d, 0d, 150d, 20d, 20d, -5d, 0d, 1);
 		//collider1 = new Collider(new String[] {"assets/MobileEnemy/gorilla-2.png"}, 10d, 0d, 151d, (int)404d/4, (int)434d/4, 2d, 0d);
-		collider2 = new Collider(new String[] {"assets/MobileEnemy/gorilla.png"}, 100, 400, 150, (int)424d/4, (int)464d/4, -2d, 0d);
+		collider2 = new Collider(new String[] {"assets/MobileEnemy/gorilla.png"}, 100, 400, 150, (int)424d/4, (int)464d/4, 0d, 0d);
 	}
 	
 	
@@ -36,10 +36,11 @@ public class DrawingSurface extends PApplet {
 //		collider2.act(new Collider[] {collider1}, 0);
 		player.draw(this);
 		collider2.draw(this);
+		bullets.add(collider2);
 		for(Collider bullet : bullets) {
+			//System.out.println("hi");
 			bullet.draw(this);
-			bullet.getX();
-			bullet.act(new Collider[] {collider2});
+			bullet.act(bullets);
 		}
 //		fill(255, 0, 0);
 //		collider1.draw(this);
@@ -93,34 +94,34 @@ public class DrawingSurface extends PApplet {
 	
 	public void keyPressed() {
 		if (keyCode == UP) { 
-			player.moveBy(0, -playerSpeed, new Collider[] {collider2});
+			player.moveBy(0, -playerSpeed, bullets);
 			
 		} 
 		if (keyCode == DOWN) { 
-			player.moveBy(0, playerSpeed, new Collider[] {collider2});
+			player.moveBy(0, playerSpeed, bullets);
 		}
 		if (keyCode == RIGHT) {
-			player.moveBy(playerSpeed, 0, new Collider[] {collider2});
+			player.moveBy(playerSpeed, 0, bullets);
 
 		}
 		if (keyCode == LEFT) {
-			player.moveBy(-playerSpeed, 0, new Collider[] {collider2});
+			player.moveBy(-playerSpeed, 0, bullets);
 
 		}
 		if (key == 'w') {
-			player.moveBy(0, -playerSpeed, new Collider[] {collider1});
+			player.moveBy(0, -playerSpeed, bullets);
 
 		} 
 		if (key == 'd') {
-			player.moveBy(playerSpeed, 0, new Collider[] {collider1});
+			player.moveBy(playerSpeed, 0, bullets);
 
 		}
 		if (key == 's') {
-			player.moveBy(0, playerSpeed, new Collider[] {collider1});
+			player.moveBy(0, playerSpeed, bullets);
 		
 		}
 		if (key == 'a') {
-			player.moveBy(-playerSpeed, 0, new Collider[] {collider1});
+			player.moveBy(-playerSpeed, 0, bullets);
 	
 		}
 		//etc.

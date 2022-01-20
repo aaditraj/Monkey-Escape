@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -15,7 +17,7 @@ public class MobileEnemy extends Collider {
 	}
 	
 	// call this method before draw
-	public void act(Collider[] colliders) {
+	public void act(ArrayList<Collider> colliders) {
 		super.moveBy(vx, vy, colliders);
 		double largerX = Math.max(getInitX(), endX);
 		double smallerX = Math.min(getInitY(), endY);
@@ -28,4 +30,5 @@ public class MobileEnemy extends Collider {
 			vy *= -1;
 		}
 	}
+	
 }

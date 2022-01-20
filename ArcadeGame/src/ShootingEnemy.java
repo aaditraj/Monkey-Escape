@@ -46,4 +46,5 @@ public class ShootingEnemy extends Collider{
 			coconut.vx *= 1.01;
 		}
 	 }
+
 }

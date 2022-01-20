@@ -6,12 +6,14 @@ public class ShootingPlayer extends Player{
 		super(new String[] {"assets/ShootingEnemy/monkey.png"}, health, x, y, width, height, vx, vy,reloadTime);
 	}
 	
-	public Collider shoot(int mouseX, int mouseY)
+	public Bullet shoot(int mouseX, int mouseY)
 	{
-		Collider mc = new Collider(new String[] {"assets/bullet.png"}, 1, this.getX(), this.getY(), 2.0, 2.0, 0.0, 0.0);
-		mc.setVelocity(mouseX - this.getX(), mouseY - this.getY());
+		Bullet mc = new Bullet(this.getCenterX(), this.getCenterY());
+		mc.setVelocity(mouseX - this.getCenterX(), mouseY - this.getCenterY());
+		System.out.println(mc.getVX() + " " + mc.getVY());
 		return mc;
 	}
+
 }
 
 

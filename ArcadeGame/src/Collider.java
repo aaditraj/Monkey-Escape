@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.swing.*;
@@ -12,7 +13,7 @@ public class Collider {
 	    protected double vx, vy;
 	    private String[] images;
 	    private int currentImage = 0;
-	    private final double DEFAULT_SPEED = Math.sqrt(5); 
+	    private final double DEFAULT_SPEED = 10; 
 	    private int maxSpeed = 10;
 	    public Collider(String[] images, double health, double x, double y, double width, double height, double vx, double vy) {
 	    	this.health = health;
@@ -28,52 +29,47 @@ public class Collider {
 	    }
 	    
 	 
-		public boolean[] intersects(Collider[] colliderList) {
-			
+		public boolean[] intersects(ArrayList<Collider> colliderList) {
 			boolean[] data = new boolean[4]; // north, east, south, west
-			
-			for (int i = 0; i < colliderList.length; i++) {
-				Collider collider = colliderList[i];
+			for (int i = 0; i < colliderList.size(); i++) {
+				Collider collider = colliderList.get(i);
 				Line[] otherLines = collider.getLinesBundle(maxSpeed);
-				Line[] lines = this.getLines();
-				for (int j = 0; j < 4; j++) {
-					Line line = lines[j]; // top, right, bottom, left
-					for (int k = 0; k < 4*maxSpeed; k++) {
-						Line otherLine = otherLines[k];
-
-						if (line.isCollinear(otherLine)) {
-//							changeHealth(-1 * getDamageOnImpact(collider));
-//							if (!(collider instanceof Projectile)) {
-//								data[k] = 1;
-//							}
-							System.out.println("J: " + j + "K: " + k + Arrays.toString(colliderList));
-							int moveDist = k%maxSpeed;
-							switch(j) {
-								case 0:
-									y += moveDist;
-								break;
-								case 1:
-									x -= moveDist;
-								break;
-								case 2:
-									y-=moveDist;
-								break;
-								case 3:
-									x += moveDist;
-								break;	
+				if(collider != this) {
+					Line[] lines = this.getLines();
+					for (int j = 0; j < 4; j++) {
+						Line line = lines[j]; // top, right, bottom, left
+						for (int k = 0; k < 4*maxSpeed; k++) {
+							Line otherLine = otherLines[k];
+	
+							if (line.isCollinear(otherLine)) {
+								//System.out.println("J: " + j + "K: " + k + colliderList);
+								int moveDist = k%maxSpeed;
+								switch(j) {
+									case 0:
+										y += moveDist;
+									break;
+									case 1:
+										x -= moveDist;
+									break;
+									case 2:
+										y-=moveDist;
+									break;
+									case 3:
+										x += moveDist;
+									break;	
+								}
+								data[j] = true;
+	
+							
 							}
-							data[j] = true;
-
-						
+						}
 					}
-				}
 				}
 			}
 			return data;
 
 			
 		}
-		
 		/**
 		 * use this method for checking if something collides with a specific object. E.g. mobile enemy
 		 * collides with player.
@@ -146,9 +142,9 @@ public class Collider {
 		 * @param x The horizontal distance added to the x-coordinate of the reference point.
 		 * @param y The vertical distance added to the y-coordinate of the reference point.
 		 */
-		public void moveBy(double x, double y, Collider[] colliders) {
+		public void moveBy(double x, double y, ArrayList<Collider> colliders) {
 			boolean[] directions = intersects(colliders);
-
+			System.out.println(Arrays.toString(directions));
 			
 			if ((!directions[0] && y < 0) || (!directions[2] && y > 0)) {
 				this.y += y;
@@ -157,7 +153,15 @@ public class Collider {
 				this.x += x;
 			}
 		}
-		
+		/*public void doDamage(Collider collider) {
+			if(collider instanceof Bullet) {
+				if() {
+					
+				}
+			} else if () {
+				
+			}
+		}*/
 		public void goToNextImage() {
 			currentImage++;
 			if (currentImage >= images.length) {
@@ -240,7 +244,7 @@ public class Collider {
 			
 		}
 		
-		public void act(Collider[] colliders) {
+		public void act(ArrayList<Collider> colliders) {
 			moveBy(vx, vy, colliders);
 			
 			//System.out.println(vx);
