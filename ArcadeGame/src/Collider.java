@@ -142,7 +142,6 @@ public class Collider {
 		 */
 		public void moveBy(double x, double y, ArrayList<Collider> colliders) {
 			boolean[] directions = intersects(colliders);
-			System.out.println(Arrays.toString(directions));
 			
 			if ((!directions[0] && y < 0) || (!directions[2] && y > 0)) {
 				this.y += y;

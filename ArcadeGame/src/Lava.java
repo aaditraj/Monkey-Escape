@@ -16,8 +16,8 @@ public class Lava extends Collider{
 	
 	public void increaseHeight()
 	{
-		this.changeHeight(-vy);
-		this.moveBy(vx, 0, new ArrayList<Collider>());
+		this.changeHeight(vy);
+		this.moveBy(vx, -vy, new ArrayList<Collider>());
 //		this.act(colliders);;
 	}
 	
