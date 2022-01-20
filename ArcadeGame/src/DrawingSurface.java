@@ -39,7 +39,7 @@ public class DrawingSurface extends PApplet {
 	
 	public void draw() {
 		background(50);
-		leaderboard.draw();
+//		leaderboard.draw();
 //		collider1.act(new Collider[] {collider2}, 1);
 		
 //		collider2.act(new Collider[] {collider1}, 0);
@@ -48,12 +48,13 @@ public class DrawingSurface extends PApplet {
 		player.draw(this);
 		barrel.draw(this);
 		collider2.draw(this);
-		bullets.add(collider2);
 		for(Collider bullet : bullets) {
 			//System.out.println("hi");
 			bullet.draw(this);
 			bullet.act(bullets);
 		}
+		
+//		Collider bullet = (Collider)bullets; 
 //		fill(255, 0, 0);
 //		collider1.draw(this);
 //		fill(0, 255, 0);
