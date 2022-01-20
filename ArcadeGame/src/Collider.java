@@ -40,8 +40,9 @@ public class Collider {
 						Line line = lines[j]; // top, right, bottom, left
 						for (int k = 0; k < 4*maxSpeed; k++) {
 							Line otherLine = otherLines[k];
-	
+							
 							if (line.isCollinear(otherLine)) {
+								changeHealth(collide(collider) * -1);
 								//System.out.println("J: " + j + "K: " + k + colliderList);
 								int moveDist = k%maxSpeed;
 								switch(j) {

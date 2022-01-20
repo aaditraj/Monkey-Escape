@@ -8,9 +8,20 @@ public class ShootingPlayer extends Player{
 	
 	public Bullet shoot(int mouseX, int mouseY)
 	{
-		Bullet mc = new Bullet(this.getCenterX(), this.getCenterY());
+		Bullet mc = new Bullet(this.getCenterX(), this.getCenterY(), "player");
 		mc.setVelocity(mouseX - this.getCenterX(), mouseY - this.getCenterY());
 		return mc;
+	}
+	
+	public double collide(Collider collider) {
+		if (collider instanceof Bullet) {
+			Bullet bullet = (Bullet) collider;
+			if (bullet.getOwner() != "player") {
+				bullet.changeHealth(bullet.getHealth() * -1);
+				return 1;
+			}
+		}
+		return 0.0;
 	}
 
 }

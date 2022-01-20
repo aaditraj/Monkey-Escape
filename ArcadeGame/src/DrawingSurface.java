@@ -19,17 +19,21 @@ public class DrawingSurface extends PApplet {
 	private ShootingEnemy enemy2;
 	private SideShooter sideShooter;
 	ArrayList<Collider> bullets = new ArrayList<>();
+	ArrayList<Collider> gamePieces = new ArrayList<Collider>();
 	int playerSpeed = 5;
 	public DrawingSurface() {
 		player = new ShootingPlayer(100,100,100,150d,100d,0,0,3000);
-		lava = new Lava(0, 0, 300, 650, 100, 5);
+		lava = new Lava(0, 0, 300, 650, 100, 0.1);
 		barrel = new Barrel(0,0,10,50,50,0,0);
 		leaderboard = new Leaderboard(this);
-		                           // health, startx, starty, endx, endy, width, height, vx, vy, direction
 		//collider1 = new MobileEnemy(10d, 0d, 150d, 400d, 150d, 20d, 20d, 5d, 0d, 1);
 		//collider2 = new MobileEnemy(10d, 400d, 150d, 0d, 150d, 20d, 20d, -5d, 0d, 1);
 		//collider1 = new Collider(new String[] {"assets/MobileEnemy/gorilla-2.png"}, 10d, 0d, 151d, (int)404d/4, (int)434d/4, 2d, 0d);
 		collider2 = new Collider(new String[] {"assets/MobileEnemy/gorilla.png"}, 100, 400, 150, (int)424d/4, (int)464d/4, 0d, 0d);
+		gamePieces.add(player);
+		gamePieces.add(barrel);
+		gamePieces.add(collider2);
+
 	}
 	
 	
@@ -38,63 +42,29 @@ public class DrawingSurface extends PApplet {
 	
 	
 	public void draw() {
-		background(50);
-//		leaderboard.draw();
-//		collider1.act(new Collider[] {collider2}, 1);
+	
 		
-//		collider2.act(new Collider[] {collider1}, 0);
-		lava.draw(this);
-		lava.increaseHeight();
-		player.draw(this);
-		barrel.draw(this);
-		collider2.draw(this);
-		for(Collider bullet : bullets) {
-			//System.out.println("hi");
-			bullet.draw(this);
-			bullet.act(bullets);
+		for (int i = 0; i < bullets.size(); i++) {
+			Collider bullet = bullets.get(i);
+			if (bullet.getX() <= width && bullet.getX() >= 0 && bullet.getY() <= height && bullet.getY() >= 0) {
+				bullet.draw(this);
+				bullet.act((ArrayList<Collider>)bullets);
+			} else {
+				bullets.remove(i);
+			}
 		}
+		System.out.println(bullets);	
 		
-//		Collider bullet = (Collider)bullets; 
-//		fill(255, 0, 0);
-//		collider1.draw(this);
-//		fill(0, 255, 0);
-//		collider2.draw(this);
-//		
-//
-//		fill(0, 0, 255);
-//		Line[] l = collider1.getLines();
-//		
-//		Line[] l2 = collider2.getLines();
-//		for(Line line : l) {
-//			line.draw(this);
-//		}
-//		for(Line line : l2) {
-//			line.draw(this);
-//		}
-//		
-//		l[2].setStrokeWeight(10);
-//		l[2].draw(this);
-		
-		//l[3].setStrokeWeight(1);
-		//l[3].draw(this);
-		
-//		l[0].setStrokeWeight(10);
-//		l[0].draw(this);
-	
-		
-//		l2[7].setStrokeWeight(10);
-//		l2[7].draw(this);
-//		
-//		l2[0].setStrokeWeight(10);
-//		l2[0].draw(this);
-//		
-//		l2[3].setStrokeWeight(10);
-//		l2[3].draw(this);
-		
-		//l2[6].setStrokeWeight(10);
-		//l2[6].draw(this);
-	
-		
+		for (int i = 0; i < gamePieces.size(); i++) {
+			if (gamePieces.get(i).getHealth() == 0) {
+				gamePieces.remove(i);
+				if (gamePieces.get(i) instanceof Bullet) {
+					bullets.remove(i);
+				}
+			} else {
+				gamePieces.get(i).draw(this);
+			}
+		}
 
 		
 		
@@ -102,7 +72,9 @@ public class DrawingSurface extends PApplet {
 	
 	
 	public void mousePressed() {
-		bullets.add(player.shoot(mouseX, mouseY));
+		Bullet b = player.shoot(mouseX, mouseY);
+		bullets.add(b);
+		gamePieces.add(b);
 	}		
 	
 	public void keyPressed() {
