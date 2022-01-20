@@ -16,8 +16,8 @@ public class ShootingPlayer extends Player{
 	public double collide(Collider collider) {
 		if (collider instanceof Bullet) {
 			Bullet bullet = (Bullet) collider;
-			bullet.changeHealth(bullet.getHealth());
 			if (bullet.getOwner() != "player") {
+				bullet.changeHealth(bullet.getHealth() * -1);
 				return 1;
 			}
 		}
