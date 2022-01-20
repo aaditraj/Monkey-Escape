@@ -12,6 +12,21 @@ public class Bullet extends Collider
 		return owner;
 	}
 	
+	public double collide(Collider collider) {
+		if (owner == "player") {
+			if (collider instanceof MobileEnemy) {
+				collider.changeHealth(-1);
+				return getHealth();
+			}
+		} else {
+			if (collider instanceof Player) {
+				collider.changeHealth(-1);
+				return getHealth();
+			}
+		}
+		return 0.0;
+	}
+	
 	
 
 }

@@ -11,7 +11,8 @@ public class MobileEnemy extends Collider {
 	
 	// direction = 1 --> moving lateral, direction=0 --> moving vertical
 	public MobileEnemy(double health, double startX, double startY,  double endX, double endY, double vx, double vy, double width, double height, int direction) {
-		super(images, health, startX, startY, width, height, vx, vy);
+		super(new String[] {"assets/MobileEnemy/gorilla.png",
+				"assets/MobileEnemy/gorilla-2.png", "assets/MobileEnemy/gorilla-3.png", "assets/MobileEnemy/gorilla-4.png"}, health, startX, startY, width, height, vx, vy);
 		this.endX = endX;
 		this.endY = endY;
 	}

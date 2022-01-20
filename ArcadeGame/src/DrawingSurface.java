@@ -11,7 +11,7 @@ public class DrawingSurface extends PApplet {
 	private Leaderboard leaderboard;
 
 	private Collider collider1;
-	private Collider collider2;
+	private MobileEnemy mobileEnemy;
 	private ShootingPlayer player;
 	private Lava lava;
 	private Barrel barrel; 
@@ -24,15 +24,12 @@ public class DrawingSurface extends PApplet {
 	public DrawingSurface() {
 		player = new ShootingPlayer(100,100,100,150d,100d,0,0,3000);
 		lava = new Lava(0, 0, 300, 650, 100, 0.1);
-		barrel = new Barrel(0,0,10,50,50,0,0);
+		barrel = new Barrel(10,0,10,50,50,0,0);
 		leaderboard = new Leaderboard(this);
-		//collider1 = new MobileEnemy(10d, 0d, 150d, 400d, 150d, 20d, 20d, 5d, 0d, 1);
-		//collider2 = new MobileEnemy(10d, 400d, 150d, 0d, 150d, 20d, 20d, -5d, 0d, 1);
-		//collider1 = new Collider(new String[] {"assets/MobileEnemy/gorilla-2.png"}, 10d, 0d, 151d, (int)404d/4, (int)434d/4, 2d, 0d);
-		collider2 = new Collider(new String[] {"assets/MobileEnemy/gorilla.png"}, 100, 400, 150, (int)424d/4, (int)464d/4, 0d, 0d);
+		mobileEnemy = new MobileEnemy(10d, 400d, 150d, 0d, 150d, -5d, 0d,(int)424d/4, (int)464d/4, 1);
 		gamePieces.add(player);
 		gamePieces.add(barrel);
-		gamePieces.add(collider2);
+		gamePieces.add(mobileEnemy);
 
 	}
 	
@@ -49,9 +46,9 @@ public class DrawingSurface extends PApplet {
 		
 		for (int i = 0; i < bullets.size(); i++) {
 			Collider bullet = bullets.get(i);
-			if (bullet.getX() <= width && bullet.getX() >= 0 && bullet.getY() <= height && bullet.getY() >= 0) {
+			if (bullet.getX() <= width && bullet.getX() >= 0 && bullet.getY() <= height && bullet.getY() >= 0 && bullet.getHealth() >= 0) {
 				bullet.draw(this);
-				bullet.act((ArrayList<Collider>)bullets);
+				bullet.act((ArrayList<Collider>)gamePieces);
 			} else {
 				bullets.remove(i);
 			}
@@ -61,13 +58,14 @@ public class DrawingSurface extends PApplet {
 		for (int i = 0; i < gamePieces.size(); i++) {
 			if (gamePieces.get(i).getHealth() == 0) {
 				gamePieces.remove(i);
-				if (gamePieces.get(i) instanceof Bullet) {
-					bullets.remove(i);
-				}
 			} else {
 				gamePieces.get(i).draw(this);
+				if (gamePieces.get(i) instanceof MobileEnemy) {
+					gamePieces.get(i).act(gamePieces);
+				}
 			}
 		}
+		System.out.println(gamePieces);
 
 		
 		
@@ -77,42 +75,40 @@ public class DrawingSurface extends PApplet {
 	public void mousePressed() {
 		Bullet b = player.shoot(mouseX, mouseY);
 		bullets.add(b);
-		gamePieces.add(b);
 	}		
 	
 	public void keyPressed() {
 		if (keyCode == UP) { 
-			player.moveBy(0, -playerSpeed, bullets);
+			player.moveBy(0, -playerSpeed, gamePieces);
 			
 		} 
 		if (keyCode == DOWN) { 
-			player.moveBy(0, playerSpeed, bullets);
+			player.moveBy(0, playerSpeed, gamePieces);
 		}
 		if (keyCode == RIGHT) {
-			player.moveBy(playerSpeed, 0, bullets);
+			player.moveBy(playerSpeed, 0, gamePieces);
 
 		}
 		if (keyCode == LEFT) {
-			player.moveBy(-playerSpeed, 0, bullets);
+			player.moveBy(-playerSpeed, 0, gamePieces);
 
 		}
 		if (key == 'w') {
-			player.moveBy(0, -playerSpeed, bullets);
+			player.moveBy(0, -playerSpeed, gamePieces);
 
 		} 
 		if (key == 'd') {
-			player.moveBy(playerSpeed, 0, bullets);
+			player.moveBy(playerSpeed, 0, gamePieces);
 
 		}
 		if (key == 's') {
-			player.moveBy(0, playerSpeed, bullets);
+			player.moveBy(0, playerSpeed, gamePieces);
 		
 		}
 		if (key == 'a') {
-			player.moveBy(-playerSpeed, 0, bullets);
+			player.moveBy(-playerSpeed, 0, gamePieces);
 	
 		}
-		//etc.
 	}
 
 
