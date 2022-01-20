@@ -102,28 +102,28 @@ public class Line {
 			
 			if(getY1() == getY2()) {
 				if( x1 > other.getX1() && x1 < other.getX2()) {
-					System.out.println(x1 + " " + y1 + " " + x2 + " " + y2 + " Line 1");
-					System.out.println(other.getX1() + " " + other.getY1() + " " + other.getX2() + " " + other.getY2() + " Line 2");
-					System.out.println("1");
+//					System.out.println(x1 + " " + y1 + " " + x2 + " " + y2 + " Line 1");
+//					System.out.println(other.getX1() + " " + other.getY1() + " " + other.getX2() + " " + other.getY2() + " Line 2");
+//					System.out.println("1");
 					return true;
 				} else if (x2 > other.getX1() && x2 < other.getX2()) {
-					System.out.println(x1 + " " + y1 + " " + x2 + " " + y2 + " Line 1");
-					System.out.println(other.getX1() + " " + other.getY1() + " " + other.getX2() + " " + other.getY2() + " Line 2");
-					System.out.println("2");
+//					System.out.println(x1 + " " + y1 + " " + x2 + " " + y2 + " Line 1");
+//					System.out.println(other.getX1() + " " + other.getY1() + " " + other.getX2() + " " + other.getY2() + " Line 2");
+//					System.out.println("2");
 					return true;
 				} else if (x1 <= other.getX1() && x2 >= other.getX2()) {
 					return true;
 				}
 			} else {
 				if(y1 > other.getY1() && y1 < other.getY2()) {
-					System.out.println(x1 + " " + y1 + " " + x2 + " " + y2 + " Line 1");
-					System.out.println(other.getX1() + " " + other.getY1() + " " + other.getX2() + " " + other.getY2() + " Line 2");
-					System.out.println("3");
+//					System.out.println(x1 + " " + y1 + " " + x2 + " " + y2 + " Line 1");
+//					System.out.println(other.getX1() + " " + other.getY1() + " " + other.getX2() + " " + other.getY2() + " Line 2");
+//					System.out.println("3");
 					return true;
 				} else if (y2 > other.getY1() && y2 < other.getY2()) {
-					System.out.println(x1 + " " + y1 + " " + x2 + " " + y2 + " Line 1");
-					System.out.println(other.getX1() + " " + other.getY1() + " " + other.getX2() + " " + other.getY2() + " Line 2");
-					System.out.println("4");
+//					System.out.println(x1 + " " + y1 + " " + x2 + " " + y2 + " Line 1");
+//					System.out.println(other.getX1() + " " + other.getY1() + " " + other.getX2() + " " + other.getY2() + " Line 2");
+//					System.out.println("4");
 					return true;
 				} else if (y1 <= other.getY1() && y2 >= other.getY2()) {
 					return true;

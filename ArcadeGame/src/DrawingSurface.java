@@ -40,20 +40,24 @@ public class DrawingSurface extends PApplet {
 	
 	public void draw() {
 	
-		
+		background(50);
+		System.out.println(mobileEnemy.getHealth());
 		for (int i = 0; i < bullets.size(); i++) {
 			Collider bullet = bullets.get(i);
-			if (bullet.getX() <= width && bullet.getX() >= 0 && bullet.getY() <= height && bullet.getY() >= 0 && bullet.getHealth() >= 0) {
+			if (bullet.getX() <= width && bullet.getX() >= 0 && bullet.getY() <= height && bullet.getY() >= 0 && bullet.getHealth() > 0) {
 				bullet.draw(this);
 				bullet.act((ArrayList<Collider>)gamePieces);
+				if(bullet.getHealth() <= 0) {
+					bullets.remove(i);
+				}
 			} else {
 				bullets.remove(i);
 			}
 		}
-		System.out.println(bullets);	
+//		System.out.println(bullets);	
 		
 		for (int i = 0; i < gamePieces.size(); i++) {
-			if (gamePieces.get(i).getHealth() == 0) {
+			if (gamePieces.get(i).getHealth() <= 0) {
 				gamePieces.remove(i);
 			} else {
 				gamePieces.get(i).draw(this);
@@ -62,7 +66,7 @@ public class DrawingSurface extends PApplet {
 				}
 			}
 		}
-		System.out.println(gamePieces);
+//		System.out.println(gamePieces);
 
 		
 		
