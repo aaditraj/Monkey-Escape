@@ -5,11 +5,16 @@ import processing.core.PApplet;
 
 
 
+
 public class DrawingSurface extends PApplet {
+
+	private Leaderboard leaderboard;
 
 	private Collider collider1;
 	private Collider collider2;
 	private ShootingPlayer player;
+	private Lava lava;
+	private Barrel barrel; 
 	private MobileEnemy enemy1;
 	private ShootingEnemy enemy2;
 	private SideShooter sideShooter;
@@ -17,6 +22,9 @@ public class DrawingSurface extends PApplet {
 	int playerSpeed = 5;
 	public DrawingSurface() {
 		player = new ShootingPlayer(100,100,100,150d,100d,0,0,3000);
+		lava = new Lava(0, 0, 300, 650, 100, 5);
+		barrel = new Barrel(0,0,10,50,50,0,0);
+		leaderboard = new Leaderboard(this);
 		                           // health, startx, starty, endx, endy, width, height, vx, vy, direction
 		//collider1 = new MobileEnemy(10d, 0d, 150d, 400d, 150d, 20d, 20d, 5d, 0d, 1);
 		//collider2 = new MobileEnemy(10d, 400d, 150d, 0d, 150d, 20d, 20d, -5d, 0d, 1);
@@ -26,15 +34,19 @@ public class DrawingSurface extends PApplet {
 	
 	
 	public void setup() {
-		
 	}
 	
 	
 	public void draw() {
 		background(50);
+		leaderboard.draw();
 //		collider1.act(new Collider[] {collider2}, 1);
+		
 //		collider2.act(new Collider[] {collider1}, 0);
+		lava.draw(this);
+		lava.increaseHeight();
 		player.draw(this);
+		barrel.draw(this);
 		collider2.draw(this);
 		bullets.add(collider2);
 		for(Collider bullet : bullets) {

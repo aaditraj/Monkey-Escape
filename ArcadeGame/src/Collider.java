@@ -59,8 +59,6 @@ public class Collider {
 									break;	
 								}
 								data[j] = true;
-	
-							
 							}
 						}
 					}
@@ -169,8 +167,8 @@ public class Collider {
 			}
 		}
 		
-		public void changeHealth(int amount) {
-			health += amount;
+		public void changeHealth(double d) {
+			health += d;
 		}
 		
 
@@ -206,6 +204,14 @@ public class Collider {
 		
 		public double getHeight() {
 			return height;
+		}
+		
+		public void changeWidth(double width) {
+			this.width += width;
+		}
+		
+		public void changeHeight(double height) {
+			this.height += height;
 		}
 		
 		public Line[] getLinesBundle(int maxSpeed) {
@@ -245,12 +251,10 @@ public class Collider {
 		}
 		
 		public void act(ArrayList<Collider> colliders) {
-			moveBy(vx, vy, colliders);
-			
-			//System.out.println(vx);
-			//vx *= 1; 
-			//vy *= 1; 
-		}
+		//returns how much damage to take and does other actions to collider
+		public double collide(Collider collider) {
+			return 0.0;
+		};
 		
 		/** 
 		 * Calculates and returns the perimeter of the rectangle.
