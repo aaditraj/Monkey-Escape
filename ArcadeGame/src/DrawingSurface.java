@@ -44,7 +44,7 @@ public class DrawingSurface extends PApplet {
 		
 //		collider2.act(new Collider[] {collider1}, 0);
 		lava.draw(this);
-		lava.increaseHeight();
+		lava.increaseHeight(null);
 		player.draw(this);
 		barrel.draw(this);
 		collider2.draw(this);

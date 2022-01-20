@@ -1,10 +1,11 @@
+import java.util.ArrayList;
 
 public class Lava extends Collider{
-	private double riseRate; 
+//	private double riseRate; 
 	
 	public Lava(double health, double x, double y, double width, double height, double riseRate) {
-		super(new String[] {"assets/Projectiles/lava.png"}, health, x, y, width, height, 0, 0);
-		this.riseRate = riseRate; 
+		super(new String[] {"assets/Projectiles/lava.png"}, health, x, y, width, height, 0, riseRate);
+//		this.riseRate = riseRate; 
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -13,10 +14,10 @@ public class Lava extends Collider{
 		this.setPoint((int)getInitX(), (int)getInitY());
 	}
 	
-	public void increaseHeight()
+	public void increaseHeight(ArrayList<Collider> colliders)
 	{
-		this.changeHeight(riseRate);
-		this.moveBy(0, riseRate)
+		this.changeHeight(vy);
+		this.act(colliders);;
 	}
 	
 

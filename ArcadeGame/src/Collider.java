@@ -251,6 +251,8 @@ public class Collider {
 		}
 		
 		public void act(ArrayList<Collider> colliders) {
+			moveBy(vx, vy, colliders);
+		}
 		//returns how much damage to take and does other actions to collider
 		public double collide(Collider collider) {
 			return 0.0;
