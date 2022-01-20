@@ -39,10 +39,7 @@ public class DrawingSurface extends PApplet {
 	
 	
 	public void draw() {
-		background(50);
-//		leaderboard.draw();
-		lava.draw(this);
-		lava.increaseHeight();
+	
 		
 		for (int i = 0; i < bullets.size(); i++) {
 			Collider bullet = bullets.get(i);
