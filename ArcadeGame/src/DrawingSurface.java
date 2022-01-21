@@ -22,7 +22,7 @@ public class DrawingSurface extends PApplet {
 	ArrayList<Collider> gamePieces = new ArrayList<Collider>();
 	int playerSpeed = 5;
 	public DrawingSurface() {
-		player = new ShootingPlayer(100,100,100,150d,100d,0,0,3000);
+		player = new ShootingPlayer(100,100,100,100d,100d,0,0,3000);
 		lava = new Lava(0, 0, 300, 650, 100, 0.1);
 		barrel = new Barrel(10,0,10,50,50,0,0);
 		leaderboard = new Leaderboard(this);
@@ -41,32 +41,35 @@ public class DrawingSurface extends PApplet {
 	public void draw() {
 	
 		background(50);
-		System.out.println(mobileEnemy.getHealth());
-		for (int i = 0; i < bullets.size(); i++) {
-			Collider bullet = bullets.get(i);
-			if (bullet.getX() <= width && bullet.getX() >= 0 && bullet.getY() <= height && bullet.getY() >= 0 && bullet.getHealth() > 0) {
-				bullet.draw(this);
-				bullet.act((ArrayList<Collider>)gamePieces);
-				if(bullet.getHealth() <= 0) {
-					bullets.remove(i);
-				}
-			} else {
-				bullets.remove(i);
-			}
-		}
-//		System.out.println(bullets);	
 		
-		for (int i = 0; i < gamePieces.size(); i++) {
-			if (gamePieces.get(i).getHealth() <= 0) {
-				gamePieces.remove(i);
-			} else {
-				gamePieces.get(i).draw(this);
-				if (gamePieces.get(i) instanceof MobileEnemy) {
-					gamePieces.get(i).act(gamePieces);
-				}
-			}
-		}
-//		System.out.println(gamePieces);
+		leaderboard.draw();
+		
+//		System.out.println(mobileEnemy.getHealth());
+//		for (int i = 0; i < bullets.size(); i++) {
+//			Collider bullet = bullets.get(i);
+//			if (bullet.getX() <= width && bullet.getX() >= 0 && bullet.getY() <= height && bullet.getY() >= 0 && bullet.getHealth() > 0) {
+//				bullet.draw(this);
+//				bullet.act((ArrayList<Collider>)gamePieces);
+//				if(bullet.getHealth() <= 0) {
+//					bullets.remove(i);
+//				}
+//			} else {
+//				bullets.remove(i);
+//			}
+//		}
+////		System.out.println(bullets);	
+//		
+//		for (int i = 0; i < gamePieces.size(); i++) {
+//			if (gamePieces.get(i).getHealth() <= 0) {
+//				gamePieces.remove(i);
+//			} else {
+//				gamePieces.get(i).draw(this);
+//				if (gamePieces.get(i) instanceof MobileEnemy) {
+//					gamePieces.get(i).act(gamePieces);
+//				}
+//			}
+//		}
+////		System.out.println(gamePieces);
 
 		
 		

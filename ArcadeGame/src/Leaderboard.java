@@ -13,8 +13,9 @@ public class Leaderboard {
 		surface.push(); 
 		surface.background(surface.color(173,216,230));
 		surface.fill(surface.color(144,238,144));
-		surface.rect(0,0,50,surface.height);
-		surface.rect(surface.width-50,0,50,surface.height);
+		surface.noStroke();
+		surface.rect(0,0,surface.width * 0.2f,surface.height);
+		surface.rect(surface.width-surface.width*0.2f,0,surface.width * 0.2f,surface.height);
 		
 		
 		surface.pop(); 
