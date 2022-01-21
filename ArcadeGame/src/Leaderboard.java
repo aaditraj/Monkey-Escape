@@ -21,7 +21,7 @@ public class Leaderboard {
 		surface.pop(); 
 	}
 	
-	public void nextList()
+	public void readList()
 	{
 		
 	}
