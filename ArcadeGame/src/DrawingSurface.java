@@ -4,12 +4,16 @@ import java.util.ArrayList;
 import processing.core.PApplet;
 
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
 
 public class DrawingSurface extends PApplet {
 
 	private Leaderboard leaderboard;
-
+	private BufferedWriter writer;
+	private FileWriter fileWriter; 
 	private Collider collider1;
 	private MobileEnemy mobileEnemy;
 	private ShootingPlayer player;
@@ -30,6 +34,16 @@ public class DrawingSurface extends PApplet {
 		gamePieces.add(player);
 		gamePieces.add(barrel);
 		gamePieces.add(mobileEnemy);
+		try {
+			fileWriter = new FileWriter("data/HighScores.txt");
+			writer = new BufferedWriter(fileWriter);
+		} catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+		
+		
+
+		
 
 	}
 	
@@ -44,37 +58,51 @@ public class DrawingSurface extends PApplet {
 		
 		leaderboard.draw();
 		
-//		System.out.println(mobileEnemy.getHealth());
-//		for (int i = 0; i < bullets.size(); i++) {
-//			Collider bullet = bullets.get(i);
-//			if (bullet.getX() <= width && bullet.getX() >= 0 && bullet.getY() <= height && bullet.getY() >= 0 && bullet.getHealth() > 0) {
-//				bullet.draw(this);
-//				bullet.act((ArrayList<Collider>)gamePieces);
-//				if(bullet.getHealth() <= 0) {
-//					bullets.remove(i);
-//				}
-//			} else {
-//				bullets.remove(i);
-//			}
-//		}
-////		System.out.println(bullets);	
-//		
-//		for (int i = 0; i < gamePieces.size(); i++) {
-//			if (gamePieces.get(i).getHealth() <= 0) {
-//				gamePieces.remove(i);
-//			} else {
-//				gamePieces.get(i).draw(this);
-//				if (gamePieces.get(i) instanceof MobileEnemy) {
-//					gamePieces.get(i).act(gamePieces);
-//				}
-//			}
-//		}
-////		System.out.println(gamePieces);
-
+		System.out.println(mobileEnemy.getHealth());
+		for (int i = 0; i < bullets.size(); i++) {
+			Collider bullet = bullets.get(i);
+			if (bullet.getX() <= width && bullet.getX() >= 0 && bullet.getY() <= height && bullet.getY() >= 0 && bullet.getHealth() > 0) {
+				bullet.draw(this);
+				bullet.act((ArrayList<Collider>)gamePieces);
+				if(bullet.getHealth() <= 0) {
+					bullets.remove(i);
+				}
+			} else {
+				bullets.remove(i);
+			}
+		}
+//		System.out.println(bullets);	
 		
+		for (int i = 0; i < gamePieces.size(); i++) {
+			if (gamePieces.get(i).getHealth() <= 0) {
+				gamePieces.remove(i);
+			} else {
+				gamePieces.get(i).draw(this);
+				if (gamePieces.get(i) instanceof MobileEnemy) {
+					gamePieces.get(i).act(gamePieces);
+				}
+			}
+		}
+//		System.out.println(gamePieces);
+
+		if(mobileEnemy.getHealth() <= 0)
+		{
+			promptLeaderboard(); 
+		}
 		
 	}
 	
+//	public void promptLeaderboard()
+//	{
+//		try {
+//			writer.write("1\n");
+//			writer.close();
+//			System.out.println("HI");
+//		 } catch (IOException ioe) {
+//	            ioe.printStackTrace();
+//	        }
+//		
+//	}
 	
 	public void mousePressed() {
 		Bullet b = player.shoot(mouseX, mouseY);
