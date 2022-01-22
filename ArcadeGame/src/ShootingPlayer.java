@@ -19,12 +19,12 @@ public class ShootingPlayer extends Player{
 		return mc;
 	}
 	public void jump() {
-		vy = -10;
+		vy = -20;
 	}
 	public void act(ArrayList<Collider> colliders) {
 		moveBy(vx,vy,colliders);
 		if (vy < defaultVy) {
-			vy++;
+			vy++ ;
 		}
 	}
 	

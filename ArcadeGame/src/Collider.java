@@ -13,8 +13,8 @@ public class Collider {
 	    protected double vx, vy;
 	    private String[] images;
 	    private int currentImage = 0;
-	    private final double DEFAULT_SPEED = 10; 
-	    private int maxSpeed = 10;
+	    private final double DEFAULT_SPEED = 20; 
+	    private int maxSpeed = 20;
 	    public Collider(String[] images, double health, double x, double y, double width, double height, double vx, double vy) {
 	    	this.health = health;
 	    	this.images = images;
@@ -47,7 +47,7 @@ public class Collider {
 								int moveDist = k%maxSpeed;
 								switch(j) {
 									case 0:
-										y += moveDist;
+										y += moveDist; 
 									break;
 									case 1:
 										x -= moveDist;
