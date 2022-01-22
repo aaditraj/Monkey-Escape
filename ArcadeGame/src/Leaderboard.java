@@ -1,19 +1,22 @@
 import java.util.ArrayList;
-
-public class Leaderboard {
-	private ArrayList<Double> data;
-	private ArrayList<String> usernames;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+public class Leaderboard implements Serializable {
+	private HashMap<String,Integer> leaderboard;
 	private DrawingSurface surface;
 //	BufferedReader reader;
 	
 	public Leaderboard(DrawingSurface surface) {
 		this.surface = surface;
-		data = new ArrayList<Double>();
-		usernames = new ArrayList<String>();
+		leaderboard = new HashMap<>();
 		readData();
-		readUsernames();
-	
-		
 	}
 	
 	public void draw()
@@ -32,14 +35,19 @@ public class Leaderboard {
 		
 		surface.fill(surface.color(246,190,0));
 		
-		
-		for(int i = 0; i<data.size(); i++)
+		Set<String> keys = leaderboard.keySet();
+		Iterator<String> iter = keys.iterator();
+		for(int i = 0;i < keys.size(); i++) {
+			String key = iter.next();
+			surface.text("" + key + "     " + leaderboard.get(key), surface.width/3, surface.height * 0.25f + i*100);
+		}
+		/*for(int i = 0; i<data.size(); i++)
 			surface.text("" + data.get(i), surface.width/3, surface.height * 0.25f + i*100);
 		
 		for(int k = 0; k<usernames.size(); k++)
 			surface.text("" + usernames.get(k), surface.width/2, surface.height * 0.25f + k*10);
-		
-		System.out.println(data);
+		*/
+		//System.out.println(data);
 		surface.pop(); 
 	}
 	
@@ -47,28 +55,31 @@ public class Leaderboard {
 	{
 		
 	}
-	
+	public void writeData() {
+		try {
+			FileOutputStream stream = new FileOutputStream("assets/data/leaderboard.dat");
+			ObjectOutputStream writer = new ObjectOutputStream(stream);
+			writer.writeObject(this);
+			writer.close();
+		} catch (Exception e) {
+			System.out.println("Could not serialize leaderboard");
+		}
+	}
 	public void readData() {
-		data.clear();
-		ArrayReader reader = new ArrayReader("data/HighScores.txt");
-		reader.fillDataArray(this);
-	
+		try {
+			FileInputStream stream = new FileInputStream("assets/data/leaderboard.dat");
+			ObjectInputStream reader = new ObjectInputStream(stream);
+			Leaderboard board = (Leaderboard)reader.readObject();
+			this.leaderboard = board.leaderboard;
+			
+		} catch (Exception e) {
+			System.out.println("Could not serialize leaderboard");
+		}
 	}
 	
-	public void readUsernames() {
-		ArrayReader reader = new ArrayReader("data/Username.txt");
-		reader.fillStringArray(this);
-	
-	}
-	
-	public void add(double val)
+	public void add(int val, String name)
 	{
-		data.add(val);
-	}
-	
-	public void add(String name)
-	{
-		usernames.add(name);
+		leaderboard.put(name, val);
 	}
 }
 
