@@ -7,7 +7,6 @@ public class Leaderboard {
 //	BufferedReader reader;
 	
 	public Leaderboard(DrawingSurface surface) {
-		//USE FILEREADER, FILEWRITER, BUFFEREDWRITER TO GET DATA FROM FILE AND ALSO EDIT FILE 
 		this.surface = surface;
 		data = new ArrayList<Double>();
 		usernames = new ArrayList<String>();
@@ -32,8 +31,10 @@ public class Leaderboard {
 		surface.text("Leaderboard", surface.width/3, surface.height * 0.1f);
 		
 		surface.fill(surface.color(246,190,0));
+		
+		
 		for(int i = 0; i<data.size(); i++)
-			surface.text("" + data.get(i), surface.width/3, surface.height * 0.25f + i*10);
+			surface.text("" + data.get(i), surface.width/3, surface.height * 0.25f + i*100);
 		
 		for(int k = 0; k<usernames.size(); k++)
 			surface.text("" + usernames.get(k), surface.width/2, surface.height * 0.25f + k*10);
@@ -48,6 +49,7 @@ public class Leaderboard {
 	}
 	
 	public void readData() {
+		data.clear();
 		ArrayReader reader = new ArrayReader("data/HighScores.txt");
 		reader.fillDataArray(this);
 	

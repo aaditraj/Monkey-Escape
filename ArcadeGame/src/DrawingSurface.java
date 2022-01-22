@@ -22,6 +22,7 @@ public class DrawingSurface extends PApplet {
 	private MobileEnemy enemy1;
 	private ShootingEnemy enemy2;
 	private SideShooter sideShooter;
+	private Boolean tester = false;
 	ArrayList<Collider> bullets = new ArrayList<>();
 	ArrayList<Collider> gamePieces = new ArrayList<Collider>();
 	int playerSpeed = 5;
@@ -35,7 +36,7 @@ public class DrawingSurface extends PApplet {
 		gamePieces.add(barrel);
 		gamePieces.add(mobileEnemy);
 		try {
-			fileWriter = new FileWriter("data/HighScores.txt");
+			fileWriter = new FileWriter("data/HighScores.txt", true);
 			writer = new BufferedWriter(fileWriter);
 		} catch (IOException ioe) {
             ioe.printStackTrace();
@@ -85,24 +86,26 @@ public class DrawingSurface extends PApplet {
 		}
 //		System.out.println(gamePieces);
 
-		if(mobileEnemy.getHealth() <= 0)
+		if(mobileEnemy.getHealth() <= 0 && !tester)
 		{
 			promptLeaderboard(); 
+			tester = true;
+//			mobileEnemy.changeH ealth(20);
 		}
 		
 	}
 	
-//	public void promptLeaderboard()
-//	{
-//		try {
-//			writer.write("1\n");
-//			writer.close();
-//			System.out.println("HI");
-//		 } catch (IOException ioe) {
-//	            ioe.printStackTrace();
-//	        }
-//		
-//	}
+	public void promptLeaderboard()
+	{
+		try {
+			fileWriter.append("1 ");
+			fileWriter.close();
+		 } catch (IOException ioe) {
+	            ioe.printStackTrace();
+	        }
+		
+		leaderboard.readData();
+	}
 	
 	public void mousePressed() {
 		Bullet b = player.shoot(mouseX, mouseY);
