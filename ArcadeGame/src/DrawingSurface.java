@@ -7,9 +7,10 @@ import processing.core.PApplet;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Serializable;
 
 
-public class DrawingSurface extends PApplet {
+public class DrawingSurface extends PApplet implements Serializable{
 
 	private Leaderboard leaderboard;
 	private BufferedWriter writer;
@@ -27,7 +28,7 @@ public class DrawingSurface extends PApplet {
 	ArrayList<Collider> gamePieces = new ArrayList<Collider>();
 	int playerSpeed = 5;
 	public DrawingSurface() {
-		player = new ShootingPlayer(100,100,100,100d,100d,0,0,3000);
+		player = new ShootingPlayer(100,100,100,100d,100d,0,-10,3000);
 		lava = new Lava(0, 0, 300, 650, 100, 0.1);
 		barrel = new Barrel(10,0,10,50,50,0,0);
 		leaderboard = new Leaderboard(this);
@@ -59,7 +60,7 @@ public class DrawingSurface extends PApplet {
 		
 		leaderboard.draw();
 		
-		System.out.println(mobileEnemy.getHealth());
+		//System.out.println(mobileEnemy.getHealth());
 		for (int i = 0; i < bullets.size(); i++) {
 			Collider bullet = bullets.get(i);
 			if (bullet.getX() <= width && bullet.getX() >= 0 && bullet.getY() <= height && bullet.getY() >= 0 && bullet.getHealth() > 0) {

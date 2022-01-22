@@ -17,6 +17,8 @@ public class Leaderboard implements Serializable {
 		this.surface = surface;
 		leaderboard = new HashMap<>();
 		readData();
+		leaderboard.put("cadi",100);
+		writeData();
 	}
 	
 	public void draw()
@@ -57,29 +59,34 @@ public class Leaderboard implements Serializable {
 	}
 	public void writeData() {
 		try {
-			FileOutputStream stream = new FileOutputStream("assets/data/leaderboard.dat");
+			FileOutputStream stream = new FileOutputStream("data/leaderboard.dat");
 			ObjectOutputStream writer = new ObjectOutputStream(stream);
-			writer.writeObject(this);
+			writer.writeObject(leaderboard);
 			writer.close();
 		} catch (Exception e) {
 			System.out.println("Could not serialize leaderboard");
+			e.printStackTrace();
 		}
 	}
 	public void readData() {
 		try {
-			FileInputStream stream = new FileInputStream("assets/data/leaderboard.dat");
+			FileInputStream stream = new FileInputStream("data/leaderboard.dat");
 			ObjectInputStream reader = new ObjectInputStream(stream);
-			Leaderboard board = (Leaderboard)reader.readObject();
-			this.leaderboard = board.leaderboard;
+			this.leaderboard = (HashMap)reader.readObject();
 			
 		} catch (Exception e) {
 			System.out.println("Could not serialize leaderboard");
+			e.printStackTrace();
 		}
 	}
 	
 	public void add(int val, String name)
 	{
-		leaderboard.put(name, val);
+		if(!leaderboard.containsKey(name)) {
+			leaderboard.put(name, val);
+		} else {
+			System.out.println("Please enter a unique name.");
+		}
 	}
 }
 
