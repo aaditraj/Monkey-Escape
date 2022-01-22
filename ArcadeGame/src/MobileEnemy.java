@@ -15,6 +15,7 @@ public class MobileEnemy extends Collider {
 				"assets/MobileEnemy/gorilla-2.png", "assets/MobileEnemy/gorilla-3.png", "assets/MobileEnemy/gorilla-4.png"}, health, startX, startY, width, height, vx, vy);
 		this.endX = endX;
 		this.endY = endY;
+		this.setMobile();
 	}
 	
 	// call this method before draw

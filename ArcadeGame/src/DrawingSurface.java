@@ -26,6 +26,7 @@ public class DrawingSurface extends PApplet implements Serializable{
 	private Boolean tester = false;
 	ArrayList<Collider> bullets = new ArrayList<>();
 	ArrayList<Collider> gamePieces = new ArrayList<Collider>();
+	ArrayList<Collider> playerPieces = new ArrayList<Collider>();
 	int playerSpeed = 5;
 	public DrawingSurface() {
 		player = new ShootingPlayer(100,100,100,100d,100d,0,5,3000);

@@ -15,6 +15,7 @@ public class Collider {
 	    private int currentImage = 0;
 	    private final double DEFAULT_SPEED = 20; 
 	    private int maxSpeed = 20;
+	    private boolean stationary;
 	    public Collider(String[] images, double health, double x, double y, double width, double height, double vx, double vy) {
 	    	this.health = health;
 	    	this.images = images;
@@ -25,10 +26,16 @@ public class Collider {
 	    	this.width = width;
 	    	this.height = height;
 	    	this.vx = vx; 
-	    	this.vy = vy; 
+	    	this.vy = vy;
+	    	stationary = true;
 	    }
 	    
-	 
+	    public void setMobile() {
+	    	stationary = true;
+	    }
+	    public boolean isMovable() {
+	    	return !stationary;
+	    }
 		public boolean[] intersects(ArrayList<Collider> colliderList) {
 			boolean[] data = new boolean[4]; // north, east, south, west
 			for (int i = 0; i < colliderList.size(); i++) {
@@ -45,19 +52,36 @@ public class Collider {
 								changeHealth(collide(collider) * -1);
 								//System.out.println("J: " + j + "K: " + k + colliderList);
 								int moveDist = k%maxSpeed;
-								switch(j) {
+								if(isMovable()) {
+									switch(j) {
+										case 0:
+											y += moveDist; 
+										break;
+										case 1:
+											x -= moveDist;
+										break;
+										case 2:
+											y-=moveDist;
+										break;
+										case 3:
+											x += moveDist;
+										break;	
+									}
+								} else {
+									switch(j) {
 									case 0:
-										y += moveDist; 
+										collider.superMove(0, -moveDist);
 									break;
 									case 1:
-										x -= moveDist;
+										collider.superMove(moveDist, 0);
 									break;
 									case 2:
-										y-=moveDist;
+										collider.superMove(0, moveDist);
 									break;
 									case 3:
-										x += moveDist;
+										collider.superMove(-moveDist, 0);
 									break;	
+								}
 								}
 								data[j] = true;
 							}
@@ -66,8 +90,6 @@ public class Collider {
 				}
 			}
 			return data;
-
-			
 		}
 		/**
 		 * use this method for checking if something collides with a specific object. E.g. mobile enemy
@@ -110,7 +132,6 @@ public class Collider {
 			this.x += x;
 			this.y += y;
 		}
-		
 		/** 
 		 * Draws the rectangle to the given Processing PApplet. The left and right
 		 * edges of the rectangle at x and x + width. The top and bottom edges
