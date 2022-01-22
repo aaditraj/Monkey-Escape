@@ -32,7 +32,7 @@ public class DrawingSurface extends PApplet implements Serializable{
 		player = new ShootingPlayer(100,100,100,100d,100d,0,5,3000);
 		lava = new Lava(0, 0, 300, 650, 100, 0.1);
 		barrel = new Barrel(10,0,10,50,50,0,0);
-		leaderboard = new Leaderboard(this);
+		leaderboard = new Leaderboard();
 		mobileEnemy = new MobileEnemy(10d, 400d, 150d, 0d, 150d, -5d, 0d,(int)424d/4, (int)464d/4, 1);
 		gamePieces.add(player);
 		gamePieces.add(barrel);
@@ -59,7 +59,7 @@ public class DrawingSurface extends PApplet implements Serializable{
 	
 		background(50);
 		
-		leaderboard.draw();
+		leaderboard.draw(this);
 		
 		//System.out.println(mobileEnemy.getHealth());
 		for (int i = 0; i < bullets.size(); i++) {
