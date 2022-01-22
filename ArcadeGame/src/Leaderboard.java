@@ -2,6 +2,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
+
+import processing.core.PApplet;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -10,18 +13,16 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 public class Leaderboard implements Serializable {
 	private HashMap<String,Integer> leaderboard;
-	private DrawingSurface surface;
 //	BufferedReader reader;
 	
-	public Leaderboard(DrawingSurface surface) {
-		this.surface = surface;
+	public Leaderboard() {
 		leaderboard = new HashMap<>();
 		readData();
 		leaderboard.put("cadi",100);
 		writeData();
 	}
 	
-	public void draw()
+	public void draw(PApplet surface)
 	{
 		surface.push(); 
 		surface.background(surface.color(173,216,230));
