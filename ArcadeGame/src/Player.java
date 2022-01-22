@@ -11,7 +11,7 @@ public abstract class Player extends Collider{
 		this.reloadTime = reloadTime; 
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	public abstract Collider shoot(int mouseX, int mouseY);
 	
 	

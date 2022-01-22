@@ -106,6 +106,10 @@ public class Collider {
 			return (x >= getX() && x <= getX() + width && y >= getY() && y <= getY() + height);
 		}
 		
+		public void superMove(int x, int y) {
+			this.x += x;
+			this.y += y;
+		}
 		
 		/** 
 		 * Draws the rectangle to the given Processing PApplet. The left and right

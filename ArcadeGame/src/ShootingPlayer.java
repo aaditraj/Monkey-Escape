@@ -1,9 +1,15 @@
+import java.util.ArrayList;
 
 public class ShootingPlayer extends Player{
-	
+	int jumpHeight;
+	double defaultVx;
+	double defaultVy;
 	public ShootingPlayer(double health, double x, double y, double width, double height, double vx,
 			double vy, double reloadTime) {
 		super(new String[] {"assets/ShootingEnemy/monkey.png"}, health, x, y, width, height, vx, vy,reloadTime);
+		defaultVx = vx;
+		defaultVy = vy;
+		jumpHeight = 20;
 	}
 	
 	public Bullet shoot(int mouseX, int mouseY)
@@ -11,6 +17,15 @@ public class ShootingPlayer extends Player{
 		Bullet mc = new Bullet(this.getCenterX(), this.getCenterY(), "player");
 		mc.setVelocity(mouseX - this.getCenterX(), mouseY - this.getCenterY());
 		return mc;
+	}
+	public void jump() {
+		vy = -10;
+	}
+	public void act(ArrayList<Collider> colliders) {
+		moveBy(vx,vy,colliders);
+		if (vy < defaultVy) {
+			vy++;
+		}
 	}
 	
 	public double collide(Collider collider) {
