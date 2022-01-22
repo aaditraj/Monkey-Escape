@@ -31,7 +31,7 @@ public class Collider {
 	    }
 	    
 	    public void setMobile() {
-	    	stationary = true;
+	    	stationary = false;
 	    }
 	    public boolean isMovable() {
 	    	return !stationary;
@@ -68,20 +68,20 @@ public class Collider {
 										break;	
 									}
 								} else {
-									switch(j) {
-									case 0:
-										collider.superMove(0, -moveDist);
-									break;
-									case 1:
-										collider.superMove(moveDist, 0);
-									break;
-									case 2:
-										collider.superMove(0, moveDist);
-									break;
-									case 3:
-										collider.superMove(-moveDist, 0);
-									break;	
-								}
+										switch(j) {
+										case 0:
+											collider.superMove(0, -moveDist);
+										break;
+										case 1:
+											collider.superMove(moveDist, 0);
+										break;
+										case 2:
+											collider.superMove(0, moveDist);
+										break;
+										case 3:
+											collider.superMove(-moveDist, 0);
+										break;	
+									}
 								}
 								data[j] = true;
 							}

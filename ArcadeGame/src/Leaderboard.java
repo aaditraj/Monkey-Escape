@@ -54,10 +54,6 @@ public class Leaderboard implements Serializable {
 		surface.pop(); 
 	}
 	
-	public void readList()
-	{
-		
-	}
 	public void writeData() {
 		try {
 			FileOutputStream stream = new FileOutputStream("data/leaderboard.dat");

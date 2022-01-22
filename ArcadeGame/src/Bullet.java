@@ -6,6 +6,7 @@ public class Bullet extends Collider
 	public Bullet(double x, double y, String owner) {
 		super(new String[] {"assets/bullet.png"}, 1, x, y, 5.0, 5.0, 0, 0);
 		this.owner = owner;
+		this.setMobile();
 	}
 	
 	public String getOwner() {
@@ -16,15 +17,17 @@ public class Bullet extends Collider
 		if (owner == "player") {
 			if (collider instanceof MobileEnemy) {
 				collider.changeHealth(-1);
-				return getHealth();
+			} else if(collider instanceof Player) {
+				return 0.0;
 			}
 		} else {
 			if (collider instanceof Player) {
 				collider.changeHealth(-1);
-				return getHealth();
+			} else {
+				return 0.0;
 			}
 		}
-		return 0.0;
+		return getHealth();  
 	}
 	
 	
