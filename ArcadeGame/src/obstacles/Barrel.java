@@ -1,3 +1,5 @@
+package obstacles;
+import core.Collider;
 
 public class Barrel extends Collider{
 

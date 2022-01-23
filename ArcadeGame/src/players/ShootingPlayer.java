@@ -1,4 +1,8 @@
+package players;
 import java.util.ArrayList;
+
+import core.Bullet;
+import core.Collider;
 
 public class ShootingPlayer extends Player{
 	int jumpHeight;
@@ -19,7 +23,7 @@ public class ShootingPlayer extends Player{
 		return mc;
 	}
 	public void jump() {
-		vy = -20;
+		vy = -15;
 	}
 	public void act(ArrayList<Collider> colliders) {
 		moveBy(vx,vy,colliders);

@@ -1,4 +1,8 @@
+package core;
 import java.util.Arrays;
+
+import enemies.MobileEnemy;
+import players.Player;
 
 public class Bullet extends Collider
 {

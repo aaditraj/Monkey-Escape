@@ -1,3 +1,5 @@
+package obstacles;
+import core.Collider;
 
 public class Platform extends Collider {
 	

@@ -1,4 +1,6 @@
-
+package powerups;
+import core.Collider;
+import players.Player;
 
 //change to extends powerup later
 public class Coin extends Collider {

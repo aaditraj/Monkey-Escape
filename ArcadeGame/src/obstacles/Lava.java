@@ -1,4 +1,7 @@
+package obstacles;
 import java.util.ArrayList;
+
+import core.Collider;
 
 public class Lava extends Collider{
 //	private double riseRate; 

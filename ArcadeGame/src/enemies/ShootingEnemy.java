@@ -1,7 +1,9 @@
+package enemies;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import core.Collider;
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -43,7 +45,6 @@ public class ShootingEnemy extends Collider{
 		for(Collider coconut: coconuts)
 		{
 			coconut.draw(marker);
-			coconut.vx *= 1.01;
 		}
 	 }
 

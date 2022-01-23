@@ -1,5 +1,7 @@
+package enemies;
 import java.util.ArrayList;
 
+import core.Collider;
 import processing.core.PApplet;
 import processing.core.PImage;
 

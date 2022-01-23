@@ -1,8 +1,16 @@
 	
 import java.util.ArrayList;
 
+import core.Bullet;
+import core.Collider;
+import enemies.MobileEnemy;
+import enemies.ShootingEnemy;
+import enemies.SideShooter;
+import obstacles.Barrel;
+import obstacles.Lava;
+import players.ShootingPlayer;
 import processing.core.PApplet;
-
+import startpage.Leaderboard;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -28,15 +36,19 @@ public class DrawingSurface extends PApplet implements Serializable{
 	ArrayList<Collider> gamePieces = new ArrayList<Collider>();
 	ArrayList<Collider> playerPieces = new ArrayList<Collider>();
 	int playerSpeed = 5;
+	boolean[] keysPressed;
 	public DrawingSurface() {
-		player = new ShootingPlayer(100,100,100,100d,100d,0,5,3000);
+		player = new ShootingPlayer(100,100,100,110d,152d,0,0,3000);
 		lava = new Lava(0, 0, 300, 650, 100, 0.1);
 		barrel = new Barrel(10,0,10,50,50,0,0);
 		leaderboard = new Leaderboard();
+		keysPressed = new boolean[4];
 		mobileEnemy = new MobileEnemy(10d, 400d, 150d, 0d, 150d, -5d, 0d,(int)424d/4, (int)464d/4, 1);
+		sideShooter = new SideShooter(100,100,0,100,100,-1);
 		gamePieces.add(player);
-		gamePieces.add(barrel);
+		//gamePieces.add(barrel);
 		gamePieces.add(mobileEnemy);
+		gamePieces.add(sideShooter);
 		try {
 			fileWriter = new FileWriter("data/HighScores.txt", true);
 			writer = new BufferedWriter(fileWriter);
@@ -94,6 +106,7 @@ public class DrawingSurface extends PApplet implements Serializable{
 			tester = true;
 //			mobileEnemy.changeH ealth(20);
 		}
+		move();
 		
 	}
 	
@@ -113,43 +126,91 @@ public class DrawingSurface extends PApplet implements Serializable{
 		Bullet b = player.shoot(mouseX, mouseY);
 		bullets.add(b);
 	}		
-	
+	public void move() {
+		if(keysPressed[0]) {
+			player.moveBy(0, -playerSpeed, gamePieces);
+		}
+		if(keysPressed[1]) {
+			player.moveBy(0, playerSpeed, gamePieces);
+		}
+		if(keysPressed[2]) {
+			player.moveBy(playerSpeed, 0, gamePieces);
+		} 
+		if(keysPressed[3]) {
+			player.moveBy(-playerSpeed,0, gamePieces);
+		}
+	}
 	public void keyPressed() {
 		if (keyCode == UP) { 
-			player.moveBy(0, -playerSpeed, gamePieces);
+			keysPressed[0] = true;
 			
 		} 
 		if (keyCode == DOWN) { 
-			player.moveBy(0, playerSpeed, gamePieces);
+			keysPressed[1] = true;
 		}
 		if (keyCode == RIGHT) {
-			player.moveBy(playerSpeed, 0, gamePieces);
+			keysPressed[2] = true;
 
 		}
 		if (keyCode == LEFT) {
-			player.moveBy(-playerSpeed, 0, gamePieces);
+			keysPressed[3] = true;
 
 		}
 		if (key == 'w') {
-			player.moveBy(0, -playerSpeed, gamePieces);
+			keysPressed[0] = true;
 
 		} 
 		if (key == 'd') {
-			player.moveBy(playerSpeed, 0, gamePieces);
+			keysPressed[2] = true;
 
 		}
 		if (key == 's') {
-			player.moveBy(0, playerSpeed, gamePieces);
+			keysPressed[1] = true;
 		
 		}
 		if (key == 'a') {
-			player.moveBy(-playerSpeed, 0, gamePieces);
+			keysPressed[3] = true;
 	
 		}
 		if(key == ' ') {
 			player.jump();
 		}
 	}
+	public void keyReleased() {
+		if (keyCode == UP) { 
+			keysPressed[0] = false;
+			
+		} 
+		if (keyCode == DOWN) { 
+			keysPressed[1] = false;
+		}
+		if (keyCode == RIGHT) {
+			keysPressed[2] = false;
 
+		}
+		if (keyCode == LEFT) {
+			keysPressed[3] = false;
+
+		}
+		if (key == 'w') {
+			keysPressed[0] = false;
+
+		} 
+		if (key == 'd') {
+			keysPressed[2] = false;
+
+		}
+		if (key == 's') {
+			keysPressed[1] = false;
+		
+		}
+		if (key == 'a') {
+			keysPressed[3] = false;
+	
+		}
+		if(key == ' ') {
+			player.jump();
+		}
+	}
 
 }

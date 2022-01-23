@@ -1,3 +1,5 @@
+package players;
+import core.Collider;
 
 public class JumpingPlayer extends Player{
 	

@@ -1,3 +1,5 @@
+package players;
+import core.Collider;
 
 public abstract class Player extends Collider{
 	private double points, ammo; 
