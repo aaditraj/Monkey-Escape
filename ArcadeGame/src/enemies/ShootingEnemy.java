@@ -3,26 +3,25 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import core.Bullet;
 import core.Collider;
 import processing.core.PApplet;
 import processing.core.PImage;
 
 public class ShootingEnemy extends Collider{
 	private Timer shootRate; 
-	private Collider projectile;
 	private final long dropRate = 1000L;
 	private final String[] coconutImages = new String[] {"coconut.png"};
-	private final ArrayList<Collider> coconuts;
+	private final ArrayList<Bullet> coconuts;
 	
 	
-	public ShootingEnemy(int health, double x, double y, int width, int height, double projectileVX, double projectileVY) {
-		super(new String[] {"monkey.png"}, health, x, y, width, height, 0, 0);
+	public ShootingEnemy(double health, double x, double y, double width, double height) {
+		super(new String[] {"assets/ShootingEnemy/Monkey.png"}, health, x, y, width, height, 0, 0);
 		
-		projectile = new Collider(coconutImages, health, x, y, width, height, projectileVX, projectileVY);
 		
 		shootRate = new Timer();	
 		
-		coconuts = new ArrayList<Collider>();
+		coconuts = new ArrayList<Bullet>();
 	}
 	
 	public void startDropping(PApplet marker)
@@ -37,12 +36,12 @@ public class ShootingEnemy extends Collider{
 	    shootRate.schedule(task, dropRate);
 	}
 	
-	 public void draw(PApplet marker) {
-		Collider newProjectile = new Collider(coconutImages, projectile.getHealth(), projectile.getX(), projectile.getY(), projectile.getWidth(), projectile.getHeight(), projectile.getVX(), projectile.getVY());
-     	
-		coconuts.add(newProjectile); 
+	 public void draw(PApplet marker) {    
+		super.draw(marker);
+		Bullet newBullet = new Bullet(getX(), getY(), "ShootingEnemy");
+		coconuts.add(newBullet); 
 		
-		for(Collider coconut: coconuts)
+		for(Bullet coconut: coconuts)
 		{
 			coconut.draw(marker);
 		}

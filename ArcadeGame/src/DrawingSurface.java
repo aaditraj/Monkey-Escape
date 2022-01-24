@@ -22,15 +22,11 @@ import java.io.Serializable;
 public class DrawingSurface extends PApplet implements Serializable{
 
 	private Leaderboard leaderboard;
-	private BufferedWriter writer;
-	private FileWriter fileWriter; 
-	private Collider collider1;
 	private MobileEnemy mobileEnemy;
 	private ShootingPlayer player;
 	private Lava lava;
 	private Barrel barrel; 
-	private MobileEnemy enemy1;
-	private ShootingEnemy enemy2;
+	private ShootingEnemy shootingEnemy;
 	private SideShooter sideShooter;
 	private Boolean tester = false;
 	ArrayList<Collider> bullets;
@@ -43,13 +39,14 @@ public class DrawingSurface extends PApplet implements Serializable{
 		setup();
 	}
 	public void setup() {
-		player = new ShootingPlayer(10,100,100,110d,152d,0,10,3000);
+		player = new ShootingPlayer(10,100,100,131d,96d,0,10,3000);
 		lava = new Lava(0, 0, 300, 650, 100, 0.1);
 		barrel = new Barrel(10,300,300,500,50,0,0);
 		leaderboard = new Leaderboard();
 		keysPressed = new boolean[4];
 		mobileEnemy = new MobileEnemy(10d, 400d, 150d, 0d, 150d, -5d, 0d,(int)424d/4, (int)464d/4, 1);
-		sideShooter = new SideShooter(100,200,70,100,100,1);
+		sideShooter = new SideShooter(100,200,7000,100,100,1); // TODO change bulletfrequency back to lower
+		shootingEnemy = new ShootingEnemy(10d, 200d, 10d, 131d, 96d);
 		bullets = new ArrayList<>();
 		gamePieces = new ArrayList<Collider>();
 		playerPieces = new ArrayList<Collider>();
@@ -57,25 +54,20 @@ public class DrawingSurface extends PApplet implements Serializable{
 		gamePieces.add(barrel);
 		gamePieces.add(mobileEnemy);
 		gamePieces.add(sideShooter);
-		try {
-			fileWriter = new FileWriter("data/HighScores.txt", true);
-			writer = new BufferedWriter(fileWriter);
-		} catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
 	}
 	
 	
 	public void draw() {
-	
+		
+
 		background(50);
 		
 		leaderboard.draw(this);
 		if(time%sideShooter.bulletFrequency == 0) {
+			shootingEnemy.startDropping(this);
 			bullets.add(sideShooter.shoot());
 			System.out.println("shooting");
 		}
-		//System.out.println(mobileEnemy.getHealth());
 		for (int i = 0; i < bullets.size(); i++) {
 			Collider bullet = bullets.get(i);
 			if (bullet.getX() <= width && bullet.getX() >= 0 && bullet.getY() <= height && bullet.getY() >= 0 && bullet.getHealth() > 0) {
@@ -88,7 +80,6 @@ public class DrawingSurface extends PApplet implements Serializable{
 				bullets.remove(i);
 			}
 		}
-//		System.out.println(bullets);	
 		
 		for (int i = 0; i < gamePieces.size(); i++) {
 			if (gamePieces.get(i).getHealth() <= 0) {
@@ -100,34 +91,20 @@ public class DrawingSurface extends PApplet implements Serializable{
 				
 			} else {
 				gamePieces.get(i).draw(this);
-				//if (gamePieces.get(i) instanceof MobileEnemy) {
 				gamePieces.get(i).act(gamePieces);
-				//}
 			}
 		}
-//		System.out.println(gamePieces);
 
 		if(mobileEnemy.getHealth() <= 0 && !tester)
 		{
-			promptLeaderboard(); 
 			tester = true;
-//			mobileEnemy.changeH ealth(20);
 		}
+		
+		lava.draw(this);
 		move();
 		time++;
 	}
 	
-	public void promptLeaderboard()
-	{
-		try {
-			fileWriter.append("1 ");
-			fileWriter.close();
-		 } catch (IOException ioe) {
-	            ioe.printStackTrace();
-	        }
-		
-		leaderboard.readData();
-	}
 	
 	public void mousePressed() {
 		Bullet b = player.shoot(mouseX, mouseY);

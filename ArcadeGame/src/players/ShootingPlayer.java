@@ -10,7 +10,7 @@ public class ShootingPlayer extends Player{
 	double defaultVy;
 	public ShootingPlayer(double health, double x, double y, double width, double height, double vx,
 			double vy, double reloadTime) {
-		super(new String[] {"assets/ShootingEnemy/monkey.png"}, health, x, y, width, height, vx, vy,reloadTime);
+		super(new String[] {"assets/ShootingEnemy/Monkey.png"}, health, x, y, width, height, vx, vy,reloadTime);
 		defaultVx = vx;
 		defaultVy = vy;
 		jumpHeight = 20;

@@ -2,6 +2,7 @@ package core;
 import java.util.Arrays;
 
 import enemies.MobileEnemy;
+import enemies.SideShooter;
 import players.Player;
 
 public class Bullet extends Collider
@@ -27,7 +28,7 @@ public class Bullet extends Collider
 		} else {
 			if (collider instanceof Player) {
 				collider.changeHealth(-1);
-			} else {
+			} else if (collider instanceof SideShooter){
 				return 0.0;
 			}
 		}
