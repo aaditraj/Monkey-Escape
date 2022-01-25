@@ -193,7 +193,7 @@ public class DrawingSurface extends PApplet implements Serializable{
 	
 		}
 		if(key == ' ') {
-			player.jump();
+			player.jump(gamePieces);
 		}
 	}
 
