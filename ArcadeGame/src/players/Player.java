@@ -14,7 +14,7 @@ public abstract class Player extends Collider{
 			double vy, double reloadTime) {
 		super(images, health, x, y, width, height, vx, vy);
 		this.reloadTime = reloadTime; 
-		this.setMobile();
+		this.setMobile(true);
 		proportion = (float)getWidth()/(float)getHealth(); 
 		initHealth = (float)getHealth();
 		// TODO Auto-generated constructor stub

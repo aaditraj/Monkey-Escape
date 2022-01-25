@@ -31,8 +31,8 @@ public class Collider {
 	    	stationary = true;
 	    }
 	    
-	    public void setMobile() {
-	    	stationary = false;
+	    public void setMobile(boolean b) {
+	    	stationary = b;
 	    }
 	    public boolean isMovable() {
 	    	return !stationary;
