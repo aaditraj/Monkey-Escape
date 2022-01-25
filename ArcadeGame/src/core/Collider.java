@@ -177,19 +177,14 @@ public class Collider {
 				this.x += x;
 			}
 		}
-		/*public void doDamage(Collider collider) {
-			if(collider instanceof Bullet) {
-				if() {
-					
-				}
-			} else if () {
-				
-			}
-		}*/
-		public void goToNextImage() {
-			currentImage++;
-			if (currentImage >= images.length) {
-				currentImage = 0;
+		
+		/*
+		 * @pre imageIndex must be within range of how many images there are for this Collider
+		 * remember that currentImage is an index as well
+		 */
+		public void goToImage(int imageIndex) {
+			if (imageIndex >= 0 && imageIndex < images.length) {
+				currentImage = imageIndex;
 			}
 		}
 		
@@ -325,6 +320,10 @@ public class Collider {
 
 		public double getVY() {
 			return vy;
+		}
+		
+		public int getCurrentImage() {
+			return currentImage;
 		}
    
    
