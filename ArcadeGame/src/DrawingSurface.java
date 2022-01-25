@@ -45,7 +45,7 @@ public class DrawingSurface extends PApplet implements Serializable{
 		leaderboard = new Leaderboard();
 		keysPressed = new boolean[4];
 		mobileEnemy = new MobileEnemy(10d, 400d, 150d, 0d, 150d, -5d, 0d,(int)424d/4, (int)464d/4, 1);
-		sideShooter = new SideShooter(100,200,7000,100,100,1); // TODO change bulletfrequency back to lower
+		sideShooter = new SideShooter(100,200,10,100,100,1); // TODO change bulletfrequency back to lower
 		shootingEnemy = new ShootingEnemy(10d, 200d, 10d, 131d, 96d);
 		bullets = new ArrayList<>();
 		gamePieces = new ArrayList<Collider>();

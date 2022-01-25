@@ -13,6 +13,7 @@ public class ShootingEnemy extends Collider{
 	private final long dropRate = 1000L;
 	private final String[] coconutImages = new String[] {"coconut.png"};
 	private final ArrayList<Bullet> coconuts;
+
 	
 	
 	public ShootingEnemy(double health, double x, double y, double width, double height) {
@@ -22,6 +23,7 @@ public class ShootingEnemy extends Collider{
 		shootRate = new Timer();	
 		
 		coconuts = new ArrayList<Bullet>();
+		
 	}
 	
 	public void startDropping(PApplet marker)
@@ -45,6 +47,8 @@ public class ShootingEnemy extends Collider{
 		{
 			coconut.draw(marker);
 		}
+		
+		
 	 }
 
 }

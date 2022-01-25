@@ -8,6 +8,8 @@ import processing.core.PImage;
 public class MobileEnemy extends Collider {
 	
 	private double endX, endY;
+	private float proportion; 
+	private float initHealth;
 	private static final String[] images = new String[] {"assets/MobileEnemy/gorilla.png",
 			"assets/MobileEnemy/gorilla-2.png", "assets/MobileEnemy/gorilla-3.png", "assets/MobileEnemy/gorilla-4.png"};
 	
@@ -18,6 +20,8 @@ public class MobileEnemy extends Collider {
 		this.endX = endX;
 		this.endY = endY;
 		this.setMobile();
+		proportion = (float)getWidth()/(float)getHealth(); 
+		initHealth = (float)getHealth();
 	}
 	
 	// call this method before draw
@@ -33,6 +37,16 @@ public class MobileEnemy extends Collider {
 		if (getY() >= largerY || getY() <= smallerY) {
 			vy *= -1;
 		}
+	}
+	
+	public void draw(PApplet marker) {
+		super.draw(marker);
+		
+		marker.push();
+		marker.rect((float)getX(), (float)getY() - (float)getHeight()/2, (float)getWidth(), 10);
+		marker.fill(marker.color(0,255,0));
+		marker.rect((float)getX(), (float)getY() - (float)getHeight()/2, (float)(getWidth() - proportion*Math.abs(initHealth-getHealth())), 10);
+		marker.pop();
 	}
 	
 }
