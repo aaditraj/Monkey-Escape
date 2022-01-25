@@ -54,6 +54,7 @@ public class DrawingSurface extends PApplet implements Serializable{
 		gamePieces.add(barrel);
 		gamePieces.add(mobileEnemy);
 		gamePieces.add(sideShooter);
+		gamePieces.add(shootingEnemy);
 	}
 	
 	
@@ -155,9 +156,6 @@ public class DrawingSurface extends PApplet implements Serializable{
 		if (key == 'a') {
 			keysPressed[3] = true;
 	
-		}
-		if(key == ' ') {
-			player.jump();
 		}
 	}
 	public void keyReleased() {
