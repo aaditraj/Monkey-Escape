@@ -22,8 +22,10 @@ public class ShootingPlayer extends Player{
 		mc.setVelocity(mouseX - this.getCenterX(), mouseY - this.getCenterY());
 		return mc;
 	}
-	public void jump() {
-		vy = -15;
+	public void jump(ArrayList<Collider> colliders) {
+		if(this.intersects(colliders)[2]) {
+			vy = -15;
+		}
 	}
 	public void act(ArrayList<Collider> colliders) {
 		moveBy(vx,vy,colliders);
