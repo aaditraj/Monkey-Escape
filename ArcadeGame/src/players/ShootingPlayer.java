@@ -13,7 +13,7 @@ public class ShootingPlayer extends Player{
 		super(new String[] {"assets/ShootingEnemy/Monkey.png"}, health, x, y, width, height, vx, vy,reloadTime);
 		defaultVx = vx;
 		defaultVy = vy;
-		jumpHeight = 20;
+		jumpHeight = 15;
 	}
 	
 	public Bullet shoot(int mouseX, int mouseY)
@@ -24,7 +24,7 @@ public class ShootingPlayer extends Player{
 	}
 	public void jump(ArrayList<Collider> colliders) {
 		if(this.intersects(colliders)[2]) {
-			vy = -15;
+			vy = -jumpHeight;
 		}
 	}
 	public void act(ArrayList<Collider> colliders) {

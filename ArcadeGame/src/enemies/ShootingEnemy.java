@@ -13,7 +13,7 @@ public class ShootingEnemy extends Collider{
 	private final long dropRate = 1000L;
 	private final String[] coconutImages = new String[] {"coconut.png"};
 	private final ArrayList<Bullet> coconuts;
-
+	private int coconutSpeed = 10;
 	
 	
 	public ShootingEnemy(double health, double x, double y, double width, double height) {
@@ -23,32 +23,15 @@ public class ShootingEnemy extends Collider{
 		shootRate = new Timer();	
 		
 		coconuts = new ArrayList<Bullet>();
+		setMobile(true);
 		
 	}
 	
-	public void startDropping(PApplet marker)
+	public Bullet drop()
 	{
-		TimerTask task = new TimerTask() {
-				public void run()
-				{
-					draw(marker);
-	        }
-	    };
-	    
-	    shootRate.schedule(task, dropRate);
-	}
-	
-	 public void draw(PApplet marker) {    
-		super.draw(marker);
 		Bullet newBullet = new Bullet(getX(), getY(), "ShootingEnemy");
-		coconuts.add(newBullet); 
-		
-		for(Bullet coconut: coconuts)
-		{
-			coconut.draw(marker);
-		}
-		
-		
-	 }
+		newBullet.setVelocity(0,coconutSpeed);
+		return newBullet;
+	}
 
 }
