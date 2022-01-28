@@ -11,6 +11,7 @@ import obstacles.Lava;
 import players.Player;
 import players.ShootingPlayer;
 import processing.core.PApplet;
+import processing.core.PImage;
 import startpage.Leaderboard;
 
 import java.io.BufferedWriter;
@@ -46,7 +47,7 @@ public class DrawingSurface extends PApplet implements Serializable{
 		keysPressed = new boolean[4];
 		mobileEnemy = new MobileEnemy(MobileEnemy.mobileEnemyImages, 10d, 400d, 150d, 0d, 150d, -5d, 0d,(int)424d/4, (int)464d/4, 1);
 		sideShooter = new SideShooter(100,200,50,100,100,1); // TODO change bulletfrequency back to lower
-		shootingEnemy = new ShootingEnemy(10d, 500d, 500d, 131d, 96d);
+		shootingEnemy = new ShootingEnemy(10d, 500d, 100d, 131d, 96d);
 		bullets = new ArrayList<>();
 		gamePieces = new ArrayList<Collider>();
 		playerPieces = new ArrayList<Collider>();
@@ -60,8 +61,7 @@ public class DrawingSurface extends PApplet implements Serializable{
 	
 	public void draw() {
 		
-
-		background(50);
+		background(this.loadImage("assets/Background.jpg"));
 		ArrayList<Collider> objects = new ArrayList<>();
 		objects.addAll(playerPieces);
 		objects.addAll(gamePieces);
