@@ -98,8 +98,64 @@ public class Line {
 	public boolean isCollinear(Line other) {
 		Double exactXIntersect = getIntersectionX(other);
 		Double exactYIntersect = getIntersectionY(other);
-		
-		if (exactXIntersect.isNaN() && exactYIntersect.isNaN()) { // Collinear
+		if (exactXIntersect.isNaN() && exactYIntersect.isNaN()) { // Collinear 
+			
+			if(getY1() == getY2()) {
+				if( x1 > other.getX1() && x1 < other.getX2()) {
+//					System.out.println(x1 + " " + y1 + " " + x2 + " " + y2 + " Line 1");
+//					System.out.println(other.getX1() + " " + other.getY1() + " " + other.getX2() + " " + other.getY2() + " Line 2");
+//					System.out.println("1");
+					return true;
+				} else if (x2 > other.getX1() && x2 < other.getX2()) {
+//					System.out.println(x1 + " " + y1 + " " + x2 + " " + y2 + " Line 1");
+//					System.out.println(other.getX1() + " " + other.getY1() + " " + other.getX2() + " " + other.getY2() + " Line 2");
+//					System.out.println("2");
+					return true;
+				} else if (x1 <= other.getX1() && x2 >= other.getX2()) {
+					return true;
+				}
+			} else {
+				if(y1 > other.getY1() && y1 < other.getY2()) {
+//					System.out.println(x1 + " " + y1 + " " + x2 + " " + y2 + " Line 1");
+//					System.out.println(other.getX1() + " " + other.getY1() + " " + other.getX2() + " " + other.getY2() + " Line 2");
+//					System.out.println("3");
+					return true;
+				} else if (y2 > other.getY1() && y2 < other.getY2()) {
+//					System.out.println(x1 + " " + y1 + " " + x2 + " " + y2 + " Line 1");
+//					System.out.println(other.getX1() + " " + other.getY1() + " " + other.getX2() + " " + other.getY2() + " Line 2");
+//					System.out.println("4");
+					return true;
+				} else if (y1 <= other.getY1() && y2 >= other.getY2()) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	public boolean isCollinear(Line other, int direction, int maxSpeed) {
+		Double exactXIntersect = getIntersectionX(other);
+		Double exactYIntersect = getIntersectionY(other);
+		if (exactXIntersect.isInfinite()) { // Parallel]
+			if(direction == 0) {
+				if((this.getY1() - other.getY1()) > 0 &&  (this.getY1() - other.getY1()) < maxSpeed) {
+					return true;
+				}
+			} else if (direction == 2) {
+				if((other.getY1() - other.getY1()) < 0 &&  (this.getY1() - other.getY1()) > -maxSpeed) {
+					return true;
+				}
+			}
+		} else if (exactYIntersect.isInfinite()) {
+			if(direction == 1) {
+				if((this.getX1() - other.getX1()) > 0 &&  (this.getX1() - other.getX1()) < maxSpeed) {
+					return true;
+				}
+			} else if (direction == 3){
+				if((other.getX1() - other.getX1()) < 0 &&  (this.getX1() - other.getX1()) > -maxSpeed) {
+					return true;
+				}
+			}
+		} else if (exactXIntersect.isNaN() && exactYIntersect.isNaN()) { // Collinear
 			
 			if(getY1() == getY2()) {
 				if( x1 > other.getX1() && x1 < other.getX2()) {
