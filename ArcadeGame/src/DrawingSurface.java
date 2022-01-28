@@ -46,15 +46,15 @@ public class DrawingSurface extends PApplet implements Serializable{
 		keysPressed = new boolean[4];
 		mobileEnemy = new MobileEnemy(MobileEnemy.mobileEnemyImages, 10d, 400d, 150d, 0d, 150d, -5d, 0d,(int)424d/4, (int)464d/4, 1);
 		sideShooter = new SideShooter(100,200,50,100,100,1); // TODO change bulletfrequency back to lower
-		shootingEnemy = new ShootingEnemy(10d, 200d, 10d, 131d, 96d);
+		shootingEnemy = new ShootingEnemy(10d, 500d, 500d, 131d, 96d);
 		bullets = new ArrayList<>();
 		gamePieces = new ArrayList<Collider>();
 		playerPieces = new ArrayList<Collider>();
-		gamePieces.add(player);
 		gamePieces.add(barrel);
-		gamePieces.add(mobileEnemy);
 		gamePieces.add(sideShooter);
 		gamePieces.add(shootingEnemy);
+		playerPieces.add(player);
+		playerPieces.add(mobileEnemy);
 	}
 	
 	
@@ -62,7 +62,9 @@ public class DrawingSurface extends PApplet implements Serializable{
 		
 
 		background(50);
-		
+		ArrayList<Collider> objects = new ArrayList<>();
+		objects.addAll(playerPieces);
+		objects.addAll(gamePieces);
 		leaderboard.draw(this);
 		if(time%sideShooter.bulletFrequency == 0) {
 			bullets.add(sideShooter.shoot());
@@ -74,7 +76,7 @@ public class DrawingSurface extends PApplet implements Serializable{
 			Collider bullet = bullets.get(i);
 			if (bullet.getX() <= width && bullet.getX() >= 0 && bullet.getY() <= height && bullet.getY() >= 0 && bullet.getHealth() > 0) {
 				bullet.draw(this);
-				bullet.act((ArrayList<Collider>)gamePieces);
+				bullet.act((ArrayList<Collider>)playerPieces);
 				if(bullet.getHealth() <= 0) {
 					bullets.remove(i);
 				}
@@ -83,20 +85,23 @@ public class DrawingSurface extends PApplet implements Serializable{
 			}
 		}
 		
-		for (int i = 0; i < gamePieces.size(); i++) {
-			if (gamePieces.get(i).getHealth() <= 0) {
-				if(gamePieces.get(i) instanceof Player) {
+		for (int i = 0; i < playerPieces.size(); i++) {
+			if (playerPieces.get(i).getHealth() <= 0) {
+				if(playerPieces.get(i) instanceof Player) {
 					setup();
 				} else {
-					gamePieces.remove(i);
+					playerPieces.remove(i);
 				}
 				
 			} else {
-				gamePieces.get(i).draw(this);
-				gamePieces.get(i).act(gamePieces);
+				playerPieces.get(i).draw(this);
+				playerPieces.get(i).act(objects);
 			}
 		}
-
+		for(int i = 0; i < gamePieces.size(); i++) {
+			gamePieces.get(i).draw(this);
+		}
+		
 		if(mobileEnemy.getHealth() <= 0 && !tester)
 		{
 			tester = true;

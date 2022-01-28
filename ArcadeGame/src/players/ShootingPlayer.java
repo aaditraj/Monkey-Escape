@@ -18,7 +18,7 @@ public class ShootingPlayer extends Player{
 	
 	public Bullet shoot(int mouseX, int mouseY)
 	{
-		Bullet mc = new Bullet(this.getCenterX(), this.getCenterY(), "player");
+		Bullet mc = new Bullet(this.getCenterX(), this.getCenterY(), "player",Bullet.bulletLocation);
 		mc.setVelocity(mouseX - this.getCenterX(), mouseY - this.getCenterY());
 		return mc;
 	}

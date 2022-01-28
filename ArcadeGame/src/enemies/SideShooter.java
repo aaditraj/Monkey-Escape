@@ -12,14 +12,14 @@ public class SideShooter extends Collider {
 		super(new String[] {"assets/SideShooter/SideShooter.png","assets/SideShooter/SideShooterLeft.png"}, Integer.MAX_VALUE,x,y,width,height, 0,0);
 		//-1 stands for right, 1 stands for left
 		if(direction == 1) {
-			goToNextImage();
+			goToImage(1); 
 		}
 		this.direction = direction;
 		this.bulletFrequency = bulletFrequency;
 		this.bulletSpeed = 10;
 	}
 	public Bullet shoot() {
-		Bullet mc = new Bullet(getCenterX(),getCenterY(),"SideShooter");
+		Bullet mc = new Bullet(getCenterX(),getCenterY(),"SideShooter",Bullet.bulletLocation);
 		mc.setVelocity(direction * bulletSpeed, 0);
 		return mc;
 	}
