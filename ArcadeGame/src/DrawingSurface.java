@@ -40,7 +40,7 @@ public class DrawingSurface extends PApplet implements Serializable{
 	}
 	public void setup() {
 		player = new ShootingPlayer(10,100,100,131d,96d,0,10,3000);
-		lava = new Lava(0, 0, 300, 650, 100, 0.1);
+		lava = new Lava(10, 0, 950, 2000, 50, 0.1);
 		barrel = new Barrel(10,300,300,500,50,0,0);
 		leaderboard = new Leaderboard();
 		keysPressed = new boolean[4];
@@ -102,12 +102,13 @@ public class DrawingSurface extends PApplet implements Serializable{
 			gamePieces.get(i).draw(this);
 		}
 		
-		if(mobileEnemy.getHealth() <= 0 && !tester)
+		if(lava.intersects(player))
 		{
-			tester = true;
+			player.changeHealth(-1);
 		}
-		
+		lava.increaseHeight(player);
 		lava.draw(this);
+		
 		move();
 		time++;
 	}

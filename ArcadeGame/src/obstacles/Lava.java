@@ -17,10 +17,12 @@ public class Lava extends Collider{
 		this.setPoint((int)getInitX(), (int)getInitY());
 	}
 	
-	public void increaseHeight()
+	public void increaseHeight(Collider player)
 	{
+		ArrayList<Collider> players = new ArrayList<Collider>();
+		players.add(player);
 		this.changeHeight(vy);
-		this.moveBy(vx, -vy, new ArrayList<Collider>());
+		this.moveBy(vx, -vy, players);
 //		this.act(colliders);;
 	}
 	
