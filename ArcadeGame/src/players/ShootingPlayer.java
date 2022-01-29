@@ -9,8 +9,8 @@ public class ShootingPlayer extends Player{
 	double defaultVx;
 	double defaultVy;
 	public ShootingPlayer(double health, double x, double y, double width, double height, double vx,
-			double vy, double reloadTime) {
-		super(new String[] {"assets/ShootingEnemy/Monkey.png"}, health, x, y, width, height, vx, vy,reloadTime);
+			double vy, int maxAmmo) {
+		super(new String[] {"assets/ShootingEnemy/Monkey.png"}, health, x, y, width, height, vx, vy, maxAmmo);
 		defaultVx = vx;
 		defaultVy = vy;
 		jumpHeight = 15;
@@ -18,10 +18,15 @@ public class ShootingPlayer extends Player{
 	
 	public Bullet shoot(int mouseX, int mouseY)
 	{
+		decreaseAmmo();
 		Bullet mc = new Bullet(this.getCenterX(), this.getCenterY(), "player",Bullet.bulletLocation);
 		mc.setVelocity(mouseX - this.getCenterX(), mouseY - this.getCenterY());
 		return mc;
+		
 	}
+	
+	
+	
 	public void jump(ArrayList<Collider> colliders) {
 		if(this.intersects(colliders)[2]) {
 			vy = -jumpHeight;
@@ -30,7 +35,17 @@ public class ShootingPlayer extends Player{
 	public void act(ArrayList<Collider> colliders) {
 		moveBy(vx,vy,colliders);
 		if (vy < defaultVy) {
-			vy++ ;
+			if (vy <= 0) {
+				vy *= 2.5;
+				if (vy <= -(jumpHeight * Math.pow(2.5, 3))) {
+					vy = 1;
+				}
+			} else {
+				vy *= 2;
+			}
+			
+		} else {
+			vy = defaultVy;
 		}
 	}
 	

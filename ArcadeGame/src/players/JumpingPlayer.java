@@ -4,8 +4,8 @@ import core.Collider;
 public class JumpingPlayer extends Player{
 	
 	public JumpingPlayer(String[] images, double health, double x, double y, double width, double height, double vx,
-			double vy, double reloadTime) {
-		super(images, health, x, y, width, height, vx, vy, reloadTime);
+			double vy, int maxAmmo) {
+		super(images, health, x, y, width, height, vx, vy, maxAmmo);
 	}
 	
 	public Collider shoot(int mouseX, int mouseY)

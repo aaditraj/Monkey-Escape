@@ -3,26 +3,44 @@ import core.Collider;
 import processing.core.PApplet;
 
 public abstract class Player extends Collider{
-	private double points, ammo; 
-	private double reloadTime; 
+	private double points;
+	private int maxAmmo;
+	private int currentAmmo;
+	public static double shootingPlayerReloadTime = 5; // per bullet 
 	private boolean isJumping; 
 	private float proportion; 
 	private float initHealth;
 
 
 	public Player(String[] images, double health, double x, double y, double width, double height, double vx,
-			double vy, double reloadTime) {
+			double vy, int maxAmmo) {
 		super(images, health, x, y, width, height, vx, vy);
-		this.reloadTime = reloadTime; 
 		this.setMobile(true);
 		proportion = (float)getWidth()/(float)getHealth(); 
 		initHealth = (float)getHealth();
+		this.maxAmmo = maxAmmo;
+		this.currentAmmo = maxAmmo;
 		// TODO Auto-generated constructor stub
 	}
 
 	public abstract Collider shoot(int mouseX, int mouseY);
 	
+
+	public void increaseAmmo() {
+		if (currentAmmo < maxAmmo) {
+			currentAmmo++;
+		}
+	}
 	
+	public void decreaseAmmo() {
+		currentAmmo--;
+	}
+	
+	public int getAmmo() {
+		return currentAmmo;
+	}
+
+		
 	public void draw(PApplet marker) {
 		super.draw(marker);
 		

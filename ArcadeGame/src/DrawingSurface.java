@@ -33,14 +33,18 @@ public class DrawingSurface extends PApplet implements Serializable{
 	ArrayList<Collider> bullets;
 	ArrayList<Collider> gamePieces;
 	ArrayList<Collider> playerPieces;
+	private PImage bg;
 	int playerSpeed = 10;
 	int time = 0;
 	boolean[] keysPressed;
 	public DrawingSurface() {
-		setup();
+
 	}
+
+	
+	
 	public void setup() {
-		player = new ShootingPlayer(10,100,100,131d,96d,0,10,3000);
+		player = new ShootingPlayer(10,100,100,131d,96d,0,10, 5);
 		lava = new Lava(10, 0, 950, 2000, 50, 0.1);
 		barrel = new Barrel(10,300,300,500,50,0,0);
 		leaderboard = new Leaderboard();
@@ -56,21 +60,25 @@ public class DrawingSurface extends PApplet implements Serializable{
 		gamePieces.add(shootingEnemy);
 		playerPieces.add(player);
 		playerPieces.add(mobileEnemy);
+		bg = loadImage("assets/Background.jpg");
 	}
 	
 	
 	public void draw() {
-		
-		background(this.loadImage("assets/Background.jpg"));
+//		background(bg);
+		image(bg, 0, 0, width, height);
 		ArrayList<Collider> objects = new ArrayList<>();
 		objects.addAll(playerPieces);
 		objects.addAll(gamePieces);
-		leaderboard.draw(this);
+//		leaderboard.draw(this);
 		if(time%sideShooter.bulletFrequency == 0) {
 			bullets.add(sideShooter.shoot());
 		}
 		if(time%40 == 0) {
 			bullets.add(shootingEnemy.drop());
+		}
+		if(time%Player.shootingPlayerReloadTime == 0) {
+			player.increaseAmmo();
 		}
 		for (int i = 0; i < bullets.size(); i++) {
 			Collider bullet = bullets.get(i);
@@ -115,8 +123,11 @@ public class DrawingSurface extends PApplet implements Serializable{
 	
 	
 	public void mousePressed() {
-		Bullet b = player.shoot(mouseX, mouseY);
-		bullets.add(b);
+		if (player.getAmmo() > 0) {
+			Bullet b = player.shoot(mouseX, mouseY);
+			bullets.add(b);
+		}
+		
 	}		
 	public void move() {
 		if(keysPressed[0]) {

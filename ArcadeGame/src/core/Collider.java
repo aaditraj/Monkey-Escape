@@ -97,23 +97,10 @@ public class Collider {
 		 * collides with player.
 		 */
 		public boolean intersects(Collider collider) {
-			Line[] otherLines = collider.getLines();
-			Line[] lines = this.getLines();
-			for (int j = 0; j < 4; j++) {
-				Line line = lines[j]; 
-				// top, right, bottom, left, vert middle top, vert middle bottom, 
-				// horiz middle left, horiz middle right
-				for (int k = 0; k < 4; k++) {
-					Line otherLine = otherLines[k];
-					if (line.intersects(otherLine)) {
-						
-					
-						
-						return true;
-					}
-				}
-			}
-			return false;
+			Collider other2 = (Collider) collider;
+			return (other2.isPointInside(getX(), getY()) || other2.isPointInside(getX() + width, getY()) || other2.isPointInside(getX() + width, getY() + height) || other2.isPointInside(getX(), getY() + height)
+					|| isPointInside(other2.getX(), other2.getY()) || isPointInside(other2.getX() + other2.getWidth(), other2.getY()) || 
+					isPointInside(other2.getX() + other2.getWidth(), other2.getY() + other2.getHeight()) || isPointInside(other2.getX(), other2.getY() + other2.getHeight()));
 		}
 		
 		
