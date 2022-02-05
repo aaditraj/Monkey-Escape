@@ -8,6 +8,7 @@ public class ShootingPlayer extends Player{
 	int jumpHeight;
 	double defaultVx;
 	double defaultVy;
+	int points;
 	public ShootingPlayer(double health, double x, double y, double width, double height, double vx,
 			double vy, int maxAmmo) {
 		super(new String[] {"assets/ShootingEnemy/Monkey.png"}, health, x, y, width, height, vx, vy, maxAmmo);
@@ -48,7 +49,9 @@ public class ShootingPlayer extends Player{
 			vy = defaultVy;
 		}
 	}
-	
+	public void changePoints(int amount) {
+		points+=amount;
+	}
 	public double collide(Collider collider) {
 		if (collider instanceof Bullet) {
 			Bullet bullet = (Bullet) collider;

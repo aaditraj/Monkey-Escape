@@ -52,7 +52,6 @@ public abstract class Player extends Collider{
 		
 		marker.fill(marker.color(0,0,0));
 
-		
 		marker.rect((float)getX(), (float)getY() - (float)getHeight()/2, (float)getWidth(), 10);
 		marker.fill(marker.color(0,255,0));
 		marker.rect((float)getX(), (float)getY() - (float)getHeight()/2, (float)(getWidth() - proportion*Math.abs(initHealth-getHealth())), 10);

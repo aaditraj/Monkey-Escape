@@ -18,7 +18,7 @@ public class MobileEnemy extends Collider {
 			"assets/MobileEnemy/mad-right-1.png", "assets/MobileEnemy/mad-right-2.png"};
 	
 	// direction = 1 --> moving lateral, direction=0 --> moving vertical
-	public MobileEnemy(String[] images, double health, double startX, double startY,  double endX, double endY, double vx, double vy, double width, double height, int direction) {
+	public MobileEnemy(String[] images, double health, double startX, double startY,  double endX, double endY, double vx, double vy, double width, double height) {
 		super(images, health, startX, startY, width, height, vx, vy);
 		this.endX = endX;
 		this.endY = endY;
@@ -31,7 +31,7 @@ public class MobileEnemy extends Collider {
 	public void act(ArrayList<Collider> colliders) {
 		super.moveBy(vx, vy, colliders);
 		double largerX = Math.max(getInitX(), endX);
-		double smallerX = Math.min(getInitY(), endY);
+		double smallerX = Math.min(getInitX(), endX);
 		double largerY = Math.max(getInitY(), endY);
 		double smallerY = Math.min(getInitY(), endY);
 		if (getX() >= largerX || getX() <= smallerX) {

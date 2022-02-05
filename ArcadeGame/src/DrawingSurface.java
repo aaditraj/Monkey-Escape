@@ -10,25 +10,27 @@ import obstacles.Barrel;
 import obstacles.Lava;
 import players.Player;
 import players.ShootingPlayer;
+import powerups.Coin;
 import processing.core.PApplet;
 import processing.core.PImage;
 import startpage.Leaderboard;
-
+import obstacles.Platform;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Serializable;
 
 
-public class DrawingSurface extends PApplet implements Serializable{
+public class DrawingSurface extends PApplet{
 
 	private Leaderboard leaderboard;
 	private MobileEnemy mobileEnemy;
 	private ShootingPlayer player;
 	private Lava lava;
-	private Barrel barrel; 
+	private Platform platform; 
 	private ShootingEnemy shootingEnemy;
 	private SideShooter sideShooter;
+	private Coin coin;
 	private Boolean tester = false;
 	ArrayList<Collider> bullets;
 	ArrayList<Collider> gamePieces;
@@ -46,18 +48,20 @@ public class DrawingSurface extends PApplet implements Serializable{
 	public void setup() {
 		player = new ShootingPlayer(10,100,100,131d,96d,0,10, 5);
 		lava = new Lava(10, 0, 950, 2000, 50, 0.1);
-		barrel = new Barrel(10,300,300,500,50,0,0);
+		coin = new Coin(300,200);
+		platform = new Platform(300,300,500,50,false);
 		leaderboard = new Leaderboard();
 		keysPressed = new boolean[4];
-		mobileEnemy = new MobileEnemy(MobileEnemy.mobileEnemyImages, 10d, 400d, 150d, 0d, 150d, -5d, 0d,(int)424d/4, (int)464d/4, 1);
+		mobileEnemy = new MobileEnemy(MobileEnemy.mobileEnemyImages, 10d, 400d, 150d, 0d, 150d, -5d, 0d,(int)424d/4, (int)464d/4);
 		sideShooter = new SideShooter(100,200,50,100,100,1); // TODO change bulletfrequency back to lower
 		shootingEnemy = new ShootingEnemy(10d, 500d, 100d, 131d, 96d);
 		bullets = new ArrayList<>();
 		gamePieces = new ArrayList<Collider>();
 		playerPieces = new ArrayList<Collider>();
-		gamePieces.add(barrel);
+		gamePieces.add(platform);
 		gamePieces.add(sideShooter);
 		gamePieces.add(shootingEnemy);
+		gamePieces.add(coin);
 		playerPieces.add(player);
 		playerPieces.add(mobileEnemy);
 		bg = loadImage("assets/Background.jpg");
@@ -74,7 +78,7 @@ public class DrawingSurface extends PApplet implements Serializable{
 		if(time%sideShooter.bulletFrequency == 0) {
 			bullets.add(sideShooter.shoot());
 		}
-		if(time%40 == 0) {
+		if(time%20 == 0) {
 			bullets.add(shootingEnemy.drop());
 		}
 		if(time%Player.shootingPlayerReloadTime == 0) {
@@ -107,7 +111,17 @@ public class DrawingSurface extends PApplet implements Serializable{
 			}
 		}
 		for(int i = 0; i < gamePieces.size(); i++) {
-			gamePieces.get(i).draw(this);
+			if(gamePieces.get(i) instanceof Coin) {
+				if(coin.intersects(player)) {
+					coin.collide(player);
+					gamePieces.remove(i);
+				} else {
+					gamePieces.get(i).draw(this);
+				}
+			} else {
+				gamePieces.get(i).draw(this);
+			}
+			
 		}
 		
 		if(lava.intersects(player))
