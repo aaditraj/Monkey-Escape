@@ -14,7 +14,7 @@ public class ShootingPlayer extends Player{
 		super(new String[] {"assets/ShootingEnemy/Monkey.png"}, health, x, y, width, height, vx, vy, maxAmmo);
 		defaultVx = vx;
 		defaultVy = vy;
-		jumpHeight = 15;
+		jumpHeight = 20;
 	}
 	
 	public Bullet shoot(int mouseX, int mouseY)

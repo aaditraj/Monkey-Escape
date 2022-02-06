@@ -7,6 +7,7 @@ import core.Collider;
 import enemies.MobileEnemy;
 import enemies.ShootingEnemy;
 import enemies.SideShooter;
+import obstacles.Lava;
 import obstacles.Platform;
 import players.ShootingPlayer;
 import powerups.Coin;
@@ -30,6 +31,7 @@ public class Level1 extends PApplet {
 	private ShootingEnemy dropper2;
 	int playerSpeed;
 	private Collider endPiece;
+	Lava lava;
 	ArrayList<Collider> staticPieces = new ArrayList<>();
 	ArrayList<Collider> mobilePieces = new ArrayList<>();
 	ArrayList<Collider> bullets = new ArrayList<>();
@@ -49,10 +51,12 @@ public class Level1 extends PApplet {
 		shooter1 = new SideShooter(10,800,70, 100,100, 1);
 		shooter2 = new SideShooter(10,400, 70, 100,100, 1);
 		player = new ShootingPlayer(30,200,700,100,100,0,10,10);
-		platform1 = new Platform(800,700,500,20,false);
-		platform2 = new Platform(800,300,500,20,false);
-		platform3 = new Platform(10,500,500,20,false);
-		platform4 = new Platform(10,900,500,20,false);
+		platform1 = new Platform(800,700,500,40,false);
+		platform2 = new Platform(800,300,500,40,false);
+		platform3 = new Platform(10,500,500,40,false);
+		platform4 = new Platform(10,900,600,40,false);
+		//platform6 = new Platform(10,900,100,40,false);
+		lava = new Lava(10, 0, 950, 2000, 50, 0.1);
 		playerSpeed = 10;
 		staticPieces.add(platform1);
 		staticPieces.add(platform2);
@@ -69,6 +73,7 @@ public class Level1 extends PApplet {
 	}
 	public void draw() {
 		background(50);
+		move();
 		time++;
 		objects = new ArrayList<>();
 		objects.addAll(mobilePieces);
@@ -107,6 +112,12 @@ public class Level1 extends PApplet {
 		for(int i = 0; i < staticPieces.size(); i++) {
 			staticPieces.get(i).draw(this);
 		}
+		if(lava.intersects(player))
+		{
+			player.changeHealth(-1);
+		}
+		lava.increaseHeight(player);
+		lava.draw(this);
 	}
 	public void mousePressed() {
 		if (player.getAmmo() > 0) {
