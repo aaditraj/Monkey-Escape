@@ -9,7 +9,7 @@ import processing.core.PApplet;
 
 public class LevelRunner {
 	public static void main(String args[]) {
-		Level2 drawing = new Level2();
+		Level1 drawing = new Level1();
 //		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		PApplet.runSketch(new String[]{""}, drawing);
 		PSurfaceAWT surf = (PSurfaceAWT) drawing.getSurface();

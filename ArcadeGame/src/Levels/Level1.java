@@ -86,7 +86,7 @@ public class Level1 extends PApplet {
 			player.increaseAmmo();
 		}
 		for(int i = 0; i < mobilePieces.size(); i++) {
-			if(mobilePieces.get(i).getHealth() == 0) {
+			if(mobilePieces.get(i).getHealth() <= 0) {
 				if(mobilePieces.get(i) instanceof ShootingPlayer) {
 					setup();
 				} else {
