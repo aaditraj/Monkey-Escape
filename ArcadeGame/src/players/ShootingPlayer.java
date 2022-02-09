@@ -14,9 +14,15 @@ public class ShootingPlayer extends Player{
 		super(new String[] {"assets/ShootingEnemy/Monkey.png"}, health, x, y, width, height, vx, vy, maxAmmo);
 		defaultVx = vx;
 		defaultVy = vy;
-		jumpHeight = 50;
+		jumpHeight = 15;
 	}
-	
+	public ShootingPlayer(double health, double x, double y, double width, double height, double vx,
+			double vy, int maxAmmo,int jumpHeight) {
+		super(new String[] {"assets/ShootingEnemy/Monkey.png"}, health, x, y, width, height, vx, vy, maxAmmo);
+		defaultVx = vx;
+		defaultVy = vy;
+		this.jumpHeight = jumpHeight;
+	}
 	public Bullet shoot(int mouseX, int mouseY)
 	{
 		decreaseAmmo();
@@ -36,13 +42,13 @@ public class ShootingPlayer extends Player{
 	public void act(ArrayList<Collider> colliders) {
 		moveBy(vx,vy,colliders);
 		if (vy < defaultVy) {
-			if (vy <= 0) {
-				vy *= 2.5;
-				if (vy <= -(jumpHeight * Math.pow(2.5, 3))) {
-					vy = 1;
+			if(vy <= 0) {
+				vy *= 0.5;
+				if (vy > -0.1) {
+					vy *= -1;
 				}
 			} else {
-				vy *= 2;
+				vy *= 5;
 			}
 			
 		} else {

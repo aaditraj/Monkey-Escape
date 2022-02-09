@@ -56,10 +56,10 @@ public class Level2 extends PApplet {
 		enemy1 = new MobileEnemy(MobileEnemy.mobileEnemyImages,10,1000,500,750,500,-10,0,100,100);
 		enemy2 = new MobileEnemy(MobileEnemy.mobileEnemyImages,10,1000,300,750,200,-10,0,100,100);
 		enemy3 = new MobileEnemy(MobileEnemy.mobileEnemyImages,10,1000,700,750,200,-10,0,100,100);
-		shooter1 = new SideShooter(10,850,70, 80,50, 1);
-		shooter2 = new SideShooter(10,450, 70, 80,50, 1);
+		shooter1 = new SideShooter(10,850,50, 80,50, 1);
+		shooter2 = new SideShooter(10,450, 50, 80,50, 1);
 		
-		shooter3 = new SideShooter(1100,550, 70, 80,50, 0);
+		shooter3 = new SideShooter(1100,550, 50, 80,50, -1);
 		dropper1 = new ShootingEnemy(1500, 300, 0, 75, 75);
 		coin2 = new Coin(10,775);
 		coin1 = new Coin(10,375);

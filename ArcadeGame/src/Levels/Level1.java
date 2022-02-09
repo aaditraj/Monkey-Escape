@@ -50,10 +50,10 @@ public class Level1 extends PApplet {
 		enemy2 = new MobileEnemy(MobileEnemy.mobileEnemyImages,10,1200,200,800,200,-10,0,100,100);
 		shooter1 = new SideShooter(10,800,70, 100,100, 1);
 		shooter2 = new SideShooter(10,400, 70, 100,100, 1);
-		player = new ShootingPlayer(30,200,700,100,100,0,10,10);
-		platform1 = new Platform(800,700,500,40,false);
-		platform2 = new Platform(800,300,500,40,false);
-		platform3 = new Platform(10,500,500,40,false);
+		player = new ShootingPlayer(10,200,700,100,100,0,10,10,125);
+		platform1 = new Platform(800,700,600,40,false);
+		platform2 = new Platform(800,300,600,40,false);
+		platform3 = new Platform(10,500,600,40,false);
 		platform4 = new Platform(10,900,600,40,false);
 		//platform6 = new Platform(10,900,100,40,false);
 		lava = new Lava(10, 0, 950, 2000, 50, 0.1);
@@ -101,7 +101,7 @@ public class Level1 extends PApplet {
 			Collider bullet = bullets.get(i);
 			if (bullet.getX() <= width && bullet.getX() >= 0 && bullet.getY() <= height && bullet.getY() >= 0 && bullet.getHealth() > 0) {
 				bullet.draw(this);
-				bullet.act((ArrayList<Collider>)mobilePieces);
+				bullet.act((ArrayList<Collider>)objects);
 				if(bullet.getHealth() <= 0) {
 					bullets.remove(i);
 				}
