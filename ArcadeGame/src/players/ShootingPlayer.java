@@ -14,7 +14,7 @@ public class ShootingPlayer extends Player{
 		super(new String[] {"assets/ShootingEnemy/Monkey.png"}, health, x, y, width, height, vx, vy, maxAmmo);
 		defaultVx = vx;
 		defaultVy = vy;
-		jumpHeight = 15;
+		jumpHeight = 50;
 	}
 	public ShootingPlayer(double health, double x, double y, double width, double height, double vx,
 			double vy, int maxAmmo,int jumpHeight) {
@@ -44,7 +44,7 @@ public class ShootingPlayer extends Player{
 		if (vy < defaultVy) {
 			if(vy <= 0) {
 				vy *= 0.5;
-				if (vy > -0.1) {
+				if (vy > -0.5) {
 					vy *= -1;
 				}
 			} else {
