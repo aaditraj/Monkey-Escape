@@ -25,6 +25,11 @@ public class MobileEnemy extends Collider {
 		this.setMobile(true);
 		proportion = (float)getWidth()/(float)getHealth(); 
 		initHealth = (float)getHealth();
+		if (startX < endX) {
+			goToImage(1);
+		} else {
+			goToImage(0);
+		}
 	}
 	
 	// call this method before draw
