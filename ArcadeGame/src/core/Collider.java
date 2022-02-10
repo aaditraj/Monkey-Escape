@@ -148,6 +148,7 @@ public class Collider {
 		}
 		
 		
+		
 		/**
 		 * Moves this shape by a given horizontal and vertical distance.
 		 * 
@@ -173,6 +174,10 @@ public class Collider {
 			if (imageIndex >= 0 && imageIndex < images.length) {
 				currentImage = imageIndex;
 			}
+		}
+		
+		public void setImage(String[] images) {
+			this.images = images;
 		}
 		
 		public void changeHealth(double d) {
