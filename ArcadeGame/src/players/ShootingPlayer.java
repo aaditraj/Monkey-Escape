@@ -43,12 +43,12 @@ public class ShootingPlayer extends Player{
 		moveBy(vx,vy,colliders);
 		if (vy < defaultVy) {
 			if(vy <= 0) {
-				vy *= 0.5;
+				vy *= 0.6;
 				if (vy > -0.5) {
 					vy *= -1;
 				}
 			} else {
-				vy *= 5;
+				vy *= 4;
 			}
 			
 		} else {
