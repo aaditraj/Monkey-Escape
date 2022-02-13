@@ -171,16 +171,16 @@ public class Level2 extends PApplet {
 	}		
 	public void move() {
 		if(keysPressed[0]) {
-			player.moveBy(0, -playerSpeed, objects);
+			player.moveBy(0, -playerSpeed*1.2, objects);
 		}
 		if(keysPressed[1]) {
-			player.moveBy(0, playerSpeed,  objects);
+			player.moveBy(0, playerSpeed*1.2,  objects);
 		}
 		if(keysPressed[2]) {
-			player.moveBy(playerSpeed, 0, objects);
+			player.moveBy(playerSpeed*1.2, 0, objects);
 		} 
 		if(keysPressed[3]) {
-			player.moveBy(-playerSpeed,0, objects);
+			player.moveBy(-playerSpeed*1.2,0, objects);
 		}
 		if(keysPressed[4]) {
 			player.jump(objects);
