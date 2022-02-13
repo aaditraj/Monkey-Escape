@@ -55,6 +55,7 @@ public class Level1 extends PApplet {
 		platform2 = new Platform(800,300,600,40,false);
 		platform3 = new Platform(10,500,600,40,false);
 		platform4 = new Platform(10,900,600,40,false);
+		endPiece = new Collider(new String[] {"assets/Bullet.png"},20,1000,200,100,100,0,0);
 		//platform6 = new Platform(10,900,100,40,false);
 		lava = new Lava(10, 0, 950, 2000, 50, 0.1);
 		playerSpeed = 10;
@@ -118,6 +119,9 @@ public class Level1 extends PApplet {
 		}
 		lava.increaseHeight(player);
 		lava.draw(this);
+		if(player.intersects(endPiece)) {
+			System.out.println("Finished");
+		}
 	}
 	public void mousePressed() {
 		if (player.getAmmo() > 0) {

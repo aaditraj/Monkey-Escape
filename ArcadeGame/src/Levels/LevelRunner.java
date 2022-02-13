@@ -8,9 +8,10 @@ import processing.awt.PSurfaceAWT;
 import processing.core.PApplet;
 
 public class LevelRunner {
+	static PApplet drawing;
 	public static void main(String args[]) {
-		Level3 drawing = new Level3();
 //		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		drawing = new Level1();
 		PApplet.runSketch(new String[]{""}, drawing);
 		PSurfaceAWT surf = (PSurfaceAWT) drawing.getSurface();
 		PSurfaceAWT.SmoothCanvas canvas = (PSurfaceAWT.SmoothCanvas) surf.getNative();

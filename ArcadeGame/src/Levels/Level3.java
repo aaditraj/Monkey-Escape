@@ -60,7 +60,7 @@ public class Level3 extends PApplet {
 		objects = new ArrayList<>();
 		keysPressed = new boolean[5];
 
-		player = new ShootingPlayer(10,0,900,100d,100d,0,10, 3);
+		player = new ShootingPlayer(10,0,900,100d,100d,0,10, 3,150);
 	
 		platformBottom = new Platform(0,1000,1050,40,false);
 		enemy1 = new MobileEnemy(MobileEnemy.mobileEnemyImages,10,525,900,900,900,15,0,125,125);
@@ -184,7 +184,7 @@ public class Level3 extends PApplet {
 			Collider bullet = bullets.get(i);
 			if (bullet.getX() <= width && bullet.getX() >= 0 && bullet.getY() <= height && bullet.getY() >= 0 && bullet.getHealth() > 0) {
 				bullet.draw(this);
-				if (((Bullet) bullet).getOwner() != "player") {
+				if (!((Bullet) bullet).getOwner().equals("player")) {
 					ArrayList<Collider> playerList = new ArrayList<Collider>();
 					playerList.add(player);
 					bullet.act(playerList);
