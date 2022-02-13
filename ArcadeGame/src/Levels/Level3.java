@@ -13,7 +13,6 @@ import powerups.Coin;
 import processing.core.PApplet;
 
 public class Level3 extends Level {
-	private ShootingPlayer player;
 	private MobileEnemy enemy1;
 	private MobileEnemy enemy2;
 	private SideShooter shooter1;
@@ -49,7 +48,6 @@ public class Level3 extends Level {
 		totalPieces = new ArrayList<>();
 		objects = new ArrayList<>();
 		keysPressed = new boolean[5];
-
 		player = new ShootingPlayer(10,0,900,100d,100d,0,10, 3,150);
 	
 		platformBottom = new Platform(0,1000,1050,40,false);
