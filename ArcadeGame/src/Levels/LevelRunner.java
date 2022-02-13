@@ -11,7 +11,7 @@ public class LevelRunner {
 	static PApplet drawing;
 	public static void main(String args[]) {
 //		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		drawing = new Level1();
+		drawing = new Level2();
 		PApplet.runSketch(new String[]{""}, drawing);
 		PSurfaceAWT surf = (PSurfaceAWT) drawing.getSurface();
 		PSurfaceAWT.SmoothCanvas canvas = (PSurfaceAWT.SmoothCanvas) surf.getNative();
