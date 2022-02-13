@@ -8,8 +8,12 @@ import processing.awt.PSurfaceAWT;
 import processing.core.PApplet;
 
 public class LevelRunner {
+	
+	
+	
+	
 	public static void main(String args[]) {
-		Level3 drawing = new Level3();
+		Level2 drawing = new Level2();
 //		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		PApplet.runSketch(new String[]{""}, drawing);
 		PSurfaceAWT surf = (PSurfaceAWT) drawing.getSurface();
@@ -18,7 +22,7 @@ public class LevelRunner {
 
 		
 		window.setSize(1500, 1500);
-		if (drawing instanceof Level3) {
+		if (drawing instanceof Level2) {
 			window.setSize(1050, 1500);
 		}
 		window.setMinimumSize(new Dimension(100,100));
