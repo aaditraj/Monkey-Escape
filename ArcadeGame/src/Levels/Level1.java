@@ -13,39 +13,29 @@ import players.ShootingPlayer;
 import powerups.Coin;
 import processing.core.PApplet;
 
-public class Level1 extends PApplet {
-	private ShootingPlayer player;
-	private MobileEnemy enemy1;
-	private MobileEnemy enemy2;
-	private SideShooter shooter1;
-	private SideShooter shooter2;
-	private Platform platform1;
-	private Platform platform2;
-	private Platform platform3;
-	private Platform platform4;
-	private Coin coin1;
-	private Coin coin2;
-	private Coin coin3;
-	private Coin coin4;
-	private ShootingEnemy dropper1;
-	private ShootingEnemy dropper2;
-	int playerSpeed;
-	private Collider endPiece;
+public class Level1 extends Level{
+	MobileEnemy enemy1;
+	MobileEnemy enemy2;
+	SideShooter shooter1;
+	SideShooter shooter2;
+	Platform platform1;
+	Platform platform2;
+	Platform platform3;
+	Platform platform4;
+	Coin coin1;
+	Coin coin2;
+	Coin coin3;
+	Coin coin4;
+	ShootingEnemy dropper1;
+	ShootingEnemy dropper2;
+	Collider endPiece;
 	Lava lava;
-	ArrayList<Collider> staticPieces = new ArrayList<>();
-	ArrayList<Collider> mobilePieces = new ArrayList<>();
-	ArrayList<Collider> bullets = new ArrayList<>();
-	ArrayList<Collider> totalPieces = new ArrayList<>();
-	ArrayList<Collider> objects = new ArrayList<>();
-	int time = 0;
-	private boolean[] keysPressed;
 	public void setup() {
 		staticPieces = new ArrayList<>();
 		mobilePieces = new ArrayList<>();
 		bullets = new ArrayList<>();
 		totalPieces = new ArrayList<>();
 		objects = new ArrayList<>();
-		keysPressed = new boolean[4];
 		enemy1 = new MobileEnemy(MobileEnemy.mobileEnemyImages,10,1200,600,800,600,-10,0,100,100);
 		enemy2 = new MobileEnemy(MobileEnemy.mobileEnemyImages,10,1200,200,800,200,-10,0,100,100);
 		shooter1 = new SideShooter(10,800,70, 100,100, 1);
@@ -72,9 +62,8 @@ public class Level1 extends PApplet {
 	public void setPlayer(ShootingPlayer player) {
 		this.player = player;
 	}
-	public void draw() {
-		background(50);
-		move();
+	public void draw(PApplet marker) {
+		marker.background(50);
 		time++;
 		objects = new ArrayList<>();
 		objects.addAll(mobilePieces);
@@ -95,13 +84,13 @@ public class Level1 extends PApplet {
 				}
 			} else {
 				mobilePieces.get(i).act(objects);
-				mobilePieces.get(i).draw(this);
+				mobilePieces.get(i).draw(marker);
 			}
 		}
 		for(int i = 0; i < bullets.size(); i++) {
 			Collider bullet = bullets.get(i);
-			if (bullet.getX() <= width && bullet.getX() >= 0 && bullet.getY() <= height && bullet.getY() >= 0 && bullet.getHealth() > 0) {
-				bullet.draw(this);
+			if (bullet.getX() <= marker.width && bullet.getX() >= 0 && bullet.getY() <= marker.height && bullet.getY() >= 0 && bullet.getHealth() > 0) {
+				bullet.draw(marker);
 				bullet.act((ArrayList<Collider>)objects);
 				if(bullet.getHealth() <= 0) {
 					bullets.remove(i);
@@ -111,106 +100,16 @@ public class Level1 extends PApplet {
 			}
 		}
 		for(int i = 0; i < staticPieces.size(); i++) {
-			staticPieces.get(i).draw(this);
+			staticPieces.get(i).draw(marker);
 		}
 		if(lava.intersects(player))
 		{
 			player.changeHealth(-1);
 		}
 		lava.increaseHeight(player);
-		lava.draw(this);
+		lava.draw(marker);
 		if(player.intersects(endPiece)) {
-			System.out.println("Finished");
+			isFinished = true;
 		}
-	}
-	public void mousePressed() {
-		if (player.getAmmo() > 0) {
-			Bullet b = player.shoot(mouseX, mouseY);
-			bullets.add(b);
-		}
-		
 	}		
-	public void move() {
-		if(keysPressed[0]) {
-			player.moveBy(0, -playerSpeed, objects);
-		}
-		if(keysPressed[1]) {
-			player.moveBy(0, playerSpeed,  objects);
-		}
-		if(keysPressed[2]) {
-			player.moveBy(playerSpeed, 0, objects);
-		} 
-		if(keysPressed[3]) {
-			player.moveBy(-playerSpeed,0, objects);
-		}
-	}
-	public void keyPressed() {
-		if (keyCode == UP) { 
-			keysPressed[0] = true;
-			
-		} 
-		if (keyCode == DOWN) { 
-			keysPressed[1] = true;
-		}
-		if (keyCode == RIGHT) {
-			keysPressed[2] = true;
-
-		}
-		if (keyCode == LEFT) {
-			keysPressed[3] = true;
-
-		}
-		if (key == 'w') {
-			keysPressed[0] = true;
-
-		} 
-		if (key == 'd') {
-			keysPressed[2] = true;
-
-		}
-		if (key == 's') {
-			keysPressed[1] = true;
-		
-		}
-		if (key == 'a') {
-			keysPressed[3] = true;
-	
-		}
-	}
-	public void keyReleased() {
-		if (keyCode == UP) { 
-			keysPressed[0] = false;
-			
-		} 
-		if (keyCode == DOWN) { 
-			keysPressed[1] = false;
-		}
-		if (keyCode == RIGHT) {
-			keysPressed[2] = false;
-
-		}
-		if (keyCode == LEFT) {
-			keysPressed[3] = false;
-
-		}
-		if (key == 'w') {
-			keysPressed[0] = false;
-
-		} 
-		if (key == 'd') {
-			keysPressed[2] = false;
-
-		}
-		if (key == 's') {
-			keysPressed[1] = false;
-		
-		}
-		if (key == 'a') {
-			keysPressed[3] = false;
-	
-		}
-		if(key == ' ') {
-			player.jump(objects);
-		}
-	}
 }

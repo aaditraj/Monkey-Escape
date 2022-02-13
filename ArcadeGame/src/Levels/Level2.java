@@ -12,8 +12,7 @@ import players.ShootingPlayer;
 import powerups.Coin;
 import processing.core.PApplet;
 
-public class Level2 extends PApplet {
-	private ShootingPlayer player;
+public class Level2 extends Level {
 	private MobileEnemy enemy1;
 	private MobileEnemy enemy2;
 	private MobileEnemy enemy3;
@@ -37,15 +36,7 @@ public class Level2 extends PApplet {
 	private Coin coin4;
 	private ShootingEnemy dropper1;
 	private ShootingEnemy dropper2;
-	int playerSpeed;
 	private Collider endPiece;
-	ArrayList<Collider> staticPieces = new ArrayList<>();
-	ArrayList<Collider> mobilePieces = new ArrayList<>();
-	ArrayList<Collider> bullets = new ArrayList<>();
-	ArrayList<Collider> totalPieces = new ArrayList<>();
-	ArrayList<Collider> objects = new ArrayList<>();
-	int time = 0;
-	private boolean[] keysPressed;
 	public void setup() {
 		staticPieces = new ArrayList<>();
 		mobilePieces = new ArrayList<>();
@@ -102,8 +93,7 @@ public class Level2 extends PApplet {
 	public void setPlayer(ShootingPlayer player) {
 		this.player = player;
 	}
-	public void draw() {
-		background(50);
+	public void draw(PApplet marker) {
 		time++;
 		objects = new ArrayList<>();
 		objects.addAll(mobilePieces);
@@ -141,13 +131,13 @@ public class Level2 extends PApplet {
 				}
 			} else {
 				mobilePieces.get(i).act(objects);
-				mobilePieces.get(i).draw(this);
+				mobilePieces.get(i).draw(marker);
 			}
 		}
 		for(int i = 0; i < bullets.size(); i++) {
 			Collider bullet = bullets.get(i);
-			if (bullet.getX() <= width && bullet.getX() >= 0 && bullet.getY() <= height && bullet.getY() >= 0 && bullet.getHealth() > 0) {
-				bullet.draw(this);
+			if (bullet.getX() <= marker.width && bullet.getX() >= 0 && bullet.getY() <= marker.height && bullet.getY() >= 0 && bullet.getHealth() > 0) {
+				bullet.draw(marker);
 				bullet.act((ArrayList<Collider>)mobilePieces);
 				if(bullet.getHealth() <= 0) {
 					bullets.remove(i);
@@ -157,106 +147,8 @@ public class Level2 extends PApplet {
 			}
 		}
 		for(int i = 0; i < staticPieces.size(); i++) {
-			staticPieces.get(i).draw(this);
+			staticPieces.get(i).draw(marker);
 		}
 		
-		 move();
-	}
-	public void mousePressed() {
-		if (player.getAmmo() > 0) {
-			Bullet b = player.shoot(mouseX, mouseY);
-			bullets.add(b);
-		}
-		
-	}		
-	public void move() {
-		if(keysPressed[0]) {
-			player.moveBy(0, -playerSpeed*1.2, objects);
-		}
-		if(keysPressed[1]) {
-			player.moveBy(0, playerSpeed*1.2,  objects);
-		}
-		if(keysPressed[2]) {
-			player.moveBy(playerSpeed*1.2, 0, objects);
-		} 
-		if(keysPressed[3]) {
-			player.moveBy(-playerSpeed*1.2,0, objects);
-		}
-		if(keysPressed[4]) {
-			player.jump(objects);
-		}
-	}
-	public void keyPressed() {
-		if (keyCode == UP) { 
-			keysPressed[0] = true;
-			
-		} 
-		if (keyCode == DOWN) { 
-			keysPressed[1] = true;
-		}
-		if (keyCode == RIGHT) {
-			keysPressed[2] = true;
-
-		}
-		if (keyCode == LEFT) {
-			keysPressed[3] = true;
-
-		}
-		if (key == 'w') {
-			keysPressed[0] = true;
-
-		} 
-		if (key == 'd') {
-			keysPressed[2] = true;
-
-		}
-		if (key == 's') {
-			keysPressed[1] = true;
-		
-		}
-		if (key == 'a') {
-			keysPressed[3] = true;
-	
-		}if(key == ' ') {
-			keysPressed[4] = true;
-		
-		}
-	}
-	public void keyReleased() {
-		if (keyCode == UP) { 
-			keysPressed[0] = false;
-			
-		} 
-		if (keyCode == DOWN) { 
-			keysPressed[1] = false;
-		}
-		if (keyCode == RIGHT) {
-			keysPressed[2] = false;
-
-		}
-		if (keyCode == LEFT) {
-			keysPressed[3] = false;
-
-		}
-		if (key == 'w') {
-			keysPressed[0] = false;
-
-		} 
-		if (key == 'd') {
-			keysPressed[2] = false;
-
-		}
-		if (key == 's') {
-			keysPressed[1] = false;
-		
-		}
-		if (key == 'a') {
-			keysPressed[3] = false;
-	
-		}
-		if(key == ' ') {
-			keysPressed[4] = false;
-		
-		}
 	}
 }
