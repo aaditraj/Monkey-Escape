@@ -27,7 +27,7 @@ public class Level3 extends Level {
 	private Platform platform5;
 	private Platform platform6;
 	private Platform platformTop;
-	Collider endPiece;
+	private Collider endPiece;
 	private Coin coin1;
 	private Coin coin2;
 	private Coin coin3;
@@ -80,6 +80,9 @@ public class Level3 extends Level {
 		enemy2 = new MobileEnemy(MobileEnemy.mobileEnemyImages, 10d, 275d, 100d, 600d, 100d, 15d, 0d,424d/4, 464d/4);
 		dropper = new ShootingEnemy(1500, 0, 0, 75, 75);
 		coin6 = new Coin(90, 10);
+		
+		endPiece = new Collider(new String[] {"assets/Bullet.png"},275,1050,200,100,100,0,0);
+
 
 		playerSpeed = 15;
 		staticPieces.add(platform2);
@@ -188,6 +191,9 @@ public class Level3 extends Level {
 		}
 		for(int i = 0; i < staticPieces.size(); i++) {
 			staticPieces.get(i).draw(marker);
+		}
+		if(player.intersects(endPiece)) {
+			isFinished = true;
 		}
 	}
 }
