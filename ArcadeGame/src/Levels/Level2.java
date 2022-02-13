@@ -65,6 +65,9 @@ public class Level2 extends Level {
 		platform6 = new Platform(650,240,500,40,false);
 		platform7 = new Platform(10,500,500,40,false);
 		platform8 = new Platform(100,350,400,40,false);
+		endPiece = new Collider(new String[] {"assets/Bullet.png"},20,1000,220,100,100,0,0);
+
+		
 		playerSpeed = 10;
 		staticPieces.add(platform1);
 		staticPieces.add(platform2);
@@ -107,6 +110,12 @@ public class Level2 extends Level {
 			
 
 		}
+		
+		if(player.intersects(endPiece))
+		{
+			isFinished = true; 
+		}
+		
 		if(time%10 == 0) {
 			player.increaseAmmo();
 		}

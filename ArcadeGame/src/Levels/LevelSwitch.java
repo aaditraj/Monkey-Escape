@@ -12,117 +12,157 @@ import players.ShootingPlayer;
 import powerups.Coin;
 import processing.core.PApplet;
 public class LevelSwitch extends PApplet{
-	Level level;
+	private ShootingPlayer player;
+	private MobileEnemy enemy1;
+	private MobileEnemy enemy2;
+	private SideShooter shooter1;
+	private SideShooter shooter2;
+	private Platform platform1;
+	private Platform platform2;
+	private Platform platform3;
+	private Platform platform4;
+	private Coin coin1;
+	private Coin coin2;
+	private Coin coin3;
+	private Coin coin4;
+	private ShootingEnemy dropper1;
+	private ShootingEnemy dropper2;
+	int playerSpeed;
+	private Collider endPiece;
+	Lava lava;
+	ArrayList<Collider> staticPieces = new ArrayList<>();
+	ArrayList<Collider> mobilePieces = new ArrayList<>();
+	ArrayList<Collider> bullets = new ArrayList<>();
+	ArrayList<Collider> totalPieces = new ArrayList<>();
+	ArrayList<Collider> objects = new ArrayList<>();
+	int time = 0;
+	private boolean[] keysPressed;
 	public void setup() {
-		level = new Level1();
-		((Level1)level).setup();
+		staticPieces = new ArrayList<>();
+		mobilePieces = new ArrayList<>();
+		bullets = new ArrayList<>();
+		totalPieces = new ArrayList<>();
+		objects = new ArrayList<>();
+		keysPressed = new boolean[4];
+		enemy1 = new MobileEnemy(MobileEnemy.mobileEnemyImages,10,1200,600,800,600,-10,0,100,100);
+		enemy2 = new MobileEnemy(MobileEnemy.mobileEnemyImages,10,1200,200,800,200,-10,0,100,100);
+		shooter1 = new SideShooter(10,800,70, 100,100, 1);
+		shooter2 = new SideShooter(10,400, 70, 100,100, 1);
+		player = new ShootingPlayer(10,200,700,100,100,0,10,10,125);
+		platform1 = new Platform(800,700,600,40,false);
+		platform2 = new Platform(800,300,600,40,false);
+		platform3 = new Platform(10,500,600,40,false);
+		platform4 = new Platform(10,900,600,40,false);
+		endPiece = new Collider(new String[] {"assets/Bullet.png"},20,1000,200,100,100,0,0);
+		//platform6 = new Platform(10,900,100,40,false);
+		lava = new Lava(10, 0, 950, 2000, 50, 0.1);
+		playerSpeed = 10;
+		staticPieces.add(platform1);
+		staticPieces.add(platform2);
+		staticPieces.add(platform3);
+		staticPieces.add(platform4);
+		staticPieces.add(shooter1);
+		staticPieces.add(shooter2);
+		mobilePieces.add(player);
+		mobilePieces.add(enemy1);
+		mobilePieces.add(enemy2);
 	}
-	public void draw() {
-		background(50);
-		move();
-		level.draw(this);
-		if(level.isFinished == true) {
-			if(level instanceof Level1) {
-				level = new Level2();
-				((Level2) level).setup();
-			} else if (level instanceof Level2) {
-				level = new Level3();
-				((Level3) level).setup();
-			} else if (level instanceof Level3) {
-				level = new Level1();
-				((Level1) level).setup();
-			}
-		}
+	public void setup2() {
+		
 	}
+	public void setup3() {
+		
+	}
+	
+	
 	public void mousePressed() {
-		if (level.player.getAmmo() > 0) {
-			Bullet b = level.player.shoot(mouseX, mouseY);
-			level.bullets.add(b);
+		if (player.getAmmo() > 0) {
+			Bullet b = player.shoot(mouseX, mouseY);
+			bullets.add(b);
 		}
 		
 	}		
 	public void move() {
-		if(level.keysPressed[0]) {
-			level.player.moveBy(0, -level.playerSpeed, level.objects);
+		if(keysPressed[0]) {
+			player.moveBy(0, -playerSpeed, objects);
 		}
-		if(level.keysPressed[1]) {
-			level.player.moveBy(0, level.playerSpeed,  level.objects);
+		if(keysPressed[1]) {
+			player.moveBy(0, playerSpeed,  objects);
 		}
-		if(level.keysPressed[2]) {
-			level.player.moveBy(level.playerSpeed, 0,level.objects);
+		if(keysPressed[2]) {
+			player.moveBy(playerSpeed, 0, objects);
 		} 
-		if(level.keysPressed[3]) {
-			level.player.moveBy(-level.playerSpeed,0, level.objects);
+		if(keysPressed[3]) {
+			player.moveBy(-playerSpeed,0, objects);
 		}
 	}
 	public void keyPressed() {
 		if (keyCode == UP) { 
-			level.keysPressed[0] = true;
+			keysPressed[0] = true;
 			
 		} 
 		if (keyCode == DOWN) { 
-			level.keysPressed[1] = true;
+			keysPressed[1] = true;
 		}
 		if (keyCode == RIGHT) {
-			level.keysPressed[2] = true;
+			keysPressed[2] = true;
 
 		}
 		if (keyCode == LEFT) {
-			level.keysPressed[3] = true;
+			keysPressed[3] = true;
 
 		}
 		if (key == 'w') {
-			level.keysPressed[0] = true;
+			keysPressed[0] = true;
 
 		} 
 		if (key == 'd') {
-			level.keysPressed[2] = true;
+			keysPressed[2] = true;
 
 		}
 		if (key == 's') {
-			level.keysPressed[1] = true;
+			keysPressed[1] = true;
 		
 		}
 		if (key == 'a') {
-			level.keysPressed[3] = true;
+			keysPressed[3] = true;
 	
 		}
 	}
 	public void keyReleased() {
-		System.out.println(level.player);
 		if (keyCode == UP) { 
-			level.keysPressed[0] = false;
+			keysPressed[0] = false;
 			
 		} 
 		if (keyCode == DOWN) { 
-			level.keysPressed[1] = false;
+			keysPressed[1] = false;
 		}
 		if (keyCode == RIGHT) {
-			level.keysPressed[2] = false;
+			keysPressed[2] = false;
 
 		}
 		if (keyCode == LEFT) {
-			level.keysPressed[3] = false;
+			keysPressed[3] = false;
 
 		}
 		if (key == 'w') {
-			level.keysPressed[0] = false;
+			keysPressed[0] = false;
 
 		} 
 		if (key == 'd') {
-			level.keysPressed[2] = false;
+			keysPressed[2] = false;
 
 		}
 		if (key == 's') {
-			level.keysPressed[1] = false;
+			keysPressed[1] = false;
 		
 		}
 		if (key == 'a') {
-			level.keysPressed[3] = false;
+			keysPressed[3] = false;
 	
 		}
 		if(key == ' ') {
-			level.player.jump(level.objects);
+			player.jump(objects);
 		}
 	}
 }
