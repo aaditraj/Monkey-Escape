@@ -13,26 +13,38 @@ import powerups.Coin;
 import processing.core.PApplet;
 public class LevelSwitch extends PApplet{
 	Level level;
+	int points = 0;
+	String gameStatus = "Not Started";
 	public void setup() {
 		level = new Level1();
 		((Level1)level).setup();
 	}
 	public void draw() {
-		background(50);
-		move();
-		level.draw(this);
-		if(level.isFinished == true) {
-			if(level instanceof Level1) {
-				level = new Level2();
-				((Level2) level).setup();
-			} else if (level instanceof Level2) {
-				level = new Level3();
-				((Level3) level).setup();
-			} else if (level instanceof Level3) {
-				level = new Level1();
-				((Level1) level).setup();
+		if(gameStatus.equals("Not Started")) {
+			background(50);
+			move();
+			level.draw(this);
+			if(level.isFinished == true) {
+				if(level instanceof Level1) {
+					points = points + level.player.points;
+					level = new Level2();
+					((Level2) level).setup();
+					
+				} else if (level instanceof Level2) {
+					points = points + level.player.points;
+					level = new Level3();
+					((Level3) level).setup();
+				} else if (level instanceof Level3) {
+					gameStatus = "Finished";
+				}
 			}
+			System.out.println(points);
+		} else if (gameStatus.equals("Not Started")) {
+			
+		} else if (gameStatus.equals("Finished"))  {
+			
 		}
+		
 	}
 	public void mousePressed() {
 		if (level.player.getAmmo() > 0) {
@@ -43,7 +55,7 @@ public class LevelSwitch extends PApplet{
 	}		
 	public void move() {
 		if(level.keysPressed[0]) {
-			level.player.moveBy(0, -level.playerSpeed, level.objects);
+			level.player.moveBy(0, -level.playerSpeed - 15, level.objects);
 		}
 		if(level.keysPressed[1]) {
 			level.player.moveBy(0, level.playerSpeed,  level.objects);

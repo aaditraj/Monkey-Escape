@@ -8,7 +8,7 @@ public class ShootingPlayer extends Player{
 	int jumpHeight;
 	double defaultVx;
 	double defaultVy;
-	int points;
+	public int points;
 	public ShootingPlayer(double health, double x, double y, double width, double height, double vx,
 			double vy, int maxAmmo) {
 		super(new String[] {"assets/Player/Player.png"}, health, x, y, width, height, vx, vy, maxAmmo);

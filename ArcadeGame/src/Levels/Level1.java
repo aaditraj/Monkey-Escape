@@ -12,6 +12,7 @@ import obstacles.Platform;
 import players.ShootingPlayer;
 import powerups.Coin;
 import processing.core.PApplet;
+import processing.core.PImage;
 
 public class Level1 extends Level{
 	MobileEnemy enemy1;
@@ -30,7 +31,10 @@ public class Level1 extends Level{
 	ShootingEnemy dropper2;
 	Collider endPiece;
 	Lava lava;
+	PImage bg;
 	public void setup() {
+		
+		
 		staticPieces = new ArrayList<>();
 		mobilePieces = new ArrayList<>();
 		bullets = new ArrayList<>();
@@ -63,7 +67,8 @@ public class Level1 extends Level{
 		this.player = player;
 	}
 	public void draw(PApplet marker) {
-		marker.background(50);
+		bg = marker.loadImage("assets/Background.jpg");
+		marker.image(bg, 0, 0, marker.width, marker.height);
 		time++;
 		objects = new ArrayList<>();
 		objects.addAll(mobilePieces);
