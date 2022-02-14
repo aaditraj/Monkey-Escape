@@ -11,16 +11,22 @@ import obstacles.Platform;
 import players.ShootingPlayer;
 import powerups.Coin;
 import processing.core.PApplet;
+import startpage.MainMenu;
+import startpage.StartPage;
 public class LevelSwitch extends PApplet{
 	Level level;
+	StartPage start; 
+	MainMenu menu; 
 	int points = 0;
 	String gameStatus = "Not Started";
 	public void setup() {
+		start = new StartPage(); 
+		menu = new MainMenu(); 
 		level = new Level1();
 		((Level1)level).setup();
 	}
 	public void draw() {
-		if(gameStatus.equals("Not Started")) {
+		if(gameStatus.equals("Started")) {
 			background(50);
 			move();
 			level.draw(this);
@@ -38,11 +44,14 @@ public class LevelSwitch extends PApplet{
 					gameStatus = "Finished";
 				}
 			}
-			System.out.println(points);
+//			System.out.println(points);
 		} else if (gameStatus.equals("Not Started")) {
+			start.draw(this); 
 			
 		} else if (gameStatus.equals("Finished"))  {
 			
+		} else if (gameStatus.equals("Main Menu")) {
+			menu.draw(this);
 		}
 		
 	}
@@ -50,6 +59,12 @@ public class LevelSwitch extends PApplet{
 		if (level.player.getAmmo() > 0) {
 			Bullet b = level.player.shoot(mouseX, mouseY);
 			level.bullets.add(b);
+		}
+		
+		if(gameStatus.equals("Main Menu"))
+		{
+			
+			gameStatus = menu.checkClicked(mouseX, mouseY, width, height);
 		}
 		
 	}		
@@ -99,9 +114,10 @@ public class LevelSwitch extends PApplet{
 			level.keysPressed[3] = true;
 	
 		}
+		
+		
 	}
 	public void keyReleased() {
-		System.out.println(level.player);
 		if (keyCode == UP) { 
 			level.keysPressed[0] = false;
 			
@@ -136,5 +152,15 @@ public class LevelSwitch extends PApplet{
 		if(key == ' ') {
 			level.player.jump(level.objects);
 		}
+		
+		if(gameStatus.equals("Not Started"))
+		{
+			if(key != 0)
+			{
+				gameStatus = "Main Menu";
+
+			}
+		}
+		
 	}
 }
