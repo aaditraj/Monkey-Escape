@@ -11,14 +11,14 @@ public class ShootingPlayer extends Player{
 	int points;
 	public ShootingPlayer(double health, double x, double y, double width, double height, double vx,
 			double vy, int maxAmmo) {
-		super(new String[] {"assets/ShootingEnemy/Monkey.png"}, health, x, y, width, height, vx, vy, maxAmmo);
+		super(new String[] {"assets/Player/Player.png"}, health, x, y, width, height, vx, vy, maxAmmo);
 		defaultVx = vx;
 		defaultVy = vy;
 		jumpHeight = 50;
 	}
 	public ShootingPlayer(double health, double x, double y, double width, double height, double vx,
 			double vy, int maxAmmo,int jumpHeight) {
-		super(new String[] {"assets/ShootingEnemy/Monkey.png"}, health, x, y, width, height, vx, vy, maxAmmo);
+		super(new String[] {"assets/Player/Player.png"}, health, x, y, width, height, vx, vy, maxAmmo);
 		defaultVx = vx;
 		defaultVy = vy;
 		this.jumpHeight = jumpHeight;
