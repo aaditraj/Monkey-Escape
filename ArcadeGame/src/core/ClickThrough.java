@@ -11,24 +11,22 @@ public class ClickThrough {
 	public ClickThrough(String imageSet) {
 		switch(imageSet) {
 		case "demoSet":
-			imgList.add("assets/bullet.png");
-			imgList.add("assets/Coconut.png");
-			imgList.add("assets/Background.png");
+			imgList.add("assets/Projectiles/bullet.png");
+			imgList.add("assets/Projectiles/Coconut.png");
+			imgList.add("assets/Backgrounds/forest1.jpeg");
 		break;	
 		}
 	}
 	public void draw(PApplet marker) {
-		marker.push();
 		if(!isFinished) {
-			marker.image(marker.loadImage(imgList.get(currPos)), marker.width, marker.height);
+			marker.image(marker.loadImage(imgList.get(currPos)),0,0,marker.width, marker.height);
 		}
-		marker.pop();
 	}
 	public void next() {
-		if(currPos == imgList.size()) {
+		System.out.println(currPos);
+		currPos++;
+		if(currPos >= imgList.size()) {
 			isFinished = true;
-		} else {
-			currPos++;
-		}
+		}	
 	}
 }

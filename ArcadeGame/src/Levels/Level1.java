@@ -49,7 +49,7 @@ public class Level1 extends Level{
 		platform2 = new Platform(800,300,600,40,false);
 		platform3 = new Platform(10,500,600,40,false);
 		platform4 = new Platform(10,900,600,40,false);
-		endPiece = new Collider(new String[] {"assets/Bullet.png"},20,1000,200,100,100,0,0);
+		endPiece = new Collider(new String[] {"assets/Projectiles/bullet.png"},20,1000,200,100,100,0,0);
 		//platform6 = new Platform(10,900,100,40,false);
 		lava = new Lava(10, 0, 950, 2000, 50, 0.1);
 		playerSpeed = 10;
@@ -67,7 +67,7 @@ public class Level1 extends Level{
 		this.player = player;
 	}
 	public void draw(PApplet marker) {
-		bg = marker.loadImage("assets/Background.jpg");
+		bg = marker.loadImage("assets/Backgrounds/Forest2.jpg");
 		marker.image(bg, 0, 0, marker.width, marker.height);
 		time++;
 		objects = new ArrayList<>();
