@@ -20,7 +20,7 @@ public class LevelSwitch extends PApplet{
 	MainMenu menu; 
 	int points = 0;
 	ClickThrough clickThrough = new ClickThrough("demoSet");
-	String gameStatus = "In Clickthrough";
+	String gameStatus = "Main Menu";
 	public void setup() {
 		start = new StartPage(); 
 		menu = new MainMenu(); 

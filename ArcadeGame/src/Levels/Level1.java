@@ -40,6 +40,7 @@ public class Level1 extends Level{
 		bullets = new ArrayList<>();
 		totalPieces = new ArrayList<>();
 		objects = new ArrayList<>();
+		
 		enemy1 = new MobileEnemy(MobileEnemy.mobileEnemyImages,10,1200,600,800,600,-10,0,100,100);
 		enemy2 = new MobileEnemy(MobileEnemy.mobileEnemyImages,10,1200,200,800,200,-10,0,100,100);
 		shooter1 = new SideShooter(10,800,70, 100,100, 1);
@@ -49,7 +50,16 @@ public class Level1 extends Level{
 		platform2 = new Platform(800,300,600,40,false);
 		platform3 = new Platform(10,500,600,40,false);
 		platform4 = new Platform(10,900,600,40,false);
-		endPiece = new Collider(new String[] {"assets/Projectiles/bullet.png"},20,1000,200,100,100,0,0);
+		endPiece = new Collider(new String[] {"assets/Projectiles/banana.png"},20,1000,200,100,100,0,0);
+		coin1 = new Coin(750,1400);
+		coin2 = new Coin(350,1400);
+		coin3 = new Coin(550,610);
+		coin4 = new Coin(950,610);
+		coins.add(coin1);
+		coins.add(coin2);
+		coins.add(coin3);
+		coins.add(coin4);
+		
 		//platform6 = new Platform(10,900,100,40,false);
 		lava = new Lava(10, 0, 950, 2000, 50, 0.1);
 		playerSpeed = 10;
@@ -106,6 +116,14 @@ public class Level1 extends Level{
 		}
 		for(int i = 0; i < staticPieces.size(); i++) {
 			staticPieces.get(i).draw(marker);
+		}
+		for(int i = 0; i < coins.size(); i++) {
+			coins.get(i).draw(marker);
+			if(coins.get(i).intersects(player))
+			{
+				player.changePoints(15);
+				coins.remove(i);
+			}
 		}
 		if(lava.intersects(player))
 		{

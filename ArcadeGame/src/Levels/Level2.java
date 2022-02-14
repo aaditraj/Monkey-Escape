@@ -54,7 +54,8 @@ public class Level2 extends Level {
 		dropper1 = new ShootingEnemy(1500, 300, 0, 75, 75);
 		coin2 = new Coin(10,775);
 		coin1 = new Coin(10,375);
-
+		coins.add(coin1);
+		coins.add(coin2);
 		player = new ShootingPlayer(30,200,700,100,80,0,10,10);
 		platformTop = new Platform(0, 75, 1100, 20, false);
 		platform1 = new Platform(650,800,500,40,false);
@@ -65,7 +66,7 @@ public class Level2 extends Level {
 		platform6 = new Platform(650,240,500,40,false);
 		platform7 = new Platform(10,500,500,40,false);
 		platform8 = new Platform(100,350,400,40,false);
-		endPiece = new Collider(new String[] {"assets/Bullet.png"},20,1000,220,100,100,0,0);
+		endPiece = new Collider(new String[] {"assets/Projectiles/Bullet.png"},20,1000,220,100,100,0,0);
 
 		
 		playerSpeed = 10;
@@ -77,9 +78,6 @@ public class Level2 extends Level {
 		staticPieces.add(platform6);
 		staticPieces.add(platform7);
 		staticPieces.add(platform8);
-		staticPieces.add(coin1);
-		staticPieces.add(coin2);
-
 		staticPieces.add(platformTop);
 		staticPieces.add(dropper1);
 
@@ -119,18 +117,6 @@ public class Level2 extends Level {
 		if(time%10 == 0) {
 			player.increaseAmmo();
 		}
-		
-		if(coin1.intersects(player)) {
-			coin1.collide(player);
-			staticPieces.remove(coin1);
-		}
-		
-		
-		if(coin2.intersects(player)) {
-			coin2.collide(player);
-			staticPieces.remove(coin2);
-		}
-		
 		for(int i = 0; i < mobilePieces.size(); i++) {
 			if(mobilePieces.get(i).getHealth() <= 0) {
 				if(mobilePieces.get(i) instanceof ShootingPlayer) {
@@ -141,6 +127,14 @@ public class Level2 extends Level {
 			} else {
 				mobilePieces.get(i).act(objects);
 				mobilePieces.get(i).draw(marker);
+			}
+		}
+		for(int i = 0; i < coins.size(); i++) {
+			coins.get(i).draw(marker);
+			if(coins.get(i).intersects(player))
+			{
+				player.changePoints(15);
+				coins.remove(i);
 			}
 		}
 		for(int i = 0; i < bullets.size(); i++) {
