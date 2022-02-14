@@ -7,7 +7,7 @@ public class Lava extends Collider{
 //	private double riseRate; 
 	
 	public Lava(double health, double x, double y, double width, double height, double riseRate) {
-		super(new String[] {"assets/Projectiles/lava.png"}, health, x, y, width, height, 0, riseRate);
+		super(new String[] {"assets/lava.png"}, health, x, y, width, height, 0, riseRate);
 //		this.riseRate = riseRate; 
 		// TODO Auto-generated constructor stub
 	}
