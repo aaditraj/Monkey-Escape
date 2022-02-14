@@ -2,6 +2,7 @@ package Levels;
 import java.util.ArrayList;
 
 import core.Bullet;
+import core.ClickThrough;
 import core.Collider;
 import enemies.MobileEnemy;
 import enemies.ShootingEnemy;
@@ -18,7 +19,8 @@ public class LevelSwitch extends PApplet{
 	StartPage start; 
 	MainMenu menu; 
 	int points = 0;
-	String gameStatus = "Not Started";
+	ClickThrough clickThrough = new ClickThrough("demoSet");
+	String gameStatus = "In Clickthrough";
 	public void setup() {
 		start = new StartPage(); 
 		menu = new MainMenu(); 
@@ -44,10 +46,17 @@ public class LevelSwitch extends PApplet{
 					gameStatus = "Finished";
 				}
 			}
+
 //			System.out.println(points);
 		} else if (gameStatus.equals("Not Started")) {
 			start.draw(this); 
-			
+
+			System.out.println(points);
+		} else if (gameStatus.equals("In Clickthrough")) {
+			clickThrough.draw(this);
+			if(clickThrough.isFinished) {
+				gameStatus = "Not Started";
+			}
 		} else if (gameStatus.equals("Finished"))  {
 			
 		} else if (gameStatus.equals("Main Menu")) {
@@ -152,6 +161,7 @@ public class LevelSwitch extends PApplet{
 		if(key == ' ') {
 			level.player.jump(level.objects);
 		}
+
 		
 		if(gameStatus.equals("Not Started"))
 		{
@@ -162,5 +172,11 @@ public class LevelSwitch extends PApplet{
 			}
 		}
 		
+
+		if(key == 'r') {
+			if(!clickThrough.isFinished) {
+				clickThrough.next();
+			}
+		}
 	}
 }
