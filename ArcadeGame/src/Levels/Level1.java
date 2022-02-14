@@ -67,7 +67,7 @@ public class Level1 extends Level{
 		this.player = player;
 	}
 	public void draw(PApplet marker) {
-		bg = marker.loadImage("assets/Backgrounds/Forest2.jpg");
+		bg = marker.loadImage("assets/Backgrounds/forest2.jpg");
 		marker.image(bg, 0, 0, marker.width, marker.height);
 		time++;
 		objects = new ArrayList<>();
