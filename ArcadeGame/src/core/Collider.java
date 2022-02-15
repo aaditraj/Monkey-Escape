@@ -9,7 +9,8 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 public class Collider {
-	    private double x, y;
+	    protected double x;
+		protected double y;
 	    private double width, height, health, initX, initY;
 	    protected double vx, vy;
 	    private String[] images;
@@ -37,7 +38,62 @@ public class Collider {
 	    public boolean isMovable() {
 	    	return !stationary;
 	    }
-		public boolean[] intersects(ArrayList<Collider> colliderList) {
+	    public boolean[] intersects(ArrayList<Collider> colliderList) {
+			boolean[] data = new boolean[4]; // north, east, south, west
+			for (int i = 0; i < colliderList.size(); i++) {
+				Collider collider = colliderList.get(i);
+				Line[] otherLines = collider.getLinesBundle(maxSpeed);
+				if(collider != this) {
+					Line[] lines = this.getLines();
+					for (int j = 0; j < 4; j++) {
+						Line line = lines[j]; // top, right, bottom, left
+						for (int k = 0; k < 4*maxSpeed; k++) {
+							Line otherLine = otherLines[k];
+							
+							if (line.isCollinear(otherLine)) {
+								changeHealth(collide(collider) * -1);
+								//System.out.println("J: " + j + "K: " + k + colliderList);
+								int moveDist = k%maxSpeed;
+								if(isMovable()) {
+									switch(j) {
+										case 0:
+											y += moveDist; 
+										break;
+										case 1:
+											x -= moveDist;
+										break;
+										case 2:
+											y-=moveDist;
+										break;
+										case 3:
+											x += moveDist;
+										break;	
+									}
+								} else {
+										switch(j) {
+										case 0:
+											collider.superMove(0, -moveDist);
+										break;
+										case 1:
+											collider.superMove(moveDist, 0);
+										break;
+										case 2:
+											collider.superMove(0, moveDist);
+										break;
+										case 3:
+											collider.superMove(-moveDist, 0);
+										break;	
+									}
+								}
+								data[j] = true;
+							}
+						}
+					}
+				}
+			}
+			return data;
+		}
+		public boolean[] intersects(ArrayList<Collider> colliderList,int maxSpeed) {
 			boolean[] data = new boolean[4]; // north, east, south, west
 			for (int i = 0; i < colliderList.size(); i++) {
 				Collider collider = colliderList.get(i);
@@ -156,7 +212,7 @@ public class Collider {
 		 * @param y The vertical distance added to the y-coordinate of the reference point.
 		 */
 		public void moveBy(double x, double y, ArrayList<Collider> colliders) {
-			boolean[] directions = intersects(colliders);
+			boolean[] directions = intersects(colliders,30);
 			
 			if ((!directions[0] && y < 0) || (!directions[2] && y > 0)) {
 				this.y += y;
