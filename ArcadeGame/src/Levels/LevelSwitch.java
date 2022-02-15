@@ -80,6 +80,12 @@ public class LevelSwitch extends PApplet{
 			gameStatus = menu.checkClicked(mouseX, mouseY, width, height);
 		}
 		
+		if(gameStatus.equals("Instructions"))
+		{
+			
+			gameStatus = instructions.checkClicked(mouseX, mouseY, width, height);
+		}
+		
 	}		
 	public void move() {
 		if(level.keysPressed[0]) {
