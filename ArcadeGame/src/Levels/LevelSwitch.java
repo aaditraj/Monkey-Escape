@@ -20,7 +20,7 @@ public class LevelSwitch extends PApplet{
 	MainMenu menu; 
 	int points = 0;
 	ClickThrough clickThrough = new ClickThrough("demoSet");
-	String gameStatus = "Main Menu";
+	String gameStatus = "Not Started";
 	public void setup() {
 		start = new StartPage(); 
 		menu = new MainMenu(); 
@@ -47,11 +47,9 @@ public class LevelSwitch extends PApplet{
 				}
 			}
 
-//			System.out.println(points);
 		} else if (gameStatus.equals("Not Started")) {
 			start.draw(this); 
 
-			System.out.println(points);
 		} else if (gameStatus.equals("In Clickthrough")) {
 			clickThrough.draw(this);
 			if(clickThrough.isFinished) {
