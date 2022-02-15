@@ -36,9 +36,9 @@ public class MainMenu {
 		bg = marker.loadImage("assets/StartPage/MainMenu.png");
 		marker.image(bg, 0, 0, marker.width, marker.height);
 		
-		marker.rect(rectx1, recty1, rectXSize, rectYSize);
-		marker.rect(rectx2, recty2, rectXSize, rectYSize);
-		marker.rect(rectx3, recty3, rectXSize2, rectYSize2);
+//		marker.rect(rectx1, recty1, rectXSize, rectYSize);
+//		marker.rect(rectx2, recty2, rectXSize, rectYSize);
+//		marker.rect(rectx3, recty3, rectXSize2, rectYSize2);
 
 	}
 	
