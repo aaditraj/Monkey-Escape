@@ -25,10 +25,29 @@ public class ShootingPlayer extends Player{
 	}
 	public Bullet shoot(int mouseX, int mouseY)
 	{
+		Bullet b;
+		if (mouseX > getCenterX()) {
+			if (mouseY < getCenterY()) {
+				b = new Bullet(this.getX() + this.getWidth(), this.getY(), "player",Bullet.leafLocation, 471/16d, 179/16d, 1);
+				b.setVelocity(mouseX - this.getCenterX(), mouseY - this.getCenterY());
+			} else {
+				b = new Bullet(this.getX() + this.getWidth(), this.getY() + this.getWidth(), "player",Bullet.leafLocation, 471/16d, 179/16d, 1);
+				b.setVelocity(mouseX - this.getCenterX(), mouseY - this.getCenterY());
+
+			}
+		} else {
+			if (mouseY < getCenterY()) {
+				b = new Bullet(this.getX() - 471/16d, this.getY() - 179/16d, "player",Bullet.leafLocation, 471/16d, 179/16d, 1);
+				b.setVelocity(mouseX - this.getCenterX(), mouseY - this.getCenterY());
+			} else {
+				b = new Bullet(this.getX(), this.getY() + this.getWidth(), "player",Bullet.leafLocation, 471/16d, 179/16d, 1);
+				b.setVelocity(mouseX - this.getCenterX(), mouseY - this.getCenterY());
+			}
+			
+		}
+		b.setVelocity(mouseX - b.getCenterX(), mouseY - b.getCenterY());
 		decreaseAmmo();
-		Bullet mc = new Bullet(this.getCenterX(), this.getCenterY(), "player",Bullet.leafLocation);
-		mc.setVelocity(mouseX - this.getCenterX(), mouseY - this.getCenterY());
-		return mc;
+		return b;
 		
 	}
 	

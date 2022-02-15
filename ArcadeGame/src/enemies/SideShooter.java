@@ -19,7 +19,7 @@ public class SideShooter extends Collider {
 		this.bulletSpeed = 10;
 	}
 	public Bullet shoot() {
-		Bullet mc = new Bullet(getCenterX(),getCenterY(),"SideShooter",Bullet.bananaLocation);
+		Bullet mc = new Bullet(getCenterX(),getCenterY(),"SideShooter",Bullet.bananaLocation, 193/8d, 161/8d, 1);
 		mc.setVelocity(direction * bulletSpeed, 0);
 		return mc;
 	}
