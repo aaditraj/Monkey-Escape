@@ -32,13 +32,13 @@ public class Leaderboard implements Serializable {
 		surface.rect(0,0,surface.width * 0.2f,surface.height);
 		surface.rect(surface.width-surface.width*0.2f,0,surface.width * 0.2f,surface.height);
 		
-		surface.textSize(100);
+		surface.textSize(60);
 		
 		surface.fill(surface.color(0,0,0));
 		surface.text("Leaderboard", surface.width/3, surface.height * 0.1f);
 		
 		surface.fill(surface.color(246,190,0));
-		
+		surface.textFont(surface.createFont("assets/ARCADE_N.TTF", 50));
 		Set<String> keys = leaderboard.keySet();
 		Iterator<String> iter = keys.iterator();
 		for(int i = 0;i < keys.size(); i++) {
@@ -85,6 +85,7 @@ public class Leaderboard implements Serializable {
 		} else {
 			System.out.println("Please enter a unique name.");
 		}
+		writeData();
 	}
 }
 

@@ -13,6 +13,7 @@ import players.ShootingPlayer;
 import powerups.Coin;
 import processing.core.PApplet;
 import startpage.Instructions;
+import startpage.Leaderboard;
 import startpage.MainMenu;
 import startpage.StartPage;
 public class LevelSwitch extends PApplet{
@@ -20,7 +21,7 @@ public class LevelSwitch extends PApplet{
 	StartPage start; 
 	MainMenu menu; 
 	Instructions instructions; 
-
+	Leaderboard leaderboard;
 	int points = 0;
 	ClickThrough clickThrough = new ClickThrough("demoSet");
 	String gameStatus = "Not Started";
@@ -28,7 +29,8 @@ public class LevelSwitch extends PApplet{
 		start = new StartPage(); 
 		menu = new MainMenu(); 
 		level = new Level1();
-		instructions = new Instructions(); 
+		instructions = new Instructions();
+		leaderboard = new Leaderboard();
 		((Level1)level).setup();
 	}
 	public void draw() {
@@ -60,11 +62,13 @@ public class LevelSwitch extends PApplet{
 				gameStatus = "Not Started";
 			}
 		} else if (gameStatus.equals("Finished"))  {
-			
+			leaderboard.add(points, "Player");
 		} else if (gameStatus.equals("Main Menu")) {
 			menu.draw(this);
 		} else if (gameStatus.equals("Instructions")) {
 			instructions.draw(this);
+		} else if (gameStatus.equals("Leaderboard")) {
+			leaderboard.draw(this);
 		}
 		
 	}
