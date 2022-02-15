@@ -7,7 +7,8 @@ import players.Player;
 
 public class Bullet extends Collider
 {
-	public static final String bulletLocation = "assets/Projectiles/bullet.png";
+	public static final String bananaLocation = "assets/Projectiles/banana.png";
+	public static final String leafLocation = "assets/Projectiles/leaf.png";
 	String owner;
 	int damage = 1;
 	public Bullet(double x, double y, String owner, String image) {

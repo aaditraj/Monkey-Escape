@@ -94,12 +94,12 @@ public class Level3 extends Level {
 		staticPieces.add(platform5);
 		staticPieces.add(platform6);
 		staticPieces.add(platform4);
-		staticPieces.add(coin1);
-		staticPieces.add(coin2);
-		staticPieces.add(coin3);
-		staticPieces.add(coin4);
-		staticPieces.add(coin5);
-		staticPieces.add(coin6);
+		coins.add(coin1);
+		coins.add(coin2);
+		coins.add(coin3);
+		coins.add(coin4);
+		coins.add(coin5);
+		coins.add(coin6);
 
 
 		staticPieces.add(platformTop);
@@ -187,6 +187,14 @@ public class Level3 extends Level {
 				}
 			} else {
 				bullets.remove(i);
+			}
+		}
+		for(int i = 0; i < coins.size(); i++) {
+			coins.get(i).draw(marker);
+			if(coins.get(i).intersects(player))
+			{
+				player.changePoints(15);
+				coins.remove(i);
 			}
 		}
 		for(int i = 0; i < staticPieces.size(); i++) {

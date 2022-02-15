@@ -13,6 +13,7 @@ public class Level {
 	ArrayList<Collider> bullets = new ArrayList<>();
 	ArrayList<Collider> totalPieces = new ArrayList<>();
 	ArrayList<Collider> objects = new ArrayList<>();
+	ArrayList<Collider> coins = new ArrayList<>();
 	int time = 0;
 	boolean isFinished = false;
 	boolean[] keysPressed = new boolean[4];
