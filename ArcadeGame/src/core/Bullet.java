@@ -1,4 +1,5 @@
 package core;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import enemies.MobileEnemy;
@@ -12,7 +13,7 @@ public class Bullet extends Collider
 	String owner;
 	int damage = 1;
 	public Bullet(double x, double y, String owner, String image) {
-		super(new String[] {image}, 1, x, y, 20.0, 20.0, 0, 0);
+		super(new String[] {image}, 1, x, y, 15.0, 15.0, 0, 0);
 		this.owner = owner;
 		this.setMobile(true);
 	}
@@ -25,7 +26,16 @@ public class Bullet extends Collider
 	public String getOwner() {
 		return owner;
 	}
-	
+	public void moveBy(double x, double y, ArrayList<Collider> colliders) {
+		boolean[] directions = intersects(colliders);
+		
+		if ((!directions[0] && y < 0) || (!directions[2] && y > 0)) {
+			this.y += y;
+		} 
+		if ((!directions[1] && x > 0) || (!directions[3] && x < 0)) {
+			this.x += x;
+		}
+	}
 	public double collide(Collider collider) {
 		if (owner == "player") {
 			if (collider instanceof MobileEnemy) {
