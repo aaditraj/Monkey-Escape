@@ -25,13 +25,34 @@ public class ShootingPlayer extends Player{
 	}
 	public Bullet shoot(int mouseX, int mouseY)
 	{
+		Bullet b;
+		if (mouseX > getX() + getWidth()) {
+			b = constructBullet(this.getX() + this.getWidth(), mouseY);
+		} else if (mouseX >= getX() && mouseX <= getX() + getWidth()) {
+			b = constructBullet(mouseX, mouseY);
+		} else {
+			b = constructBullet(this.getX(), mouseY);
+		}
+		b.setVelocity(mouseX - b.getCenterX(), mouseY - b.getCenterY());
 		decreaseAmmo();
-		Bullet mc = new Bullet(this.getCenterX(), this.getCenterY(), "player",Bullet.leafLocation);
-		mc.setVelocity(mouseX - this.getCenterX(), mouseY - this.getCenterY());
-		return mc;
+		return b;
 		
 	}
 	
+	
+	private Bullet constructBullet(double x, double mouseY) {
+		Bullet b;
+		if (mouseY < getY()) {
+			b = new Bullet(x, this.getY(), "player",Bullet.leafLocation, 471/16d, 179/16d, 1);
+
+		} else if (mouseY >= getY() && mouseY <= getY() + getHeight()) {
+			b = new Bullet(x, mouseY, "player",Bullet.leafLocation, 471/16d, 179/16d, 1);
+
+		} else {
+			b = new Bullet(x, this.getY() + this.getHeight(), "player",Bullet.leafLocation, 471/16d, 179/16d, 1);
+		}
+		return b;
+	}
 	
 	
 	public void jump(ArrayList<Collider> colliders) {

@@ -12,11 +12,11 @@ public class Bullet extends Collider
 	String owner;
 	int damage = 1;
 	public Bullet(double x, double y, String owner, String image) {
-		super(new String[] {image}, 1, x, y, 5.0, 5.0, 0, 0);
+		super(new String[] {image}, 1, x, y, 20.0, 20.0, 0, 0);
 		this.owner = owner;
 		this.setMobile(true);
 	}
-	public Bullet(double x, double y, String owner, String image,int width,int height,int damage) {
+	public Bullet(double x, double y, String owner, String image,double width,double height,int damage) {
 		super(new String[] {image}, 1, x, y, width, height, 0, 0);
 		this.owner = owner;
 		this.damage = damage;
