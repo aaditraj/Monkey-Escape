@@ -4,11 +4,16 @@ import processing.core.PImage;
 
 public class Instructions extends PApplet {
 	String location = "";
+	PImage bg;
+	
+	
 	public Instructions() {
 		location = "assets/StartPage/Instructions.png";
+
 	}
 	public void draw(PApplet marker) {
-		marker.push();
-		marker.image(marker.loadImage(location),0,0);
+		bg = marker.loadImage(location);
+
+		marker.image(bg, 0, 0, marker.width, marker.height);
 	}
 }
