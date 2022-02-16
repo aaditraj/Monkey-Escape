@@ -123,8 +123,7 @@ public class Level1 extends Level{
 			coins.get(i).draw(marker);
 			if(coins.get(i).intersects(player))
 			{
-				player.changePoints(15);
-				coins.remove(i);
+				collectCoin(i);
 			}
 		}
 		if(lava.intersects(player))
@@ -136,5 +135,7 @@ public class Level1 extends Level{
 		if(player.intersects(endPiece)) {
 			isFinished = true;
 		}
+		displayCelebrations(marker);
+
 	}		
 }

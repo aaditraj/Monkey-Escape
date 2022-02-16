@@ -14,8 +14,8 @@ public class MobileEnemy extends Collider {
 	private boolean isHittingPlayer;
 	private int numHits;
 	public static final String[] mobileEnemyImages = new String[] {"assets/MobileEnemy/left.png",
-			"assets/MobileEnemy/right.png", "assets/MobileEnemy/mad-left-1.png", "assets/MobileEnemy/mad-left-2.png", 
-			"assets/MobileEnemy/mad-right-1.png", "assets/MobileEnemy/mad-right-2.png"};
+			"assets/MobileEnemy/right.png", "assets/MobileEnemy/mad-left-1.png", 
+			"assets/MobileEnemy/mad-right-1.png"};
 	
 	// direction = 1 --> moving lateral, direction=0 --> moving vertical
 	public MobileEnemy(String[] images, double health, double startX, double startY,  double endX, double endY, double vx, double vy, double width, double height) {
