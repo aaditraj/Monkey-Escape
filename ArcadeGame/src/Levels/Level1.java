@@ -59,7 +59,7 @@ public class Level1 extends Level{
 		coins.add(coin2);
 		coins.add(coin3);
 		coins.add(coin4);
-		
+		dropper1 = new ShootingEnemy(50,100,100,100,100);
 		//platform6 = new Platform(10,900,100,40,false);
 		lava = new Lava(10, 0, 950, 2000, 50, 0.1);
 		playerSpeed = 10;
@@ -69,6 +69,7 @@ public class Level1 extends Level{
 		staticPieces.add(platform4);
 		staticPieces.add(shooter1);
 		staticPieces.add(shooter2);
+		staticPieces.add(dropper1);
 		mobilePieces.add(player);
 		mobilePieces.add(enemy1);
 		mobilePieces.add(enemy2);
@@ -86,6 +87,7 @@ public class Level1 extends Level{
 		if(time%shooter1.bulletFrequency == 0) {
 			bullets.add(shooter2.shoot());
 			bullets.add(shooter1.shoot());
+			bullets.add(dropper1.drop(player.getCenterX(),player.getCenterY()));
 		}
 		if(time%10 == 0) {
 			player.increaseAmmo();
@@ -106,7 +108,7 @@ public class Level1 extends Level{
 			Collider bullet = bullets.get(i);
 			if (bullet.getX() <= marker.width && bullet.getX() >= 0 && bullet.getY() <= marker.height && bullet.getY() >= 0 && bullet.getHealth() > 0) {
 				bullet.draw(marker);
-				bullet.act((ArrayList<Collider>)objects);
+				bullet.act((ArrayList<Collider>)mobilePieces);
 				if(bullet.getHealth() <= 0) {
 					bullets.remove(i);
 				}
