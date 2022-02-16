@@ -59,8 +59,7 @@ public class MobileEnemy extends Collider {
 			if (numHits % 50 == 0) {
 				if (getCurrentImage() == 2) {
 					goToImage(3);
-				}
-				else if (getCurrentImage() == 3) {
+				} else if (getCurrentImage() == 3) {
 					goToImage(2);
 				} else if (getCurrentImage() == 4) {
 					goToImage(5);
@@ -84,7 +83,7 @@ public class MobileEnemy extends Collider {
 			if (getCurrentImage() == 0) {
 				goToImage(2);
 			} else {
-				goToImage(4);
+				goToImage(3);
 			}
 			isHittingPlayer = true;
 		}

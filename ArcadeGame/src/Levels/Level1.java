@@ -41,8 +41,8 @@ public class Level1 extends Level{
 		totalPieces = new ArrayList<>();
 		objects = new ArrayList<>();
 		
-		enemy1 = new MobileEnemy(MobileEnemy.mobileEnemyImages,10,1200,600,800,600,-10,0,100,100);
-		enemy2 = new MobileEnemy(MobileEnemy.mobileEnemyImages,10,1200,200,800,200,-10,0,100,100);
+		enemy1 = new MobileEnemy(MobileEnemy.mobileEnemyImages,10,1200,600,800,600,-10,0,80,100);
+		enemy2 = new MobileEnemy(MobileEnemy.mobileEnemyImages,10,1200,200,800,200,-10,0,80,100);
 		shooter1 = new SideShooter(10,800,70, 100,100, 1);
 		shooter2 = new SideShooter(10,400, 70, 100,100, 1);
 		player = new ShootingPlayer(10,200,700,100,100,0,10,10,125);

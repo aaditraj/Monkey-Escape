@@ -51,7 +51,7 @@ public class Level3 extends Level {
 		player = new ShootingPlayer(10,0,900,100d,100d,0,10, 7,90);
 	
 		platformBottom = new Platform(0,1000,1050,40,false);
-		enemy1 = new MobileEnemy(MobileEnemy.mobileEnemyImages,10,525,900,900,900,15,0,125,125);
+		enemy1 = new MobileEnemy(MobileEnemy.mobileEnemyImages,10,525,900,900,900,15,0,100,125);
 		coin1 = new Coin(950,950);
 		coin2 = new Coin(950, 850);
 
