@@ -48,7 +48,7 @@ public class Level3 extends Level {
 		totalPieces = new ArrayList<>();
 		objects = new ArrayList<>();
 		keysPressed = new boolean[5];
-		player = new ShootingPlayer(10,0,900,100d,100d,0,10, 3,150);
+		player = new ShootingPlayer(10,0,900,100d,100d,0,10, 7,90);
 	
 		platformBottom = new Platform(0,1000,1050,40,false);
 		enemy1 = new MobileEnemy(MobileEnemy.mobileEnemyImages,10,525,900,900,900,15,0,125,125);
@@ -56,9 +56,9 @@ public class Level3 extends Level {
 		coin2 = new Coin(950, 850);
 
 
-		platform1 = new Platform(10,775,500,40,false);
+		platform1 = new Platform(10,800,500,40,false);
 		platform1Danger = new Platform(200,775,200,40,true);
-		shooter1 = new SideShooter(10,725,20, 80,50, 1);
+		shooter1 = new SideShooter(10,725,40, 80,50, 1);
 		coin3 = new Coin(10,650);
 		
 		
@@ -136,7 +136,7 @@ public class Level3 extends Level {
 			
 
 		}
-		if(time%20 == 0) {
+		if(time%10 == 0) {
 			player.increaseAmmo();
 		}
 		
