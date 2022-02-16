@@ -56,10 +56,6 @@ public class MobileEnemy extends Collider {
 			vy *= -1;
 		}
 	}
-	//Mama Dumpling said why not me?
-	//		Variable uji uji = Atha;
-	//Atha = sucks
-	//		also very bad
 	public void draw(PApplet marker) {
 		super.draw(marker);
 		

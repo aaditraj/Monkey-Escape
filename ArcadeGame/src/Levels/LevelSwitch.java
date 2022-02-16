@@ -60,7 +60,7 @@ public class LevelSwitch extends PApplet{
 					level = new Level3();
 					((Level3) level).setup();
 				} else if (level instanceof Level3) {
-					gameStatus = "Finished";
+					gameStatus = "Leaderboard";
 				}
 			}
 			
