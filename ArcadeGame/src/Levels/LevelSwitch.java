@@ -129,6 +129,7 @@ public class LevelSwitch extends PApplet{
 				
 			}
 			
+			
 			if(mouseX > (int)(width/1.95) && mouseX < (int)(width/1.95) + width/5)
 			{
 				if(mouseY > (int)(height/1.8) && mouseY < (int)(height/1.8) + height/5) 
