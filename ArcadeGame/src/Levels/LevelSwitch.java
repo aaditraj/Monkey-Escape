@@ -60,9 +60,15 @@ public class LevelSwitch extends PApplet{
 					level = new Level3();
 					((Level3) level).setup();
 				} else if (level instanceof Level3) {
+					level.isFinished = false;
 					gameStatus = "Leaderboard";
+					
 				}
 			}
+			
+			System.out.println(level.isFinished);
+			System.out.println(gameStatus);
+
 			
 			if(promptQuit)
 			{
@@ -119,7 +125,7 @@ public class LevelSwitch extends PApplet{
 		if(gameStatus.equals("PromptQuit"))
 		{
 			
-			if(mouseX > (int)(width/3.5) && mouseX < (int)(height/1.8) + width/5)
+			if(mouseX > (int)(width/3.5) && mouseX < (int)(width/3.5) + width/5)
 			{
 				if(mouseY > (int)(height/1.8) && mouseY < (int)(height/1.8) + height/5) 
 					gameStatus = "Main Menu"; 
