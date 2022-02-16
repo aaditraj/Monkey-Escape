@@ -78,7 +78,6 @@ public class LevelSwitch extends PApplet{
 
 		} else if (gameStatus.equals("Not Started")) {
 			start.draw(this); 
-
 		} else if (gameStatus.equals("In Clickthrough")) {
 			clickThrough.draw(this);
 			if(clickThrough.isFinished) {
@@ -129,7 +128,7 @@ public class LevelSwitch extends PApplet{
 			{
 				if(mouseY > (int)(height/1.8) && mouseY < (int)(height/1.8) + height/5) 
 					gameStatus = "Main Menu"; 
-					setup();
+					//setup();
 					promptQuit = false;
 
 				
