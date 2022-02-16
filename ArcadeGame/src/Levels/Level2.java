@@ -46,9 +46,9 @@ public class Level2 extends Level {
 		totalPieces = new ArrayList<>();
 		objects = new ArrayList<>();
 		keysPressed = new boolean[5];
-		enemy1 = new MobileEnemy(MobileEnemy.mobileEnemyImages,10,1000,500,750,500,-10,0,100,100);
-		enemy2 = new MobileEnemy(MobileEnemy.mobileEnemyImages,10,1000,300,750,200,-10,0,100,100);
-		enemy3 = new MobileEnemy(MobileEnemy.mobileEnemyImages,10,1000,700,750,200,-10,0,100,100);
+		enemy1 = new MobileEnemy(MobileEnemy.mobileEnemyImages,10,1000,500,650,500,-10,0,100,100);
+		enemy2 = new MobileEnemy(MobileEnemy.mobileEnemyImages,10,1000,300,650,200,-10,0,100,100);
+		enemy3 = new MobileEnemy(MobileEnemy.mobileEnemyImages,10,1000,700,650,200,-10,0,100,100);
 		shooter1 = new SideShooter(10,850,50, 80,50, 1);
 		shooter2 = new SideShooter(10,450, 50, 80,50, 1);
 		lava = new Lava(10, 0, 950, 2000, 50, 0.1);
@@ -107,9 +107,7 @@ public class Level2 extends Level {
 			bullets.add(shooter2.shoot());
 			bullets.add(shooter1.shoot());
 			bullets.add(shooter3.shoot());
-			bullets.add(dropper1.drop());
-			
-
+			bullets.add(dropper1.drop(player.getCenterX(),player.getCenterY()));
 		}
 		
 		if(player.intersects(endPiece))
@@ -125,6 +123,9 @@ public class Level2 extends Level {
 				if(mobilePieces.get(i) instanceof ShootingPlayer) {
 					setup();
 				} else {
+					if(mobilePieces.get(i) instanceof MobileEnemy) {
+						player.changePoints(50);
+					}
 					mobilePieces.remove(i);
 				}
 			} else {
