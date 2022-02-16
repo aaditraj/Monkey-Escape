@@ -15,6 +15,14 @@ public class Platform extends Collider {
 			}
 	}
 	
+	public Platform(String image, double x, double y, double width, double height, boolean doesDamage) {
+		super(new String[] {image}, 10, x, y, width, height, 0, 0);
+		this.doesDamage = doesDamage;
+		if (doesDamage) {
+			setImage(new String[] {"assets/lava.png"});
+		}
+}
+	
 	public boolean doesDamage() {
 		return doesDamage;
 	}

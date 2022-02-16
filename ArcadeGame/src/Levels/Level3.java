@@ -7,6 +7,7 @@ import core.Collider;
 import enemies.MobileEnemy;
 import enemies.ShootingEnemy;
 import enemies.SideShooter;
+import obstacles.Lava;
 import obstacles.Platform;
 import players.ShootingPlayer;
 import powerups.Coin;
@@ -34,6 +35,7 @@ public class Level3 extends Level {
 	private Coin coin4;
 	private Coin coin5;
 	private Coin coin6;
+	private Lava lava;
 
 	private ShootingEnemy dropper;
 
@@ -80,6 +82,8 @@ public class Level3 extends Level {
 		enemy2 = new MobileEnemy(MobileEnemy.mobileEnemyImages, 10d, 275d, 100d, 600d, 100d, 15d, 0d,424d/4, 464d/4);
 		dropper = new ShootingEnemy(1500, 0, 0, 75, 75);
 		coin6 = new Coin(90, 10);
+		
+		lava = new Lava(10, 0, 1050, 2000, 50, 0.2);
 		
 		endPiece = new Collider(new String[] {"assets/Bullet.png"},275,1050,200,100,100,0,0);
 
@@ -196,6 +200,8 @@ public class Level3 extends Level {
 		if(player.intersects(endPiece)) {
 			isFinished = true;
 		}
+		lava.increaseHeight(player);
+		lava.draw(marker);
 		displayCelebrations(marker);
 	}
 }
