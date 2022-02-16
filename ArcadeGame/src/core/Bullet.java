@@ -9,11 +9,11 @@ import players.Player;
 public class Bullet extends Collider
 {
 	public static final String bananaLocation = "assets/Projectiles/banana.png";
-	public static final String leafLocation = "assets/Projectiles/leaf.png";
+	public static final String bulletLocation = "assets/bullet.png";
 	String owner;
 	int damage = 1;
 	public Bullet(double x, double y, String owner, String image) {
-		super(new String[] {image}, 1, x, y, 15.0, 15.0, 0, 0);
+		super(new String[] {image}, 1, x, y, 5.0, 5.0, 0, 0);
 		this.owner = owner;
 		this.setMobile(true);
 	}

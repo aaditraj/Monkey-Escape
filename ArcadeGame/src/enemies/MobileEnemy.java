@@ -46,28 +46,21 @@ public class MobileEnemy extends Collider {
 			}
 			else if (getCurrentImage() == 1) {
 				goToImage(0);
+			} else if (getCurrentImage() == 2) {
+				goToImage(3);
+			} else if (getCurrentImage() == 3) {
+				goToImage(2);
 			}
 		}
 		if (getY() >= largerY || getY() <= smallerY) {
 			vy *= -1;
 		}
 	}
-	
+	//Mama Dumpling said why not me?
+	//		Variable uji uji = Atha;
+	//Atha = sucks
+	//		also very bad
 	public void draw(PApplet marker) {
-		if (isHittingPlayer) {
-			numHits++;
-			if (numHits % 50 == 0) {
-				if (getCurrentImage() == 2) {
-					goToImage(3);
-				} else if (getCurrentImage() == 3) {
-					goToImage(2);
-				} else if (getCurrentImage() == 4) {
-					goToImage(5);
-				} else if (getCurrentImage() == 5) {
-					goToImage(4);
-				}
-			}
-		}
 		super.draw(marker);
 		
 		marker.push();
@@ -82,7 +75,7 @@ public class MobileEnemy extends Collider {
 			collider.changeHealth(-1);
 			if (getCurrentImage() == 0) {
 				goToImage(2);
-			} else {
+			} else if(getCurrentImage() == 1) {
 				goToImage(3);
 			}
 			isHittingPlayer = true;

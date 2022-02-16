@@ -43,13 +43,13 @@ public class ShootingPlayer extends Player{
 	private Bullet constructBullet(double x, double mouseY) {
 		Bullet b;
 		if (mouseY < getY()) {
-			b = new Bullet(x, this.getY(), "player",Bullet.leafLocation, 471/16d, 179/16d, 1);
+			b = new Bullet(x, this.getY(), "player",Bullet.bulletLocation);
 
 		} else if (mouseY >= getY() && mouseY <= getY() + getHeight()) {
-			b = new Bullet(x, mouseY, "player",Bullet.leafLocation, 471/16d, 179/16d, 1);
+			b = new Bullet(x, mouseY, "player",Bullet.bulletLocation);
 
 		} else {
-			b = new Bullet(x, this.getY() + this.getHeight(), "player",Bullet.leafLocation, 471/16d, 179/16d, 1);
+			b = new Bullet(x, this.getY() + this.getHeight(), "player",Bullet.bulletLocation);
 		}
 		return b;
 	}
