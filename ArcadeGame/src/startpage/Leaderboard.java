@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 import processing.core.PApplet;
+import processing.core.PImage;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -14,6 +15,8 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 public class Leaderboard implements Serializable {
 	private HashMap<String,Integer> leaderboard;
+	PImage backArrow;
+
 //	BufferedReader reader;
 	
 	public Leaderboard() {
@@ -26,12 +29,16 @@ public class Leaderboard implements Serializable {
 	public void draw(PApplet surface)
 	{
 		surface.push(); 
+		backArrow = surface.loadImage("assets/backArrow.png");
+
+		
 		surface.background(surface.color(173,216,230));
 		surface.fill(surface.color(144,238,144));
 		surface.noStroke();
 		surface.rect(0,0,surface.width * 0.2f,surface.height);
 		surface.rect(surface.width-surface.width*0.2f,0,surface.width * 0.2f,surface.height);
-		
+		surface.image(backArrow, 50, 50, surface.width/18, surface.height/15);
+
 		surface.textSize(60);
 		
 		surface.fill(surface.color(0,0,0));
@@ -45,6 +52,9 @@ public class Leaderboard implements Serializable {
 			String key = iter.next();
 			surface.text("" + key + "     " + leaderboard.get(key), surface.width/3, surface.height * 0.25f + i*100);
 		}
+		
+		
+		
 		/*for(int i = 0; i<data.size(); i++)
 			surface.text("" + data.get(i), surface.width/3, surface.height * 0.25f + i*100);
 		
@@ -86,6 +96,19 @@ public class Leaderboard implements Serializable {
 			System.out.println("Please enter a unique name.");
 		}
 		writeData();
+	}
+	
+	public String checkClicked(int mouseX, int mouseY, int width, int height)
+	{
+		
+		
+		if(mouseX > 50 && mouseX < 50 + width/18)
+		{
+			if(mouseY > 50 && mouseY < 50 + height/15) return "Main Menu"; 
+		}
+		
+		return "Leaderboard";
+		
 	}
 }
 

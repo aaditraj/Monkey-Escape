@@ -7,6 +7,7 @@ import core.Collider;
 import enemies.MobileEnemy;
 import enemies.ShootingEnemy;
 import enemies.SideShooter;
+import obstacles.Lava;
 import obstacles.Platform;
 import players.ShootingPlayer;
 import powerups.Coin;
@@ -37,6 +38,7 @@ public class Level2 extends Level {
 	private ShootingEnemy dropper1;
 	private ShootingEnemy dropper2;
 	private Collider endPiece;
+	private Lava lava;
 	public void setup() {
 		staticPieces = new ArrayList<>();
 		mobilePieces = new ArrayList<>();
@@ -49,7 +51,7 @@ public class Level2 extends Level {
 		enemy3 = new MobileEnemy(MobileEnemy.mobileEnemyImages,10,1000,700,750,200,-10,0,100,100);
 		shooter1 = new SideShooter(10,850,50, 80,50, 1);
 		shooter2 = new SideShooter(10,450, 50, 80,50, 1);
-		
+		lava = new Lava(10, 0, 950, 2000, 50, 0.1);
 		shooter3 = new SideShooter(1100,550, 50, 80,50, -1);
 		dropper1 = new ShootingEnemy(1500, 300, 0, 75, 75);
 		coin2 = new Coin(10,775);
@@ -153,6 +155,12 @@ public class Level2 extends Level {
 		for(int i = 0; i < staticPieces.size(); i++) {
 			staticPieces.get(i).draw(marker);
 		}
+		if(lava.intersects(player))
+		{
+			player.changeHealth(-1);
+		}
+		lava.increaseHeight(player);
+		lava.draw(marker);
 		
 	}
 }
