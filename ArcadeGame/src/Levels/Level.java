@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import javax.swing.Timer;
 
 import core.Collider;
+import enemies.MobileEnemy;
 import players.ShootingPlayer;
 import powerups.Coin;
 import processing.core.PApplet;
@@ -18,7 +19,7 @@ public class Level {
 	ArrayList<Collider> coins = new ArrayList<>();
 	String[] celebrations = new String[] {"Great job!", "Amazing!", "Awesome!", "You're a pro!", "Keep it up!"};
 	String currentCelebration;
-	ArrayList<Coin> collectedCoins = new ArrayList<Coin>();
+	ArrayList<Collider> defeatedObjects = new ArrayList<Collider>();
 	int messageTime = -1;
 	int time = 0;
 	boolean isFinished = false;
@@ -32,7 +33,7 @@ public class Level {
 	}
 	
 	public void displayCelebrations(PApplet marker) {
-		if (currentCelebration != null && collectedCoins.size() > 0 && messageTime >= 0) {
+		if (currentCelebration != null && defeatedObjects.size() > 0 && messageTime >= 0) {
 			marker.push();
 			marker.textFont(marker.createFont("assets/ARCADE_N.TTF", 64));
 			marker.textAlign(PApplet.CENTER, PApplet.CENTER);
@@ -41,7 +42,7 @@ public class Level {
 			marker.text(currentCelebration, 0, 0, marker.width, marker.height);
 			marker.textSize(15);
 			marker.fill(255, 255, 0);
-			for (Coin c : collectedCoins) {
+			for (Collider c : defeatedObjects) {
 				marker.text("+15", (float) c.getX(), (float) c.getY());
 			}
 			marker.pop();
@@ -49,17 +50,26 @@ public class Level {
 		} 
 		if (messageTime >= 30) {
 			messageTime = -1;
-			collectedCoins.clear();
+			defeatedObjects.clear();
 		}
 	}
 	
 	public void collectCoin(int i) {
 		messageTime = 0;
 		Coin collected = (Coin) coins.get(i);
-		collectedCoins.add(collected);
+		defeatedObjects.add(collected);
 		currentCelebration = celebrations[(int) (Math.random() * celebrations.length)];
 		coins.get(i).collide(player);
 		player.changePoints(15);
 		coins.remove(i);
+	}
+	
+	public void defeatMobileEnemy(int i) {
+		messageTime = 0;
+		MobileEnemy defeated = (MobileEnemy) mobilePieces.get(i);
+		defeatedObjects.add(defeated);
+		currentCelebration = celebrations[(int) (Math.random() * celebrations.length)];
+		player.changePoints(50);
+		mobilePieces.remove(i);
 	}
 }

@@ -124,9 +124,10 @@ public class Level2 extends Level {
 					setup();
 				} else {
 					if(mobilePieces.get(i) instanceof MobileEnemy) {
-						player.changePoints(50);
+						defeatMobileEnemy(i);
+					}else {
+						mobilePieces.remove(i);
 					}
-					mobilePieces.remove(i);
 				}
 			} else {
 				mobilePieces.get(i).act(objects);

@@ -97,7 +97,12 @@ public class Level1 extends Level{
 				if(mobilePieces.get(i) instanceof ShootingPlayer) {
 					setup();
 				} else {
-					mobilePieces.remove(i);
+					if(mobilePieces.get(i) instanceof MobileEnemy) {
+						defeatMobileEnemy(i);
+					}
+					else {
+						mobilePieces.remove(i);
+					}
 				}
 			} else {
 				mobilePieces.get(i).act(objects);

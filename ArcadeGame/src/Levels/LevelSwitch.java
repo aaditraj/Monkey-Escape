@@ -25,12 +25,15 @@ public class LevelSwitch extends PApplet{
 	Leaderboard leaderboard;
 	boolean promptQuit; 
 	PImage quit; 
+	PImage quitPrompt; 
+
 	
 	int points = 0;
 	ClickThrough clickThrough = new ClickThrough("demoSet");
 	String gameStatus = "Not Started";
 	public void setup() {
 		quit = loadImage("assets/SettingSymbol.png");
+		quitPrompt = loadImage("assets/QuitPrompt.png");
 		start = new StartPage(); 
 		menu = new MainMenu(); 
 		level = new Level1();
@@ -64,6 +67,7 @@ public class LevelSwitch extends PApplet{
 			if(promptQuit)
 			{
 				promptQuit();
+				gameStatus = "PromptQuit";
 			}
 
 		} else if (gameStatus.equals("Not Started")) {
@@ -110,6 +114,30 @@ public class LevelSwitch extends PApplet{
 		{
 			
 			gameStatus = leaderboard.checkClicked(mouseX, mouseY, width, height);
+		}
+		
+		if(gameStatus.equals("PromptQuit"))
+		{
+			
+			if(mouseX > (int)(width/3.5) && mouseX < (int)(height/1.8) + width/5)
+			{
+				if(mouseY > (int)(height/1.8) && mouseY < (int)(height/1.8) + height/5) 
+					gameStatus = "Main Menu"; 
+					setup();
+					promptQuit = false;
+
+				
+			}
+			
+			if(mouseX > (int)(width/1.95) && mouseX < (int)(width/1.95) + width/5)
+			{
+				if(mouseY > (int)(height/1.8) && mouseY < (int)(height/1.8) + height/5) 
+					gameStatus = "Started"; 
+					promptQuit = false;
+				
+				
+					
+			}
 		}
 		
 		if(gameStatus.equals("Started"))
@@ -228,6 +256,11 @@ public class LevelSwitch extends PApplet{
 	
 	public void promptQuit()
 	{
-		rect(width/4, height/3, width/2, height/3);
+		image(quitPrompt, width/4, height/4, width/2, height/2);
+		
+		
+
 	}
+	
+	
 }
