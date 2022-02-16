@@ -119,7 +119,9 @@ public class Level3 extends Level {
 	}
 	public void draw(PApplet marker) {
 		
+		
 		time++;
+		displayCelebrations(marker);
 		objects = new ArrayList<>();
 		objects.addAll(mobilePieces);
 		objects.addAll(staticPieces);
@@ -136,13 +138,6 @@ public class Level3 extends Level {
 		}
 		if(time%20 == 0) {
 			player.increaseAmmo();
-		}
-		
-		for (Coin c : new Coin[] {coin1, coin2, coin3}) {
-			if (c.intersects(player)) {
-				c.collide(player);
-				staticPieces.remove(c);
-			}
 		}
 		
 		if (platform1Danger.intersects(player)) {
@@ -193,8 +188,7 @@ public class Level3 extends Level {
 			coins.get(i).draw(marker);
 			if(coins.get(i).intersects(player))
 			{
-				player.changePoints(15);
-				coins.remove(i);
+				collectCoin(i);
 			}
 		}
 		for(int i = 0; i < staticPieces.size(); i++) {

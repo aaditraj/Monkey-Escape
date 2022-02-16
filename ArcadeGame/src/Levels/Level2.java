@@ -95,7 +95,9 @@ public class Level2 extends Level {
 		this.player = player;
 	}
 	public void draw(PApplet marker) {
+		
 		time++;
+		displayCelebrations(marker);
 		objects = new ArrayList<>();
 		objects.addAll(mobilePieces);
 		objects.addAll(staticPieces);
@@ -133,8 +135,7 @@ public class Level2 extends Level {
 			coins.get(i).draw(marker);
 			if(coins.get(i).intersects(player))
 			{
-				player.changePoints(15);
-				coins.remove(i);
+				collectCoin(i);
 			}
 		}
 		for(int i = 0; i < bullets.size(); i++) {

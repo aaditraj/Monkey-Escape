@@ -80,6 +80,7 @@ public class Level1 extends Level{
 		//bg = marker.loadImage("assets/Backgrounds/forest1.jpeg");
 		//marker.image(bg, 0, 0, marker.width, marker.height);
 		time++;
+		displayCelebrations(marker);
 		objects = new ArrayList<>();
 		objects.addAll(mobilePieces);
 		objects.addAll(staticPieces);
@@ -121,8 +122,7 @@ public class Level1 extends Level{
 			coins.get(i).draw(marker);
 			if(coins.get(i).intersects(player))
 			{
-				player.changePoints(15);
-				coins.remove(i);
+				collectCoin(i);
 			}
 		}
 		if(lava.intersects(player))
