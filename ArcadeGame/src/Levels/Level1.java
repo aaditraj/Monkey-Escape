@@ -46,10 +46,10 @@ public class Level1 extends Level{
 		shooter1 = new SideShooter(10,800,70, 100,100, 1);
 		shooter2 = new SideShooter(10,400, 70, 100,100, 1);
 		player = new ShootingPlayer(10,200,700,100,100,0,10,10,125);
-		platform1 = new Platform(800,700,600,40,false);
-		platform2 = new Platform(800,300,600,40,false);
-		platform3 = new Platform(10,500,600,40,false);
-		platform4 = new Platform(10,900,600,40,false);
+		platform1 = new Platform("assets/Platform/log-platform.png", 800,700,600,40,false);
+		platform2 = new Platform("assets/Platform/log-platform.png", 800,300,600,40,false);
+		platform3 = new Platform("assets/Platform/log-platform.png", 10,500,600,40,false);
+		platform4 = new Platform("assets/Platform/log-platform.png", 10,900,600,40,false);
 		endPiece = new Collider(new String[] {"assets/Projectiles/banana.png"},20,1000,200,100,100,0,0);
 		coin1 = new Coin(750,1400);
 		coin2 = new Coin(350,1400);
@@ -61,7 +61,7 @@ public class Level1 extends Level{
 		coins.add(coin4);
 		dropper1 = new ShootingEnemy(50,100,100,100,100);
 		//platform6 = new Platform(10,900,100,40,false);
-		lava = new Lava(10, 0, 950, 2000, 50, 0.1);
+		lava = new Lava(10, 0, 950, 2000, 100, 0.2);
 		playerSpeed = 10;
 		staticPieces.add(platform1);
 		staticPieces.add(platform2);
