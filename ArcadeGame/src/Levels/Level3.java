@@ -121,7 +121,6 @@ public class Level3 extends Level {
 		
 		
 		time++;
-		displayCelebrations(marker);
 		objects = new ArrayList<>();
 		objects.addAll(mobilePieces);
 		objects.addAll(staticPieces);
@@ -197,6 +196,7 @@ public class Level3 extends Level {
 		if(player.intersects(endPiece)) {
 			isFinished = true;
 		}
+		displayCelebrations(marker);
 	}
 }
 

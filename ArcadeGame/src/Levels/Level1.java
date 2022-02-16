@@ -81,7 +81,6 @@ public class Level1 extends Level{
 		//bg = marker.loadImage("assets/Backgrounds/forest1.jpeg");
 		//marker.image(bg, 0, 0, marker.width, marker.height);
 		time++;
-		displayCelebrations(marker);
 		objects = new ArrayList<>();
 		objects.addAll(mobilePieces);
 		objects.addAll(staticPieces);
@@ -136,5 +135,7 @@ public class Level1 extends Level{
 		if(player.intersects(endPiece)) {
 			isFinished = true;
 		}
+		displayCelebrations(marker);
+
 	}		
 }

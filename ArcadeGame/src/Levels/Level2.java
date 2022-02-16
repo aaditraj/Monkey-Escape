@@ -99,7 +99,6 @@ public class Level2 extends Level {
 	public void draw(PApplet marker) {
 		
 		time++;
-		displayCelebrations(marker);
 		objects = new ArrayList<>();
 		objects.addAll(mobilePieces);
 		objects.addAll(staticPieces);
@@ -161,6 +160,7 @@ public class Level2 extends Level {
 		}
 		lava.increaseHeight(player);
 		lava.draw(marker);
+		displayCelebrations(marker);
 		
 	}
 }
