@@ -12,6 +12,7 @@ import obstacles.Platform;
 import players.ShootingPlayer;
 import powerups.Coin;
 import processing.core.PApplet;
+import processing.core.PImage;
 import startpage.Instructions;
 import startpage.Leaderboard;
 import startpage.MainMenu;
@@ -22,10 +23,14 @@ public class LevelSwitch extends PApplet{
 	MainMenu menu; 
 	Instructions instructions; 
 	Leaderboard leaderboard;
+	boolean promptQuit; 
+	PImage quit; 
+	
 	int points = 0;
 	ClickThrough clickThrough = new ClickThrough("demoSet");
 	String gameStatus = "Not Started";
 	public void setup() {
+		quit = loadImage("assets/SettingSymbol.png");
 		start = new StartPage(); 
 		menu = new MainMenu(); 
 		level = new Level1();
@@ -34,8 +39,11 @@ public class LevelSwitch extends PApplet{
 		((Level1)level).setup();
 	}
 	public void draw() {
+
+		
 		if(gameStatus.equals("Started")) {
 			background(50);
+			image(quit, 25, 25, 50, 50);
 			move();
 			level.draw(this);
 			if(level.isFinished == true) {
@@ -51,6 +59,11 @@ public class LevelSwitch extends PApplet{
 				} else if (level instanceof Level3) {
 					gameStatus = "Finished";
 				}
+			}
+			
+			if(promptQuit)
+			{
+				promptQuit();
 			}
 
 		} else if (gameStatus.equals("Not Started")) {
@@ -71,6 +84,9 @@ public class LevelSwitch extends PApplet{
 			leaderboard.draw(this);
 		}
 		
+		
+
+		
 	}
 	public void mousePressed() {
 		if (level.player.getAmmo() > 0) {
@@ -88,6 +104,22 @@ public class LevelSwitch extends PApplet{
 		{
 			
 			gameStatus = instructions.checkClicked(mouseX, mouseY, width, height);
+		}
+		
+		if(gameStatus.equals("Leaderboard"))
+		{
+			
+			gameStatus = leaderboard.checkClicked(mouseX, mouseY, width, height);
+		}
+		
+		if(gameStatus.equals("Started"))
+		{
+			
+			if(mouseX > 25 && mouseX < 25 + 50)
+			{
+				if(mouseY > 25 && mouseY < 25 + 50) 
+				promptQuit = true; 
+			}
 		}
 		
 	}		
@@ -192,5 +224,10 @@ public class LevelSwitch extends PApplet{
 				clickThrough.next();
 			}
 		}
+	}
+	
+	public void promptQuit()
+	{
+		rect(width/4, height/3, width/2, height/3);
 	}
 }

@@ -74,7 +74,7 @@ public class MainMenu {
 		if(mouseX > rectx3 && mouseX < rectx3 + rectXSize2)
 		{
 			if(mouseY > recty3 && mouseY < recty3 + rectYSize2) return "Started"; 
-			System.out.println("Hi");
+		
 		}
 		
 		return "Main Menu";
