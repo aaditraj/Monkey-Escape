@@ -23,6 +23,7 @@ public class Level1 extends Level{
 	Platform platform2;
 	Platform platform3;
 	Platform platform4;
+	Platform platform5;
 	Coin coin1;
 	Coin coin2;
 	Coin coin3;
@@ -33,8 +34,6 @@ public class Level1 extends Level{
 	Lava lava;
 	PImage bg;
 	public void setup() {
-		
-		
 		staticPieces = new ArrayList<>();
 		mobilePieces = new ArrayList<>();
 		bullets = new ArrayList<>();
@@ -50,6 +49,7 @@ public class Level1 extends Level{
 		platform2 = new Platform("assets/Platform/log-platform.png", 800,300,600,40,false);
 		platform3 = new Platform("assets/Platform/log-platform.png", 10,500,600,40,false);
 		platform4 = new Platform("assets/Platform/log-platform.png", 10,900,600,40,false);
+		platform5 = new Platform("assets/Platform/log-platform.png", 10,200,200,40,false);
 		endPiece = new Collider(new String[] {"assets/door.png"},20,1300,200,100,100,0,0);
 		coin1 = new Coin(750,1400);
 		coin2 = new Coin(350,1400);
@@ -67,6 +67,7 @@ public class Level1 extends Level{
 		staticPieces.add(platform2);
 		staticPieces.add(platform3);
 		staticPieces.add(platform4);
+		staticPieces.add(platform5);
 		staticPieces.add(shooter1);
 		staticPieces.add(shooter2);
 		staticPieces.add(dropper1);

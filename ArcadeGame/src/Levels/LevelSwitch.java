@@ -211,15 +211,19 @@ public class LevelSwitch extends PApplet{
 	}
 	public void keyReleased() {
 		if(gameStatus.equals("Leaderboard")) {
-			if(key == '\n') {
-				leaderboard.add(points, playerName);
-				setup();
-			} else if (key == BACKSPACE && playerName.length() >=1 ) {
-				playerName = playerName.substring(0,playerName.length()-1);
-				leaderboard.currName = playerName;
-			}else {
-				playerName = playerName + key;
-				leaderboard.currName = playerName;
+			if(points != 0) {
+				if(key == '\n') {
+					leaderboard.add(points, playerName);
+					setup();
+				} else if (key == BACKSPACE && playerName.length() >=1 ) {
+					playerName = playerName.substring(0,playerName.length()-1);
+					leaderboard.currName = playerName;
+				}else {
+					if((int)key > 96 && (int)key < 123) {
+						playerName = playerName + key;
+						leaderboard.currName = playerName;
+					}
+				}
 			}
 		} else {
 			if (keyCode == UP) { 

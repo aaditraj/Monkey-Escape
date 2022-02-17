@@ -97,7 +97,7 @@ public class Level2 extends Level {
 		this.player = player;
 	}
 	public void draw(PApplet marker) {
-		
+		//marker.image(marker.loadImage("assets/Backgrounds/forest2.jpg"),0,0,marker.width, marker.height);
 		time++;
 		objects = new ArrayList<>();
 		objects.addAll(mobilePieces);

@@ -1,5 +1,6 @@
 package startpage;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -16,12 +17,14 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 public class Leaderboard implements Serializable {
 	private HashMap<String,Integer> leaderboard;
+	private HashMap<Integer, ArrayList<String>> pointSet;
 	PImage backArrow;
 	public String currName = "";
 //	BufferedReader reader;
 	
 	public Leaderboard() {
 		leaderboard = new HashMap<>();
+		pointSet = new HashMap<>();
 		readData();
 		leaderboard.put("cadi",100);
 		writeData();
@@ -43,10 +46,28 @@ public class Leaderboard implements Serializable {
 		surface.textFont(surface.createFont("assets/ARCADE_N.TTF", 50));
 		Set<String> keys = leaderboard.keySet();
 		String[] arr = new String[keys.size()];
-		Iterator<String> iter = keys.iterator();
-		for(int i = 0;i < keys.size(); i++) {
-			String key = iter.next();
-			surface.text("" + key + "     " + leaderboard.get(key), surface.width/3, surface.height * 0.25f + i*100);
+		keys.toArray(arr);
+		for(int i = 0; i < arr.length; i++) {
+			ArrayList<String> names = pointSet.get(leaderboard.get(arr[i]));
+			if(names != null) {
+				names.add(arr[i]);
+			} else {
+				names = new ArrayList<String>();
+				names.add(arr[i]);
+			}
+			
+			pointSet.put(leaderboard.get(arr[i]),names);
+		}
+		Integer[] pointsArr = new Integer[pointSet.size()];
+		pointSet.keySet().toArray(pointsArr);
+		Arrays.sort(pointsArr,Collections.reverseOrder());
+		for(int i = 0; i < pointsArr.length; i++) {
+			Integer key = pointsArr[i];
+			ArrayList<String> names = pointSet.get(key);
+			for(int j = 0; j < names.size(); j++) {
+				surface.text((i+1)+". "+names.get(j) + "     " + key, surface.width/3, surface.height * 0.25f + i*100);
+			}
+			
 		}
 		
 		
