@@ -63,7 +63,11 @@ public class MainMenu {
 		
 		if(mouseX > rectx1 && mouseX < rectx1 + rectXSize)
 		{
-			if(mouseY > recty1 && mouseY < recty1 + rectYSize) return "Leaderboard"; 
+			if(mouseY > recty1 && mouseY < recty1 + rectYSize) 
+				{
+				return "Leaderboard"; 
+				
+				}
 		}
 		
 		if(mouseX > rectx2 && mouseX < rectx2 + rectXSize)
@@ -73,7 +77,12 @@ public class MainMenu {
 		
 		if(mouseX > rectx3 && mouseX < rectx3 + rectXSize2)
 		{
-			if(mouseY > recty3 && mouseY < recty3 + rectYSize2) return "Started"; 
+			if(mouseY > recty3 && mouseY < recty3 + rectYSize2) {
+	
+
+				return "Started"; 
+			
+			}
 		
 		}
 		

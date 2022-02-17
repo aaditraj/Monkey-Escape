@@ -43,11 +43,11 @@ public class LevelSwitch extends PApplet{
 		((Level1)level).setup();
 	}
 	public void draw() {
-
+		
 		
 		if(gameStatus.equals("Started")) {
 			background(50);
-			image(quit, 25, 25, 50, 50);
+			image(quit, width-100, 25, 50, 50);
 			move();
 			level.draw(this);
 			if(level.isFinished == true) {
@@ -67,8 +67,7 @@ public class LevelSwitch extends PApplet{
 				}
 			}
 			
-			System.out.println(level.isFinished);
-			System.out.println(gameStatus);
+			
 
 			
 			if(promptQuit)
@@ -153,7 +152,7 @@ public class LevelSwitch extends PApplet{
 		if(gameStatus.equals("Started"))
 		{
 			
-			if(mouseX > 25 && mouseX < 25 + 50)
+			if(mouseX > width-100 && mouseX < width-100 + 50)
 			{
 				if(mouseY > 25 && mouseY < 25 + 50) 
 				promptQuit = true; 
