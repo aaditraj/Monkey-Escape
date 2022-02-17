@@ -1,5 +1,6 @@
 package startpage;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
@@ -16,7 +17,7 @@ import java.io.Serializable;
 public class Leaderboard implements Serializable {
 	private HashMap<String,Integer> leaderboard;
 	PImage backArrow;
-
+	public String currName = "";
 //	BufferedReader reader;
 	
 	public Leaderboard() {
@@ -30,23 +31,18 @@ public class Leaderboard implements Serializable {
 	{
 		surface.push(); 
 		backArrow = surface.loadImage("assets/backArrow.png");
-
-		
-		surface.background(surface.color(173,216,230));
-		surface.fill(surface.color(144,238,144));
-		surface.noStroke();
-		surface.rect(0,0,surface.width * 0.2f,surface.height);
-		surface.rect(surface.width-surface.width*0.2f,0,surface.width * 0.2f,surface.height);
+		surface.image(surface.loadImage("assets/Backgrounds/forest2.jpg"), 0,0, surface.width,surface.height);
 		surface.image(backArrow, 50, 50, surface.width/18, surface.height/15);
 
 		surface.textSize(60);
-		
-		surface.fill(surface.color(0,0,0));
+		surface.text(currName,10,300);
+		surface.fill(surface.color(255,255,255));
 		surface.text("Leaderboard", surface.width/3, surface.height * 0.1f);
 		
-		surface.fill(surface.color(246,190,0));
+		surface.fill(surface.color(255,255,255));
 		surface.textFont(surface.createFont("assets/ARCADE_N.TTF", 50));
 		Set<String> keys = leaderboard.keySet();
+		String[] arr = new String[keys.size()];
 		Iterator<String> iter = keys.iterator();
 		for(int i = 0;i < keys.size(); i++) {
 			String key = iter.next();

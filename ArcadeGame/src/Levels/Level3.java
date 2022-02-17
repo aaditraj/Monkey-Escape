@@ -85,7 +85,7 @@ public class Level3 extends Level {
 		
 		lava = new Lava(10, 0, 1050, 2000, 50, 0.2);
 		
-		endPiece = new Collider(new String[] {"assets/Bullet.png"},275,1050,200,100,100,0,0);
+		endPiece = new Collider(new String[] {"assets/door.png"},275,1000,150,100,100,0,0);
 
 
 		playerSpeed = 15;
@@ -162,7 +162,9 @@ public class Level3 extends Level {
 				if(mobilePieces.get(i) instanceof ShootingPlayer) {
 					setup();
 				} else {
-					mobilePieces.remove(i);
+					if(mobilePieces.get(i) instanceof MobileEnemy) {
+						defeatMobileEnemy(i);
+					}
 				}
 			} else {
 				mobilePieces.get(i).act(objects);
@@ -202,6 +204,7 @@ public class Level3 extends Level {
 		}
 		lava.increaseHeight(player);
 		lava.draw(marker);
+		endPiece.draw(marker);
 		displayCelebrations(marker);
 	}
 }

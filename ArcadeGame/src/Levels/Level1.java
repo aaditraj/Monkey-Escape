@@ -50,7 +50,7 @@ public class Level1 extends Level{
 		platform2 = new Platform("assets/Platform/log-platform.png", 800,300,600,40,false);
 		platform3 = new Platform("assets/Platform/log-platform.png", 10,500,600,40,false);
 		platform4 = new Platform("assets/Platform/log-platform.png", 10,900,600,40,false);
-		endPiece = new Collider(new String[] {"assets/Projectiles/banana.png"},20,1000,200,100,100,0,0);
+		endPiece = new Collider(new String[] {"assets/door.png"},20,1300,200,100,100,0,0);
 		coin1 = new Coin(750,1400);
 		coin2 = new Coin(350,1400);
 		coin3 = new Coin(550,610);
@@ -137,6 +137,7 @@ public class Level1 extends Level{
 		}
 		lava.increaseHeight(player);
 		lava.draw(marker);
+		endPiece.draw(marker);
 		if(player.intersects(endPiece)) {
 			isFinished = true;
 		}

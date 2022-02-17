@@ -68,7 +68,7 @@ public class Level2 extends Level {
 		platform6 = new Platform(650,240,500,40,false);
 		platform7 = new Platform(10,500,500,40,false);
 		platform8 = new Platform(100,350,400,40,false);
-		endPiece = new Collider(new String[] {"assets/Projectiles/Bullet.png"},20,1000,220,100,100,0,0);
+		endPiece = new Collider(new String[] {"assets/door.png"},20,1000,150,100,100,0,0);
 
 		
 		playerSpeed = 10;
@@ -124,9 +124,8 @@ public class Level2 extends Level {
 					setup();
 				} else {
 					if(mobilePieces.get(i) instanceof MobileEnemy) {
-						player.changePoints(50);
+						defeatMobileEnemy(i);
 					}
-					mobilePieces.remove(i);
 				}
 			} else {
 				mobilePieces.get(i).act(objects);
@@ -162,6 +161,7 @@ public class Level2 extends Level {
 		lava.increaseHeight(player);
 		lava.draw(marker);
 		displayCelebrations(marker);
+		endPiece.draw(marker);
 		
 	}
 }
