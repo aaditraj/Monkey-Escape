@@ -43,7 +43,11 @@ public class Level {
 			marker.textSize(15);
 			marker.fill(255, 255, 0);
 			for (Collider c : defeatedObjects) {
-				marker.text("+15", (float) c.getX(), (float) c.getY());
+				if(c instanceof MobileEnemy) {
+					marker.text("+50", (float) c.getX(), (float) c.getY());
+				} else {
+					marker.text("+15", (float) c.getX(), (float) c.getY());
+				}
 			}
 			marker.pop();
 			messageTime++;
