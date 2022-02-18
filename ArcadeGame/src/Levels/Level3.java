@@ -201,6 +201,9 @@ public class Level3 extends Level {
 		if(player.intersects(endPiece)) {
 			isFinished = true;
 		}
+		if(player.intersects(lava)) {
+			player.changeHealth(-1);
+		}
 		lava.increaseHeight(player);
 		lava.draw(marker);
 		endPiece.draw(marker);
