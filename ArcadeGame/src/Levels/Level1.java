@@ -44,7 +44,7 @@ public class Level1 extends Level{
 		enemy2 = new MobileEnemy(MobileEnemy.mobileEnemyImages,10,1200,200,800,200,-10,0,80,100);
 		shooter1 = new SideShooter(10,800,70, 100,100, 1);
 		shooter2 = new SideShooter(10,400, 70, 100,100, 1);
-		player = new ShootingPlayer(10,200,700,100,100,0,10,10,125);
+		player = new ShootingPlayer(30,200,700,100,100,0,10,10,125);
 		platform1 = new Platform("assets/Platform/log-platform.png", 800,700,600,40,false);
 		platform2 = new Platform("assets/Platform/log-platform.png", 800,300,600,40,false);
 		platform3 = new Platform("assets/Platform/log-platform.png", 10,500,600,40,false);
@@ -61,7 +61,7 @@ public class Level1 extends Level{
 		coins.add(coin4);
 		dropper1 = new ShootingEnemy(50,100,100,100,100);
 		//platform6 = new Platform(10,900,100,40,false);
-		lava = new Lava(10, 0, 950, 2000, 100, 0.2);
+		lava = new Lava(10, 0, 950, 2000, 100, 0.1);
 		playerSpeed = 10;
 		staticPieces.add(platform1);
 		staticPieces.add(platform2);

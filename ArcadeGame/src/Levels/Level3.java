@@ -50,7 +50,7 @@ public class Level3 extends Level {
 		totalPieces = new ArrayList<>();
 		objects = new ArrayList<>();
 		keysPressed = new boolean[5];
-		player = new ShootingPlayer(10,0,900,100d,100d,0,10, 7,90);
+		player = new ShootingPlayer(100,0,900,100d,100d,0,10, 7,90);
 	
 		platformBottom = new Platform(0,1000,1050,40,false);
 		enemy1 = new MobileEnemy(MobileEnemy.mobileEnemyImages,10,525,900,900,900,15,0,100,125);
