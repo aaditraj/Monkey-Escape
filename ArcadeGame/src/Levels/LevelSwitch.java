@@ -1,5 +1,6 @@
 package Levels;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import core.Bullet;
 import core.ClickThrough;
@@ -27,13 +28,18 @@ public class LevelSwitch extends PApplet{
 	PImage quit; 
 	PImage skip;
 	PImage quitPrompt; 
+<<<<<<< Updated upstream
 	
 
+=======
+	HashMap<String,Integer> leaderboardCopy;
+>>>>>>> Stashed changes
 	
 	int points = 0;
 	ClickThrough clickThrough = new ClickThrough("demoSet");
 	String gameStatus = "Not Started";
-	String playerName = "";
+	String playerName;
+	boolean keysEntered = false;
 	public void setup() {
 		quit = loadImage("assets/SettingSymbol.png");
 		skip = loadImage("assets/SkipSymbol.png");
@@ -43,6 +49,10 @@ public class LevelSwitch extends PApplet{
 		level = new Level1();
 		instructions = new Instructions();
 		leaderboard = new Leaderboard();
+		leaderboardCopy = leaderboard.getLeaderboard();
+		keysEntered = false;
+		playerName ="Enter Name";
+		points = 0;
 		((Level1)level).setup();
 	}
 	public void draw() {
@@ -72,7 +82,6 @@ public class LevelSwitch extends PApplet{
 				} else if (level instanceof Level3) {
 					level.isFinished = false;
 					gameStatus = "Leaderboard";
-					playerName = "";
 				}
 			}
 			
@@ -239,14 +248,33 @@ public class LevelSwitch extends PApplet{
 	public void keyReleased() {
 		if(gameStatus.equals("Leaderboard")) {
 			if(points != 0) {
+				leaderboard.shouldDispName = true;
+				leaderboard.currName =  playerName;
+				leaderboard.currPoints = points;
 				if(key == '\n') {
-					leaderboard.add(points, playerName);
-					setup();
+					if(!leaderboardCopy.containsKey(playerName)) {
+						leaderboard.add(points, playerName);
+						leaderboard.shouldDispName = false;
+						keyPressed = false;
+						setup();
+					} else {
+						
+					}
 				} else if (key == BACKSPACE && playerName.length() >=1 ) {
-					playerName = playerName.substring(0,playerName.length()-1);
+					if(!keysEntered) {
+						keysEntered = true;
+						playerName = "";
+					}
+					if(playerName.length() >= 1) {
+						playerName = playerName.substring(0,playerName.length()-1);
+					}
 					leaderboard.currName = playerName;
 				}else {
 					if((int)key > 96 && (int)key < 123) {
+						if(!keysEntered) {
+							keysEntered = true;
+							playerName = "";
+						}
 						playerName = playerName + key;
 						leaderboard.currName = playerName;
 					}
