@@ -28,12 +28,8 @@ public class LevelSwitch extends PApplet{
 	PImage quit; 
 	PImage skip;
 	PImage quitPrompt; 
-<<<<<<< Updated upstream
-	
 
-=======
 	HashMap<String,Integer> leaderboardCopy;
->>>>>>> Stashed changes
 	
 	int points = 0;
 	ClickThrough clickThrough = new ClickThrough("demoSet");
