@@ -7,7 +7,7 @@ public class Line {
 	private int R, G, B; // Color of the line, default is black
 	private int strokeWeight; // Width of the line, default is 1
 	
-	// Constructs a line from (x1, y1) to (x2, y2)
+//  Constructs a line from (x1, y1) to (x2, y2)
 	public Line(double x1, double y1, double x2, double y2) {
 		this.x1 = x1;
 		this.y1 = y1;
@@ -30,19 +30,19 @@ public class Line {
 		this.strokeWeight = weight;
 	}
 	  
-	// Sets this line’s second point (x2, y2) to a new coordinate public void
+//  Sets this line’s second point (x2, y2) to a new coordinate public void
 	public void setPoint1(double x1, double y1) {
 		this.x1 = x1;
 		this.y1 = y1;
 	}
 	
-	// Sets this line’s second point (x2, y2) to a new coordinate public void
+//  Sets this line’s second point (x2, y2) to a new coordinate public void
 	public void setPoint2(double x2, double y2) {
 		this.x2 = x2;
 		this.y2 = y2;
 	}
 	
-	// Draws this line using the PApplet passed as an argument 
+//  Draws this line using the PApplet passed as an argument 
 	public void draw(PApplet drawer) {
 		drawer.push(); // Use push and pop so custom settings don't get applied elsewhere
 		drawer.stroke(R, G, B);
@@ -55,19 +55,19 @@ public class Line {
 		return (x1 - x2)*(other.getY1()-other.getY2()) - (y1-y2)*(other.getX1()-other.getX2());
 	}
 	
-	// Returns the x coordinate of the intersection point of this line and the other line (assuming they continue forever) 
+//  Returns the x coordinate of the intersection point of this line and the other line (assuming they continue forever) 
 	public double getIntersectionX(Line other) {
 		double numerator = (x1*y2 - y1*x2)*(other.getX1() - other.getX2()) - (x1 - x2)*(other.getX1()*other.getY2() - other.getY1()*other.getX2());
 		return numerator/calcDenom(other);
 	}
 	
-	// Returns the y coordinate of the intersection point of this line and the other line (assuming they continue forever) 
+//  Returns the y coordinate of the intersection point of this line and the other line (assuming they continue forever) 
 	public double getIntersectionY(Line other) {
 		double numerator = (x1*y2 - y1*x2)*(other.getY1() - other.getY2()) - (y1 - y2)*(other.getX1()*other.getY2() - other.getY1()*other.getX2());
 		return numerator/calcDenom(other);
 	}
 	
-	// Returns true if this line segment and the segment other intersect each other. Returns false if they do not intersect. 
+//  Returns true if this line segment and the segment other intersect each other. Returns false if they do not intersect. 
 	public boolean intersects(Line other) {
 		Double exactXIntersect = getIntersectionX(other);
 		Double exactYIntersect = getIntersectionY(other);
@@ -95,6 +95,7 @@ public class Line {
 		
 		return (onLine1 && onLine2);
 	}
+
 	public boolean isCollinear(Line other) {
 		Double exactXIntersect = getIntersectionX(other);
 		Double exactYIntersect = getIntersectionY(other);

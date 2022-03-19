@@ -20,16 +20,21 @@ public class Leaderboard implements Serializable {
 	private HashMap<Integer, ArrayList<String>> pointSet;
 	PImage backArrow;
 	public String currName = "";
+	public int currPoints;
+	public boolean shouldDispName;
 //	BufferedReader reader;
 	
 	public Leaderboard() {
 		leaderboard = new HashMap<>();
 		pointSet = new HashMap<>();
+		shouldDispName = false;
 		readData();
-		leaderboard.put("cadi",100);
 		writeData();
+		constructPointSet();
 	}
-	
+	public HashMap<String,Integer> getLeaderboard() {
+		return leaderboard;
+	}
 	public void draw(PApplet surface)
 	{
 		surface.push(); 
@@ -38,39 +43,53 @@ public class Leaderboard implements Serializable {
 		surface.image(backArrow, 50, 50, surface.width/18, surface.height/15);
 
 		surface.textSize(60);
-		surface.text(currName,10,300);
+		//surface.text(currName,10,300);
 		surface.fill(surface.color(255,255,255));
 		surface.text("Leaderboard", surface.width/3, surface.height * 0.1f);
 		
 		surface.fill(surface.color(255,255,255));
 		surface.textFont(surface.createFont("assets/ARCADE_N.TTF", 50));
-		Set<String> keys = leaderboard.keySet();
-		String[] arr = new String[keys.size()];
-		keys.toArray(arr);
-		for(int i = 0; i < arr.length; i++) {
-			ArrayList<String> names = pointSet.get(leaderboard.get(arr[i]));
-			if(names != null) {
-				names.add(arr[i]);
-			} else {
-				names = new ArrayList<String>();
-				names.add(arr[i]);
-			}
-			
-			pointSet.put(leaderboard.get(arr[i]),names);
-		}
+		
 		Integer[] pointsArr = new Integer[pointSet.size()];
 		pointSet.keySet().toArray(pointsArr);
+		boolean displayed = false;
+		int length = 0;
+		int position = 0;
+		int iter = 0;
 		Arrays.sort(pointsArr,Collections.reverseOrder());
-		for(int i = 0; i < pointsArr.length; i++) {
-			Integer key = pointsArr[i];
-			ArrayList<String> names = pointSet.get(key);
-			for(int j = 0; j < names.size(); j++) {
-				surface.text((i+1)+". "+names.get(j) + "     " + key, surface.width/3, surface.height * 0.25f + i*100);
-			}
-			
+		for(position = 0; position < pointsArr.length; position ++) {
+			 if(currPoints >= pointsArr[position]) {
+				 break;
+			 }
 		}
-		
-		
+		if(leaderboard.size() > 7) {
+			length = 7;
+		} else {
+			length = leaderboard.size();
+		}
+		for(int i = 0; i < length;iter++) {
+			Integer key = pointsArr[iter];
+			ArrayList<String> names = pointSet.get(key);
+			System.out.println(names.size());
+			if(i == position && !displayed && shouldDispName) {
+				System.out.println(shouldDispName);
+				surface.fill(surface.color(255,0,0));
+				surface.text((i+1)+". "+currName + "     " + currPoints, surface.width/3, surface.height * 0.25f + (i)*100);
+				surface.fill(surface.color(255,255,255));
+				displayed = true;
+				i++;
+			}
+			for(int j = 0; j < names.size(); j++) {
+				surface.text((i+1)+". "+names.get(j) + "     " + key, surface.width/3, surface.height * 0.25f + (i)*100);
+				i++;
+			}
+		}
+		if(!displayed && shouldDispName) {
+			surface.fill(surface.color(255,0,0));
+			surface.text((position+1)+". "+currName + "     " + currPoints, surface.width/3, surface.height * 0.25f + (length)*100);
+			surface.fill(surface.color(255,255,255));
+		}
+
 		
 		/*for(int i = 0; i<data.size(); i++)
 			surface.text("" + data.get(i), surface.width/3, surface.height * 0.25f + i*100);
@@ -100,11 +119,24 @@ public class Leaderboard implements Serializable {
 			this.leaderboard = (HashMap)reader.readObject();
 			
 		} catch (Exception e) {
-			System.out.println("Could not serialize leaderboard");
-			e.printStackTrace();
 		}
 	}
-	
+	public void constructPointSet() {
+		pointSet = new HashMap<>();
+		Set<String> keys = leaderboard.keySet();
+		String[] arr = new String[keys.size()];
+		keys.toArray(arr);
+		for(int i = 0; i < arr.length; i++) {
+			ArrayList<String> names = pointSet.get(leaderboard.get(arr[i]));
+			if(names != null) {
+				names.add(arr[i]);
+			} else {
+				names = new ArrayList<String>();
+				names.add(0,arr[i]);
+			}
+			pointSet.put(leaderboard.get(arr[i]),names);
+		}
+	}
 	public void add(int val, String name)
 	{
 		if(!leaderboard.containsKey(name)) {
@@ -113,6 +145,7 @@ public class Leaderboard implements Serializable {
 			System.out.println("Please enter a unique name.");
 		}
 		writeData();
+		constructPointSet();
 	}
 	
 	public String checkClicked(int mouseX, int mouseY, int width, int height)
