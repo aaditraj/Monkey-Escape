@@ -25,7 +25,9 @@ public class LevelSwitch extends PApplet{
 	Leaderboard leaderboard;
 	boolean promptQuit; 
 	PImage quit; 
+	PImage skip;
 	PImage quitPrompt; 
+	
 
 	
 	int points = 0;
@@ -34,6 +36,7 @@ public class LevelSwitch extends PApplet{
 	String playerName = "";
 	public void setup() {
 		quit = loadImage("assets/SettingSymbol.png");
+		skip = loadImage("assets/SkipSymbol.png");
 		quitPrompt = loadImage("assets/QuitPrompt.png");
 		start = new StartPage(); 
 		menu = new MainMenu(); 
@@ -47,19 +50,25 @@ public class LevelSwitch extends PApplet{
 		
 		if(gameStatus.equals("Started")) {
 			background(50);
+			textFont(createFont("assets/ARCADE_N.TTF", 50));
+			text(points, width-150, 150);
 			image(quit, width-100, 25, 50, 50);
+			image(skip, width-175, 30, 65, 40);
 			move();
 			level.draw(this);
+			points = level.player.points;
 			if(level.isFinished == true) {
 				if(level instanceof Level1) {
-					points = points + level.player.points;
+					points = level.player.points;
 					level = new Level2();
 					((Level2) level).setup();
+					level.player.points = points;
 					
 				} else if (level instanceof Level2) {
-					points = points + level.player.points;
+					points = level.player.points;
 					level = new Level3();
 					((Level3) level).setup();
+					level.player.points = points;
 				} else if (level instanceof Level3) {
 					level.isFinished = false;
 					gameStatus = "Leaderboard";
@@ -156,6 +165,24 @@ public class LevelSwitch extends PApplet{
 			{
 				if(mouseY > 25 && mouseY < 25 + 50) 
 				promptQuit = true; 
+			}
+			
+			if(mouseX > width-175 && mouseX < width-175 + 65)
+			{
+				if(mouseY > 30 && mouseY < 30 + 40) 
+				if(level instanceof Level1)
+				{
+					level = new Level2();
+					((Level2) level).setup();
+				}
+				else if (level instanceof Level2)
+				{
+					level = new Level3();
+					((Level3) level).setup();
+				}
+				else {
+					level.isFinished = true; 
+				}
 			}
 		}
 		
