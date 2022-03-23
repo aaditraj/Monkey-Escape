@@ -15,7 +15,6 @@ public class Coin extends Collider {
 	public double collide(Collider collider) {
 		if (collider instanceof ShootingPlayer) {
 			ShootingPlayer player = (ShootingPlayer) collider;
-			player.changePoints(5);
 			return getHealth();
 		}
 		return 0.0;
