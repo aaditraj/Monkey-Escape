@@ -28,7 +28,8 @@ public class LevelSwitch extends PApplet{
 	PImage quit; 
 	PImage skip;
 	PImage quitPrompt; 
-
+	int previousPoints; 
+	
 	HashMap<String,Integer> leaderboardCopy;
 	
 	int points = 0;
@@ -69,12 +70,15 @@ public class LevelSwitch extends PApplet{
 					level = new Level2();
 					((Level2) level).setup();
 					level.player.points = points;
+					previousPoints = level.player.points; 
 					
 				} else if (level instanceof Level2) {
 					points = level.player.points;
 					level = new Level3();
 					((Level3) level).setup();
 					level.player.points = points;
+					previousPoints = level.player.points; 
+
 				} else if (level instanceof Level3) {
 					level.isFinished = false;
 					gameStatus = "Leaderboard";
@@ -177,15 +181,16 @@ public class LevelSwitch extends PApplet{
 				if(mouseY > 30 && mouseY < 30 + 40) 
 				if(level instanceof Level1)
 				{
-					level = new Level2();
-					((Level2) level).setup();
+					level.player.points = 0;
+					level.isFinished = true; 
 				}
 				else if (level instanceof Level2)
 				{
-					level = new Level3();
-					((Level3) level).setup();
+					level.player.points = previousPoints; 
+					level.isFinished = true; 
 				}
 				else {
+					level.player.points = previousPoints; 
 					level.isFinished = true; 
 				}
 			}
