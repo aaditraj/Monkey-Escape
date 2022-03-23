@@ -37,6 +37,7 @@ public class LevelSwitch extends PApplet{
 	String gameStatus = "Not Started";
 	String playerName;
 	boolean keysEntered = false;
+	boolean played;
 	public void setup() {
 		quit = loadImage("assets/SettingSymbol.png");
 		skip = loadImage("assets/SkipSymbol.png");
@@ -50,6 +51,7 @@ public class LevelSwitch extends PApplet{
 		keysEntered = false;
 		playerName ="Enter Name";
 		points = 0;
+		played = false;
 		((Level1)level).setup();
 	}
 	public void draw() {
@@ -64,6 +66,7 @@ public class LevelSwitch extends PApplet{
 			move();
 			level.draw(this);
 			points = level.player.points;
+			played = true;
 			if(level.isFinished == true) {
 				if(level instanceof Level1) {
 					points = level.player.points;
@@ -108,6 +111,11 @@ public class LevelSwitch extends PApplet{
 		} else if (gameStatus.equals("Instructions")) {
 			instructions.draw(this);
 		} else if (gameStatus.equals("Leaderboard")) {
+			if(played) {
+				leaderboard.shouldDispName = true;
+				leaderboard.currName =  playerName;
+				leaderboard.currPoints = points;
+			}
 			leaderboard.draw(this);
 		}
 		
@@ -248,8 +256,7 @@ public class LevelSwitch extends PApplet{
 	}
 	public void keyReleased() {
 		if(gameStatus.equals("Leaderboard")) {
-			if(points != 0) {
-				leaderboard.shouldDispName = true;
+			if(played) {
 				leaderboard.currName =  playerName;
 				leaderboard.currPoints = points;
 				if(key == '\n') {
@@ -276,7 +283,9 @@ public class LevelSwitch extends PApplet{
 							keysEntered = true;
 							playerName = "";
 						}
-						playerName = playerName + key;
+						if(playerName.length() < 10) {
+							playerName = playerName + key;
+						}
 						leaderboard.currName = playerName;
 					}
 				}
@@ -319,6 +328,9 @@ public class LevelSwitch extends PApplet{
 				if(!clickThrough.isFinished) {
 					clickThrough.next();
 				}
+			}
+			if(key == ESC) {
+				System.exit(0);
 			}
 
 		}
