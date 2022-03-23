@@ -43,7 +43,7 @@ public class Level3 extends Level {
 	private Platform platform2Danger;
 	private Platform wall;
 
-	public void setup(int points) {
+	public void setup() {
 		staticPieces = new ArrayList<>();
 		mobilePieces = new ArrayList<>();
 		bullets = new ArrayList<>();
@@ -51,7 +51,6 @@ public class Level3 extends Level {
 		objects = new ArrayList<>();
 		keysPressed = new boolean[5];
 		player = new ShootingPlayer(100,0,900,100d,100d,0,10, 7,90);
-		player.points = points;
 	
 		platformBottom = new Platform(0,1000,1050,40,false);
 		enemy1 = new MobileEnemy(MobileEnemy.mobileEnemyImages,10,525,900,900,900,15,0,100,125);
