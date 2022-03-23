@@ -33,18 +33,20 @@ public class Level1 extends Level{
 	Collider endPiece;
 	Lava lava;
 	PImage bg;
-	public void setup() {
+	
+	
+	public void setup(int points) {
 		staticPieces = new ArrayList<>();
 		mobilePieces = new ArrayList<>();
 		bullets = new ArrayList<>();
 		totalPieces = new ArrayList<>();
 		objects = new ArrayList<>();
-		
 		enemy1 = new MobileEnemy(MobileEnemy.mobileEnemyImages,10,1200,600,800,600,-10,0,80,100);
 		enemy2 = new MobileEnemy(MobileEnemy.mobileEnemyImages,10,1200,200,800,200,-10,0,80,100);
 		shooter1 = new SideShooter(10,800,70, 100,100, 1);
 		shooter2 = new SideShooter(10,400, 70, 100,100, 1);
 		player = new ShootingPlayer(30,200,700,100,100,0,10,10,125);
+		player.points = points;
 		platform1 = new Platform("assets/Platform/log-platform.png", 800,700,600,40,false);
 		platform2 = new Platform("assets/Platform/log-platform.png", 800,300,600,40,false);
 		platform3 = new Platform("assets/Platform/log-platform.png", 10,500,600,40,false);
@@ -96,7 +98,7 @@ public class Level1 extends Level{
 		for(int i = 0; i < mobilePieces.size(); i++) {
 			if(mobilePieces.get(i).getHealth() <= 0) {
 				if(mobilePieces.get(i) instanceof ShootingPlayer) {
-					setup();
+					setup(player.points);
 				} else {
 					if(mobilePieces.get(i) instanceof MobileEnemy) {
 						defeatMobileEnemy(i);

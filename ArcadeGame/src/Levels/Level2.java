@@ -39,7 +39,7 @@ public class Level2 extends Level {
 	private ShootingEnemy dropper2;
 	private Collider endPiece;
 	private Lava lava;
-	public void setup() {
+	public void setup(int points) {
 		staticPieces = new ArrayList<>();
 		mobilePieces = new ArrayList<>();
 		bullets = new ArrayList<>();
@@ -59,6 +59,7 @@ public class Level2 extends Level {
 		coins.add(coin1);
 		coins.add(coin2);
 		player = new ShootingPlayer(75,200,700,100,80,0,10,10);
+		player.points = points;
 		platformTop = new Platform(0, 75, 1100, 20, false);
 		platform1 = new Platform(650,800,500,40,false);
 		platform2 = new Platform(650,600,500,40,false);
@@ -121,7 +122,7 @@ public class Level2 extends Level {
 		for(int i = 0; i < mobilePieces.size(); i++) {
 			if(mobilePieces.get(i).getHealth() <= 0) {
 				if(mobilePieces.get(i) instanceof ShootingPlayer) {
-					setup();
+					setup(player.points);
 				} else {
 					if(mobilePieces.get(i) instanceof MobileEnemy) {
 						defeatMobileEnemy(i);

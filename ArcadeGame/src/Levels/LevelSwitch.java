@@ -49,7 +49,7 @@ public class LevelSwitch extends PApplet{
 		keysEntered = false;
 		playerName ="Enter Name";
 		points = 0;
-		((Level1)level).setup();
+		((Level1)level).setup(0);
 	}
 	public void draw() {
 		
@@ -67,19 +67,21 @@ public class LevelSwitch extends PApplet{
 				if(level instanceof Level1) {
 					points = level.player.points;
 					level = new Level2();
-					((Level2) level).setup();
+					((Level2) level).setup(level.player.points);
 					level.player.points = points;
 					
 				} else if (level instanceof Level2) {
 					points = level.player.points;
 					level = new Level3();
-					((Level3) level).setup();
+					((Level3) level).setup(level.player.points);
 					level.player.points = points;
 				} else if (level instanceof Level3) {
 					level.isFinished = false;
 					gameStatus = "Leaderboard";
 				}
 			}
+			
+		
 			
 			
 
