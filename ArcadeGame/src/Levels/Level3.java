@@ -41,7 +41,6 @@ public class Level3 extends Level {
 
 	private Platform platform1Danger;
 	private Platform platform2Danger;
-	private Platform wall;
 
 	public void setup() {
 		staticPieces = new ArrayList<>();
@@ -60,18 +59,18 @@ public class Level3 extends Level {
 
 		platform1 = new Platform(10,800,500,40,false);
 		platform1Danger = new Platform(200,800,200,40,true);
-		shooter1 = new SideShooter(10,725,60, 80,50, 1);
+		shooter1 = new SideShooter(10,725,60, 88,76, 1);
 		coin3 = new Coin(10,650);
 		
 		
 		platform2 = new Platform(650,600,400,40,false);
 		platform2Danger = new Platform(740,600,150,40,true);
-		shooter2 = new SideShooter(950,550, 20, 80,50, 0);
+		shooter2 = new SideShooter(950,526, 20,88,76, 0);
 		coin4 = new Coin(950, 475);
 
 		platform3 = new Platform(10,500,500,40,false);
 		
-		shooter3 = new SideShooter(10,450, 70, 80,50, 1);
+		shooter3 = new SideShooter(10,426, 70, 88,76, 1);
 		coin5 = new Coin(10, 375);
 		
 		platform4 = new Platform(0,300,150,40,false);

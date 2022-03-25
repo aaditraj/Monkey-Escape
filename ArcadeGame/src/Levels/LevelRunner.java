@@ -9,6 +9,7 @@ import processing.core.PApplet;
 
 public class LevelRunner {
 	static PApplet drawing;
+	
 	public static void main(String args[]) {
 //		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		drawing = new LevelSwitch();
