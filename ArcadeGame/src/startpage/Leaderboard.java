@@ -85,6 +85,7 @@ public class Leaderboard implements Serializable {
 				surface.text((i+1)+". "+currName + "     " + currPoints, surface.width/3, surface.height * 0.25f + (i)*100);
 				surface.fill(surface.color(255,255,255));
 				displayed = true;
+				i--;
 			} else {
 				surface.text((i+1)+". "+name+ "     " + pointCount, surface.width/3, surface.height * 0.25f + (i)*100);
 			}
