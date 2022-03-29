@@ -55,7 +55,7 @@ public class Leaderboard implements Serializable {
 		boolean displayed = false;
 		int length = 0;
 		int position = 0;
-		int iter = 0;
+		
 		Arrays.sort(pointsArr,Collections.reverseOrder());
 		for(int i = 0; i < pointsArr.length; i ++) {
 			 if(currPoints >= pointsArr[i]) {
@@ -77,18 +77,22 @@ public class Leaderboard implements Serializable {
 		} else {
 			length = allNames.size();
 		}
-		for(int i = 0; i < length; i ++) {
+		int iter = 0;
+		for(int i = 0; iter < length; i++) {
 			String name = allNames.get(i);
 			int pointCount = leaderboard.get(name);
 			if(position == i && !displayed && shouldDispName) {
 				surface.fill(surface.color(255,0,0));
-				surface.text((i+1)+". "+currName + "     " + currPoints, surface.width/3, surface.height * 0.25f + (i)*100);
+				surface.text((iter+1)+". "+currName + "     " + currPoints, surface.width/3, surface.height * 0.25f + (iter)*100);
 				surface.fill(surface.color(255,255,255));
 				displayed = true;
-				i--;
-			} else {
-				surface.text((i+1)+". "+name+ "     " + pointCount, surface.width/3, surface.height * 0.25f + (i)*100);
-			}
+				iter++;
+				
+			} 
+			
+			surface.text((iter+1)+". "+name+ "     " + pointCount, surface.width/3, surface.height * 0.25f + (iter)*100);
+			iter++; 
+			
 			
 		}
 		

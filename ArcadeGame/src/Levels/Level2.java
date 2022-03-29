@@ -39,6 +39,8 @@ public class Level2 extends Level {
 	private ShootingEnemy dropper2;
 	private Collider endPiece;
 	private Lava lava;
+	float bulletHitX = 0;
+	float bulletHitY = 0;
 	public void setup() {
 		staticPieces = new ArrayList<>();
 		mobilePieces = new ArrayList<>();
@@ -119,6 +121,32 @@ public class Level2 extends Level {
 			player.increaseAmmo();
 		}
 		for(int i = 0; i < mobilePieces.size(); i++) {
+			
+			if(mobilePieces.get(i) instanceof MobileEnemy)
+			{
+				boolean hit = false;
+				MobileEnemy currentMobileEnemy = (MobileEnemy) mobilePieces.get(i);
+				MobileEnemy suspect = null;
+
+				
+				for(int k = 0; k < mobilePieces.size(); k++)
+				if(mobilePieces.get(k).intersects(player) && mobilePieces.get(k) instanceof MobileEnemy) 
+				{
+					suspect = (MobileEnemy) mobilePieces.get(k); 
+					hit = true;
+				}
+				
+				
+				if(hit) 
+				{
+					if(suspect != null && suspect == currentMobileEnemy)
+					displayDamage(marker, (float)player.getCenterX(), (float)player.getCenterY());
+				}
+				else mobileEnemyHitTime = 0;
+			}
+			
+			
+			
 			if(mobilePieces.get(i).getHealth() <= 0) {
 				if(mobilePieces.get(i) instanceof ShootingPlayer) {
 					setup();
@@ -132,6 +160,10 @@ public class Level2 extends Level {
 				mobilePieces.get(i).draw(marker);
 			}
 		}
+		
+		
+		
+		
 		for(int i = 0; i < coins.size(); i++) {
 			coins.get(i).draw(marker);
 			if(coins.get(i).intersects(player))
@@ -146,6 +178,14 @@ public class Level2 extends Level {
 				bullet.act((ArrayList<Collider>)mobilePieces);
 				if(bullet.getHealth() <= 0) {
 					bullets.remove(i);
+					
+					if(bullet.intersects(player))
+					{
+						Bullet bullet2 = (Bullet)bullet; 
+						bulletHitX = (float)bullet2.getCenterX(); 
+						bulletHitY = (float)bullet2.getCenterY(); 
+						getHit(bullet2.owner); 
+					}
 				}
 			} else {
 				bullets.remove(i);
@@ -161,6 +201,8 @@ public class Level2 extends Level {
 		lava.increaseHeight(player);
 		lava.draw(marker);
 		displayCelebrations(marker);
+		displayHit(marker, bulletHitX, bulletHitY);
+
 		endPiece.draw(marker);
 		
 	}

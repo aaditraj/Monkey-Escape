@@ -55,6 +55,11 @@ public class MobileEnemy extends Collider {
 		if (getY() >= largerY || getY() <= smallerY) {
 			vy *= -1;
 		}
+		
+//		if(isHittingPlayer = true)
+//		{
+//			System.out.println("HI");
+//		}
 	}
 	public void draw(PApplet marker) {
 		super.draw(marker);
@@ -78,5 +83,7 @@ public class MobileEnemy extends Collider {
 		}
 		return 0.0;
 	}
+	
+	
 	
 }

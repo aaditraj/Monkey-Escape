@@ -36,7 +36,8 @@ public class Level3 extends Level {
 	private Coin coin5;
 	private Coin coin6;
 	private Lava lava;
-
+	float bulletHitX = 0;
+	float bulletHitY = 0;
 	private ShootingEnemy dropper;
 
 	private Platform platform1Danger;
@@ -156,6 +157,30 @@ public class Level3 extends Level {
 		}
 
 		for(int i = 0; i < mobilePieces.size(); i++) {
+			
+			if(mobilePieces.get(i) instanceof MobileEnemy)
+			{
+				boolean hit = false;
+				MobileEnemy currentMobileEnemy = (MobileEnemy) mobilePieces.get(i);
+				MobileEnemy suspect = null;
+
+				
+				for(int k = 0; k < mobilePieces.size(); k++)
+				if(mobilePieces.get(k).intersects(player) && mobilePieces.get(k) instanceof MobileEnemy) 
+				{
+					suspect = (MobileEnemy) mobilePieces.get(k); 
+					hit = true;
+				}
+				
+				
+				if(hit) 
+				{
+					if(suspect != null && suspect == currentMobileEnemy)
+					displayDamage(marker, (float)player.getCenterX(), (float)player.getCenterY());
+				}
+				else mobileEnemyHitTime = 0;
+			}
+			
 			if(mobilePieces.get(i).getHealth() <= 0) {
 				if(mobilePieces.get(i) instanceof ShootingPlayer) {
 					setup();
@@ -182,6 +207,14 @@ public class Level3 extends Level {
 				}
 				if(bullet.getHealth() <= 0) {
 					bullets.remove(i);
+					
+					if(bullet.intersects(player))
+					{
+						Bullet bullet2 = (Bullet)bullet; 
+						bulletHitX = (float)bullet2.getCenterX(); 
+						bulletHitY = (float)bullet2.getCenterY(); 
+						getHit(bullet2.owner); 
+					}
 				}
 			} else {
 				bullets.remove(i);
@@ -207,6 +240,8 @@ public class Level3 extends Level {
 		lava.draw(marker);
 		endPiece.draw(marker);
 		displayCelebrations(marker);
+		displayHit(marker, bulletHitX, bulletHitY);
+
 	}
 }
 

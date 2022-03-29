@@ -33,6 +33,8 @@ public class Level1 extends Level{
 	Collider endPiece;
 	Lava lava;
 	PImage bg;
+	float bulletHitX = 0;
+	float bulletHitY = 0;
 	public void setup() {
 		staticPieces = new ArrayList<>();
 		mobilePieces = new ArrayList<>();
@@ -94,6 +96,32 @@ public class Level1 extends Level{
 			player.increaseAmmo();
 		}
 		for(int i = 0; i < mobilePieces.size(); i++) {
+			
+			if(mobilePieces.get(i) instanceof MobileEnemy)
+			{
+				boolean hit = false;
+				MobileEnemy currentMobileEnemy = (MobileEnemy) mobilePieces.get(i);
+				MobileEnemy suspect = null;
+
+				
+				for(int k = 0; k < mobilePieces.size(); k++)
+				if(mobilePieces.get(k).intersects(player) && mobilePieces.get(k) instanceof MobileEnemy) 
+				{
+					suspect = (MobileEnemy) mobilePieces.get(k); 
+					hit = true;
+				}
+				
+				
+				if(hit) 
+				{
+					if(suspect != null && suspect == currentMobileEnemy)
+					displayDamage(marker, (float)player.getCenterX(), (float)player.getCenterY());
+				}
+				else mobileEnemyHitTime = 0;
+			}
+			
+
+			
 			if(mobilePieces.get(i).getHealth() <= 0) {
 				if(mobilePieces.get(i) instanceof ShootingPlayer) {
 					setup();
@@ -110,6 +138,9 @@ public class Level1 extends Level{
 				mobilePieces.get(i).draw(marker);
 			}
 		}
+		
+		
+	
 		for(int i = 0; i < bullets.size(); i++) {
 			Collider bullet = bullets.get(i);
 			if (bullet.getX() <= marker.width && bullet.getX() >= 0 && bullet.getY() <= marker.height && bullet.getY() >= 0 && bullet.getHealth() > 0) {
@@ -117,6 +148,14 @@ public class Level1 extends Level{
 				bullet.act((ArrayList<Collider>)mobilePieces);
 				if(bullet.getHealth() <= 0) {
 					bullets.remove(i);
+					
+					if(bullet.intersects(player))
+					{
+						Bullet bullet2 = (Bullet)bullet; 
+						bulletHitX = (float)bullet2.getCenterX(); 
+						bulletHitY = (float)bullet2.getCenterY(); 
+						getHit(bullet2.owner); 
+					}
 				}
 			} else {
 				bullets.remove(i);
@@ -143,6 +182,8 @@ public class Level1 extends Level{
 			isFinished = true;
 		}
 		displayCelebrations(marker);
+		displayHit(marker, bulletHitX, bulletHitY);
+
 
 	}		
 }

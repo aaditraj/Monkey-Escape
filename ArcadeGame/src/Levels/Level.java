@@ -21,6 +21,13 @@ public class Level {
 	String currentCelebration;
 	ArrayList<Collider> defeatedObjects = new ArrayList<Collider>();
 	int messageTime = -1;
+
+	int hitTime = -1;
+	
+	int mobileEnemyHitTime = 0;
+
+	String owner = ""; 
+
 	int time = 0;
 	boolean isFinished = false;
 	boolean[] keysPressed = new boolean[4];
@@ -58,6 +65,40 @@ public class Level {
 		}
 	}
 	
+	public void displayHit(PApplet marker, float f, float g)
+	{
+		if(hitTime <= 8 && hitTime >= 0)
+		{
+			marker.push();
+			marker.textFont(marker.createFont("assets/ARCADE_N.TTF", 16));
+			marker.textAlign(PApplet.CENTER, PApplet.CENTER);
+			marker.fill(225, 0 ,0 );
+			if(owner == "ShootingEnemy") marker.text("-50", f, g);
+				
+			if(owner == "SideShooter") marker.text("-10", f, g);
+			
+			marker.pop(); 
+			hitTime++;
+		}
+	
+	if (hitTime >= 8) {
+		hitTime = -1;
+	}
+	}
+	
+	public void displayDamage(PApplet marker, float f, float g)
+	{
+		marker.push();
+		marker.textFont(marker.createFont("assets/ARCADE_N.TTF", 16));
+		marker.textAlign(PApplet.CENTER, PApplet.CENTER);
+		marker.fill(225, 0 ,0 );
+		marker.text(mobileEnemyHitTime + "", f + 60, g - 60);
+		marker.pop(); 
+		
+		mobileEnemyHitTime += 1;
+	}
+	
+	
 	public void collectCoin(int i) {
 		messageTime = 0;
 		Coin collected = (Coin) coins.get(i);
@@ -66,6 +107,13 @@ public class Level {
 		coins.get(i).collide(player);
 		player.changePoints(15);
 		coins.remove(i);
+	}
+	
+	public void getHit(String owner) {
+		hitTime = 0;
+		this.owner = owner; 
+
+		
 	}
 	
 	public void defeatMobileEnemy(int i) {
