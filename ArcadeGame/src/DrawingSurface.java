@@ -6,24 +6,18 @@ import core.Collider;
 import enemies.MobileEnemy;
 import enemies.ShootingEnemy;
 import enemies.SideShooter;
-import obstacles.Barrel;
 import obstacles.Lava;
 import players.Player;
 import players.ShootingPlayer;
 import powerups.Coin;
 import processing.core.PApplet;
 import processing.core.PImage;
-import startpage.Leaderboard;
 import obstacles.Platform;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Serializable;
+
 
 
 public class DrawingSurface extends PApplet{
 
-	private Leaderboard leaderboard;
 	private MobileEnemy mobileEnemy;
 	private ShootingPlayer player;
 	private Lava lava;
@@ -31,7 +25,6 @@ public class DrawingSurface extends PApplet{
 	private ShootingEnemy shootingEnemy;
 	private SideShooter sideShooter;
 	private Coin coin;
-	private Boolean tester = false;
 	ArrayList<Collider> bullets;
 	ArrayList<Collider> gamePieces;
 	ArrayList<Collider> playerPieces;
@@ -50,7 +43,6 @@ public class DrawingSurface extends PApplet{
 		lava = new Lava(10, 0, 950, 2000, 50, 0.1);
 		coin = new Coin(300,200);
 		platform = new Platform(300,300,500,50,false);
-		leaderboard = new Leaderboard();
 		keysPressed = new boolean[4];
 		mobileEnemy = new MobileEnemy(MobileEnemy.mobileEnemyImages, 10d, 400d, 150d, 0d, 150d, -5d, 0d,(int)424d/4, (int)464d/4);
 		sideShooter = new SideShooter(100,200,50,100,100,1); // TODO change bulletfrequency back to lower
@@ -69,12 +61,10 @@ public class DrawingSurface extends PApplet{
 	
 	
 	public void draw() {
-//		background(bg);
 		image(bg, 0, 0, width, height);
 		ArrayList<Collider> objects = new ArrayList<>();
 		objects.addAll(playerPieces);
 		objects.addAll(gamePieces);
-//		leaderboard.draw(this);
 		if(time%sideShooter.bulletFrequency == 0) {
 			bullets.add(sideShooter.shoot());
 		}

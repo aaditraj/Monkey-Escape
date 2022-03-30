@@ -1,23 +1,26 @@
 package Levels;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import core.Bullet;
 import core.ClickThrough;
-import core.Collider;
-import enemies.MobileEnemy;
-import enemies.ShootingEnemy;
-import enemies.SideShooter;
-import obstacles.Lava;
-import obstacles.Platform;
-import players.ShootingPlayer;
-import powerups.Coin;
 import processing.core.PApplet;
 import processing.core.PImage;
 import startpage.Instructions;
 import startpage.Leaderboard;
 import startpage.MainMenu;
 import startpage.StartPage;
+import processing.sound.SoundFile;
+
+/*
+ * Start music:
+ * 
+ * Random Chance by Speck (c)
+ *  copyright 2022 Licensed under a Creative Commons Attribution Noncommercial  (3.0) license. 
+ *  http://dig.ccmixter.org/files/speck/64667 Ft: Zenboy1955, Martijn de Boer, Javolenus, Admiral Bob, Siobhan Dakay
+ *  
+ *  Level 1, Level 2 and Level 3: Music by Marllon Silva (xDeviruchi)
+ *  
+ */
 public class LevelSwitch extends PApplet{
 	Level level;
 	StartPage start; 
@@ -29,7 +32,7 @@ public class LevelSwitch extends PApplet{
 	PImage skip;
 	PImage quitPrompt; 
 	int previousPoints; 
-	
+	SoundFile startMusic;
 	HashMap<String,Integer> leaderboardCopy;
 	
 	int points = 0;
@@ -42,6 +45,10 @@ public class LevelSwitch extends PApplet{
 		quit = loadImage("assets/SettingSymbol.png");
 		skip = loadImage("assets/SkipSymbol.png");
 		quitPrompt = loadImage("assets/QuitPrompt.png");
+		startMusic = new SoundFile(this, "assets/Music/StartMusic.mp3");
+		System.out.println("SFSampleRate= " + startMusic.sampleRate() + " Hz");
+		System.out.println("SFSamples= " + startMusic.frames() + " samples");
+		System.out.println("SFDuration= " + startMusic.duration() + " seconds");
 		start = new StartPage(); 
 		menu = new MainMenu(); 
 		level = new Level1();
@@ -53,6 +60,7 @@ public class LevelSwitch extends PApplet{
 		points = 0;
 		played = false;
 		((Level1)level).setup();
+		startMusic.loop();
 	}
 	public void draw() {
 		
