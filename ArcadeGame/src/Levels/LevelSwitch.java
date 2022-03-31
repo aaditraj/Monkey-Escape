@@ -102,7 +102,7 @@ public class LevelSwitch extends PApplet{
 
 				} else if (level instanceof Level3) {
 					level.isFinished = false;
-					gameStatus = LEADERBOARD;
+					gameStatus = FINISHED;
 				}
 			}
 			
