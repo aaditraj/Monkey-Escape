@@ -19,8 +19,9 @@ public class NameEnterPage {
 	PImage backArrow;
 	File location;
 	int time = 0;
-	int frequency = 2;
+	int frequency = 10;
 	boolean displayFlash = false;
+	boolean finished = false;
 	Leaderboard board;
 	int points;
 	int position = 0;
@@ -53,6 +54,7 @@ public class NameEnterPage {
 			displayFlash = !displayFlash;
 		}
 		time++;
+		surface.pop();
 	}
 
 	public void interpretKeystroke(char keyCode, int position) {
@@ -83,7 +85,11 @@ public class NameEnterPage {
 		}
 		if(keyCode == PApplet.ENTER) {
 			board.add(currPoints, currName.toString());
+			finished = true;
 		}
+	}
+	public boolean isFinished() {
+		return finished;
 	}
 	public int getPosition() {
 		Integer[] pointArr = new Integer[board.leaderboard.size()];
