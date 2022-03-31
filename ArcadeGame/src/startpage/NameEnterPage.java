@@ -48,7 +48,7 @@ public class NameEnterPage {
 		line++;
 		surface.text("Points: " + " " + points, surface.width/3, surface.height * 0.1f+(line*100));
 		line++;
-		surface.text(currName.toString(), surface.width/3, surface.height * 0.1f+(line*100))
+		surface.text(currName.toString(), surface.width/3, surface.height * 0.1f+(line*100));
 		if(time%frequency == 0) {
 			displayFlash = !displayFlash;
 		}

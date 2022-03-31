@@ -124,7 +124,7 @@ public class LevelSwitch extends PApplet{
 			}
 		} else if (gameStatus == FINISHED)  {
 			page = new NameEnterPage(points,leaderboard);
-			gameStatus = NAME_PAGE
+			gameStatus = NAME_PAGE;
 		} else if (gameStatus == MAIN_MENU) {
 			menu.draw(this);
 		} else if (gameStatus == INSTRUCTIONS) {
