@@ -19,7 +19,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 public class Leaderboard {
-	private HashMap<Integer,ArrayList<String>> leaderboard;
+	HashMap<Integer,ArrayList<String>> leaderboard;
 	PImage backArrow;
 	public boolean shouldDispName;
 	HashSet<String> names;
@@ -64,68 +64,17 @@ public class Leaderboard {
 		
 		surface.fill(surface.color(255,255,255));
 		surface.textFont(surface.createFont("assets/ARCADE_N.TTF", 50));
-<<<<<<< Updated upstream
-		
-		Integer[] pointsArr = new Integer[pointSet.size()];
-		pointSet.keySet().toArray(pointsArr);
-		boolean displayed = false;
-		int length = 0;
-		int position = 0;
-		
-		Arrays.sort(pointsArr,Collections.reverseOrder());
-		for(int i = 0; i < pointsArr.length; i ++) {
-			 if(currPoints >= pointsArr[i]) {
-				 break;
-			 } else {
-				 position = position + pointSet.get(pointsArr[i]).size();
-			 }
-		}
-		
-=======
->>>>>>> Stashed changes
-		ArrayList<String> allNames = new ArrayList<>();
-		for(int i = 0; i < points.size();i++) {
-			int key = points.get(i);
-			ArrayList<String> names = leaderboard.get(key);
-			for(int j = 0; j < names.size(); j++) {
-				allNames.add(processName(names.get(j),key));
-			}
-		}
 		if(allNames.size() > 7) {
 			length = 7;
 		} else {
 			length = allNames.size();
 		}
-<<<<<<< Updated upstream
-		int iter = 0;
-		for(int i = 0; iter < length; i++) {
-=======
+
 		for(int i = 0; i < length; i++) {
->>>>>>> Stashed changes
 			String name = allNames.get(i);
 			if(completed && name.equals(currName)) {
 				surface.fill(surface.color(255,0,0));
-<<<<<<< Updated upstream
-				surface.text((iter+1)+". "+currName + "     " + currPoints, surface.width/3, surface.height * 0.25f + (iter)*100);
-				surface.fill(surface.color(255,255,255));
-				displayed = true;
-				iter++;
-				
-			} 
-			
-			surface.text((iter+1)+". "+name+ "     " + pointCount, surface.width/3, surface.height * 0.25f + (iter)*100);
-			iter++; 
-			
-			
-		}
-		
-		if(!displayed && shouldDispName) {
-			surface.fill(surface.color(255,0,0));
-			surface.text((position+1)+". "+currName + "     " + currPoints, surface.width/3, surface.height * 0.25f + (length)*100);
-=======
-			}
-			surface.text((i+1)+". " + name, surface.width/3, surface.height * 0.25f + (i)*100);
->>>>>>> Stashed changes
+			}	
 			surface.fill(surface.color(255,255,255));
 		}
 		surface.pop(); 

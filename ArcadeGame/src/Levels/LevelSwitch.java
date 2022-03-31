@@ -8,6 +8,7 @@ import processing.core.PImage;
 import startpage.Instructions;
 import startpage.Leaderboard;
 import startpage.MainMenu;
+import startpage.NameEnterPage;
 import startpage.StartPage;
 import processing.sound.SoundFile;
 
@@ -41,6 +42,7 @@ public class LevelSwitch extends PApplet{
 	String playerName;
 	boolean keysEntered = false;
 	boolean played;
+	NameEnterPage page;
 	public static final int LEADERBOARD = 1;
 	public static final int STARTED = 2;
 	public static final int NOT_STARTED = 3;
@@ -49,6 +51,7 @@ public class LevelSwitch extends PApplet{
 	public static final int MAIN_MENU = 6;
 	public static final int INSTRUCTIONS = 7;
 	public static final int PROMPT_QUIT = 8;
+	public static final int NAME_PAGE = 9;
 	public void setup() {
 		quit = loadImage("assets/SettingSymbol.png");
 		skip = loadImage("assets/SkipSymbol.png");
@@ -120,13 +123,16 @@ public class LevelSwitch extends PApplet{
 				gameStatus = NOT_STARTED;
 			}
 		} else if (gameStatus == FINISHED)  {
-			leaderboard.add(points, "Player");
+			page = new NameEnterPage(points,leaderboard);
+			gameStatus = NAME_PAGE
 		} else if (gameStatus == MAIN_MENU) {
 			menu.draw(this);
 		} else if (gameStatus == INSTRUCTIONS) {
 			instructions.draw(this);
 		} else if (gameStatus == LEADERBOARD) {
 			leaderboard.draw(this);
+		} else if (gameStatus == NAME_PAGE) {
+			
 		}
 		
 		
