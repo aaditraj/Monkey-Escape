@@ -37,10 +37,18 @@ public class LevelSwitch extends PApplet{
 	
 	int points = 0;
 	ClickThrough clickThrough = new ClickThrough("demoSet");
-	String gameStatus = "Not Started";
+	int gameStatus = 3;
 	String playerName;
 	boolean keysEntered = false;
 	boolean played;
+	public static final int LEADERBOARD = 1;
+	public static final int STARTED = 2;
+	public static final int NOT_STARTED = 3;
+	public static final int IN_CLICKTHROUGH = 4;
+	public static final int FINISHED = 5;
+	public static final int MAIN_MENU = 6;
+	public static final int INSTRUCTIONS = 7;
+	public static final int PROMPT_QUIT = 8;
 	public void setup() {
 		quit = loadImage("assets/SettingSymbol.png");
 		skip = loadImage("assets/SkipSymbol.png");
@@ -54,7 +62,6 @@ public class LevelSwitch extends PApplet{
 		level = new Level1();
 		instructions = new Instructions();
 		leaderboard = new Leaderboard();
-		leaderboardCopy = leaderboard.getLeaderboard();
 		keysEntered = false;
 		playerName ="Enter Name";
 		points = 0;
@@ -65,7 +72,7 @@ public class LevelSwitch extends PApplet{
 	public void draw() {
 		
 		
-		if(gameStatus.equals("Started")) {
+		if(gameStatus == STARTED) {
 			background(50);
 			textFont(createFont("assets/ARCADE_N.TTF", 50));
 			text(points, width-150, 150);
@@ -92,7 +99,7 @@ public class LevelSwitch extends PApplet{
 
 				} else if (level instanceof Level3) {
 					level.isFinished = false;
-					gameStatus = "Leaderboard";
+					gameStatus = LEADERBOARD;
 				}
 			}
 			
@@ -102,28 +109,23 @@ public class LevelSwitch extends PApplet{
 			if(promptQuit)
 			{
 				promptQuit();
-				gameStatus = "PromptQuit";
+				gameStatus = PROMPT_QUIT;
 			}
 
-		} else if (gameStatus.equals("Not Started")) {
+		} else if (gameStatus == NOT_STARTED) {
 			start.draw(this); 
-		} else if (gameStatus.equals("In Clickthrough")) {
+		} else if (gameStatus == IN_CLICKTHROUGH) {
 			clickThrough.draw(this);
 			if(clickThrough.isFinished) {
-				gameStatus = "Not Started";
+				gameStatus = NOT_STARTED;
 			}
-		} else if (gameStatus.equals("Finished"))  {
+		} else if (gameStatus == FINISHED)  {
 			leaderboard.add(points, "Player");
-		} else if (gameStatus.equals("Main Menu")) {
+		} else if (gameStatus == MAIN_MENU) {
 			menu.draw(this);
-		} else if (gameStatus.equals("Instructions")) {
+		} else if (gameStatus == INSTRUCTIONS) {
 			instructions.draw(this);
-		} else if (gameStatus.equals("Leaderboard")) {
-			if(played) {
-				leaderboard.shouldDispName = true;
-				leaderboard.currName =  playerName;
-				leaderboard.currPoints = points;
-			}
+		} else if (gameStatus == LEADERBOARD) {
 			leaderboard.draw(this);
 		}
 		
@@ -137,37 +139,77 @@ public class LevelSwitch extends PApplet{
 			level.bullets.add(b);
 		}
 		
-		if(gameStatus.equals("Main Menu"))
+		if(gameStatus == MAIN_MENU)
 		{
 			
 			gameStatus = menu.checkClicked(mouseX, mouseY, width, height);
-			if(gameStatus.equals("Started")) {
+			if(gameStatus == STARTED) {
 				setup();
 			}
 		}
 		
-		if(gameStatus.equals("Instructions"))
+		if(gameStatus == INSTRUCTIONS)
 		{
 			
 			gameStatus = instructions.checkClicked(mouseX, mouseY, width, height);
 		}
 		
-		if(gameStatus.equals("Leaderboard"))
+		if(gameStatus == LEADERBOARD)
 		{
 			
 			gameStatus = leaderboard.checkClicked(mouseX, mouseY, width, height);
 		}
 		
-		if(gameStatus.equals("PromptQuit"))
+		if(gameStatus == PROMPT_QUIT)
 		{
 			
 			if(mouseX > (int)(width/3.5) && mouseX < (int)(width/3.5) + width/5)
 			{
 				if(mouseY > (int)(height/1.8) && mouseY < (int)(height/1.8) + height/5) 
-					gameStatus = "Main Menu"; 
+					gameStatus = MAIN_MENU; 
 					//setup();
 					promptQuit = false;
+					if (keyCode == UP) { 
+						level.keysPressed[0] = false;
+					} 
+					if (keyCode == DOWN) { 
+						level.keysPressed[1] = false;
+					}
+					if (keyCode == RIGHT) {
+						level.keysPressed[2] = false;
 
+					}
+					if (keyCode == LEFT) {
+						level.keysPressed[3] = false;
+
+					}
+					if (key == 'w') {
+						level.keysPressed[0] = false;
+
+					} 
+					if (key == 'd') {
+						level.keysPressed[2] = false;
+
+					}
+					if (key == 's') {
+						level.keysPressed[1] = false;
+					
+					}
+					if (key == 'a') {
+						level.keysPressed[3] = false;
+				
+					}
+					if(key == ' ') {
+						level.player.jump(level.objects);
+					}
+					if(key == 'r') {
+						if(!clickThrough.isFinished) {
+							clickThrough.next();
+						}
+					}
+					if(key == ESC) {
+						System.exit(0);
+					}
 				
 			}
 			
@@ -175,7 +217,7 @@ public class LevelSwitch extends PApplet{
 			if(mouseX > (int)(width/1.95) && mouseX < (int)(width/1.95) + width/5)
 			{
 				if(mouseY > (int)(height/1.8) && mouseY < (int)(height/1.8) + height/5) 
-					gameStatus = "Started"; 
+					gameStatus = STARTED; 
 					promptQuit = false;
 				
 				
@@ -183,7 +225,7 @@ public class LevelSwitch extends PApplet{
 			}
 		}
 		
-		if(gameStatus.equals("Started"))
+		if(gameStatus == STARTED)
 		{
 			
 			if(mouseX > width-100 && mouseX < width-100 + 50)
@@ -228,125 +270,85 @@ public class LevelSwitch extends PApplet{
 		}
 	}
 	public void keyPressed() {
-		if(!gameStatus.equals("Leaderboard")) {
-			if (keyCode == UP) { 
-				level.keysPressed[0] = true;
-				
-			} 
-			if (keyCode == DOWN) { 
-				level.keysPressed[1] = true;
-			}
-			if (keyCode == RIGHT) {
-				level.keysPressed[2] = true;
-
-			}
-			if (keyCode == LEFT) {
-				level.keysPressed[3] = true;
-
-			}
-			if (key == 'w') {
-				level.keysPressed[0] = true;
-
-			} 
-			if (key == 'd') {
-				level.keysPressed[2] = true;
-
-			}
-			if (key == 's') {
-				level.keysPressed[1] = true;
+		if (keyCode == UP) { 
+			level.keysPressed[0] = true;
 			
-			}
-			if (key == 'a') {
-				level.keysPressed[3] = true;
+		} 
+		if (keyCode == DOWN) { 
+			level.keysPressed[1] = true;
+		}
+		if (keyCode == RIGHT) {
+			level.keysPressed[2] = true;
+
+		}
+		if (keyCode == LEFT) {
+			level.keysPressed[3] = true;
+
+		}
+		if (key == 'w') {
+			level.keysPressed[0] = true;
+
+		} 
+		if (key == 'd') {
+			level.keysPressed[2] = true;
+
+		}
+		if (key == 's') {
+			level.keysPressed[1] = true;
 		
-			}
+		}
+		if (key == 'a') {
+			level.keysPressed[3] = true;
+	
 		}
 	}
 	public void keyReleased() {
-		if(gameStatus.equals("Leaderboard")) {
-			if(played) {
-				leaderboard.currName =  playerName;
-				leaderboard.currPoints = points;
-				if(key == '\n') {
-					if(!leaderboardCopy.containsKey(playerName)) {
-						leaderboard.add(points, playerName);
-						leaderboard.shouldDispName = false;
-						keyPressed = false;
-						setup();
-					} else {
-						
-					}
-				} else if (key == BACKSPACE && playerName.length() >=1 ) {
-					if(!keysEntered) {
-						keysEntered = true;
-						playerName = "";
-					}
-					if(playerName.length() >= 1) {
-						playerName = playerName.substring(0,playerName.length()-1);
-					}
-					leaderboard.currName = playerName;
-				}else {
-					if((int)key > 96 && (int)key < 123) {
-						if(!keysEntered) {
-							keysEntered = true;
-							playerName = "";
-						}
-						if(playerName.length() < 10) {
-							playerName = playerName + key;
-						}
-						leaderboard.currName = playerName;
-					}
-				}
-			}
-		} else {
-			if (keyCode == UP) { 
-				level.keysPressed[0] = false;
-			} 
-			if (keyCode == DOWN) { 
-				level.keysPressed[1] = false;
-			}
-			if (keyCode == RIGHT) {
-				level.keysPressed[2] = false;
-
-			}
-			if (keyCode == LEFT) {
-				level.keysPressed[3] = false;
-
-			}
-			if (key == 'w') {
-				level.keysPressed[0] = false;
-
-			} 
-			if (key == 'd') {
-				level.keysPressed[2] = false;
-
-			}
-			if (key == 's') {
-				level.keysPressed[1] = false;
-			
-			}
-			if (key == 'a') {
-				level.keysPressed[3] = false;
-		
-			}
-			if(key == ' ') {
-				level.player.jump(level.objects);
-			}
-			if(key == 'r') {
-				if(!clickThrough.isFinished) {
-					clickThrough.next();
-				}
-			}
-			if(key == ESC) {
-				System.exit(0);
-			}
+		if (keyCode == UP) { 
+			level.keysPressed[0] = false;
+		} 
+		if (keyCode == DOWN) { 
+			level.keysPressed[1] = false;
+		}
+		if (keyCode == RIGHT) {
+			level.keysPressed[2] = false;
 
 		}
-		if(gameStatus.equals("Not Started"))
+		if (keyCode == LEFT) {
+			level.keysPressed[3] = false;
+
+		}
+		if (key == 'w') {
+			level.keysPressed[0] = false;
+
+		} 
+		if (key == 'd') {
+			level.keysPressed[2] = false;
+
+		}
+		if (key == 's') {
+			level.keysPressed[1] = false;
+		
+		}
+		if (key == 'a') {
+			level.keysPressed[3] = false;
+	
+		}
+		if(key == ' ') {
+			level.player.jump(level.objects);
+		}
+		if(key == 'r') {
+			if(!clickThrough.isFinished) {
+				clickThrough.next();
+			}
+		}
+		if(key == ESC) {
+			System.exit(0);
+		}
+		if(gameStatus == NOT_STARTED)
 		{
 			if(key != 0)
 			{
-				gameStatus = "Main Menu";
+				gameStatus = MAIN_MENU;
 				
 			}
 		}

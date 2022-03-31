@@ -1,4 +1,5 @@
 package startpage;
+import Levels.LevelSwitch;
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -22,17 +23,17 @@ public class Instructions  {
 	
 	
 	
-	public String checkClicked(int mouseX, int mouseY, int width, int height)
+	public int checkClicked(int mouseX, int mouseY, int width, int height)
 	{
 		rectx1 = 60;
 		recty1 = (int)(height/25);
 		
 		if(mouseX > rectx1 && mouseX < rectx1 + 150)
 		{
-			if(mouseY > recty1 && mouseY < recty1 + 50) return "Main Menu"; 
+			if(mouseY > recty1 && mouseY < recty1 + 50) return LevelSwitch.MAIN_MENU; 
 		}
 		
-		return "Instructions";
+		return LevelSwitch.INSTRUCTIONS;
 		
 	}
 }
