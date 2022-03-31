@@ -56,10 +56,10 @@ public class LevelSwitch extends PApplet{
 		quit = loadImage("assets/SettingSymbol.png");
 		skip = loadImage("assets/SkipSymbol.png");
 		quitPrompt = loadImage("assets/QuitPrompt.png");
-		startMusic = new SoundFile(this, "assets/Music/StartMusic.mp3");
-		System.out.println("SFSampleRate= " + startMusic.sampleRate() + " Hz");
-		System.out.println("SFSamples= " + startMusic.frames() + " samples");
-		System.out.println("SFDuration= " + startMusic.duration() + " seconds");
+		//startMusic = new SoundFile(this, "assets/Music/StartMusic.mp3");
+		//System.out.println("SFSampleRate= " + startMusic.sampleRate() + " Hz");
+		//System.out.println("SFSamples= " + startMusic.frames() + " samples");
+		//System.out.println("SFDuration= " + startMusic.duration() + " seconds");
 		start = new StartPage(); 
 		menu = new MainMenu(); 
 		level = new Level1();
@@ -70,7 +70,7 @@ public class LevelSwitch extends PApplet{
 		points = 0;
 		played = false;
 		((Level1)level).setup();
-		startMusic.loop();
+		//startMusic.loop();
 	}
 	public void draw() {
 		
@@ -102,7 +102,7 @@ public class LevelSwitch extends PApplet{
 
 				} else if (level instanceof Level3) {
 					level.isFinished = false;
-					gameStatus = LEADERBOARD;
+					gameStatus = FINISHED;
 				}
 			}
 			
@@ -132,7 +132,7 @@ public class LevelSwitch extends PApplet{
 		} else if (gameStatus == LEADERBOARD) {
 			leaderboard.draw(this);
 		} else if (gameStatus == NAME_PAGE) {
-			
+			page.draw(this);
 		}
 		
 		
