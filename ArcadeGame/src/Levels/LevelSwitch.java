@@ -133,6 +133,9 @@ public class LevelSwitch extends PApplet{
 			leaderboard.draw(this);
 		} else if (gameStatus == NAME_PAGE) {
 			page.draw(this);
+			if(page.isFinished()) {
+				gameStatus = LEADERBOARD;
+			}
 		}
 		
 		
