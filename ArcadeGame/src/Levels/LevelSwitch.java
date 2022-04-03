@@ -56,7 +56,7 @@ public class LevelSwitch extends PApplet{
 		quit = loadImage("assets/SettingSymbol.png");
 		skip = loadImage("assets/SkipSymbol.png");
 		quitPrompt = loadImage("assets/QuitPrompt.png");
-		startMusic = new SoundFile(this, "assets/Music/StartMusic.mp3");
+		startMusic = new SoundFile(this, "assets/Music/StartMusic2.mp3");
 		System.out.println("SFSampleRate= " + startMusic.sampleRate() + " Hz");
 		System.out.println("SFSamples= " + startMusic.frames() + " samples");
 		System.out.println("SFDuration= " + startMusic.duration() + " seconds");
