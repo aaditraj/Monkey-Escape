@@ -69,7 +69,7 @@ public class Leaderboard {
 		int length = 0;
 		surface.push(); 
 		backArrow = surface.loadImage("assets/backArrow.png");
-		surface.background(0);
+		surface.image(surface.loadImage("assets/Backgrounds/forest2.jpg"), 0, 0,surface.width, surface.height);
 		surface.image(backArrow, 50, 50, surface.width/18, surface.height/15);
 
 		surface.textSize(60);
