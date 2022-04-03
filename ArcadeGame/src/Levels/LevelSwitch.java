@@ -42,7 +42,7 @@ public class LevelSwitch extends PApplet{
 	String playerName;
 	boolean keysEntered = false;
 	boolean played;
-	NameEnterPage page;
+	NameEnterPage namePage;
 	public static final int LEADERBOARD = 1;
 	public static final int STARTED = 2;
 	public static final int NOT_STARTED = 3;
@@ -56,7 +56,7 @@ public class LevelSwitch extends PApplet{
 		quit = loadImage("assets/SettingSymbol.png");
 		skip = loadImage("assets/SkipSymbol.png");
 		quitPrompt = loadImage("assets/QuitPrompt.png");
-		startMusic = new SoundFile(this, "assets/Music/StartMusic.mp3");
+		startMusic = new SoundFile(this, "assets/Music/StartMusic2.mp3");
 		System.out.println("SFSampleRate= " + startMusic.sampleRate() + " Hz");
 		System.out.println("SFSamples= " + startMusic.frames() + " samples");
 		System.out.println("SFDuration= " + startMusic.duration() + " seconds");
@@ -102,7 +102,7 @@ public class LevelSwitch extends PApplet{
 
 				} else if (level instanceof Level3) {
 					level.isFinished = false;
-					gameStatus = LEADERBOARD;
+					gameStatus = FINISHED;
 				}
 			}
 			
@@ -123,7 +123,8 @@ public class LevelSwitch extends PApplet{
 				gameStatus = NOT_STARTED;
 			}
 		} else if (gameStatus == FINISHED)  {
-			page = new NameEnterPage(points,leaderboard);
+
+			namePage = new NameEnterPage(points,leaderboard);
 			gameStatus = NAME_PAGE;
 		} else if (gameStatus == MAIN_MENU) {
 			menu.draw(this);
@@ -132,7 +133,10 @@ public class LevelSwitch extends PApplet{
 		} else if (gameStatus == LEADERBOARD) {
 			leaderboard.draw(this);
 		} else if (gameStatus == NAME_PAGE) {
-			
+			namePage.draw(this);
+			if(namePage.isFinished()) {
+				gameStatus = LEADERBOARD;
+			}
 		}
 		
 		
@@ -173,7 +177,6 @@ public class LevelSwitch extends PApplet{
 			{
 				if(mouseY > (int)(height/1.8) && mouseY < (int)(height/1.8) + height/5) 
 					gameStatus = MAIN_MENU; 
-					//setup();
 					promptQuit = false;
 					if (keyCode == UP) { 
 						level.keysPressed[0] = false;
@@ -276,36 +279,40 @@ public class LevelSwitch extends PApplet{
 		}
 	}
 	public void keyPressed() {
-		if (keyCode == UP) { 
-			level.keysPressed[0] = true;
+		if(gameStatus == NAME_PAGE) {
+			namePage.interpretKeystroke((char)keyCode);
+		} else {
+			if (keyCode == UP) { 
+				level.keysPressed[0] = true;
+				
+			} 
+			if (keyCode == DOWN) { 
+				level.keysPressed[1] = true;
+			}
+			if (keyCode == RIGHT) {
+				level.keysPressed[2] = true;
+
+			}
+			if (keyCode == LEFT) {
+				level.keysPressed[3] = true;
+
+			}
+			if (key == 'w') {
+				level.keysPressed[0] = true;
+
+			} 
+			if (key == 'd') {
+				level.keysPressed[2] = true;
+
+			}
+			if (key == 's') {
+				level.keysPressed[1] = true;
 			
-		} 
-		if (keyCode == DOWN) { 
-			level.keysPressed[1] = true;
-		}
-		if (keyCode == RIGHT) {
-			level.keysPressed[2] = true;
-
-		}
-		if (keyCode == LEFT) {
-			level.keysPressed[3] = true;
-
-		}
-		if (key == 'w') {
-			level.keysPressed[0] = true;
-
-		} 
-		if (key == 'd') {
-			level.keysPressed[2] = true;
-
-		}
-		if (key == 's') {
-			level.keysPressed[1] = true;
+			}
+			if (key == 'a') {
+				level.keysPressed[3] = true;
 		
-		}
-		if (key == 'a') {
-			level.keysPressed[3] = true;
-	
+			}
 		}
 	}
 	public void keyReleased() {
