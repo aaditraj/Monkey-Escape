@@ -79,7 +79,7 @@ public class MainMenu {
 		{
 			if(mouseY > recty3 && mouseY < recty3 + rectYSize2) {
 	
-
+				System.out.println("inside");
 				return GameStatus.STARTED; 
 			
 			}

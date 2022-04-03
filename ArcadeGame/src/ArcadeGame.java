@@ -16,7 +16,7 @@ public class ArcadeGame {
 		JFrame window = (JFrame)canvas.getFrame();
 
 		
-		window.setSize(1000, 1200);
+		window.setSize(1500, 1200);
 		window.setMinimumSize(new Dimension(100,100));
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(true);

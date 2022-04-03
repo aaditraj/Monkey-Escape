@@ -4,6 +4,7 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -89,7 +90,7 @@ public class Leaderboard {
 		}
 		surface.textSize(30);
 		surface.fill(surface.color(0,0,0));
-		surface.text("Copyright 2020 AAJ Corp", surface.width/3, surface.height * 0.9f);
+		surface.text("Copyright 2020 AAJ Corp", surface.width/3, surface.height * 0.95f);
 		surface.pop(); 
 		if(time%frequency == 0) {
 			dispNum++;
@@ -153,7 +154,7 @@ public class Leaderboard {
 	}
 	public void constructPoints() {
 		points = new ArrayList<>();
-		System.out.println(leaderboard + " " +leaderboard.keySet());
+		//System.out.println(leaderboard + " " +leaderboard.keySet());
 		points.addAll(leaderboard.keySet());
 		Collections.sort(points,Comparator.reverseOrder());
 	}

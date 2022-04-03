@@ -39,7 +39,6 @@ public class LevelSwitch extends PApplet{
 	PImage skip;
 	PImage quitPrompt; 
 	int previousPoints; 
-	Sound s;
 	SoundFile startMusic;
 	SoundFile level1Music;
 	SoundFile level2Music;
@@ -48,11 +47,10 @@ public class LevelSwitch extends PApplet{
 	
 	int points = 0;
 	ClickThrough clickThrough = new ClickThrough("demoSet");
-	int gameStatus = 3;
+	int gameStatus = GameStatus.NOT_STARTED;
 	String playerName;
 	boolean keysEntered = false;
 	boolean played;
-	NameEnterPage page;
 	private NameEnterPage namePage;
 	public void setup() {
 		quit = loadImage("assets/SettingSymbol.png");
@@ -62,7 +60,7 @@ public class LevelSwitch extends PApplet{
 		System.out.println("SFSampleRate= " + startMusic.sampleRate() + " Hz");
 		System.out.println("SFSamples= " + startMusic.frames() + " samples");
 		System.out.println("SFDuration= " + startMusic.duration() + " seconds");
-		s = new Sound(this);
+
 		start = new StartPage(); 
 		menu = new MainMenu(); 
 		level = new Level1();
@@ -78,9 +76,6 @@ public class LevelSwitch extends PApplet{
 		}
 	}
 	public void draw() {
-		
-		s.volume(0.5f);
-		
 		if(gameStatus == GameStatus.STARTED) {
 			background(50);
 			textFont(createFont("assets/ARCADE_N.TTF", 50));
@@ -144,6 +139,9 @@ public class LevelSwitch extends PApplet{
 				if(namePage.isFinished()) {
 					gameStatus = GameStatus.LEADERBOARD;
 				}
+			} else if (gameStatus == GameStatus.NOT_STARTED) {
+				start.draw(this);
+				
 			}
 		}
 
