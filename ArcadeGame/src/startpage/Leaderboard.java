@@ -21,12 +21,16 @@ import java.io.Serializable;
 public class Leaderboard {
 	HashMap<Integer,ArrayList<String>> leaderboard;
 	PImage backArrow;
-	public boolean shouldDispName;
 	HashSet<String> names;
 	ArrayList<Integer> points;
 	ArrayList<String> allNames;
 	boolean completed = false;
 	String currName;
+	int time = 0;
+	int dispNum = 0;
+	int frequency = 10;
+	//int startPos = 0;
+	int currPos = 0;
 //	BufferedReader reader;
 	
 	public Leaderboard() {
@@ -34,7 +38,6 @@ public class Leaderboard {
 		names = new HashSet<>();
 		points = new ArrayList<>();
 		allNames = new ArrayList<>();
-		shouldDispName = false;
 		readData();
 		writeData();
 		constructPoints();
@@ -44,51 +47,61 @@ public class Leaderboard {
 	public boolean containsName(String name) {
 		return names.contains(name);
 	}
-	public void complete(int points, String name) {
+	public void reset() {
+		//System.out.println("inside");
+		currName = "";
+		currPos = 0;
+		time = 0;
+		dispNum = 0;
+		completed = false;
+		
+	}
+	public void complete(int points, String name, int currPos) {
 		completed = true;
 		currName = processName(name,points);
-		
+		//System.out.println(currPos);
+		if(currPos > 7) {
+			this.currPos = Integer.max(0, currPos - 3);
+		}
 	}
 	public void draw(PApplet surface)
 	{
 		int length = 0;
 		surface.push(); 
 		backArrow = surface.loadImage("assets/backArrow.png");
-		surface.image(surface.loadImage("assets/Backgrounds/forest2.jpg"), 0,0, surface.width,surface.height);
+		surface.background(0);
 		surface.image(backArrow, 50, 50, surface.width/18, surface.height/15);
 
 		surface.textSize(60);
 		//surface.text(currName,10,300);
 		surface.fill(surface.color(255,255,255));
-		surface.text("Leaderboard", surface.width/3, surface.height * 0.1f);
+		surface.text("High Scores", surface.width/3, surface.height * 0.1f);
 		
 		surface.fill(surface.color(255,255,255));
 		surface.textFont(surface.createFont("assets/ARCADE_N.TTF", 50));
-		if(allNames.size() > 7) {
-			length = 7;
+		if(allNames.size() > Integer.min(dispNum,7)) {
+			length = Integer.min(dispNum,7);
 		} else {
 			length = allNames.size();
 		}
-
-		for(int i = 0; i < length; i++) {
+		//System.out.println(currPos + " " + length + " " + allNames.size());
+		surface.text("Rank"+ "    " + "Name" +  "    " + "Points", surface.width/6, 100 + surface.height * 0.1f);
+		for(int i = currPos; i < Integer.min(allNames.size(),length+currPos); i++) {
 			String name = allNames.get(i);
 			if(completed && name.equals(currName)) {
 				surface.fill(surface.color(255,0,0));
 			}	
+			surface.text((i+1)+ "       " + name, surface.width/6, (i-currPos+1)*100 + surface.height * 0.2f );
 			surface.fill(surface.color(255,255,255));
 		}
 		surface.pop(); 
+		if(time%frequency == 0) {
+			dispNum++;
+		}
+		time++;
 	}
 	public String processName(String name, int points) {
-		int endLength = 15;
-		int pointLength = String.valueOf(points).length();
-		int strLength = name.length();
-		int dotCnt = endLength - (pointLength + strLength);
-		StringBuilder builder = new StringBuilder();
-		for(int i = 0; i < dotCnt; i++) {
-			builder.append(".");
-		}
-		return name + builder.toString() + points;
+		return name + "   " + points;
 	}
 	public void writeData() {
 		try {
@@ -123,26 +136,33 @@ public class Leaderboard {
 			} else {
 				leaderboard.get(val).add(name);
 			}
-			points.add(val);
-			points.sort(Comparator.naturalOrder());
-			names.add(name);
+			constructNames();
+			constructPoints();
+			constructAllNames();
+			System.out.println(names);
+			System.out.println(points);
+			System.out.println(allNames);
+			System.out.println(leaderboard);
+			
 		} else {
 			System.out.println("Please enter a unique name.");
 		}
 		writeData();
 	}
 	public void constructNames() {
+		names = new HashSet<>();
 		for(int i = 0; i < points.size(); i++) {
 			names.addAll(leaderboard.get(points.get(i)));
 		}
 	}
 	public void constructPoints() {
+		points = new ArrayList<>();
 		System.out.println(leaderboard + " " +leaderboard.keySet());
 		points.addAll(leaderboard.keySet());
-		
+		Collections.sort(points,Comparator.reverseOrder());
 	}
 	public void constructAllNames() {
-		ArrayList<String> allNames = new ArrayList<>();
+		allNames = new ArrayList<>();
 		for(int i = 0; i < points.size();i++) {
 			int key = points.get(i);
 			ArrayList<String> names = leaderboard.get(key);
@@ -157,7 +177,10 @@ public class Leaderboard {
 		
 		if(mouseX > 50 && mouseX < 50 + width/18)
 		{
-			if(mouseY > 50 && mouseY < 50 + height/15) return LevelSwitch.MAIN_MENU; 
+			if(mouseY > 50 && mouseY < 50 + height/15) {
+				this.reset();
+				return LevelSwitch.MAIN_MENU; 
+			}
 		}
 		
 		return LevelSwitch.LEADERBOARD;
