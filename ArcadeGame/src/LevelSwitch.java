@@ -156,22 +156,7 @@ public class LevelSwitch extends PApplet{
 			level.getBullets().add(b);
 		}
 		
-		if(gameStatus == GameStatus.MAIN_MENU)
-		{
-			
-			gameStatus = menu.checkClicked(mouseX, mouseY, width, height);
-			if(gameStatus == GameStatus.STARTED) {
-				startMusic.stop();
-				level1Music = new SoundFile(this, "assets/Music/Level1.wav");
-				level2Music = new SoundFile(this, "assets/Music/Level2.wav");
-				level3Music = new SoundFile(this, "assets/Music/Level3.wav");
-				level1Music.amp(0.5f);
-				level2Music.amp(0.5f);
-				level3Music.amp(0.5f);
-				level1Music.loop();
-				setup();
-			}
-		}
+		
 		
 		if(gameStatus == GameStatus.INSTRUCTIONS)
 		{
@@ -393,6 +378,20 @@ public class LevelSwitch extends PApplet{
 			if(gameStatus == GameStatus.MAIN_MENU)
 			{
 				gameStatus = menu.passMenu();
+			
+			
+			
+				if(gameStatus == GameStatus.STARTED) {
+					startMusic.stop();
+					level1Music = new SoundFile(this, "assets/Music/Level1.wav");
+					level2Music = new SoundFile(this, "assets/Music/Level2.wav");
+					level3Music = new SoundFile(this, "assets/Music/Level3.wav");
+					level1Music.amp(0.5f);
+					level2Music.amp(0.5f);
+					level3Music.amp(0.5f);
+					level1Music.loop();
+					setup();
+				}
 			}
 		}
 	}
