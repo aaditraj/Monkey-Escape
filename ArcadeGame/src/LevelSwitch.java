@@ -302,11 +302,14 @@ public class LevelSwitch extends PApplet{
 			namePage.interpretKeystroke((char)keyCode);
 		} else {
 			if (keyCode == UP) { 
+				if(gameStatus == GameStatus.MAIN_MENU) menu.modifyIndex(0);
 				level.getKeysPressed()[0] = true;
 				
 			} 
 			if (keyCode == DOWN) { 
+				if(gameStatus == GameStatus.MAIN_MENU) menu.modifyIndex(1);
 				level.getKeysPressed()[1] = true;
+				
 			}
 			if (keyCode == RIGHT) {
 				level.getKeysPressed()[2] = true;
@@ -382,6 +385,14 @@ public class LevelSwitch extends PApplet{
 			{
 				gameStatus = GameStatus.MAIN_MENU;
 				
+			}
+		}
+		
+		if(key == ENTER)
+		{
+			if(gameStatus == GameStatus.MAIN_MENU)
+			{
+				gameStatus = menu.passMenu();
 			}
 		}
 	}
