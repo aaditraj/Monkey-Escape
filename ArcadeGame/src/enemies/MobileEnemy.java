@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import core.Collider;
 import players.Player;
 import processing.core.PApplet;
-import processing.core.PImage;
 
 public class MobileEnemy extends Collider {
 	

@@ -1,12 +1,7 @@
 package core;
-import java.awt.Color;
 import java.util.ArrayList;
-import java.util.Arrays;
-
-import javax.swing.*;
 
 import processing.core.PApplet;
-import processing.core.PImage;
 
 public class Collider {
 	    protected double x;

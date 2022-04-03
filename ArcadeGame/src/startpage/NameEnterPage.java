@@ -1,15 +1,5 @@
 package startpage;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Set;
 
 import processing.core.PApplet;
 import processing.core.PImage;
@@ -25,6 +15,7 @@ public class NameEnterPage {
 	int points;
 	int position = 0;
 	int rank = 0;
+	String positionStr = "_     ";
 	public NameEnterPage(int points, Leaderboard board) {
 		this.points = points;
 		this.board = board;
@@ -49,6 +40,7 @@ public class NameEnterPage {
 		line++;
 		surface.fill(surface.color(255,0,0));
 		surface.text(currName.toString(), surface.width/3, surface.height * 0.1f+(line*100));
+		surface.text(positionStr, surface.width/3, surface.height * 0.1f+(line*100)+50);
 		if(time%frequency == 0) {
 			displayFlash = !displayFlash;
 		}
@@ -75,18 +67,32 @@ public class NameEnterPage {
 		if(keyCode == PApplet.LEFT) {
 			if(position > 0) {
 				position--;
+				genPositionString();
 			}
+			
 		}
 		if(keyCode == PApplet.RIGHT) {
 			if(position < 4) {
 				position++;
-			}	
+				genPositionString();
+			}
 		}
 		if(keyCode == PApplet.ENTER) {
 			board.add(points, currName.toString());
 			board.complete(points,currName.toString(),rank);
 			finished = true;
 		}
+	}
+	public void genPositionString() {
+		String str= "";
+		for(int i = 0; i < 5; i++) {
+			if(i == position) {
+				str+='_';
+			} else {
+				str += ' ';
+			}
+		}
+		positionStr = str;
 	}
 	public boolean isFinished() {
 		return finished;
