@@ -21,6 +21,7 @@ public class MobileEnemy extends Collider {
 		super(images, health, startX, startY, width, height, vx, vy);
 		this.endX = endX;
 		this.endY = endY;
+		this.setAnimationFalse();
 		this.setMobile(true);
 		proportion = (float)getWidth()/(float)getHealth(); 
 		initHealth = (float)getHealth();

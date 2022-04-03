@@ -8,14 +8,14 @@ public class Collider {
 		protected double y;
 	    private double width, height, health, initX, initY;
 	    protected double vx, vy;
-	    private String[] images;
-	    private int currentImage = 0;
 	    private final double DEFAULT_SPEED = 20; 
 	    private int maxSpeed = 20;
 	    private boolean stationary;
+	    int time = 0;
+	    AnimationDisplayer displayer;
 	    public Collider(String[] images, double health, double x, double y, double width, double height, double vx, double vy) {
 	    	this.health = health;
-	    	this.images = images;
+	    	displayer = new AnimationDisplayer(images);
 	    	this.x = x;
 	    	this.y = y;
 	    	this.initX = x;
@@ -29,6 +29,9 @@ public class Collider {
 	    
 	    public void setMobile(boolean b) {
 	    	stationary = !b;
+	    }
+	    public void setImages(String[] images) {
+	    	displayer.setImages(images);
 	    }
 	    public boolean isMovable() {
 	    	return !stationary;
@@ -111,7 +114,9 @@ public class Collider {
 		public boolean isPointInside(double x, double y) {
 			return (x >= getX() && x <= getX() + width && y >= getY() && y <= getY() + height);
 		}
-		
+		public void setFrequency(int frequency) {
+			displayer.setFrequency(frequency);
+		}
 		public void superMove(int x, int y) {
 			this.x += x;
 			this.y += y;
@@ -126,9 +131,10 @@ public class Collider {
 		 */
 		public void draw(PApplet marker) {
 			marker.push();
-			marker.image(marker.loadImage(images[currentImage]), (float)(int)(x), (float)(int)y, (float)width, (float) height);
+			marker.image(displayer.getImage(marker), (float)(int)(x), (float)(int)y, (float)width, (float) height);
 //			marker.rect((float) x, (float) y, (float) width, (float) height);
 //			setDrawSettings(marker);
+			time++;
 			marker.pop();
 		}
 		
@@ -143,7 +149,9 @@ public class Collider {
 			this.y = y;
 		}
 		
-		
+		public void setAnimationFalse() {
+			displayer.setAnimateFalse();
+		}
 		
 		/**
 		 * Moves this shape by a given horizontal and vertical distance.
@@ -167,13 +175,7 @@ public class Collider {
 		 * remember that currentImage is an index as well
 		 */
 		public void goToImage(int imageIndex) {
-			if (imageIndex >= 0 && imageIndex < images.length) {
-				currentImage = imageIndex;
-			}
-		}
-		
-		public void setImage(String[] images) {
-			this.images = images;
+			displayer.goToImage(imageIndex);
 		}
 		
 		public void changeHealth(double d) {
@@ -311,7 +313,7 @@ public class Collider {
 		}
 		
 		public int getCurrentImage() {
-			return currentImage;
+			return displayer.getPosition();
 		}
    
    

@@ -44,7 +44,10 @@ public class LevelSwitch extends PApplet{
 	SoundFile level2Music;
 	SoundFile level3Music;
 	HashMap<String,Integer> leaderboardCopy;
-	
+	String[] playerLeftImgs = new String[]{"assets/Player/PlayerLeft.png","assets/Player/PlayerLeft2.png"};
+	String[] playerRightImgs = new String[]{"assets/Player/PlayerRight.png","assets/Player/PlayerRight2.png"};
+	String[] playerImg = new String[]{"assets/Player/Player.png"};
+	int playerState = 1; 
 	int points = 0;
 	ClickThrough clickThrough = new ClickThrough("demoSet");
 	int gameStatus = GameStatus.NOT_STARTED;
@@ -271,15 +274,37 @@ public class LevelSwitch extends PApplet{
 	public void move() {
 		if(level.getKeysPressed()[0]) {
 			level.getPlayer().moveBy(0, -level.getPlayerSpeed() - 15, level.getObjects());
+			if(playerState != 1) {
+				playerState = 1;
+				level.getPlayer().setImages(playerImg);
+			}
 		}
 		if(level.getKeysPressed()[1]) {
 			level.getPlayer().moveBy(0, level.getPlayerSpeed(),  level.getObjects());
+			if(playerState != 1) {
+				playerState = 1;
+				level.getPlayer().setImages(playerImg);
+			}
 		}
 		if(level.getKeysPressed()[2]) {
 			level.getPlayer().moveBy(level.getPlayerSpeed(), 0,level.getObjects());
-		} 
+			if(playerState != 2) {
+				playerState = 2;
+				level.getPlayer().setImages(playerRightImgs);
+			}
+		} else if (playerState == 2) {
+			playerState = 1;
+			level.getPlayer().setImages(playerImg);
+		}
 		if(level.getKeysPressed()[3]) {
 			level.getPlayer().moveBy(-level.getPlayerSpeed(),0, level.getObjects());
+			if(playerState != 3) {
+				playerState = 3;
+				level.getPlayer().setImages(playerLeftImgs);
+			}
+		} else if(playerState == 3) {
+			playerState = 1;
+			level.getPlayer().setImages(playerImg);
 		}
 	}
 	public void keyPressed() {

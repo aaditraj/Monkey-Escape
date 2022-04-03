@@ -89,8 +89,8 @@ public class Leaderboard {
 			surface.fill(surface.color(255,255,255));
 		}
 		surface.textSize(30);
-		surface.fill(surface.color(0,0,0));
-		surface.text("Copyright 2020 AAJ Corp", surface.width/3, surface.height * 0.95f);
+		surface.fill(surface.color(255,255,0));
+		surface.text("Copyright 2022 AAJ Corp", surface.width/3, (8)*100+surface.height * 0.15f);
 		surface.pop(); 
 		if(time%frequency == 0) {
 			dispNum++;

@@ -43,6 +43,9 @@ public class NameEnterPage {
 		surface.fill(surface.color(255,0,0));
 		surface.text(currName.toString(), surface.width/3, surface.height * 0.1f+(line*100));
 		surface.text(positionStr, surface.width/3, surface.height * 0.1f+(line*100)+50);
+		surface.textSize(30);
+		surface.fill(surface.color(255,255,0));
+		surface.text("Copyright 2022 AAJ Corp", surface.width/3, (8)*100+surface.height * 0.15f);
 		if(time%frequency == 0) {
 			displayFlash = !displayFlash;
 		}

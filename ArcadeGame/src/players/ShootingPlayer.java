@@ -12,6 +12,7 @@ public class ShootingPlayer extends Player{
 	public ShootingPlayer(double health, double x, double y, double width, double height, double vx,
 			double vy, int maxAmmo) {
 		super(new String[] {"assets/Player/Player.png"}, health, x, y, width, height, vx, vy, maxAmmo);
+		setFrequency(3);
 		defaultVx = vx;
 		defaultVy = vy;
 		jumpHeight = 50;
@@ -21,6 +22,7 @@ public class ShootingPlayer extends Player{
 		super(new String[] {"assets/Player/Player.png"}, health, x, y, width, height, vx, vy, maxAmmo);
 		defaultVx = vx;
 		defaultVy = vy;
+		setFrequency(3);
 		this.jumpHeight = jumpHeight;
 	}
 	public Bullet shoot(int mouseX, int mouseY)

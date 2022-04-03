@@ -8,7 +8,11 @@ public class SideShooter extends Collider {
 	public int bulletFrequency;
 	public SideShooter(int x, int y,int bulletFrequency, int width, int height, int direction) {
 		super(new String[] {"assets/SideShooter/SideShooter.png","assets/SideShooter/SideShooterLeft.png"}, Integer.MAX_VALUE,x,y,width,height, 0,0);
-		//-1 stands for right, 1 stands for left
+		if(direction == 1) {
+			this.setImages(new String[] {"assets/SideShooter/SideShooterLeft.png","assets/SideShooter/SideShooterLeft2.png"});
+		} else {
+			this.setImages(new String[] {"assets/SideShooter/SideShooter.png","assets/SideShooter/SideShooter2.png"});
+		}
 		if(direction == 1) {
 			goToImage(1); 
 		}

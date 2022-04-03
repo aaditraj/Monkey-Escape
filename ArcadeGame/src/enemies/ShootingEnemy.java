@@ -14,7 +14,7 @@ public class ShootingEnemy extends Collider{
 	
 	
 	public ShootingEnemy(double health, double x, double y, double width, double height) {
-		super(new String[] {"assets/ShootingEnemy/Monkey.png"}, health, x, y, width, height, 0, 0);
+		super(new String[] {"assets/ShootingEnemy/Monkey.png","assets/ShootingEnemy/Monkey2.png"}, health, x, y, width, height, 0, 0);
 		
 		
 		shootRate = new Timer();	

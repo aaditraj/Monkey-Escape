@@ -11,7 +11,7 @@ public class Platform extends Collider {
 			super(new String[] {"assets/Platform/rock-platform.png"}, 10, x, y, width, height, 0, 0);
 			this.doesDamage = doesDamage;
 			if (doesDamage) {
-				setImage(new String[] {"assets/lava.png"});
+				setImages(new String[] {"assets/lava.png"});
 			}
 	}
 	
@@ -19,9 +19,9 @@ public class Platform extends Collider {
 		super(new String[] {image}, 10, x, y, width, height, 0, 0);
 		this.doesDamage = doesDamage;
 		if (doesDamage) {
-			setImage(new String[] {"assets/lava.png"});
+			setImages(new String[] {"assets/lava.png"});
 		}
-}
+	}
 	
 	public boolean doesDamage() {
 		return doesDamage;
