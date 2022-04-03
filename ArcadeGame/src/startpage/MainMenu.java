@@ -1,5 +1,5 @@
 package startpage; 
-import Levels.LevelSwitch;
+import levels.GameStatus;
 import processing.core.PApplet;
 import processing.core.PImage;
 public class MainMenu {
@@ -66,13 +66,13 @@ public class MainMenu {
 		{
 			if(mouseY > recty1 && mouseY < recty1 + rectYSize) 
 				{
-				return LevelSwitch.LEADERBOARD; 
+				return GameStatus.LEADERBOARD; 
 				}
 		}
 		
 		if(mouseX > rectx2 && mouseX < rectx2 + rectXSize)
 		{
-			if(mouseY > recty2 && mouseY < recty2 + rectYSize) return LevelSwitch.INSTRUCTIONS; 
+			if(mouseY > recty2 && mouseY < recty2 + rectYSize) return GameStatus.INSTRUCTIONS; 
 		}
 		
 		if(mouseX > rectx3 && mouseX < rectx3 + rectXSize2)
@@ -80,13 +80,13 @@ public class MainMenu {
 			if(mouseY > recty3 && mouseY < recty3 + rectYSize2) {
 	
 
-				return LevelSwitch.STARTED; 
+				return GameStatus.STARTED; 
 			
 			}
 		
 		}
 		
-		return LevelSwitch.MAIN_MENU;
+		return GameStatus.MAIN_MENU;
 	}
 	
 	

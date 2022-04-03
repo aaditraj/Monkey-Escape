@@ -1,5 +1,5 @@
 package startpage;
-import Levels.LevelSwitch;
+import levels.GameStatus;
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -30,10 +30,10 @@ public class Instructions  {
 		
 		if(mouseX > rectx1 && mouseX < rectx1 + 150)
 		{
-			if(mouseY > recty1 && mouseY < recty1 + 50) return LevelSwitch.MAIN_MENU; 
+			if(mouseY > recty1 && mouseY < recty1 + 50) return GameStatus.MAIN_MENU; 
 		}
 		
-		return LevelSwitch.INSTRUCTIONS;
+		return GameStatus.INSTRUCTIONS;
 		
 	}
 }

@@ -1,12 +1,9 @@
 package enemies;
 import java.util.ArrayList;
 import java.util.Timer;
-import java.util.TimerTask;
 
 import core.Bullet;
 import core.Collider;
-import processing.core.PApplet;
-import processing.core.PImage;
 
 public class ShootingEnemy extends Collider{
 	private Timer shootRate; 

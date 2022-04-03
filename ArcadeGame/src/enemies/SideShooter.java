@@ -1,8 +1,6 @@
 package enemies;
 import core.Bullet;
 import core.Collider;
-import processing.core.PApplet;
-import processing.core.PImage;
 public class SideShooter extends Collider {
 	//int bulletFrequency = 0;
 	int direction = 0;

@@ -1,23 +1,16 @@
 package startpage;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
-
-import Levels.LevelSwitch;
-import processing.core.PApplet;
-import processing.core.PImage;
-
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+
+import levels.GameStatus;
+import processing.core.PApplet;
+import processing.core.PImage;
 public class Leaderboard {
 	HashMap<Integer,ArrayList<String>> leaderboard;
 	PImage backArrow;
@@ -182,11 +175,11 @@ public class Leaderboard {
 		{
 			if(mouseY > 50 && mouseY < 50 + height/15) {
 				this.reset();
-				return LevelSwitch.MAIN_MENU; 
+				return GameStatus.MAIN_MENU; 
 			}
 		}
 		
-		return LevelSwitch.LEADERBOARD;
+		return GameStatus.LEADERBOARD;
 		
 	}
 }

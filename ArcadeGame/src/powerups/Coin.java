@@ -1,8 +1,5 @@
 package powerups;
-import java.util.ArrayList;
-
 import core.Collider;
-import players.Player;
 import players.ShootingPlayer;
 
 //change to extends powerup later
