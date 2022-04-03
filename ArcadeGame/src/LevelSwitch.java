@@ -53,6 +53,7 @@ public class LevelSwitch extends PApplet{
 	boolean keysEntered = false;
 	boolean played;
 	NameEnterPage page;
+	private NameEnterPage namePage;
 	public void setup() {
 		quit = loadImage("assets/SettingSymbol.png");
 		skip = loadImage("assets/SkipSymbol.png");
@@ -129,15 +130,8 @@ public class LevelSwitch extends PApplet{
 				startMusic.jump(14.5f);
 				startMusic.play();
 			}
-			if (gameStatus == GameStatus.NOT_STARTED) {
-				start.draw(this); 
-			} else if (gameStatus == GameStatus.IN_CLICKTHROUGH) {
-				clickThrough.draw(this);
-				if(clickThrough.isFinished) {
-					gameStatus = GameStatus.NOT_STARTED;
-				}
-			} else if (gameStatus == GameStatus.FINISHED)  {
-				page = new NameEnterPage(points,leaderboard);
+			if (gameStatus == GameStatus.FINISHED)  {
+				namePage = new NameEnterPage(points,leaderboard);
 				gameStatus = GameStatus.NAME_PAGE;
 			} else if (gameStatus == GameStatus.MAIN_MENU) {
 				menu.draw(this);
@@ -146,11 +140,11 @@ public class LevelSwitch extends PApplet{
 			} else if (gameStatus == GameStatus.LEADERBOARD) {
 				leaderboard.draw(this);
 			} else if (gameStatus == GameStatus.NAME_PAGE) {
-				page.draw(this);
-				if(page.isFinished()) {
+				namePage.draw(this);
+				if(namePage.isFinished()) {
 					gameStatus = GameStatus.LEADERBOARD;
 				}
-			} 
+			}
 		}
 
 		
@@ -306,36 +300,40 @@ public class LevelSwitch extends PApplet{
 		}
 	}
 	public void keyPressed() {
-		if (keyCode == UP) { 
-			level.getKeysPressed()[0] = true;
+		if(gameStatus == GameStatus.NAME_PAGE) {
+			namePage.interpretKeystroke((char)keyCode);
+		} else {
+			if (keyCode == UP) { 
+				level.getKeysPressed()[0] = true;
+				
+			} 
+			if (keyCode == DOWN) { 
+				level.getKeysPressed()[1] = true;
+			}
+			if (keyCode == RIGHT) {
+				level.getKeysPressed()[2] = true;
+
+			}
+			if (keyCode == LEFT) {
+				level.getKeysPressed()[3] = true;
+
+			}
+			if (key == 'w') {
+				level.getKeysPressed()[0] = true;
+
+			} 
+			if (key == 'd') {
+				level.getKeysPressed()[2] = true;
+
+			}
+			if (key == 's') {
+				level.getKeysPressed()[1] = true;
 			
-		} 
-		if (keyCode == DOWN) { 
-			level.getKeysPressed()[1] = true;
-		}
-		if (keyCode == RIGHT) {
-			level.getKeysPressed()[2] = true;
-
-		}
-		if (keyCode == LEFT) {
-			level.getKeysPressed()[3] = true;
-
-		}
-		if (key == 'w') {
-			level.getKeysPressed()[0] = true;
-
-		} 
-		if (key == 'd') {
-			level.getKeysPressed()[2] = true;
-
-		}
-		if (key == 's') {
-			level.getKeysPressed()[1] = true;
+			}
+			if (key == 'a') {
+				level.getKeysPressed()[3] = true;
 		
-		}
-		if (key == 'a') {
-			level.getKeysPressed()[3] = true;
-	
+			}
 		}
 	}
 	public void keyReleased() {
