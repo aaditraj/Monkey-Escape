@@ -94,6 +94,9 @@ public class Leaderboard {
 			surface.text((i+1)+ "       " + name, surface.width/6, (i-currPos+1)*100 + surface.height * 0.2f );
 			surface.fill(surface.color(255,255,255));
 		}
+		surface.textSize(30);
+		surface.fill(surface.color(0,0,0));
+		surface.text("Copyright 2020 AAJ Corp", surface.width/3, surface.height * 0.9f);
 		surface.pop(); 
 		if(time%frequency == 0) {
 			dispNum++;
