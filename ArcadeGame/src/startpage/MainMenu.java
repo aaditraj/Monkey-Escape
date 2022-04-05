@@ -105,9 +105,9 @@ public class MainMenu {
 				marker.rect((float)(marker.width/6), (float)(marker.height/1.32), (float)(marker.width/1.546), (float)(marker.height/8.24));
 			}
 		}
-		marker.textSize(30);
+		marker.textSize(marker.width/50);
 		marker.fill(marker.color(255,255,0));
-		marker.text("Copyright 2022 AAJ Corp", marker.width/3, (8)*100+marker.height * 0.15f);
+		marker.text("Copyright 2022 AAJ Corp", (float)(marker.width/3.5), marker.height * 0.95f);
 		marker.pop();
 		
 		counter++; 
