@@ -57,8 +57,6 @@ public class MainMenu {
 		marker.textFont(marker.createFont("assets/ARCADE_N.TTF", 50));
 		marker.textSize((float)(marker.width/16.666666));
 	
-		System.out.println("width: " + marker.width);
-		System.out.println("height: " + marker.height);
 
 	
 		marker.noFill();
@@ -107,7 +105,7 @@ public class MainMenu {
 		}
 		marker.textSize(marker.width/50);
 		marker.fill(marker.color(255,255,0));
-		marker.text("Copyright 2022 AAJ Corp", (float)(marker.width/3.5), marker.height * 0.95f);
+		marker.text("Copyright 2022 AAJ Corp", (float)(marker.width/3.7), marker.height * 0.95f);
 		marker.pop();
 		
 		counter++; 
