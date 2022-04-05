@@ -39,6 +39,9 @@ public class AnimationDisplayer {
 	public void setFrequency(int speed) {
 		frequency = speed;
 	}
+	public int getFrequency() {
+		return frequency;
+	}
 	public int getPosition() {
 		return position;
 	}

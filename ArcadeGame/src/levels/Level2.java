@@ -38,6 +38,9 @@ public class Level2 extends Level {
 	private Lava lava;
 	float bulletHitX = 0;
 	float bulletHitY = 0;
+	boolean inDeathAnimation;
+	int deathTime;
+	String[] deathAnimation = new String[]{"assets/Player/Player.png","assets/Player/Player_body.png","assets/Player/Player_head.png","assets/Player/Player_head_dropped.png"};
 	public void setup() {
 		staticPieces = new ArrayList<>();
 		mobilePieces = new ArrayList<>();
@@ -45,6 +48,8 @@ public class Level2 extends Level {
 		totalPieces = new ArrayList<>();
 		objects = new ArrayList<>();
 		keysPressed = new boolean[5];
+		inDeathAnimation = false;
+		deathTime = 0;
 		enemy1 = new MobileEnemy(MobileEnemy.mobileEnemyImages,10,1000,510,650,500,-10,0,72,90);
 		enemy2 = new MobileEnemy(MobileEnemy.mobileEnemyImages,10,1000,330,650,200,-10,0,72,90);
 		enemy3 = new MobileEnemy(MobileEnemy.mobileEnemyImages,10,1000,710,650,200,-10,0,72,90);
@@ -136,7 +141,7 @@ public class Level2 extends Level {
 				
 				if(hit) 
 				{
-					if(suspect != null && suspect == currentMobileEnemy)
+					if(suspect != null && suspect == currentMobileEnemy && !inDeathAnimation)
 					displayDamage(marker, (float)getPlayer().getCenterX(), (float)getPlayer().getCenterY());
 				}
 				else mobileEnemyHitTime = 0;
@@ -146,14 +151,21 @@ public class Level2 extends Level {
 			
 			if(mobilePieces.get(i).getHealth() <= 0) {
 				if(mobilePieces.get(i) instanceof ShootingPlayer) {
-					setup();
+					if(!inDeathAnimation) {
+						inDeathAnimation = true;
+						player.setImages(deathAnimation);
+						player.setFrequency(10);
+					}
+					mobilePieces.get(i).draw(marker);
 				} else {
 					if(mobilePieces.get(i) instanceof MobileEnemy) {
 						defeatMobileEnemy(i);
 					}
 				}
 			} else {
-				mobilePieces.get(i).act(getObjects());
+				if(!inDeathAnimation) {
+					mobilePieces.get(i).act(getObjects());
+				}
 				mobilePieces.get(i).draw(marker);
 			}
 		}
@@ -172,7 +184,9 @@ public class Level2 extends Level {
 			Collider bullet = getBullets().get(i);
 			if (bullet.getX() <= marker.width && bullet.getX() >= 0 && bullet.getY() <= marker.height && bullet.getY() >= 0 && bullet.getHealth() > 0) {
 				bullet.draw(marker);
-				bullet.act((ArrayList<Collider>)mobilePieces);
+				if(!inDeathAnimation) {
+					bullet.act((ArrayList<Collider>)mobilePieces);
+				}
 				if(bullet.getHealth() <= 0) {
 					getBullets().remove(i);
 					
@@ -195,7 +209,15 @@ public class Level2 extends Level {
 		{
 			getPlayer().changeHealth(-1);
 		}
-		lava.increaseHeight(getPlayer());
+		if(inDeathAnimation && deathTime == 3 && time % player.getImgFrequency() == player.getImgFrequency()-1) {
+			setup();
+		}
+		if(inDeathAnimation && time % player.getImgFrequency() == 0) {
+			deathTime++;
+		}
+		if(!inDeathAnimation) {
+			lava.increaseHeight(getPlayer());
+		}
 		lava.draw(marker);
 		displayCelebrations(marker);
 		displayHit(marker, bulletHitX, bulletHitY);
