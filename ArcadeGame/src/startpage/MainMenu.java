@@ -55,7 +55,7 @@ public class MainMenu {
 		marker.image(bg, 0, 0, marker.width, marker.height);
 		
 		marker.textFont(marker.createFont("assets/ARCADE_N.TTF", 50));
-		marker.textSize(90);
+		marker.textSize((float)(marker.width/16.666666));
 	
 		System.out.println("width: " + marker.width);
 		System.out.println("height: " + marker.height);
@@ -73,7 +73,7 @@ public class MainMenu {
 				marker.text("START GAME", (float)(marker.width/5.357), (float)(marker.height/1.80));
 				marker.noFill();
 
-				marker.rect((float)(marker.width/5.55), 450, (float)(marker.width/1.676), (float)(marker.height/8.24));
+				marker.rect((float)(marker.width/5.55), (float)(marker.height/2.2), (float)(marker.width/1.676), (float)(marker.height/8.24));
 			}
 			
 		}
