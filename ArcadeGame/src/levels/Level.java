@@ -47,6 +47,7 @@ public class Level {
 	public void setupSoundEffects(PApplet marker) {
 		coinCollectSound = new SoundFile(marker, "assets/SoundEffects/coin-collect.wav");
 		damageSound = new SoundFile(marker, "assets/SoundEffects/damage.wav");
+		damageSound.amp((float) 0.2);
 		gameOverSound = new SoundFile(marker, "assets/SoundEffects/game-over.wav");
 	}
 	/**
@@ -95,11 +96,12 @@ public class Level {
 	 */
 	public void displayHit(PApplet marker, float f, float g)
 	{	
-		if (!damageSound.isPlaying()) {
-			damageSound.play();
-		}
+
 		if(hitTime <= 8 && hitTime >= 0)
 		{
+			if (!damageSound.isPlaying()) {
+				damageSound.play();
+			}
 			marker.push();
 			marker.textFont(marker.createFont("assets/ARCADE_N.TTF", 16));
 			marker.textAlign(PApplet.CENTER, PApplet.CENTER);
