@@ -94,7 +94,10 @@ public class Level {
 	 * @param g
 	 */
 	public void displayHit(PApplet marker, float f, float g)
-	{
+	{	
+		if (!damageSound.isPlaying()) {
+			damageSound.play();
+		}
 		if(hitTime <= 8 && hitTime >= 0)
 		{
 			marker.push();
@@ -129,6 +132,9 @@ public class Level {
 	 */
 	public void displayDamage(PApplet marker, float f, float g)
 	{
+		if (!damageSound.isPlaying()) {
+			damageSound.play();
+		}
 		marker.push();
 		marker.textFont(marker.createFont("assets/ARCADE_N.TTF", 16));
 		marker.textAlign(PApplet.CENTER, PApplet.CENTER);
