@@ -1,7 +1,7 @@
 package obstacles;
 
 import enemies.MobileEnemy;
-
+//Unused class
 public class MovingPlatform extends MobileEnemy {
 	
 	public static String[] movingPlatformImage = new String[] {"assets/Projectiles/treeBranch.png"};

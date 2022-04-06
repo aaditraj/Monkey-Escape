@@ -61,6 +61,10 @@ public class MobileEnemy extends Collider {
 //			System.out.println("HI");
 //		}
 	}
+	/**
+	 * Allows a mobile enemy to be drawn at the correct location
+	 * @param marker the screen to draw the gorilla
+	 */
 	public void draw(PApplet marker) {
 		super.draw(marker);
 		
@@ -70,7 +74,10 @@ public class MobileEnemy extends Collider {
 		marker.rect((float)getX(), (float)getY() - (float)getHeight()/2, (float)(getWidth() - proportion*Math.abs(initHealth-getHealth())), 10);
 		marker.pop();
 	}
-	
+	/**
+	 * Do damage if hitting player, and change the image to the angry gorilla image.
+	 * @param collider the collider to do damage to
+	 */
 	public double collide(Collider collider) {
 		if (collider instanceof Player) {
 			collider.changeHealth(-1);

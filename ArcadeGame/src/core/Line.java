@@ -95,7 +95,7 @@ public class Line {
 		
 		return (onLine1 && onLine2);
 	}
-
+	//Checks if two lines segments are collinear
 	public boolean isCollinear(Line other) {
 		Double exactXIntersect = getIntersectionX(other);
 		Double exactYIntersect = getIntersectionY(other);
@@ -133,7 +133,8 @@ public class Line {
 		}
 		return false;
 	}
-	public boolean isCollinear(Line other, int direction, int maxSpeed) {
+	
+	/*public boolean isCollinear(Line other, int direction, int maxSpeed) {
 		Double exactXIntersect = getIntersectionX(other);
 		Double exactYIntersect = getIntersectionY(other);
 		if (exactXIntersect.isInfinite()) { // Parallel]
@@ -190,6 +191,7 @@ public class Line {
 		}
 		return false;
 	}
+	*/
 	public void changeX(double amount) {
 		this.x1 += amount;
 		this.x2 += amount;

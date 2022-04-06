@@ -31,13 +31,27 @@ public class Level {
 	boolean isFinished = false;
 	boolean[] keysPressed = new boolean[4];
 	int playerSpeed = 10;
+	
+	/**
+	 * Abstract method to draw a Level, with all its objects
+	 * @param marker
+	 */
 	public void draw(PApplet marker) {
 		
 	}
+	/**
+	 * Abstract method to move the main character
+	 */
 	public void move() {
 		
 	}
-	
+	public boolean isInDeathAnimation() {
+		return false;
+	}
+	/**
+	 * Method to display celebratory message when you collect a coin
+	 * @param marker
+	 */
 	public void displayCelebrations(PApplet marker) {
 		if (currentCelebration != null && defeatedObjects.size() > 0 && messageTime >= 0) {
 			marker.push();
@@ -63,7 +77,12 @@ public class Level {
 			defeatedObjects.clear();
 		}
 	}
-	
+	/**
+	 * Method to display a hit
+	 * @param marker
+	 * @param f
+	 * @param g
+	 */
 	public void displayHit(PApplet marker, float f, float g)
 	{
 		if(hitTime <= 8 && hitTime >= 0)
@@ -92,7 +111,12 @@ public class Level {
 		hitTime = -1;
 	}
 	}
-	
+	/**
+	 * Method to display a dmage, when it is taken
+	 * @param marker
+	 * @param f
+	 * @param g
+	 */
 	public void displayDamage(PApplet marker, float f, float g)
 	{
 		marker.push();
@@ -106,7 +130,10 @@ public class Level {
 		
 		mobileEnemyHitTime += 1;
 	}
-	
+	/**
+	 * collect a coin, given the coins position
+	 * @param i
+	 */
 	
 	public void collectCoin(int i) {
 		messageTime = 0;
@@ -117,14 +144,20 @@ public class Level {
 		getPlayer().changePoints(15);
 		coins.remove(i);
 	}
-	
+	/**
+	 * Tracks the hits on the owner
+	 * @param owner
+	 */
 	public void getHit(String owner) {
 		hitTime = 0;
 		this.owner = owner; 
 
 		
 	}
-	
+	/**
+	 * Defeats a mobile enemy, when its health zeroes out.
+	 * @param i
+	 */
 	public void defeatMobileEnemy(int i) {
 		messageTime = 0;
 		MobileEnemy defeated = (MobileEnemy) mobilePieces.get(i);
@@ -133,15 +166,19 @@ public class Level {
 		getPlayer().changePoints(50);
 		mobilePieces.remove(i);
 	}
+	//Returns the main player
 	public ShootingPlayer getPlayer() {
 		return player;
 	}
+	//Checks if the level is finished
 	public boolean isFinished() {
 		return isFinished;
 	}
+	//Finishes the level
 	public void setFinished(boolean isFinished) {
 		this.isFinished = isFinished;
 	}
+	//Gets all the bullets in the level
 	public ArrayList<Collider> getBullets() {
 		return bullets;
 	}

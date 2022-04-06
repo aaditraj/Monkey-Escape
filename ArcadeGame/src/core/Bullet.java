@@ -29,7 +29,7 @@ public class Bullet extends Collider
 	 * @param image The image to display for the bullet
 	 * @param width The width of the bullet
 	 * @param height The height of the bullet
-	 * @param damage The damage the bulet causes upon impact
+	 * @param damage The damage the bullet causes upon impact
 	 */
 	public Bullet(double x, double y, String owner, String image,double width,double height,int damage) {
 		super(new String[] {image}, 1, x, y, width, height, 0, 0);

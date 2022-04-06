@@ -39,7 +39,9 @@ public abstract class Player extends Collider{
 	public int getAmmo() {
 		return currentAmmo;
 	}
-
+	public void setHealth(int health) {
+		this.health = health;
+	}
 		
 	public void draw(PApplet marker) {
 		super.draw(marker);

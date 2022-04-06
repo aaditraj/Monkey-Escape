@@ -6,7 +6,10 @@ import processing.core.PApplet;
 public class Collider {
 	    protected double x;
 		protected double y;
-	    private double width, height, health, initX, initY;
+	    private double width, height;
+		protected double health;
+		private double initX;
+		private double initY;
 	    protected double vx, vy;
 	    private final double DEFAULT_SPEED = 20; 
 	    private int maxSpeed = 20;
@@ -135,8 +138,6 @@ public class Collider {
 		public void draw(PApplet marker) {
 			marker.push();
 			marker.image(displayer.getImage(marker), (float)(int)(x), (float)(int)y, (float)width, (float) height);
-//			marker.rect((float) x, (float) y, (float) width, (float) height);
-//			setDrawSettings(marker);
 			time++;
 			marker.pop();
 		}

@@ -10,10 +10,10 @@ public class ClickThrough {
 	public boolean isFinished;
 	public ClickThrough(String imageSet) {
 		switch(imageSet) {
-		case "demoSet":
-			imgList.add("assets/Projectiles/bullet.png");
-			imgList.add("assets/Projectiles/Coconut.png");
+		case "realSet":
 			imgList.add("assets/Backgrounds/forest1.jpeg");
+			imgList.add("assets/Backgrounds/forest2.jpg");
+			imgList.add("assets/Backgrounds/volcano-bg.jpg");
 		break;	
 		}
 	}
