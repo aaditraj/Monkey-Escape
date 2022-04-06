@@ -241,7 +241,7 @@ public class Level3 extends Level {
 		}
 		if(inDeathAnimation && deathTime == 3 && time % player.getImgFrequency() == player.getImgFrequency()-1) {
 			super.playGameOverSound();
-			setup();
+			setup(marker);
 		}
 		if(inDeathAnimation && time % player.getImgFrequency() == 0) {
 			deathTime++;
