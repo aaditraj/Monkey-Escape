@@ -7,7 +7,10 @@ public class MainMenu {
 	int index;
 	int counter;
 	PImage bg;
-	
+	private String first = "Use Arrow Keys To Navigate";
+	private String second = "Press Enter To Begin";
+	private String current = first;
+
 	
 	public MainMenu()
 	{
@@ -65,11 +68,12 @@ public class MainMenu {
 		{
 			marker.text("INSTRUCTIONS", (float)(marker.width/6.52), (float)(marker.height/1.413));
 			marker.text("LEADERBOARD", (float)(marker.width/5.77), (float)(marker.height/1.16));
-			marker.fill(0,0,0);
+			marker.fill(255,255,0);
 			if(counter % 4 != 0)
 			{
 				marker.text("START GAME", (float)(marker.width/5.357), (float)(marker.height/1.80));
 				marker.noFill();
+				marker.stroke(255, 255, 0);
 
 				marker.rect((float)(marker.width/5.55), (float)(marker.height/2.2), (float)(marker.width/1.676), (float)(marker.height/8.24));
 			}
@@ -80,11 +84,12 @@ public class MainMenu {
 			
 			marker.text("START GAME", (float)(marker.width/5.36), (float)(marker.height/1.8));
 			marker.text("LEADERBOARD", (float)(marker.width/5.77), (float)(marker.height/1.16));
-			marker.fill(0,0,0);
+			marker.fill(255,255,0);
 			if(counter % 4 != 0)
 			{
 				marker.text("INSTRUCTIONS", (float)(marker.width/6.52), (float)(marker.height/1.41));
 				marker.noFill();
+				marker.stroke(255, 255, 0);
 
 				marker.rect((float)(marker.width/6.82), (float)(marker.height/1.65), (float)(marker.width/1.4), (float)(marker.height/8.24));
 			}
@@ -94,18 +99,28 @@ public class MainMenu {
 		{
 			marker.text("INSTRUCTIONS", (float)(marker.width/6.52), (float)(marker.height/1.413));
 			marker.text("START GAME", (float)(marker.width/5.357), (float)(marker.height/1.80));
-			marker.fill(0,0,0);
+			marker.fill(255,255,0);
 			if(counter % 4 != 0)
 			{
 				marker.text("LEADERBOARD", (float)(marker.width/5.77), (float)(marker.height/1.16));
 				marker.noFill();
-
-				marker.rect((float)(marker.width/6), (float)(marker.height/1.32), (float)(marker.width/1.546), (float)(marker.height/8.24));
+				marker.stroke(255, 255, 0);
+				marker.rect((float)(marker.width/6.2), (float)(marker.height/1.32), (float)(marker.width/1.5), (float)(marker.height/8.24));
 			}
 		}
 		marker.textSize(marker.width/50);
-		marker.fill(marker.color(255,255,0));
-		marker.text("Copyright 2022 AAJ Corp", (float)(marker.width/3.7), marker.height * 0.95f);
+		marker.fill(marker.color(255,255,255));
+		if(counter % 4 != 0)
+		{
+			
+			marker.text(current, (float)(marker.width/3.7), marker.height * 0.95f);
+			
+			
+		}
+		else {
+			if(current.equals(first)) current = second;
+			else if(current.equals(second)) current = first;
+		}
 		marker.pop();
 		
 		counter++; 
