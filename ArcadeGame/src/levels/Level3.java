@@ -192,6 +192,7 @@ public class Level3 extends Level {
 						inDeathAnimation = true;
 						player.setImages(deathAnimation);
 						player.setFrequency(10);
+						player.setHealth(0);
 					}
 					mobilePieces.get(i).draw(marker);
 				} else {
@@ -257,6 +258,9 @@ public class Level3 extends Level {
 		displayCelebrations(marker);
 		displayHit(marker, bulletHitX, bulletHitY);
 
+	}
+	public boolean isInDeathAnimation() {
+		return inDeathAnimation;
 	}
 }
 

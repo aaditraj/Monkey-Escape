@@ -1,5 +1,4 @@
 package levels;
-
 public final class GameStatus {
 	public static final int LEADERBOARD = 1;
 	public static final int STARTED = 2;

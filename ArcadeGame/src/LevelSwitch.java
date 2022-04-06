@@ -54,7 +54,7 @@ public class LevelSwitch extends PApplet{
 	String[] playerImg = new String[]{"assets/Player/Player.png"};
 	int playerState = 1; 
 	int points = 0;
-	ClickThrough clickThrough = new ClickThrough("demoSet");
+	ClickThrough clickThrough = new ClickThrough("realSet");
 	int gameStatus = GameStatus.NOT_STARTED;
 	String playerName;
 	boolean keysEntered = false;
@@ -157,7 +157,11 @@ public class LevelSwitch extends PApplet{
 				}
 			} else if (gameStatus == GameStatus.NOT_STARTED) {
 				start.draw(this);
-				
+			} else if (gameStatus == GameStatus.IN_CLICKTHROUGH) {
+				clickThrough.draw(this);
+				if(clickThrough.isFinished) {
+					gameStatus = GameStatus.MAIN_MENU;
+				}
 			}
 		}
 
@@ -251,6 +255,7 @@ public class LevelSwitch extends PApplet{
 			}
 			
 			
+			
 			if(mouseX > (int)(width/1.95) && mouseX < (int)(width/1.95) + width/5)
 			{
 				if(mouseY > (int)(height/1.8) && mouseY < (int)(height/1.8) + height/5)
@@ -261,7 +266,6 @@ public class LevelSwitch extends PApplet{
 					
 			}
 		}
-		
 		if(gameStatus == GameStatus.STARTED)
 		{
 			
@@ -290,43 +294,45 @@ public class LevelSwitch extends PApplet{
 				}
 			}
 		}
-		
+		if(gameStatus == GameStatus.IN_CLICKTHROUGH) {
+			clickThrough.next();
+		}
 	}
 	/**
 	 *The method that uses the keys pressed to determine which direction to move the main player. 
 	 */
 	public void move() {
-		if(level.getKeysPressed()[0]) {
+		if(level.getKeysPressed()[0] && !level.isInDeathAnimation()) {
 			level.getPlayer().moveBy(0, -level.getPlayerSpeed() - 15, level.getObjects());
 			if(playerState != 1) {
 				playerState = 1;
 				level.getPlayer().setImages(playerImg);
 			}
 		}
-		if(level.getKeysPressed()[1]) {
+		if(level.getKeysPressed()[1] && !level.isInDeathAnimation()) {
 			level.getPlayer().moveBy(0, level.getPlayerSpeed(),  level.getObjects());
 			if(playerState != 1) {
 				playerState = 1;
 				level.getPlayer().setImages(playerImg);
 			}
 		}
-		if(level.getKeysPressed()[2]) {
+		if(level.getKeysPressed()[2] && !level.isInDeathAnimation()) {
 			level.getPlayer().moveBy(level.getPlayerSpeed(), 0,level.getObjects());
 			if(playerState != 2) {
 				playerState = 2;
 				level.getPlayer().setImages(playerRightImgs);
 			}
-		} else if (playerState == 2) {
+		} else if (playerState == 2 && !level.isInDeathAnimation()) {
 			playerState = 1;
 			level.getPlayer().setImages(playerImg);
 		}
-		if(level.getKeysPressed()[3]) {
+		if(level.getKeysPressed()[3] && !level.isInDeathAnimation()) {
 			level.getPlayer().moveBy(-level.getPlayerSpeed(),0, level.getObjects());
 			if(playerState != 3) {
 				playerState = 3;
 				level.getPlayer().setImages(playerLeftImgs);
 			}
-		} else if(playerState == 3) {
+		} else if(playerState == 3 && !level.isInDeathAnimation()) {
 			playerState = 1;
 			level.getPlayer().setImages(playerImg);
 		}
@@ -427,7 +433,7 @@ public class LevelSwitch extends PApplet{
 		{
 			if(key != 0)
 			{
-				gameStatus = GameStatus.MAIN_MENU;
+				gameStatus = GameStatus.IN_CLICKTHROUGH;
 				
 			}
 		}
