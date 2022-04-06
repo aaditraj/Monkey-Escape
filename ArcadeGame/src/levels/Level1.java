@@ -35,13 +35,18 @@ public class Level1 extends Level{
 	PImage bg;
 	float bulletHitX = 0;
 	float bulletHitY = 0;
+
+	boolean inDeathAnimation;
+	int deathTime;
+	String[] deathAnimation = new String[]{"assets/Player/Player.png","assets/Player/Player_body.png","assets/Player/Player_head.png","assets/Player/Player_head_dropped.png"};
 	public void setup(PApplet marker) {
 		staticPieces = new ArrayList<>();
 		mobilePieces = new ArrayList<>();
 		bullets = new ArrayList<>();
 		totalPieces = new ArrayList<>();
 		objects = new ArrayList<>();
-		
+		inDeathAnimation = false;
+		deathTime = 0;
 		enemy1 = new MobileEnemy(MobileEnemy.mobileEnemyImages,10,1200,600,800,600,-10,0,80,100);
 		enemy2 = new MobileEnemy(MobileEnemy.mobileEnemyImages,10,1200,200,800,200,-10,0,80,100);
 		shooter1 = new SideShooter(10,824,70, 88,76, 1);
@@ -96,6 +101,10 @@ public class Level1 extends Level{
 		if(time%10 == 0) {
 			getPlayer().increaseAmmo();
 		}
+		if(inDeathAnimation) {
+			
+		}
+		
 		for(int i = 0; i < mobilePieces.size(); i++) {
 			
 			if(mobilePieces.get(i) instanceof MobileEnemy)
@@ -115,8 +124,9 @@ public class Level1 extends Level{
 				
 				if(hit) 
 				{
-					if(suspect != null && suspect == currentMobileEnemy)
-					displayDamage(marker, (float)getPlayer().getCenterX(), (float)getPlayer().getCenterY());
+					if(suspect != null && suspect == currentMobileEnemy && !inDeathAnimation) {
+						displayDamage(marker, (float)getPlayer().getCenterX(), (float)getPlayer().getCenterY());
+					}
 				}
 				else mobileEnemyHitTime = 0;
 			}
@@ -125,8 +135,12 @@ public class Level1 extends Level{
 			
 			if(mobilePieces.get(i).getHealth() <= 0) {
 				if(mobilePieces.get(i) instanceof ShootingPlayer) {
-					super.playGameOverSound();
-					setup(marker);
+					if(!inDeathAnimation) {
+						inDeathAnimation = true;
+						player.setImages(deathAnimation);
+						player.setFrequency(10);
+					}
+					mobilePieces.get(i).draw(marker);
 				} else {
 					if(mobilePieces.get(i) instanceof MobileEnemy) {
 						defeatMobileEnemy(i);
@@ -136,7 +150,9 @@ public class Level1 extends Level{
 					}
 				}
 			} else {
-				mobilePieces.get(i).act(getObjects());
+				if(!inDeathAnimation) {
+					mobilePieces.get(i).act(getObjects());
+				}
 				mobilePieces.get(i).draw(marker);
 			}
 		}
@@ -147,7 +163,9 @@ public class Level1 extends Level{
 			Collider bullet = getBullets().get(i);
 			if (bullet.getX() <= marker.width && bullet.getX() >= 0 && bullet.getY() <= marker.height && bullet.getY() >= 0 && bullet.getHealth() > 0) {
 				bullet.draw(marker);
-				bullet.act((ArrayList<Collider>)mobilePieces);
+				if(!inDeathAnimation) {
+					bullet.act((ArrayList<Collider>)mobilePieces);
+				}
 				if(bullet.getHealth() <= 0) {
 					getBullets().remove(i);
 					
@@ -177,7 +195,16 @@ public class Level1 extends Level{
 		{
 			getPlayer().changeHealth(-1);
 		}
-		lava.increaseHeight(getPlayer());
+		if(!inDeathAnimation) {
+			lava.increaseHeight(getPlayer());
+		}
+		if(inDeathAnimation && deathTime == 3 && time % player.getImgFrequency() == player.getImgFrequency()-1) {
+			super.playGameOverSound();
+			setup();
+		}
+		if(inDeathAnimation && time % player.getImgFrequency() == 0) {
+			deathTime++;
+		}
 		lava.draw(marker);
 		endPiece.draw(marker);
 		if(getPlayer().intersects(endPiece)) {

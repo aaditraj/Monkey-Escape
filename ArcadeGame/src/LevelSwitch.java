@@ -28,6 +28,9 @@ import startpage.StartPage;
  *  Level 1, Level 2 and Level 3: Music by Marllon Silva (xDeviruchi)
  *  
  */
+/**
+ * The main Level class that allows us to draw the correct UI based on the Game's Status
+ */
 public class LevelSwitch extends PApplet{
 	Level level;
 	StartPage start; 
@@ -57,6 +60,10 @@ public class LevelSwitch extends PApplet{
 	boolean keysEntered = false;
 	boolean played;
 	private NameEnterPage namePage;
+	/**
+	 * The main method that sets up LevelSwitch, a class that allows multiple classes to be drawn
+	 * on a single screen, and allows multiple classes to communicate with each other in a cohesive manner
+	 */
 	public void setup() {
 		quit = loadImage("assets/SettingSymbol.png");
 		skip = loadImage("assets/SkipSymbol.png");
@@ -80,6 +87,10 @@ public class LevelSwitch extends PApplet{
 			startMusic.play();
 		}
 	}
+	/**
+	 * A processing methods that allows something to be rendered on the screen
+	 * This draw method calls on the draw methods of other classes allowing them to be drawn on the screen
+	 */
 	public void draw() {
 		if(gameStatus == GameStatus.STARTED) {
 			background(50);
@@ -155,6 +166,11 @@ public class LevelSwitch extends PApplet{
 
 		
 	}
+	/**
+	 * A method that triggers when the mouse is clicked
+	 * The mouse coordinates are passed to the correct class,
+	 *  so that class can determine whether to change the window or not.
+	 */
 	public void mousePressed() {
 		if (level.getPlayer().getAmmo() > 0) {
 			if (gameStatus == GameStatus.STARTED && !shootSound.isPlaying()) {
@@ -275,7 +291,10 @@ public class LevelSwitch extends PApplet{
 			}
 		}
 		
-	}		
+	}
+	/**
+	 *The method that uses the keys pressed to determine which direction to move the main player. 
+	 */
 	public void move() {
 		if(level.getKeysPressed()[0]) {
 			level.getPlayer().moveBy(0, -level.getPlayerSpeed() - 15, level.getObjects());
@@ -312,6 +331,10 @@ public class LevelSwitch extends PApplet{
 			level.getPlayer().setImages(playerImg);
 		}
 	}
+	/**
+	 * Updates the keys pressed array, which shows which keys are currently pressed
+	 * The keys pressed array is used by the move method to move a character.
+	 */
 	public void keyPressed() {
 		if(gameStatus == GameStatus.NAME_PAGE) {
 			namePage.interpretKeystroke((char)keyCode);
@@ -352,6 +375,9 @@ public class LevelSwitch extends PApplet{
 			}
 		}
 	}
+	/**
+	 * Removes the pressed key from the keys pressed array
+	 */
 	public void keyReleased() {
 		if (keyCode == UP) { 
 			level.getKeysPressed()[0] = false;
@@ -430,7 +456,9 @@ public class LevelSwitch extends PApplet{
 			}
 		}
 	}
-	
+	/**
+	 * Used to display the quit menu
+	 */
 	public void promptQuit()
 	{
 		image(quitPrompt, width/4, height/4, width/2, height/2);

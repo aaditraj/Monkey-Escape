@@ -36,6 +36,9 @@ public class Collider {
 	    public boolean isMovable() {
 	    	return !stationary;
 	    }
+	    public int getImgFrequency() {
+	    	return displayer.getFrequency();
+	    }
 	    public boolean[] intersects(ArrayList<Collider> colliderList) {
 			boolean[] data = new boolean[4]; // north, east, south, west
 			for (int i = 0; i < colliderList.size(); i++) {

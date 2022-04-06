@@ -55,56 +55,57 @@ public class MainMenu {
 		marker.image(bg, 0, 0, marker.width, marker.height);
 		
 		marker.textFont(marker.createFont("assets/ARCADE_N.TTF", 50));
-		marker.textSize(90);
+		marker.textSize((float)(marker.width/16.666666));
 	
+
 	
 		marker.noFill();
 		marker.strokeWeight(10);
 		if(display[0] == true)
 		{
-			marker.text("INSTRUCTIONS", 230, 700);
-			marker.text("LEADERBOARD", 260, 850);
+			marker.text("INSTRUCTIONS", (float)(marker.width/6.52), (float)(marker.height/1.413));
+			marker.text("LEADERBOARD", (float)(marker.width/5.77), (float)(marker.height/1.16));
 			marker.fill(0,0,0);
 			if(counter % 4 != 0)
 			{
-				marker.text("START GAME", 280, 550);
+				marker.text("START GAME", (float)(marker.width/5.357), (float)(marker.height/1.80));
 				marker.noFill();
 
-				marker.rect(270, 450, 895, 120);
+				marker.rect((float)(marker.width/5.55), (float)(marker.height/2.2), (float)(marker.width/1.676), (float)(marker.height/8.24));
 			}
 			
 		}
 		else if(display[1] == true)
 		{
 			
-			marker.text("START GAME", 280, 550);
-			marker.text("LEADERBOARD", 260, 850);
+			marker.text("START GAME", (float)(marker.width/5.36), (float)(marker.height/1.8));
+			marker.text("LEADERBOARD", (float)(marker.width/5.77), (float)(marker.height/1.16));
 			marker.fill(0,0,0);
 			if(counter % 4 != 0)
 			{
-				marker.text("INSTRUCTIONS", 230, 700);
+				marker.text("INSTRUCTIONS", (float)(marker.width/6.52), (float)(marker.height/1.41));
 				marker.noFill();
 
-				marker.rect(220, 600, 1070, 120);
+				marker.rect((float)(marker.width/6.82), (float)(marker.height/1.65), (float)(marker.width/1.4), (float)(marker.height/8.24));
 			}
 			
 		}
 		else if(display[2] == true)
 		{
-			marker.text("INSTRUCTIONS", 230, 700);
-			marker.text("START GAME", 280, 550);
+			marker.text("INSTRUCTIONS", (float)(marker.width/6.52), (float)(marker.height/1.413));
+			marker.text("START GAME", (float)(marker.width/5.357), (float)(marker.height/1.80));
 			marker.fill(0,0,0);
 			if(counter % 4 != 0)
 			{
-				marker.text("LEADERBOARD", 260, 850);
+				marker.text("LEADERBOARD", (float)(marker.width/5.77), (float)(marker.height/1.16));
 				marker.noFill();
 
-				marker.rect(250, 750, 970, 120);
+				marker.rect((float)(marker.width/6), (float)(marker.height/1.32), (float)(marker.width/1.546), (float)(marker.height/8.24));
 			}
 		}
-		marker.textSize(30);
+		marker.textSize(marker.width/50);
 		marker.fill(marker.color(255,255,0));
-		marker.text("Copyright 2022 AAJ Corp", marker.width/3, (8)*100+marker.height * 0.15f);
+		marker.text("Copyright 2022 AAJ Corp", (float)(marker.width/3.7), marker.height * 0.95f);
 		marker.pop();
 		
 		counter++; 

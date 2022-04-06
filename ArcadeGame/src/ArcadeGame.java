@@ -7,7 +7,8 @@ import processing.awt.PSurfaceAWT;
 import processing.core.PApplet;
 
 public class ArcadeGame {
-
+	//The class that runs LevelSwitch, the main game interface that 
+	//allows us to switch between UIs seamlessly.
 	public static void main(String args[]) {
 		LevelSwitch drawing = new LevelSwitch();
 		PApplet.runSketch(new String[]{""}, drawing);
