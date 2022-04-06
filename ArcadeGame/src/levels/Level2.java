@@ -38,7 +38,7 @@ public class Level2 extends Level {
 	private Lava lava;
 	float bulletHitX = 0;
 	float bulletHitY = 0;
-	public void setup() {
+	public void setup(PApplet marker) {
 		staticPieces = new ArrayList<>();
 		mobilePieces = new ArrayList<>();
 		bullets = new ArrayList<>();
@@ -90,7 +90,9 @@ public class Level2 extends Level {
 		mobilePieces.add(enemy1);
 		mobilePieces.add(enemy2);
 		mobilePieces.add(enemy3);
-
+		
+		setupSoundEffects(marker);
+		
 	}
 	public void setPlayer(ShootingPlayer player) {
 		this.player = player;
@@ -146,7 +148,8 @@ public class Level2 extends Level {
 			
 			if(mobilePieces.get(i).getHealth() <= 0) {
 				if(mobilePieces.get(i) instanceof ShootingPlayer) {
-					setup();
+					super.playGameOverSound();
+					setup(marker);
 				} else {
 					if(mobilePieces.get(i) instanceof MobileEnemy) {
 						defeatMobileEnemy(i);

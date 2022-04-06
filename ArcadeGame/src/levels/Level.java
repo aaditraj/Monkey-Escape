@@ -7,6 +7,7 @@ import enemies.MobileEnemy;
 import players.ShootingPlayer;
 import powerups.Coin;
 import processing.core.PApplet;
+import processing.sound.SoundFile;
 
 public class Level {
 	ShootingPlayer player;
@@ -16,6 +17,9 @@ public class Level {
 	ArrayList<Collider> totalPieces = new ArrayList<>();
 	ArrayList<Collider> objects = new ArrayList<>();
 	ArrayList<Collider> coins = new ArrayList<>();
+	SoundFile coinCollectSound;
+	SoundFile damageSound;
+	SoundFile gameOverSound;
 	String[] celebrations = new String[] {"Great job!", "Amazing!", "Awesome!", "You're a pro!", "Keep it up!"};
 	String currentCelebration;
 	ArrayList<Collider> defeatedObjects = new ArrayList<Collider>();
@@ -33,6 +37,12 @@ public class Level {
 	int playerSpeed = 10;
 	public void draw(PApplet marker) {
 		
+	}
+	
+	public void setupSoundEffects(PApplet marker) {
+		coinCollectSound = new SoundFile(marker, "assets/SoundEffects/coin-collect.wav");
+		damageSound = new SoundFile(marker, "assets/SoundEffects/damage.wav");
+		gameOverSound = new SoundFile(marker, "assets/SoundEffects/game-over.wav");
 	}
 	public void move() {
 		
@@ -109,6 +119,9 @@ public class Level {
 	
 	
 	public void collectCoin(int i) {
+		if (!coinCollectSound.isPlaying()) {
+			coinCollectSound.play();
+		}
 		messageTime = 0;
 		Coin collected = (Coin) coins.get(i);
 		defeatedObjects.add(collected);
@@ -153,5 +166,12 @@ public class Level {
 	}
 	public int getPlayerSpeed() {
 		return playerSpeed;
+	}
+
+	public void playGameOverSound() {
+		if (!gameOverSound.isPlaying()) {
+			gameOverSound.play();
+		}
+		
 	}
 }

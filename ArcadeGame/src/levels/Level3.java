@@ -43,7 +43,7 @@ public class Level3 extends Level {
 	private Platform platform1Danger;
 	private Platform platform2Danger;
 
-	public void setup() {
+	public void setup(PApplet marker) {
 		staticPieces = new ArrayList<>();
 		mobilePieces = new ArrayList<>();
 		bullets = new ArrayList<>();
@@ -116,6 +116,8 @@ public class Level3 extends Level {
 		mobilePieces.add(getPlayer());
 		mobilePieces.add(enemy1);
 		mobilePieces.add(enemy2);
+		
+		setupSoundEffects(marker);
 
 	}
 	public void setPlayer(ShootingPlayer player) {
@@ -183,7 +185,8 @@ public class Level3 extends Level {
 			
 			if(mobilePieces.get(i).getHealth() <= 0) {
 				if(mobilePieces.get(i) instanceof ShootingPlayer) {
-					setup();
+					super.playGameOverSound();
+					setup(marker);
 				} else {
 					if(mobilePieces.get(i) instanceof MobileEnemy) {
 						defeatMobileEnemy(i);

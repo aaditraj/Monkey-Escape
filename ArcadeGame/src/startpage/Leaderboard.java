@@ -22,7 +22,7 @@ public class Leaderboard {
 	String currName;
 	int time = 0;
 	int dispNum = 0;
-	int frequency = 10;
+	int frequency = 5;
 	//int startPos = 0;
 	int currPos = 0;
 //	BufferedReader reader;

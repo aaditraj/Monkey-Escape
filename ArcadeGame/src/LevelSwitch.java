@@ -43,6 +43,8 @@ public class LevelSwitch extends PApplet{
 	SoundFile level1Music;
 	SoundFile level2Music;
 	SoundFile level3Music;
+	SoundFile jumpSound;
+	SoundFile shootSound;
 	HashMap<String,Integer> leaderboardCopy;
 	String[] playerLeftImgs = new String[]{"assets/Player/PlayerLeft.png","assets/Player/PlayerLeft2.png"};
 	String[] playerRightImgs = new String[]{"assets/Player/PlayerRight.png","assets/Player/PlayerRight2.png"};
@@ -73,7 +75,7 @@ public class LevelSwitch extends PApplet{
 		playerName ="Enter Name";
 		points = 0;
 		played = false;
-		((Level1)level).setup();
+		((Level1)level).setup(this);
 		if (level1Music == null || !level1Music.isPlaying()) {
 			startMusic.play();
 		}
@@ -94,7 +96,7 @@ public class LevelSwitch extends PApplet{
 					level1Music.stop();
 					points = level.getPlayer().points;
 					level = new Level2();
-					((Level2) level).setup();
+					((Level2) level).setup(this);
 					level2Music.loop();
 					level.getPlayer().points = points;
 					previousPoints = level.getPlayer().points; 
@@ -103,7 +105,7 @@ public class LevelSwitch extends PApplet{
 					level2Music.stop();
 					points = level.getPlayer().points;
 					level = new Level3();
-					((Level3) level).setup();
+					((Level3) level).setup(this);
 					level3Music.loop();
 					level.getPlayer().points = points;
 					previousPoints = level.getPlayer().points; 
@@ -155,6 +157,9 @@ public class LevelSwitch extends PApplet{
 	}
 	public void mousePressed() {
 		if (level.getPlayer().getAmmo() > 0) {
+			if (gameStatus == GameStatus.STARTED && !shootSound.isPlaying()) {
+				shootSound.play();
+			}
 			Bullet b = level.getPlayer().shoot(mouseX, mouseY);
 			level.getBullets().add(b);
 		}
@@ -379,6 +384,9 @@ public class LevelSwitch extends PApplet{
 	
 		}
 		if(key == ' ') {
+			if (gameStatus == GameStatus.STARTED && !jumpSound.isPlaying()) {
+				jumpSound.play();
+			}
 			level.getPlayer().jump(level.getObjects());
 		}
 		if(key == 'r') {
@@ -411,6 +419,8 @@ public class LevelSwitch extends PApplet{
 					level1Music = new SoundFile(this, "assets/Music/Level1.wav");
 					level2Music = new SoundFile(this, "assets/Music/Level2.wav");
 					level3Music = new SoundFile(this, "assets/Music/Level3.wav");
+					jumpSound = new SoundFile(this, "assets/SoundEffects/jump.wav");
+					shootSound = new SoundFile(this, "assets/SoundEffects/shoot.wav");
 					level1Music.amp(0.5f);
 					level2Music.amp(0.5f);
 					level3Music.amp(0.5f);
