@@ -13,7 +13,7 @@ public class ClickThrough {
 		case "realSet":
 			imgList.add("assets/StartPage/ClickThroughOne.png");
 			imgList.add("assets/StartPage/ClickThrough2.png");
-			imgList.add("assets/StartPage/ClickThrough3.png");
+			imgList.add("assets/StartPage/ClickThroughThree.png");
 		break;	
 		}
 	}

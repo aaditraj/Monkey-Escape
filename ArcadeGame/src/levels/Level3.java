@@ -88,7 +88,7 @@ public class Level3 extends Level {
 		
 		lava = new Lava(10, 0, 1050, 2000, 50, 0.2);
 		
-		endPiece = new Collider(new String[] {"assets/door.png"},275,1000,150,100,100,0,0);
+		endPiece = new Collider(new String[] {"assets/Player/KidTarzan.png"},275,990,170,80,80,0,0);
 
 
 		playerSpeed = 15;
