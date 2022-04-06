@@ -453,9 +453,9 @@ public class LevelSwitch extends PApplet{
 					level3Music = new SoundFile(this, "assets/Music/Level3.wav");
 					jumpSound = new SoundFile(this, "assets/SoundEffects/jump.wav");
 					shootSound = new SoundFile(this, "assets/SoundEffects/shoot.wav");
-					level1Music.amp(0.5f);
-					level2Music.amp(0.5f);
-					level3Music.amp(0.5f);
+					level1Music.amp(0.2f);
+					level2Music.amp(0.2f);
+					level3Music.amp(0.2f);
 					level1Music.loop();
 					setup();
 				}
