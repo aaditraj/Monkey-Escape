@@ -11,9 +11,9 @@ public class ClickThrough {
 	public ClickThrough(String imageSet) {
 		switch(imageSet) {
 		case "realSet":
-			imgList.add("assets/Backgrounds/forest1.jpeg");
-			imgList.add("assets/Backgrounds/forest2.jpg");
-			imgList.add("assets/Backgrounds/volcano-bg.jpg");
+			imgList.add("assets/StartPage/ClickThroughOne.png");
+			imgList.add("assets/StartPage/ClickThrough2.png");
+			imgList.add("assets/StartPage/ClickThroughThree.png");
 		break;	
 		}
 	}
