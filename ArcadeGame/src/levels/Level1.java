@@ -165,7 +165,13 @@ public class Level1 extends Level{
 			if (bullet.getX() <= marker.width && bullet.getX() >= 0 && bullet.getY() <= marker.height && bullet.getY() >= 0 && bullet.getHealth() > 0) {
 				bullet.draw(marker);
 				if(!inDeathAnimation) {
-					bullet.act((ArrayList<Collider>)mobilePieces);
+					if(((Bullet)bullet).getOwner().equals("player")) {
+						bullet.act((ArrayList<Collider>)mobilePieces);
+					} else {
+						ArrayList<Collider> playerList = new ArrayList<>();
+						playerList.add(player);
+						bullet.act(playerList);
+					}
 				}
 				if(bullet.getHealth() <= 0) {
 					getBullets().remove(i);
