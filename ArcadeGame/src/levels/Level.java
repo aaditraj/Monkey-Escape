@@ -110,13 +110,13 @@ public class Level {
 			if(owner == "ShootingEnemy") {
 				marker.translate(f + 5, g + 5);
 				marker.rotate(PApplet.radians(30));
-				marker.text("-50", 0, 0);
+				marker.text("-10", 0, 0);
 			}
 				
 			if(owner == "SideShooter") {
 				marker.translate(f - 65, g - 15);
 				marker.rotate(PApplet.radians(30));
-				marker.text("-10", 0, 0);
+				marker.text("-1", 0, 0);
 			}
 			
 			marker.pop(); 
