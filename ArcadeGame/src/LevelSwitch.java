@@ -68,11 +68,9 @@ public class LevelSwitch extends PApplet{
 		quit = loadImage("assets/SettingSymbol.png");
 		skip = loadImage("assets/SkipSymbol.png");
 		quitPrompt = loadImage("assets/QuitPrompt.png");
-		startMusic = new SoundFile(this, "assets/Music/StartMusic.wav");
-		System.out.println("SFSampleRate= " + startMusic.sampleRate() + " Hz");
-		System.out.println("SFSamples= " + startMusic.frames() + " samples");
-		System.out.println("SFDuration= " + startMusic.duration() + " seconds");
-
+		if (startMusic == null) {
+			startMusic = new SoundFile(this, "assets/Music/StartMusic.wav");
+		}
 		start = new StartPage(); 
 		menu = new MainMenu(); 
 		level = new Level1();
@@ -453,6 +451,7 @@ public class LevelSwitch extends PApplet{
 					level3Music = new SoundFile(this, "assets/Music/Level3.wav");
 					jumpSound = new SoundFile(this, "assets/SoundEffects/jump.wav");
 					shootSound = new SoundFile(this, "assets/SoundEffects/shoot.wav");
+					shootSound.amp(0.2f);
 					level1Music.amp(0.2f);
 					level2Music.amp(0.2f);
 					level3Music.amp(0.2f);
