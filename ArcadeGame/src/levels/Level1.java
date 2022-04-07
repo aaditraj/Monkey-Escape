@@ -51,7 +51,7 @@ public class Level1 extends Level{
 		enemy2 = new MobileEnemy(MobileEnemy.mobileEnemyImages,10,1200,200,800,200,-10,0,80,100);
 		shooter1 = new SideShooter(10,824,70, 88,76, 1);
 		shooter2 = new SideShooter(10,424, 70, 88,76, 1);
-		player = new ShootingPlayer(30,200,700,100,100,0,10,10,125);
+		player = new ShootingPlayer(50,200,700,100,100,0,10,10,125);
 		platform1 = new Platform("assets/Platform/log-platform.png", 800,700,600,40,false);
 		platform2 = new Platform("assets/Platform/log-platform.png", 800,300,600,40,false);
 		platform3 = new Platform("assets/Platform/log-platform.png", 10,500,600,40,false);

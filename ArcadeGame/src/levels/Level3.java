@@ -52,7 +52,7 @@ public class Level3 extends Level {
 		totalPieces = new ArrayList<>();
 		objects = new ArrayList<>();
 		keysPressed = new boolean[5];
-		player = new ShootingPlayer(100,0,900,100d,100d,0,10, 7,90);
+		player = new ShootingPlayer(110,0,900,100d,100d,0,10, 7,90);
 		inDeathAnimation = false;
 		deathTime = 0;
 		platformBottom = new Platform(0,1000,1050,40,false);

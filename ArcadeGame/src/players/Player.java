@@ -46,6 +46,10 @@ public abstract class Player extends Collider{
 	public void draw(PApplet marker) {
 		super.draw(marker);
 		
+		if(health < 0)
+		{
+			health = 0;
+		}
 		
 		marker.push();
 		marker.rect((float)getX(), (float)getY() - (float)getHeight()/3, (float)getWidth(), 10);

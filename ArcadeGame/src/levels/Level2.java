@@ -62,7 +62,7 @@ public class Level2 extends Level {
 		coin1 = new Coin(10,375);
 		coins.add(coin1);
 		coins.add(coin2);
-		player = new ShootingPlayer(75,250,700,100,100,0,10,10);
+		player = new ShootingPlayer(80,250,700,100,100,0,10,10);
 		platformTop = new Platform(0, 75, 1100, 20, false);
 		platform1 = new Platform(650,800,500,40,false);
 		platform2 = new Platform(650,600,500,40,false);
