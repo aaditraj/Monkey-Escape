@@ -24,6 +24,7 @@ public class NameEnterPage {
 	}
 	public void draw(PApplet surface) {
 		surface.push();
+		surface.image(surface.loadImage("assets/Backgrounds/forest2.jpg"), 0, 0,surface.width, surface.height);
 		surface.textSize(60);
 		int line = 0;
 		rank = getPosition();

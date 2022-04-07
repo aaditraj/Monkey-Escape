@@ -61,10 +61,10 @@ public class Level3 extends Level {
 		coin2 = new Coin(950, 850);
 
 
-		platform1 = new Platform(10,800,500,40,false);
-		platform1Danger = new Platform(200,800,200,40,true);
-		shooter1 = new SideShooter(10,725,60, 88,76, 1);
-		coin3 = new Coin(10,650);
+		platform1 = new Platform(10,780,500,40,false);
+		platform1Danger = new Platform(200,780,200,40,true);
+		shooter1 = new SideShooter(10,705,60, 88,76, 1);
+		coin3 = new Coin(10,630);
 		
 		
 		platform2 = new Platform(650,600,400,40,false);
