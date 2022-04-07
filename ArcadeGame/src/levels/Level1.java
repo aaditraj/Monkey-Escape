@@ -35,6 +35,7 @@ public class Level1 extends Level{
 	PImage bg;
 	float bulletHitX = 0;
 	float bulletHitY = 0;
+	boolean isDead; 
 
 	boolean inDeathAnimation;
 	int deathTime;
@@ -207,6 +208,7 @@ public class Level1 extends Level{
 		}
 		if(inDeathAnimation && deathTime == 3 && time % player.getImgFrequency() == player.getImgFrequency()-1) {
 			super.playGameOverSound();
+			isDead = true;
 			setup(marker);
 		}
 		if(inDeathAnimation && time % player.getImgFrequency() == 0) {

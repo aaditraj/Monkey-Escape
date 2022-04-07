@@ -220,6 +220,7 @@ public class Level2 extends Level {
 		}
 		if(inDeathAnimation && deathTime == 3 && time % player.getImgFrequency() == player.getImgFrequency()-1) {
 			super.playGameOverSound();
+			isDead = true;
 			setup(marker);
 		}
 		if(inDeathAnimation && time % player.getImgFrequency() == 0) {

@@ -24,7 +24,7 @@ public class Level {
 	String currentCelebration;
 	ArrayList<Collider> defeatedObjects = new ArrayList<Collider>();
 	int messageTime = -1;
-
+	boolean isDead = false; 
 	int hitTime = -1;
 	
 	int mobileEnemyHitTime = 0;
@@ -224,5 +224,15 @@ public class Level {
 			gameOverSound.play();
 		}
 		
+	}
+	
+	public boolean getDead()
+	{
+		return isDead;
+	}
+	
+	public void setDead(boolean dead)
+	{
+		isDead = dead;
 	}
 }

@@ -7,6 +7,7 @@ import levels.Level;
 import levels.Level1;
 import levels.Level2;
 import levels.Level3;
+import players.ShootingPlayer;
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.sound.Sound;
@@ -41,7 +42,7 @@ public class LevelSwitch extends PApplet{
 	PImage quit; 
 	PImage skip;
 	PImage quitPrompt; 
-	int previousPoints; 
+	int previousPoints = 0;
 	SoundFile startMusic;
 	SoundFile level1Music;
 	SoundFile level2Music;
@@ -100,6 +101,12 @@ public class LevelSwitch extends PApplet{
 			level.draw(this);
 			points = level.getPlayer().points;
 			played = true;
+			if(level.getDead())
+			{
+				level.getPlayer().points = previousPoints;
+				level.setDead(false); 
+			}
+			
 			if(level.isFinished() == true) {
 				if(level instanceof Level1) {
 					level1Music.stop();
