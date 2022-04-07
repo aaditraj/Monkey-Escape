@@ -266,6 +266,10 @@ public class Level3 extends Level {
 		{
 			setFinished(true); 
 		}
+		if(lava.intersects(getPlayer()))
+		{
+			getPlayer().changeHealth(-1);
+		}
 		lava.draw(marker);
 		endPiece.draw(marker);
 		displayCelebrations(marker);
