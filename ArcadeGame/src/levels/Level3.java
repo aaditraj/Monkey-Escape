@@ -75,7 +75,7 @@ public class Level3 extends Level {
 		platform3 = new Platform(10,500,500,40,false);
 		
 		shooter3 = new SideShooter(10,426, 70, 88,76, 1);
-		coin5 = new Coin(10, 375);
+		coin5 = new Coin(90, 10);
 		
 		platform4 = new Platform(0,300,150,40,false);
 		platform5 = new Platform(850,250,200,40,false);
@@ -84,7 +84,7 @@ public class Level3 extends Level {
 
 		enemy2 = new MobileEnemy(MobileEnemy.mobileEnemyImages, 10d, 275d, 100d, 600d, 100d, 15d, 0d,424d/4, 464d/4);
 		dropper = new ShootingEnemy(1500, 0, 0, 75, 75);
-		coin6 = new Coin(90, 10);
+		coin6 = new Coin(435, 100);
 		
 		lava = new Lava(10, 0, 1050, 2000, 50, 0.2);
 		
@@ -150,6 +150,7 @@ public class Level3 extends Level {
 		if (platform1Danger.intersects(getPlayer())) {
 			playerSpeed = 5;
 			platform1Danger.collide(getPlayer());
+			displayDamage(marker, (float) getPlayer().getCenterX(), (float) getPlayer().getCenterY(), true);
 		} else {
 			playerSpeed = 10;
 		}
@@ -157,8 +158,21 @@ public class Level3 extends Level {
 		if (platform2Danger.intersects(getPlayer())) {
 			playerSpeed = 5;
 			platform2Danger.collide(getPlayer());
+			displayDamage(marker, (float) getPlayer().getCenterX(), (float) getPlayer().getCenterY(), true);
 		} else {
 			playerSpeed = 10;
+		}
+		
+		if (!platform1Danger.intersects(getPlayer()) && !platform2Danger.intersects(getPlayer())) {
+			lavaHitTime = 0;
+		}
+		
+		for(int i = 0; i < coins.size(); i++) {
+			coins.get(i).draw(marker);
+			if(coins.get(i).intersects(getPlayer()))
+			{
+				collectCoin(i);
+			}
 		}
 
 		for(int i = 0; i < mobilePieces.size(); i++) {
@@ -181,7 +195,7 @@ public class Level3 extends Level {
 				if(hit) 
 				{
 					if(suspect != null && suspect == currentMobileEnemy && !inDeathAnimation)
-					displayDamage(marker, (float)getPlayer().getCenterX(), (float)getPlayer().getCenterY());
+					displayDamage(marker, (float)getPlayer().getCenterX(), (float)getPlayer().getCenterY(), false);
 				}
 				else mobileEnemyHitTime = 0;
 			}
@@ -227,13 +241,6 @@ public class Level3 extends Level {
 				}
 			} else {
 				getBullets().remove(i);
-			}
-		}
-		for(int i = 0; i < coins.size(); i++) {
-			coins.get(i).draw(marker);
-			if(coins.get(i).intersects(getPlayer()))
-			{
-				collectCoin(i);
 			}
 		}
 		for(int i = 0; i < staticPieces.size(); i++) {

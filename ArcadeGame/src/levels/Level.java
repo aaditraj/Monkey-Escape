@@ -35,6 +35,7 @@ public class Level {
 	boolean isFinished = false;
 	boolean[] keysPressed = new boolean[4];
 	int playerSpeed = 10;
+	int lavaHitTime = 0;
 	
 	/**
 	 * Abstract method to draw a Level, with all its objects
@@ -133,8 +134,8 @@ public class Level {
 	 * @param f
 	 * @param g
 	 */
-	public void displayDamage(PApplet marker, float f, float g)
-	{
+	public void displayDamage(PApplet marker, float f, float g, boolean isLava)
+	{	
 		if (!damageSound.isPlaying()) {
 			damageSound.play();
 		}
@@ -144,10 +145,14 @@ public class Level {
 		marker.fill(225, 0 ,0 );
 		marker.translate(f - 55, g - 55);
 		marker.rotate(PApplet.radians(30));
-		marker.text("-" + mobileEnemyHitTime + "", 0, 0);
+		marker.text("-" + (isLava ? lavaHitTime : mobileEnemyHitTime) + "", 0, 0);
 		marker.pop(); 
 		
-		mobileEnemyHitTime += 1;
+		if (isLava) {
+			lavaHitTime++;
+		} else {
+			mobileEnemyHitTime++;
+		}
 	}
 	/**
 	 * collect a coin, given the coins position

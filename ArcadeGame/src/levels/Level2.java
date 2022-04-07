@@ -144,7 +144,7 @@ public class Level2 extends Level {
 				if(hit) 
 				{
 					if(suspect != null && suspect == currentMobileEnemy && !inDeathAnimation)
-					displayDamage(marker, (float)getPlayer().getCenterX(), (float)getPlayer().getCenterY());
+					displayDamage(marker, (float)getPlayer().getCenterX(), (float)getPlayer().getCenterY(), false);
 				}
 				else mobileEnemyHitTime = 0;
 			}
