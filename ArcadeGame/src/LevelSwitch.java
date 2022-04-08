@@ -91,7 +91,7 @@ public class LevelSwitch extends PApplet{
 	 * This draw method calls on the draw methods of other classes allowing them to be drawn on the screen
 	 */
 	public void draw() {
-		if(gameStatus == GameStatus.STARTED) {
+		if(gameStatus == GameStatus.SINGLE_PLAYER) {
 			background(50);
 			textFont(createFont("assets/ARCADE_N.TTF", 50));
 			text(points, width-150, 150);
@@ -182,7 +182,7 @@ public class LevelSwitch extends PApplet{
 	 */
 	public void mousePressed() {
 		if (level.getPlayer().getAmmo() > 0) {
-			if (gameStatus == GameStatus.STARTED && !shootSound.isPlaying()) {
+			if (gameStatus == GameStatus.SINGLE_PLAYER && !shootSound.isPlaying() || gameStatus == GameStatus.MULTI_PLAYER && !shootSound.isPlaying()) {
 				shootSound.play();
 			}
 			Bullet b = level.getPlayer().shoot(mouseX, mouseY);
@@ -264,14 +264,17 @@ public class LevelSwitch extends PApplet{
 			if(mouseX > (int)(width/1.95) && mouseX < (int)(width/1.95) + width/5)
 			{
 				if(mouseY > (int)(height/1.8) && mouseY < (int)(height/1.8) + height/5)
-					gameStatus = GameStatus.STARTED; 
+					if(gameStatus == GameStatus.SINGLE_PLAYER) gameStatus = GameStatus.SINGLE_PLAYER; 
+					else {
+						gameStatus = GameStatus.MULTI_PLAYER; 
+					}
 					promptQuit = false;
 				
 				
 					
 			}
 		}
-		if(gameStatus == GameStatus.STARTED)
+		if(gameStatus == GameStatus.SINGLE_PLAYER || gameStatus == GameStatus.MULTI_PLAYER)
 		{
 			
 			if(mouseX > width-100 && mouseX < width-100 + 50)
@@ -421,7 +424,7 @@ public class LevelSwitch extends PApplet{
 	
 		}
 		if(key == ' ') {
-			if (gameStatus == GameStatus.STARTED && !jumpSound.isPlaying()) {
+			if ((gameStatus == GameStatus.SINGLE_PLAYER || gameStatus == GameStatus.MULTI_PLAYER) && !jumpSound.isPlaying()) {
 				jumpSound.play();
 			}
 			level.getPlayer().jump(level.getObjects());
@@ -451,7 +454,7 @@ public class LevelSwitch extends PApplet{
 			
 			
 			
-				if(gameStatus == GameStatus.STARTED) {
+				if(gameStatus == GameStatus.SINGLE_PLAYER) {
 					startMusic.stop();
 					level1Music = new SoundFile(this, "assets/Music/Level1.wav");
 					level2Music = new SoundFile(this, "assets/Music/Level2.wav");
@@ -466,6 +469,7 @@ public class LevelSwitch extends PApplet{
 					setup();
 				}
 			}
+
 		}
 	}
 	/**

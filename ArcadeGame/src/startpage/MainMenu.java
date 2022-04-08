@@ -3,7 +3,7 @@ import levels.GameStatus;
 import processing.core.PApplet;
 import processing.core.PImage;
 public class MainMenu {
-	public boolean[] display = new boolean[3];
+	public boolean[] display = new boolean[4];
 	int index;
 	int counter;
 	PImage bg;
@@ -29,7 +29,7 @@ public class MainMenu {
 
 			display[index] = false;
 			if(index == 0) {
-				index = 2; 
+				index = 3; 
 				display[index] = true;
 			} else {
 				index--; 
@@ -40,7 +40,7 @@ public class MainMenu {
 		else {
 			display[index] = false;
 			
-			if(index == 2)
+			if(index == 3)
 			{
 				index = 0; 
 				display[index] = true;
@@ -59,7 +59,7 @@ public class MainMenu {
 		marker.image(bg, 0, 0, marker.width, marker.height);
 		
 		marker.textFont(marker.createFont("assets/ARCADE_N.TTF", 50));
-		marker.textSize((float)(marker.width/16.666666));
+		marker.textSize((float)(marker.width/20));
 	
 
 	
@@ -67,51 +67,65 @@ public class MainMenu {
 		marker.strokeWeight(10);
 		if(display[0] == true)
 		{
-			marker.text("INSTRUCTIONS", (float)(marker.width/6.52), (float)(marker.height/1.413));
-			marker.text("LEADERBOARD", (float)(marker.width/5.77), (float)(marker.height/1.16));
+			marker.text("MULTIPLAYER", (float)(marker.width/4.7), (float)(marker.height/1.5));
+			marker.text("INSTRUCTIONS", (float)(marker.width/5.52), (float)(marker.height/1.3));
+			marker.text("LEADERBOARD", (float)(marker.width/4.9), (float)(marker.height/1.15));
 			marker.fill(255,255,0);
-			marker.text("START GAME", (float)(marker.width/5.357), (float)(marker.height/1.80));
+			marker.text("SINGLEPLAYER", (float)(marker.width/5.357), (float)(marker.height/1.80));
 			marker.noFill();
 			marker.stroke(255, 255, 0);
 			if(counter % freq != 0)
 			{
-				
-
-				marker.rect((float)(marker.width/5.55), (float)(marker.height/2.2), (float)(marker.width/1.676), (float)(marker.height/8.24));
+				marker.rect((float)(marker.width/5.85), (float)(marker.height/2.15), (float)(marker.width/1.6), (float)(marker.height/9.6));
 			}
 			
 		}
 		else if(display[1] == true)
 		{
-			
-			marker.text("START GAME", (float)(marker.width/5.36), (float)(marker.height/1.8));
-			marker.text("LEADERBOARD", (float)(marker.width/5.77), (float)(marker.height/1.16));
+			marker.text("SINGLEPLAYER", (float)(marker.width/5.357), (float)(marker.height/1.80));
+			marker.text("LEADERBOARD", (float)(marker.width/4.9), (float)(marker.height/1.15));
+			marker.text("INSTRUCTIONS", (float)(marker.width/5.52), (float)(marker.height/1.3));
 			marker.fill(255,255,0);
-			marker.text("INSTRUCTIONS", (float)(marker.width/6.52), (float)(marker.height/1.41));
+			marker.text("MULTIPLAYER", (float)(marker.width/4.7), (float)(marker.height/1.5));
 			marker.noFill();
 			marker.stroke(255, 255, 0);
 			if(counter % freq != 0)
 			{
-				
-
-				marker.rect((float)(marker.width/6.82), (float)(marker.height/1.65), (float)(marker.width/1.4), (float)(marker.height/8.24));
+				marker.rect((float)(marker.width/5.25), (float)(marker.height/1.71), (float)(marker.width/1.73), (float)(marker.height/9.71));
 			}
 			
 		}
 		else if(display[2] == true)
 		{
-			marker.text("INSTRUCTIONS", (float)(marker.width/6.52), (float)(marker.height/1.413));
-			marker.text("START GAME", (float)(marker.width/5.357), (float)(marker.height/1.80));
+			marker.text("MULTIPLAYER", (float)(marker.width/4.7), (float)(marker.height/1.5));
+			marker.text("SINGLEPLAYER", (float)(marker.width/5.357), (float)(marker.height/1.80));
+			marker.text("LEADERBOARD", (float)(marker.width/4.9), (float)(marker.height/1.15));
 			marker.fill(255,255,0);
-			marker.text("LEADERBOARD", (float)(marker.width/5.77), (float)(marker.height/1.16));
+			marker.text("INSTRUCTIONS", (float)(marker.width/5.52), (float)(marker.height/1.3));
 			marker.noFill();
 			marker.stroke(255, 255, 0);
 			if(counter % freq != 0)
 			{
 				
-				marker.rect((float)(marker.width/6.2), (float)(marker.height/1.32), (float)(marker.width/1.5), (float)(marker.height/8.24));
+				marker.rect((float)(marker.width/6.1), (float)(marker.height/1.48), (float)(marker.width/1.6), (float)(marker.height/8.5));
 			}
 		}
+		else if(display[3] == true)
+		{
+			marker.text("INSTRUCTIONS", (float)(marker.width/5.52), (float)(marker.height/1.3));
+			marker.text("MULTIPLAYER", (float)(marker.width/4.7), (float)(marker.height/1.5));
+			marker.text("SINGLEPLAYER", (float)(marker.width/5.357), (float)(marker.height/1.80));
+			marker.fill(255,255,0);
+			marker.text("LEADERBOARD", (float)(marker.width/4.9), (float)(marker.height/1.15));
+			marker.noFill();
+			marker.stroke(255, 255, 0);
+			if(counter % freq != 0)
+			{
+				
+				marker.rect((float)(marker.width/5.56), (float)(marker.height/1.28), (float)(marker.width/1.75), (float)(marker.height/8.7));
+			}
+		}
+		
 		marker.textSize(marker.width/50);
 		marker.fill(marker.color(255,255,255));
 		if(counter % (2*freq) != 0)
@@ -134,8 +148,11 @@ public class MainMenu {
 	{
 		if(display[0] == true)
 		{
-			return GameStatus.STARTED;
+			return GameStatus.SINGLE_PLAYER;
 		} else if(display[1] == true)
+		{
+			return GameStatus.MULTI_PLAYER;
+		} else if(display[2] == true)
 		{
 			return GameStatus.INSTRUCTIONS;
 		} else 
