@@ -33,7 +33,7 @@ public class Level {
 
 	int time = 0;
 	boolean isFinished = false;
-	boolean[] keysPressed = new boolean[4];
+	boolean[] keysPressed = new boolean[3];
 	int playerSpeed = 10;
 	int lavaHitTime = 0;
 	
