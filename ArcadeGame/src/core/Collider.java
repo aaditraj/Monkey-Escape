@@ -2,7 +2,6 @@ package core;
 import java.util.ArrayList;
 
 import processing.core.PApplet;
-
 public class Collider {
 	    protected double x;
 		protected double y;

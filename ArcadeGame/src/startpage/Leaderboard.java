@@ -12,6 +12,7 @@ import java.util.HashSet;
 import levels.GameStatus;
 import processing.core.PApplet;
 import processing.core.PImage;
+import com.google.firebase.*;
 public class Leaderboard {
 	HashMap<Integer,ArrayList<String>> leaderboard;
 	PImage backArrow;
@@ -102,10 +103,7 @@ public class Leaderboard {
 	}
 	public void writeData() {
 		try {
-			FileOutputStream stream = new FileOutputStream("data/leaderboard.dat");
-			ObjectOutputStream writer = new ObjectOutputStream(stream);
-			writer.writeObject(leaderboard);
-			writer.close();
+			
 		} catch (Exception e) {
 			System.out.println("Could not serialize leaderboard");
 			e.printStackTrace();
