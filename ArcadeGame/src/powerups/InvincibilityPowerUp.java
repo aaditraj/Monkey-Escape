@@ -1,5 +1,8 @@
 package powerups;
 
+import java.util.ArrayList;
+
+import core.Collider;
 import players.ShootingPlayer;
 
 public class InvincibilityPowerUp extends PowerUp {
@@ -10,10 +13,11 @@ public class InvincibilityPowerUp extends PowerUp {
 		// TODO Auto-generated constructor stub
 	}
 
+
 	@Override
-	public void checkCollision(ShootingPlayer player) {
+	public void checkCollision(ArrayList<Collider> colliders) {
 		// TODO Auto-generated method stub
-		
+		ShootingPlayer player = (ShootingPlayer) colliders.get(0);
 	}
 
 }

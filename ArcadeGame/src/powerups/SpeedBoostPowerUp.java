@@ -1,4 +1,6 @@
 package powerups;
+import java.util.ArrayList;
+
 import core.Collider;
 import players.ShootingPlayer;
 
@@ -11,7 +13,7 @@ public class SpeedBoostPowerUp extends PowerUp{
 	}
 
 	@Override
-	public void checkCollision(ShootingPlayer player) {
+	public void checkCollision(ArrayList<Collider> colliders) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -1,4 +1,6 @@
 package powerups;
+import java.util.ArrayList;
+
 import core.Collider;
 import players.ShootingPlayer;
 public class DamagePowerUp extends PowerUp {
@@ -9,7 +11,8 @@ public class DamagePowerUp extends PowerUp {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void checkCollision(ShootingPlayer player) {
+	public void checkCollision(ArrayList<Collider> colliders) {
+		ShootingPlayer player = (ShootingPlayer) colliders.get(0);
 		if(this.intersects(player))
 		{
 		}
