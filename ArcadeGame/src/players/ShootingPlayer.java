@@ -27,6 +27,7 @@ public class ShootingPlayer extends Player{
 		setFrequency(3);
 		this.jumpHeight = jumpHeight;
 		damageUp = false;
+		damage = 1;
 	}
 	public Bullet shoot(int mouseX, int mouseY)
 	{
