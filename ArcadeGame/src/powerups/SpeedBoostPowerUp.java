@@ -1,5 +1,6 @@
 package powerups;
 import core.Collider;
+import players.ShootingPlayer;
 
 public class SpeedBoostPowerUp extends PowerUp{
 
@@ -7,6 +8,12 @@ public class SpeedBoostPowerUp extends PowerUp{
 			double vy) {
 		super(images, health, x, y, width, height, vx, vy);
 		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void checkCollision(ShootingPlayer player) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -8,7 +8,7 @@ public class Bullet extends Collider
 	public static final String bananaLocation = "assets/Projectiles/banana.png";
 	public static final String bulletLocation = "assets/bullet.png";
 	public String owner = "";
-	int damage = 1;
+	int damage;
 	/**
 	 * The constructor that constructs a new bullet
 	 * @param x The x coordinate of the bullet
@@ -16,10 +16,11 @@ public class Bullet extends Collider
 	 * @param owner The thing that shot the bullet
 	 * @param image The image to display for the bullet
 	 */
-	public Bullet(double x, double y, String owner, String image) {
+	public Bullet(double x, double y, String owner, String image, int damage) {
 		super(new String[] {image}, 1, x, y, 5.0, 5.0, 0, 0);
 		this.owner = owner;
 		this.setMobile(true);
+		this.damage = damage;
 	}
 	/**
 	 * The second bullet constructor

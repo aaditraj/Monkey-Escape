@@ -8,7 +8,8 @@ public class ShootingPlayer extends Player{
 	int jumpHeight;
 	double defaultVx;
 	double defaultVy;
-	public int points;
+	public int points, damage;
+	public boolean damageUp; 
 	public ShootingPlayer(double health, double x, double y, double width, double height, double vx,
 			double vy, int maxAmmo) {
 		super(new String[] {"assets/Player/Player.png"}, health, x, y, width, height, vx, vy, maxAmmo);
@@ -16,6 +17,7 @@ public class ShootingPlayer extends Player{
 		defaultVx = vx;
 		defaultVy = vy;
 		jumpHeight = 50;
+		damage = 1;
 	}
 	public ShootingPlayer(double health, double x, double y, double width, double height, double vx,
 			double vy, int maxAmmo,int jumpHeight) {
@@ -24,6 +26,7 @@ public class ShootingPlayer extends Player{
 		defaultVy = vy;
 		setFrequency(3);
 		this.jumpHeight = jumpHeight;
+		damageUp = false;
 	}
 	public Bullet shoot(int mouseX, int mouseY)
 	{
@@ -45,13 +48,13 @@ public class ShootingPlayer extends Player{
 	private Bullet constructBullet(double x, double mouseY) {
 		Bullet b;
 		if (mouseY < getY()) {
-			b = new Bullet(x, this.getY(), "player",Bullet.bulletLocation);
+			b = new Bullet(x, this.getY(), "player",Bullet.bulletLocation,damage);
 
 		} else if (mouseY >= getY() && mouseY <= getY() + getHeight()) {
-			b = new Bullet(x, mouseY, "player",Bullet.bulletLocation);
+			b = new Bullet(x, mouseY, "player",Bullet.bulletLocation,damage);
 
 		} else {
-			b = new Bullet(x, this.getY() + this.getHeight(), "player",Bullet.bulletLocation);
+			b = new Bullet(x, this.getY() + this.getHeight(), "player",Bullet.bulletLocation, damage);
 		}
 		return b;
 	}
