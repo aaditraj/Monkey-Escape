@@ -1,7 +1,7 @@
 package powerups;
 import core.Collider;
 
-public class TimeFreezePowerUp extends PouwerUp {
+public class TimeFreezePowerUp extends PowerUp {
 
 	public TimeFreezePowerUp(String[] images, double health, double x, double y, double width, double height, double vx,
 			double vy) {
