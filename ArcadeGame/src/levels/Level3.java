@@ -91,7 +91,7 @@ public class Level3 extends Level {
 		endPiece = new Collider(new String[] {"assets/Player/KidTarzan.png"},275,990,170,80,80,0,0);
 
 
-		playerSpeed = 15;
+		player.playerSpeed = 15;
 		staticPieces.add(platform2);
 		staticPieces.add(platform1);
 		staticPieces.add(platform3);
@@ -148,19 +148,19 @@ public class Level3 extends Level {
 		}
 		
 		if (platform1Danger.intersects(getPlayer())) {
-			playerSpeed = 5;
+			player.playerSpeed = 5;
 			platform1Danger.collide(getPlayer());
 			displayDamage(marker, (float) getPlayer().getCenterX(), (float) getPlayer().getCenterY(), true);
 		} else {
-			playerSpeed = 10;
+			player.playerSpeed = 10;
 		}
 		
 		if (platform2Danger.intersects(getPlayer())) {
-			playerSpeed = 5;
+			player.playerSpeed = 5;
 			platform2Danger.collide(getPlayer());
 			displayDamage(marker, (float) getPlayer().getCenterX(), (float) getPlayer().getCenterY(), true);
 		} else {
-			playerSpeed = 10;
+			player.playerSpeed = 10;
 		}
 		
 		if (!platform1Danger.intersects(getPlayer()) && !platform2Danger.intersects(getPlayer())) {

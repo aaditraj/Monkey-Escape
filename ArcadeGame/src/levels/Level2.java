@@ -75,7 +75,7 @@ public class Level2 extends Level {
 		endPiece = new Collider(new String[] {"assets/door.png"},20,1000,150,100,100,0,0);
 
 		
-		playerSpeed = 10;
+		player.playerSpeed = 10;
 		staticPieces.add(platform1);
 		staticPieces.add(platform2);
 		staticPieces.add(platform3);

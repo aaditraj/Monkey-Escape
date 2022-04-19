@@ -11,6 +11,8 @@ import obstacles.Lava;
 import obstacles.Platform;
 import players.ShootingPlayer;
 import powerups.Coin;
+import powerups.DamagePowerUp;
+import powerups.PowerUp;
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -70,7 +72,14 @@ public class Level1 extends Level{
 		dropper1 = new ShootingEnemy(50,100,100,100,100);
 		//platform6 = new Platform(10,900,100,40,false);
 		lava = new Lava(10, 0, 950, 2000, 100, 0.1);
-		playerSpeed = 10;
+		
+//		int r = this.getRandomInt(1, 4);
+//		if(r == 1) p = new DamagePowerUp();
+//		else if(r == 1) p = new DamagePowerUp();
+//		else if(r == 1) p = new DamagePowerUp();
+//		else p = new DamagePowerUp();
+
+		player.playerSpeed = 10;
 		staticPieces.add(platform1);
 		staticPieces.add(platform2);
 		staticPieces.add(platform3);

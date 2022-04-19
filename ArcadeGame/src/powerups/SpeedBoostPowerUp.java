@@ -14,7 +14,11 @@ public class SpeedBoostPowerUp extends PowerUp{
 
 	@Override
 	public void checkCollision(ArrayList<Collider> colliders) {
-		// TODO Auto-generated method stub
+		ShootingPlayer player = (ShootingPlayer) colliders.get(0);
+		if(this.intersects(player))
+		{
+			player.playerSpeed = player.playerSpeed * 2; 
+		}
 		
 	}
 

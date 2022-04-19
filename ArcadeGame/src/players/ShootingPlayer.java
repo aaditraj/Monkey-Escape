@@ -10,6 +10,7 @@ public class ShootingPlayer extends Player{
 	double defaultVy;
 	public int points, damage;
 	public boolean damageUp; 
+	public int playerSpeed;
 	public ShootingPlayer(double health, double x, double y, double width, double height, double vx,
 			double vy, int maxAmmo) {
 		super(new String[] {"assets/Player/Player.png"}, health, x, y, width, height, vx, vy, maxAmmo);
@@ -18,6 +19,7 @@ public class ShootingPlayer extends Player{
 		defaultVy = vy;
 		jumpHeight = 50;
 		damage = 1;
+		playerSpeed = 10;
 	}
 	public ShootingPlayer(double health, double x, double y, double width, double height, double vx,
 			double vy, int maxAmmo,int jumpHeight) {
@@ -28,6 +30,8 @@ public class ShootingPlayer extends Player{
 		this.jumpHeight = jumpHeight;
 		damageUp = false;
 		damage = 1;
+		playerSpeed = 10;
+
 	}
 	public Bullet shoot(int mouseX, int mouseY)
 	{

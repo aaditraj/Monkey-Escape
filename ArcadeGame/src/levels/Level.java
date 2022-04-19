@@ -34,7 +34,6 @@ public class Level {
 	int time = 0;
 	boolean isFinished = false;
 	boolean[] keysPressed = new boolean[3];
-	int playerSpeed = 10;
 	int lavaHitTime = 0;
 	
 	/**
@@ -216,7 +215,7 @@ public class Level {
 		return objects;
 	}
 	public int getPlayerSpeed() {
-		return playerSpeed;
+		return player.playerSpeed;
 	}
 
 	public void playGameOverSound() {
@@ -234,5 +233,16 @@ public class Level {
 	public void setDead(boolean dead)
 	{
 		isDead = dead;
+	}
+	
+	public int getRandomInt(int starting, int ending)
+	{
+		double r = Math.random() * (ending-starting);
+		
+		int num = (int)(r + starting + 0.5); 
+		
+		return num;
+		
+		
 	}
 }
