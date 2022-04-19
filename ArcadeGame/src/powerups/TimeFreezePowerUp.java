@@ -1,4 +1,6 @@
 package powerups;
+import java.util.ArrayList;
+
 import core.Collider;
 import players.ShootingPlayer;
 
@@ -11,7 +13,8 @@ public class TimeFreezePowerUp extends PowerUp {
 	}
 
 	@Override
-	public void checkCollision(ShootingPlayer player) {
+	public void checkCollision(ArrayList<Collider> colliders) {
+		ShootingPlayer player = (ShootingPlayer) colliders.get(0);
 		// TODO Auto-generated method stub
 		
 	}

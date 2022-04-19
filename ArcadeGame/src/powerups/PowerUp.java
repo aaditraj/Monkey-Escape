@@ -1,5 +1,7 @@
 package powerups;
 
+import java.util.ArrayList;
+
 import core.Collider;
 import players.ShootingPlayer;
 
@@ -11,7 +13,8 @@ public abstract class PowerUp extends Collider {
 		// TODO Auto-generated constructor stub
 	}
 
-	public abstract void checkCollision(ShootingPlayer player);
+	public abstract void checkCollision(ArrayList<Collider> colliders);
+	
 	
 	
 	
