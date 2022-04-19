@@ -1,6 +1,6 @@
 package powerups;
 import core.Collider;
-public class DamagePowerUp extends Collider {
+public class DamagePowerUp extends PowerUp {
 
 	public DamagePowerUp(String[] images, double health, double x, double y, double width, double height, double vx,
 			double vy) {

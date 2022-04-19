@@ -364,7 +364,7 @@ public class LevelSwitch extends PApplet{
 			level.getKeysPressed()[2] = false;
 	
 		}
-<<<<<<< Updated upstream
+
 		if(key == ' ') {
 			if ((gameStatus == GameStatus.SINGLE_PLAYER || gameStatus == GameStatus.MULTI_PLAYER) && !jumpSound.isPlaying()) {
 				jumpSound.play();
@@ -376,8 +376,7 @@ public class LevelSwitch extends PApplet{
 				clickThrough.next();
 			}
 		}
-=======
->>>>>>> Stashed changes
+
 		if(key == ESC) {
 			System.exit(0);
 		}
