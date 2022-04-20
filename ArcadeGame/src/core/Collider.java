@@ -333,4 +333,9 @@ public class Collider {
 			this.vy = rise;
 		}
 
+		public void scaleVelocities(double d) {
+			vx *= d;
+			vy *= d;
+		}
+
 }
