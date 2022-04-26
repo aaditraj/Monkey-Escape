@@ -9,10 +9,10 @@ import processing.core.PApplet;
 public class InvincibilityPowerUp extends PowerUp {
 	
 	public static final double INVINCIBILITY_PERIOD = 5;
+	public static final String[] images = new String[] {};
 
-	public InvincibilityPowerUp(PApplet drawer, String[] images, double health, double x, double y, double width, double height,
-			double vx, double vy) {
-		super(drawer, images, health, x, y, width, height, vx, vy, INVINCIBILITY_PERIOD);
+	public InvincibilityPowerUp(PApplet drawer, double x, double y, double width, double height) {
+		super(drawer, images, x, y, width, height, INVINCIBILITY_PERIOD);
 		// TODO Auto-generated constructor stub
 	}
 

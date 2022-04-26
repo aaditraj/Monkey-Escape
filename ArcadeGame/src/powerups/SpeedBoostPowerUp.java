@@ -8,10 +8,10 @@ import processing.core.PApplet;
 public class SpeedBoostPowerUp extends PowerUp{
 	
 	public static final double SPEED_BOOST_PERIOD = 5;
+	public static final String[] images = new String[] {};
 
-	public SpeedBoostPowerUp(PApplet drawer, String[] images, double health, double x, double y, double width, double height, double vx,
-			double vy) {
-		super(drawer, images, health, x, y, width, height, vx, vy, SPEED_BOOST_PERIOD);
+	public SpeedBoostPowerUp(PApplet drawer, double x, double y, double width, double height) {
+		super(drawer, images, x, y, width, height, SPEED_BOOST_PERIOD);
 		// TODO Auto-generated constructor stub
 	}
 

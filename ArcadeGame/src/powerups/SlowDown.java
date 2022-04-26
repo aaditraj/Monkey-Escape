@@ -9,10 +9,10 @@ public class SlowDown extends PowerUp {
 	
 	
 	public static final double SLOW_DOWN_PERIOD = 5;
+	public static final String[] images = new String[] {};
 
-	public SlowDown(PApplet drawer, String[] images, double health, double x, double y, double width, double height, double vx,
-			double vy) {
-		super(drawer, images, health, x, y, width, height, vx, vy, SLOW_DOWN_PERIOD);
+	public SlowDown(PApplet drawer, double x, double y, double width, double height) {
+		super(drawer, images, x, y, width, height, SLOW_DOWN_PERIOD);
 		// TODO Auto-generated constructor stub
 	}
 

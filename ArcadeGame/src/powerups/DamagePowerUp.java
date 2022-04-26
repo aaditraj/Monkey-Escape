@@ -7,9 +7,10 @@ import processing.core.PApplet;
 public class DamagePowerUp extends PowerUp {
 	
 	public static final double DAMAGE_PERIOD = 5;
+	public static final String[] images = new String[] {};
 
-	public DamagePowerUp(PApplet drawer, String[] images, double health, double x, double y, double width, double height, double vx, double vy) {
-		super(drawer, images, health, x, y, width, height, vx, vy, DAMAGE_PERIOD);
+	public DamagePowerUp(PApplet drawer, double x, double y, double width, double height) {
+		super(drawer, images, x, y, width, height, DAMAGE_PERIOD);
 	}
 
 	public void checkCollision(ArrayList<Collider> colliders) {

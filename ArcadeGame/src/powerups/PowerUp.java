@@ -12,9 +12,8 @@ public abstract class PowerUp extends Collider {
 	protected double timeLimit;
 	protected PApplet drawer;
 	
-	public PowerUp(PApplet drawer, String[] images, double health, double x, double y, double width, double height, double vx,
-			double vy, double timeLimit) {
-		super(images, health, x, y, width, height, vx, vy);
+	public PowerUp(PApplet drawer, String[] images, double x, double y, double width, double height, double timeLimit) {
+		super(images, 10, x, y, width, height, 0, 0);
 		this.timeLimit = timeLimit;
 		this.drawer = drawer;
 		// TODO Auto-generated constructor stub
