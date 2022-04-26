@@ -306,7 +306,7 @@ public class LevelSwitch extends PApplet{
 			namePage.interpretKeystroke((char)keyCode);
 		} else {
 			if (keyCode == UP) { 
-				if (gameStatus == GameStatus.STARTED && !jumpSound.isPlaying()) {
+				if ((gameStatus == GameStatus.SINGLE_PLAYER || gameStatus == GameStatus.MULTI_PLAYER) && !jumpSound.isPlaying()) {
 					jumpSound.play();
 				}
 				level.getPlayer().jump(level.getObjects());
@@ -322,7 +322,7 @@ public class LevelSwitch extends PApplet{
 				level.getKeysPressed()[2] = true;
 			}
 			if (key == 'w') {
-				if (gameStatus == GameStatus.STARTED && !jumpSound.isPlaying()) {
+				if ((gameStatus == GameStatus.SINGLE_PLAYER || gameStatus == GameStatus.MULTI_PLAYER) && !jumpSound.isPlaying()) {
 					jumpSound.play();
 				}
 				level.getPlayer().jump(level.getObjects());
@@ -335,6 +335,12 @@ public class LevelSwitch extends PApplet{
 			}
 			if (key == 'a') {
 				level.getKeysPressed()[2] = true;
+			}
+			if(key == ' ') {
+				if ((gameStatus == GameStatus.SINGLE_PLAYER || gameStatus == GameStatus.MULTI_PLAYER) && !jumpSound.isPlaying()) {
+					jumpSound.play();
+				}
+				level.getPlayer().jump(level.getObjects());
 			}
 		}
 	}
@@ -366,12 +372,6 @@ public class LevelSwitch extends PApplet{
 	
 		}
 
-		if(key == ' ') {
-			if ((gameStatus == GameStatus.SINGLE_PLAYER || gameStatus == GameStatus.MULTI_PLAYER) && !jumpSound.isPlaying()) {
-				jumpSound.play();
-			}
-			level.getPlayer().jump(level.getObjects());
-		}
 		if(key == 'r') {
 			if(!clickThrough.isFinished) {
 				clickThrough.next();

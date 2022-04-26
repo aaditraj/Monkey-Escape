@@ -15,8 +15,7 @@ public class SpeedBoostPowerUp extends PowerUp{
 		// TODO Auto-generated constructor stub
 	}
 
-	public void checkCollision(ArrayList<Collider> colliders) {
-		ShootingPlayer player = (ShootingPlayer) colliders.get(0);
+	public void checkCollision() {
 		if(this.intersects(player))
 		{
 			player.playerSpeed = player.playerSpeed * 2; 

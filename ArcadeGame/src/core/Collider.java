@@ -14,6 +14,7 @@ public class Collider {
 	    private int maxSpeed = 20;
 	    private boolean stationary;
 	    int time = 0;
+	    public boolean canDamage = true;
 	    AnimationDisplayer displayer;
 	    public Collider(String[] images, double health, double x, double y, double width, double height, double vx, double vy) {
 	    	this.health = health;
@@ -180,9 +181,13 @@ public class Collider {
 		public void goToImage(int imageIndex) {
 			displayer.goToImage(imageIndex);
 		}
-		
+		public void setDamagable(boolean damagable) {
+			canDamage = damagable;
+		}
 		public void changeHealth(double d) {
-			health += d;
+			if(canDamage) {
+				health += d;
+			}
 		}
 		
 
