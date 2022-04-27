@@ -6,43 +6,61 @@ import java.util.TimerTask;
 
 import core.Collider;
 import players.ShootingPlayer;
+import processing.core.PApplet;
 
 public abstract class PowerUp extends Collider {
 	
 	protected double timeLimit;
+	protected String[] animation;
+	protected ShootingPlayer player;
+	protected ArrayList<Collider> mobilePieces;
+	protected ArrayList<Collider> bullets;
+	public boolean collected, active;
 	
-	public PowerUp(String[] images, double health, double x, double y, double width, double height, double vx,
-			double vy, double timeLimit) {
-		super(images, health, x, y, width, height, vx, vy);
+	public PowerUp(String[] powerupImage, String[] playerAnimation, ArrayList<Collider> mobilePieces, ArrayList<Collider> bullets, double x, double y, double width, double height, double timeLimit) {
+		super(powerupImage, 10, x, y, width, height, 0, 0);
 		this.timeLimit = timeLimit;
-		// TODO Auto-generated constructor stub
+		this.mobilePieces = mobilePieces;
+		this.bullets = bullets;
+		this.player = (ShootingPlayer) mobilePieces.get(0);
+		this.animation = playerAnimation;
 	}
 	
 	class Reset extends TimerTask {
 		
-		ArrayList<Collider> colliders;
+		Timer timer;
 		
-		public Reset(ArrayList<Collider> colliders) {
+		public Reset(Timer timer) {
 			super();
-			this.colliders = colliders;
+			this.timer = timer;
 		}
 
 		@Override
 		public void run() {
-			reset(colliders);
+			timer.cancel();
+			reset();
+			active = false;
 		}
 		
 	}
+	
 
-	public void start(ArrayList<Collider> colliders) {
-		powerup(colliders);
+	public void start() {
+		if (animation != null) {
+			player.setImages(animation);
+		}
+		collected = true;
 		Timer timer = new Timer();
-		timer.schedule(new Reset(colliders), (long) timeLimit);
+		active = true;
+		powerup();
+		timer.schedule(new Reset(timer), (long) timeLimit);
 	}
 
-	public abstract void reset(ArrayList<Collider> colliders);
+	public abstract void drawPowerupEffects(PApplet marker);
+
+	public abstract void reset();
 	
-	public abstract void powerup(ArrayList<Collider> colliders);
+	public abstract void powerup();
 	
 	
 }

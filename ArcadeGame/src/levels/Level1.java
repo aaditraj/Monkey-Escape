@@ -12,7 +12,10 @@ import obstacles.Platform;
 import players.ShootingPlayer;
 import powerups.Coin;
 import powerups.DamagePowerUp;
+import powerups.InvincibilityPowerUp;
 import powerups.PowerUp;
+import powerups.SlowDownPowerUp;
+import powerups.SpeedBoostPowerUp;
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -32,6 +35,7 @@ public class Level1 extends Level{
 	Coin coin4;
 	ShootingEnemy dropper1;
 	ShootingEnemy dropper2;
+	PowerUp powerup;
 	Collider endPiece;
 	Lava lava;
 	PImage bg;
@@ -61,6 +65,25 @@ public class Level1 extends Level{
 		platform4 = new Platform("assets/Platform/log-platform.png", 10,900,600,40,false);
 		platform5 = new Platform("assets/Platform/log-platform.png", 10,200,200,40,false);
 		endPiece = new Collider(new String[] {"assets/door.png"},20,1300,200,100,100,0,0);
+//		int random = (int) (Math.random() * 4); //TODO uncomment this once all powerups are implemented
+		int random = 2; // TODO this is the powerup to test, can change arguments as needed
+		switch (random) {
+		case 0:
+			powerup = new DamagePowerUp(10, 460, 10, 10);
+			break;
+		case 1:
+			powerup = new InvincibilityPowerUp(10, 460, 10, 10);
+			break;
+
+		case 2:
+			powerup = new SlowDownPowerUp(110, 460, 30, 30);
+			break;
+
+		case 3:
+			powerup = new SpeedBoostPowerUp(10, 460, 10, 10);
+			break;
+
+		}
 		coin1 = new Coin(750,1400);
 		coin2 = new Coin(350,1400);
 		coin3 = new Coin(550,610);
@@ -72,12 +95,6 @@ public class Level1 extends Level{
 		dropper1 = new ShootingEnemy(50,100,100,100,100);
 		//platform6 = new Platform(10,900,100,40,false);
 		lava = new Lava(10, 0, 950, 2000, 100, 0.1);
-		
-//		int r = this.getRandomInt(1, 4);
-//		if(r == 1) p = new DamagePowerUp();
-//		else if(r == 1) p = new DamagePowerUp();
-//		else if(r == 1) p = new DamagePowerUp();
-//		else p = new DamagePowerUp();
 
 		player.playerSpeed = 10;
 		staticPieces.add(platform1);
@@ -97,8 +114,6 @@ public class Level1 extends Level{
 		this.player = player;
 	}
 	public void draw(PApplet marker) {
-		//bg = marker.loadImage("assets/Backgrounds/forest1.jpeg");
-		//marker.image(bg, 0, 0, marker.width, marker.height);
 		time++;
 		objects = new ArrayList<>();
 		getObjects().addAll(mobilePieces);
@@ -114,6 +129,8 @@ public class Level1 extends Level{
 		if(inDeathAnimation) {
 			
 		}
+		
+		
 		
 		for(int i = 0; i < mobilePieces.size(); i++) {
 			
@@ -212,6 +229,11 @@ public class Level1 extends Level{
 		{
 			getPlayer().changeHealth(-1);
 		}
+		if (powerup.intersects(player)) {
+			powerup.start(mobilePieces, bullets);
+		} else if (!powerup.collected) {
+			powerup.draw(marker);
+		}
 		if(!inDeathAnimation) {
 			lava.increaseHeight(getPlayer());
 		}
@@ -230,6 +252,10 @@ public class Level1 extends Level{
 		}
 		displayCelebrations(marker);
 		displayHit(marker, bulletHitX, bulletHitY);
+		
+		if (powerup.active) {
+			powerup.drawPowerupEffects(marker);
+		}
 
 
 	}	
