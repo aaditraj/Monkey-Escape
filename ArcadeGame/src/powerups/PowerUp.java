@@ -56,7 +56,9 @@ public abstract class PowerUp extends Collider {
 		timer.schedule(new Reset(timer), (long) timeLimit);
 	}
 
-	public abstract void drawPowerupEffects(PApplet marker);
+	public void drawPowerupEffects(PApplet marker) {
+		
+	}
 
 	public abstract void reset();
 	

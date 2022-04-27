@@ -14,18 +14,6 @@ public class DamagePowerUp extends PowerUp {
 	public DamagePowerUp(ArrayList<Collider> mobilePieces, ArrayList<Collider> bullets, double x, double y, double width, double height) {
 		super(new String[] {powerupImage}, null, mobilePieces, bullets, x, y, width, height, DAMAGE_PERIOD);
 	}
-
-	public void checkCollision(ArrayList<Collider> colliders) {
-		ShootingPlayer player = (ShootingPlayer) colliders.get(0);
-		if(this.intersects(player))
-		{
-			player.damage = 2; 
-		}
-	}
-
-
-
-	
 	@Override
 	public void reset() {
 		// TODO Auto-generated method stub
