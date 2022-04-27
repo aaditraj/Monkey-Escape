@@ -14,25 +14,16 @@ public class SpeedBoostPowerUp extends PowerUp{
 		super(drawer, images, x, y, width, height, SPEED_BOOST_PERIOD);
 		// TODO Auto-generated constructor stub
 	}
-
-	public void checkCollision() {
-		if(this.intersects(player))
-		{
-			player.playerSpeed = player.playerSpeed * 2; 
-		}
-		
-	}
-
 	@Override
 	public void reset(ArrayList<Collider> colliders) {
 		// TODO Auto-generated method stub
-		
+		player.playerSpeed = player.playerSpeed * 1/2; 
 	}
 
 	@Override
 	public void powerup(ArrayList<Collider> colliders) {
 		// TODO Auto-generated method stub
-		
+		player.playerSpeed = player.playerSpeed * 2; 
 	}
 
 }

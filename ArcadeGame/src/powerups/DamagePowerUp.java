@@ -23,14 +23,14 @@ public class DamagePowerUp extends PowerUp {
 
 	@Override
 	public void reset(ArrayList<Collider> colliders) {
-		// TODO Auto-generated method stub
+		player.damage = 1; 
 		
 	}
 
 	@Override
 	public void powerup(ArrayList<Collider> colliders) {
 		// TODO Auto-generated method stub
-		
+		player.damage = 10; 
 	}
 	
 	
