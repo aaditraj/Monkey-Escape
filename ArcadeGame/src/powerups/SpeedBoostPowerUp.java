@@ -22,4 +22,16 @@ public class SpeedBoostPowerUp extends PowerUp{
 		
 	}
 
+	@Override
+	public void reset(ArrayList<Collider> colliders) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void powerup(ArrayList<Collider> colliders) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
