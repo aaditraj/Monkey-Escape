@@ -337,6 +337,10 @@ public class Collider {
 			this.vx = run;
 			this.vy = rise;
 		}
+		
+		public double getAbsVelocity() {
+			return Math.sqrt(Math.pow(vx, 2) + Math.pow(vy, 2));
+		}
 
 		public void scaleVelocities(double d) {
 			vx *= d;
