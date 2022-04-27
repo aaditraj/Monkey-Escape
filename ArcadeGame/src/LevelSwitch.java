@@ -91,7 +91,7 @@ public class LevelSwitch extends PApplet{
 	 * This draw method calls on the draw methods of other classes allowing them to be drawn on the screen
 	 */
 	public void draw() {
-		System.out.println("Random: " + level.getRandomInt(5, 10));
+//		System.out.println("Random: " + level.getRandomInt(5, 10));
 		if(gameStatus == GameStatus.SINGLE_PLAYER) {
 			background(50);
 			textFont(createFont("assets/ARCADE_N.TTF", 50));
