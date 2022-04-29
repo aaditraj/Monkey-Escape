@@ -65,25 +65,6 @@ public class Level1 extends Level{
 		platform4 = new Platform("assets/Platform/log-platform.png", 10,900,600,40,false);
 		platform5 = new Platform("assets/Platform/log-platform.png", 10,200,200,40,false);
 		endPiece = new Collider(new String[] {"assets/door.png"},20,1300,200,100,100,0,0);
-//		int random = (int) (Math.random() * 4); //TODO uncomment this once all powerups are implemented
-		int random = 2; // TODO this is the powerup to test, can change arguments as needed
-		switch (random) {
-		case 0:
-			powerup = new DamagePowerUp(10, 460, 10, 10);
-			break;
-		case 1:
-			powerup = new InvincibilityPowerUp(10, 460, 10, 10);
-			break;
-
-		case 2:
-			powerup = new SlowDownPowerUp(110, 460, 30, 30);
-			break;
-
-		case 3:
-			powerup = new SpeedBoostPowerUp(10, 460, 10, 10);
-			break;
-
-		}
 		coin1 = new Coin(750,1400);
 		coin2 = new Coin(350,1400);
 		coin3 = new Coin(550,610);
@@ -108,6 +89,25 @@ public class Level1 extends Level{
 		mobilePieces.add(getPlayer());
 		mobilePieces.add(enemy1);
 		mobilePieces.add(enemy2);
+//		int random = (int) (Math.random() * 4); //TODO uncomment this once all powerups are implemented
+		int random = 2; // TODO this is the powerup to test, can change arguments as needed
+		switch (random) {
+		case 0:
+			powerup = new DamagePowerUp(mobilePieces, bullets, 10, 460, 10, 10);
+			break;
+		case 1:
+			powerup = new InvincibilityPowerUp(mobilePieces, bullets, 10, 460, 10, 10);
+			break;
+
+		case 2:
+			powerup = new SlowDownPowerUp(mobilePieces, bullets, 110, 460, 30, 30);
+			break;
+
+		case 3:
+			powerup = new SpeedBoostPowerUp(mobilePieces, bullets, 10, 460, 10, 10);
+			break;
+
+		}
 		setupSoundEffects(marker);
 	}
 	public void setPlayer(ShootingPlayer player) {
@@ -230,7 +230,7 @@ public class Level1 extends Level{
 			getPlayer().changeHealth(-1);
 		}
 		if (powerup.intersects(player)) {
-			powerup.start(mobilePieces, bullets);
+			powerup.start();
 		} else if (!powerup.collected) {
 			powerup.draw(marker);
 		}
