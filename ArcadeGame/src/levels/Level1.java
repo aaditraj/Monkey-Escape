@@ -90,21 +90,21 @@ public class Level1 extends Level{
 		mobilePieces.add(enemy1);
 		mobilePieces.add(enemy2);
 //		int random = (int) (Math.random() * 4); //TODO uncomment this once all powerups are implemented
-		int random = 2; // TODO this is the powerup to test, can change arguments as needed
+		int random = 3; // TODO this is the powerup to test, can change arguments as needed
 		switch (random) {
 		case 0:
-			powerup = new DamagePowerUp(mobilePieces, bullets, 10, 460, 10, 10);
+			powerup = new DamagePowerUp(mobilePieces, bullets, 110, 460, 50, 50);
 			break;
 		case 1:
-			powerup = new InvincibilityPowerUp(mobilePieces, bullets, 10, 460, 10, 10);
+			powerup = new InvincibilityPowerUp(mobilePieces, bullets, 110, 460, 50, 50);
 			break;
 
 		case 2:
-			powerup = new SlowDownPowerUp(mobilePieces, bullets, 110, 460, 30, 30);
+			powerup = new SlowDownPowerUp(mobilePieces, bullets, 110, 460, 50, 50);
 			break;
 
 		case 3:
-			powerup = new SpeedBoostPowerUp(mobilePieces, bullets, 10, 460, 10, 10);
+			powerup = new SpeedBoostPowerUp(mobilePieces, bullets, 110, 460, 50, 50);
 			break;
 
 		}

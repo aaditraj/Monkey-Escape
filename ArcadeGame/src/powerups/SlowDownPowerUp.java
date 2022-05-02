@@ -9,12 +9,12 @@ public class SlowDownPowerUp extends PowerUp {
 	
 	/**<a href="https://www.flaticon.com/free-icons/time" title="time icons">Time icons created by Freepik - Flaticon</a>**/
 	
-	public static final double SLOW_DOWN_PERIOD = 100000;
-	public static final String powerupImage ="assets/Powerups/hourglass.png";
+	public static final double SLOW_DOWN_PERIOD = 10000;
+	public static final String[] powerupImages = new String[] {"assets/Powerups/time1.png","assets/Powerups/time2.png","assets/Powerups/time3.png","assets/Powerups/time4.png","assets/Powerups/time5.png","assets/Powerups/time6.png"};
 	public static final String[] playerAnimation = null;
 
 	public SlowDownPowerUp(ArrayList<Collider> mobilePieces, ArrayList<Collider> bullets, double x, double y, double width, double height) {
-		super(new String[] {powerupImage}, null, mobilePieces, bullets, x, y, width, height, SLOW_DOWN_PERIOD);
+		super(powerupImages, null, mobilePieces, bullets, x, y, width, height, SLOW_DOWN_PERIOD);
 	}
 
 
@@ -37,17 +37,34 @@ public class SlowDownPowerUp extends PowerUp {
 			}
 		}
 		
+		scaleBulletVelocities(0.25);
+	}
+	public void scaleBulletVelocities(double num) {
 		for (int i = 0; i < bullets.size(); i++) {
 			if (bullets.get(i) != null) {
 				Bullet b = (Bullet) bullets.get(i);
 				if (b.getOwner() != "player") {
 					System.out.println("HOLA");
-					b.scaleVelocities(0.05);
+					if(!b.getScaled()) {
+						b.scaleVelocities(num);
+					}
 				}
 			}
 		}
 	}
-
+	public void descaleBulletVelocities(double num) {
+		for (int i = 0; i < bullets.size(); i++) {
+			if (bullets.get(i) != null) {
+				Bullet b = (Bullet) bullets.get(i);
+				if (b.getOwner() != "player") {
+					System.out.println("HOLA");
+					if(b.getScaled()) {
+						b.descaleVelocities(num);
+					}
+				}
+			}
+		}
+	}
 	@Override
 	public void reset() {
 		for (Collider c : mobilePieces) {
@@ -55,16 +72,8 @@ public class SlowDownPowerUp extends PowerUp {
 				c.scaleVelocities(2);
 			}
 		}
+		descaleVelocities(4);
 		
-		for (int i = 0; i < bullets.size(); i++) {
-			if (bullets.get(i) != null) {
-				Bullet b = (Bullet) bullets.get(i);
-				if (b.getOwner() != "player" && b.getAbsVelocity() < 10) {
-					System.out.println("HOLA");
-					b.scaleVelocities(5);
-				}
-			}
-		}
 	}
 
 }

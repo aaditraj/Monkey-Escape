@@ -15,6 +15,7 @@ public class Collider {
 	    private boolean stationary;
 	    int time = 0;
 	    public boolean canDamage = true;
+	    private boolean scaled;
 	    AnimationDisplayer displayer;
 	    public Collider(String[] images, double health, double x, double y, double width, double height, double vx, double vy) {
 	    	this.health = health;
@@ -126,6 +127,9 @@ public class Collider {
 		public void superMove(int x, int y) {
 			this.x += x;
 			this.y += y;
+		}
+		public boolean getScaled() {
+			return scaled;
 		}
 		/** 
 		 * Draws the rectangle to the given Processing PApplet. The left and right
@@ -345,6 +349,12 @@ public class Collider {
 		public void scaleVelocities(double d) {
 			vx *= d;
 			vy *= d;
+			scaled = true;
+		}
+		public void descaleVelocities(double d) {
+			vx *= d;
+			vy *= d;
+			scaled = false;
 		}
 
 }

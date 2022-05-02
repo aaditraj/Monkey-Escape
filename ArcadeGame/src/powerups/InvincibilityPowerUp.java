@@ -9,12 +9,12 @@ import processing.core.PApplet;
 
 public class InvincibilityPowerUp extends PowerUp {
 	
-	public static final double INVINCIBILITY_PERIOD = 5;
-	private static String powerupImage;
+	public static final double INVINCIBILITY_PERIOD = 10000;
+	private static String[] powerupImages = new String[] {"assets/Powerups/shield.png"};
 	public static final String[] playerAnimation = null;
 
 	public InvincibilityPowerUp(ArrayList<Collider> mobilePieces, ArrayList<Collider> bullets, double x, double y, double width, double height) {
-		super(new String[] {powerupImage}, null, mobilePieces, bullets, x, y, width, height, INVINCIBILITY_PERIOD);
+		super(powerupImages, null, mobilePieces, bullets, x, y, width, height, INVINCIBILITY_PERIOD);
 	}
 
 

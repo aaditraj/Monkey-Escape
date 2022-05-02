@@ -7,12 +7,12 @@ import players.ShootingPlayer;
 import processing.core.PApplet;
 public class DamagePowerUp extends PowerUp {
 	
-	public static final double DAMAGE_PERIOD = 5;
-	public static final String powerupImage ="assets/Powerups/hourglass.png";
+	public static final double DAMAGE_PERIOD = 10000;
+	public static final String[] powerupImages = new String[] {"assets/Powerups/Damage.png"};
 	public static final String[] playerAnimation = null;
 
 	public DamagePowerUp(ArrayList<Collider> mobilePieces, ArrayList<Collider> bullets, double x, double y, double width, double height) {
-		super(new String[] {powerupImage}, null, mobilePieces, bullets, x, y, width, height, DAMAGE_PERIOD);
+		super(powerupImages, null, mobilePieces, bullets, x, y, width, height, DAMAGE_PERIOD);
 	}
 	@Override
 	public void reset() {
