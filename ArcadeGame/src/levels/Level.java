@@ -6,6 +6,7 @@ import core.Collider;
 import enemies.MobileEnemy;
 import players.ShootingPlayer;
 import powerups.Coin;
+import powerups.PowerUp;
 import processing.core.PApplet;
 import processing.sound.SoundFile;
 
@@ -17,6 +18,7 @@ public class Level {
 	ArrayList<Collider> totalPieces = new ArrayList<>();
 	ArrayList<Collider> objects = new ArrayList<>();
 	ArrayList<Collider> coins = new ArrayList<>();
+	ArrayList<PowerUp> powerups = new ArrayList<>();
 	SoundFile coinCollectSound;
 	SoundFile damageSound;
 	SoundFile gameOverSound;

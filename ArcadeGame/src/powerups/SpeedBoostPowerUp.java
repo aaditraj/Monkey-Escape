@@ -10,6 +10,9 @@ public class SpeedBoostPowerUp extends PowerUp{
 	
 	public static final double SPEED_BOOST_PERIOD = 10000;
 	private static String[] powerupImages = new String[] {"assets/Powerups/Speed1.png","assets/Powerups/Speed2.png","assets/Powerups/Speed3.png"};
+	private static String[] effectImages = new String[] {"assets/Speed/Speed1.png","assets/Speed/Speed2.png"};
+	private static String[] leftImages = new String[] {"assets/Speed/SpeedLeft1.png","assets/Speed/SpeedLeft2.png"};
+	private static String[] rightImages = new String[] {"assets/Speed/SpeedRight1.png","assets/Speed/SpeedRight2.png"};
 	public static final String[] playerAnimation = null;
 
 	public SpeedBoostPowerUp(ArrayList<Collider> mobilePieces, ArrayList<Collider> bullets, double x, double y, double width, double height) {
@@ -23,12 +26,18 @@ public class SpeedBoostPowerUp extends PowerUp{
 	@Override
 	public void reset() {
 		// TODO Auto-generated method stub
-		player.playerSpeed = (int)(player.playerSpeed * 1/2.0);
+		player.playerSpeed = (int)(player.playerSpeed * 1/2);	
+		player.setLeft(ShootingPlayer.defLeftImgs);
+		player.setRight(ShootingPlayer.defRightImgs);
+		player.setCurrent(ShootingPlayer.defCurrentImgs);
 	}
 
 	public void powerup() {
 		// TODO Auto-generated method stub
-		player.playerSpeed = (int)(player.playerSpeed * 3.5/3.0); 
+		player.playerSpeed = (int)(player.playerSpeed * 2); 
+		player.setLeft(leftImages);
+		player.setRight(rightImages);
+		player.setCurrent(effectImages);
 	}
 
 }

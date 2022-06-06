@@ -92,6 +92,7 @@ public class LevelSwitch extends PApplet{
 	 */
 	public void draw() {
 //		System.out.println("Random: " + level.getRandomInt(5, 10));
+		//if(System.currentTimeMillis() % 10 == 0) {
 		if(gameStatus == GameStatus.SINGLE_PLAYER) {
 			background(50);
 			textFont(createFont("assets/ARCADE_N.TTF", 50));
@@ -170,11 +171,7 @@ public class LevelSwitch extends PApplet{
 				}
 			}
 		}
-
-		
-		
-
-		
+		//}
 	}
 	/**
 	 * A method that triggers when the mouse is clicked
@@ -273,28 +270,28 @@ public class LevelSwitch extends PApplet{
 			level.getPlayer().moveBy(0, level.getPlayerSpeed(),  level.getObjects());
 			if(playerState != 1) {
 				playerState = 1;
-				level.getPlayer().setImages(playerImg);
+				level.getPlayer().setImages(level.getPlayer().getCurrent());
 			}
 		}
 		if(level.getKeysPressed()[1] && !level.isInDeathAnimation()) {
 			level.getPlayer().moveBy(level.getPlayerSpeed(), 0,level.getObjects());
 			if(playerState != 2) {
 				playerState = 2;
-				level.getPlayer().setImages(playerRightImgs);
+				level.getPlayer().setImages(level.getPlayer().getRight());
 			}
 		} else if (playerState == 2 && !level.isInDeathAnimation()) {
 			playerState = 1;
-			level.getPlayer().setImages(playerImg);
+			level.getPlayer().setImages(level.getPlayer().getCurrent());
 		}
 		if(level.getKeysPressed()[2] && !level.isInDeathAnimation()) {
 			level.getPlayer().moveBy(-level.getPlayerSpeed(),0, level.getObjects());
 			if(playerState != 3) {
 				playerState = 3;
-				level.getPlayer().setImages(playerLeftImgs);
+				level.getPlayer().setImages(level.getPlayer().getLeft());
 			}
 		} else if(playerState == 3 && !level.isInDeathAnimation()) {
 			playerState = 1;
-			level.getPlayer().setImages(playerImg);
+			level.getPlayer().setImages(level.getPlayer().getCurrent());
 		}
 	}
 	/**

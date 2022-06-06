@@ -152,7 +152,7 @@ public class Collider {
 		 * @param x The new x-coordinate of the reference point.
 		 * @param y The new y-coordinate of the reference point.
 		 */
-		public void setPoint(int x, int y) {
+		public void moveTo(int x, int y) {
 			this.x = x;
 			this.y = y;
 		}
