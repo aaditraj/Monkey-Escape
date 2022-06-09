@@ -2,9 +2,6 @@ package powerups;
 import java.util.ArrayList;
 
 import core.Collider;
-import obstacles.Lava;
-import players.ShootingPlayer;
-import processing.core.PApplet;
 public class DamagePowerUp extends PowerUp {
 	
 	public static final double DAMAGE_PERIOD = 10000;
@@ -25,6 +22,7 @@ public class DamagePowerUp extends PowerUp {
 	public void powerup() {
 		// TODO Auto-generated method stub
 		player.damage = 3; 
+		player.damageUp = true;
 	}
 	
 	
