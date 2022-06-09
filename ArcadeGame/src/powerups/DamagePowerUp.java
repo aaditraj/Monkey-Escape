@@ -18,12 +18,13 @@ public class DamagePowerUp extends PowerUp {
 	public void reset() {
 		// TODO Auto-generated method stub
 		player.damage = 1;
+		player.damageUp = false;
 	}
 
 
 	public void powerup() {
 		// TODO Auto-generated method stub
-		player.damage = 10; 
+		player.damage = 3; 
 	}
 	
 	

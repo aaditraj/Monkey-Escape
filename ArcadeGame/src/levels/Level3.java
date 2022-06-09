@@ -303,6 +303,10 @@ public class Level3 extends Level {
 		for(int i = 0; i < powerups.size(); i++) {
 			 if (!powerups.get(i).collected) {
 				if (powerups.get(i).intersects(player)) {
+						if(powerups.get(i) instanceof DamagePowerUp)
+						{
+							player.damageUp = true;
+						}
 						powerups.get(i).start();
 				}
 				powerups.get(i).draw(marker);

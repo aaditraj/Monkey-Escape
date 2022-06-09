@@ -220,13 +220,17 @@ public class Level2 extends Level {
 		for(int i = 0; i < powerups.size(); i++) {
 			 if (!powerups.get(i).collected) {
 				if (powerups.get(i).intersects(player)) {
+						if(powerups.get(i) instanceof DamagePowerUp)
+						{
+							player.damageUp = true;
+						}
 						powerups.get(i).start();
 				}
 				powerups.get(i).draw(marker);
 			}
 			if (powerups.get(i).active) {
 				powerups.get(i).drawPowerupEffects(marker);
-			}
+			} 
 		}
 		
 		for(int i = 0; i < getBullets().size(); i++) {
