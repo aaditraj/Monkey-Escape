@@ -30,7 +30,6 @@ public abstract class PowerUp extends Collider {
 	class Reset extends TimerTask {
 		
 		Timer timer;
-		int times = 0;
 		public Reset(Timer timer) {
 			super();
 			this.timer = timer;
@@ -38,13 +37,22 @@ public abstract class PowerUp extends Collider {
 
 		@Override
 		public void run() {
+			reset();
+			active = false;
+			timer.cancel();
+		}
+		
+	}
+	
+	class Intermediate extends TimerTask {
+		
+		public Intermediate() {
+			super();
+		}
+
+		@Override
+		public void run() {
 			intermediate();
-			times++;
-			if((times * frequency) > timeLimit) {
-				reset();
-				active = false;
-				timer.cancel();
-			}
 		}
 		
 	}
@@ -54,11 +62,14 @@ public abstract class PowerUp extends Collider {
 		if (animation != null) {
 			player.setImages(animation);
 		}
+		
 		collected = true;
-		Timer timer = new Timer();
 		active = true;
 		powerup();
-		timer.schedule(new Reset(timer), 0,(long)frequency);
+		
+		Timer timer = new Timer();
+		timer.schedule(new Intermediate(), 0, 1);
+		timer.schedule(new Reset(timer), (long)timeLimit);
 	}
 
 	public void drawPowerupEffects(PApplet marker) {

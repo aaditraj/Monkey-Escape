@@ -22,6 +22,14 @@ public class InvincibilityPowerUp extends PowerUp {
 	@Override
 	public void drawPowerupEffects(PApplet marker) {
 		// TODO Auto-generated method stub
+//		drawer.push();
+//		drawer.fill(139, 0, 139, 100);
+//		drawer.rect(0, 0, drawer.width, drawer.height);
+//		drawer.pop();
+	}
+	
+	@Override
+	public void intermediate() {
 		
 	}
 	
