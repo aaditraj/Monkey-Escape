@@ -21,7 +21,7 @@ public class DamagePowerUp extends PowerUp {
 
 	public void powerup() {
 		// TODO Auto-generated method stub
-		player.damage = 3; 
+		player.damage = 2; 
 		player.damageUp = true;
 	}
 	
