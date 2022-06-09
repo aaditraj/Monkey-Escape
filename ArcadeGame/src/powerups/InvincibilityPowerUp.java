@@ -8,7 +8,7 @@ import processing.core.PApplet;
 
 public class InvincibilityPowerUp extends PowerUp {
 	
-	public static final double INVINCIBILITY_PERIOD = 10000;
+	public static final double INVINCIBILITY_PERIOD = 7500;
 	public static String[] powerupImages = new String[] {"assets/Powerups/shield.png"};
 	public static final String[] playerAnimation = null;
 	private double shieldRad;
