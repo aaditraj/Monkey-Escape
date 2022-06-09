@@ -11,6 +11,11 @@ import obstacles.Lava;
 import obstacles.Platform;
 import players.ShootingPlayer;
 import powerups.Coin;
+import powerups.DamagePowerUp;
+import powerups.InvincibilityPowerUp;
+import powerups.PowerUp;
+import powerups.SlowDownPowerUp;
+import powerups.SpeedBoostPowerUp;
 import processing.core.PApplet;
 
 public class Level2 extends Level {
@@ -95,6 +100,34 @@ public class Level2 extends Level {
 		mobilePieces.add(enemy1);
 		mobilePieces.add(enemy2);
 		mobilePieces.add(enemy3);
+		
+		int[][] positions = new int[2][2];
+		positions[0] = new int[]{1100,720};
+		positions[1] = new int[]{450,450};
+		for(int i = 0; i < 2; i++) {
+			int random = (int)(Math.random() * 4); // TODO this is the powerup to test, can change arguments as needed
+			PowerUp powerup;
+			switch (random) {
+			case 0:
+				powerup = new DamagePowerUp(mobilePieces, bullets, 0, 0, 50, 50);
+				break;
+			case 1:
+				powerup = new InvincibilityPowerUp(mobilePieces, bullets, 0, 0, 50, 50);
+				break;
+
+			case 2:
+				powerup = new SlowDownPowerUp(mobilePieces, bullets, 0, 0, 50, 50);
+				break;
+
+			case 3:
+				powerup = new SpeedBoostPowerUp(mobilePieces, bullets, 0, 0, 50, 50);
+				break;
+			default:
+				powerup = new DamagePowerUp(mobilePieces, bullets, 0, 0, 50, 50);
+			}
+			powerup.moveTo(positions[i][0],positions[i][1]);
+			powerups.add(powerup);
+		}
 		
 		setupSoundEffects(marker);
 		
@@ -183,6 +216,19 @@ public class Level2 extends Level {
 				collectCoin(i);
 			}
 		}
+		
+		for(int i = 0; i < powerups.size(); i++) {
+			 if (!powerups.get(i).collected) {
+				if (powerups.get(i).intersects(player)) {
+						powerups.get(i).start();
+				}
+				powerups.get(i).draw(marker);
+			}
+			if (powerups.get(i).active) {
+				powerups.get(i).drawPowerupEffects(marker);
+			}
+		}
+		
 		for(int i = 0; i < getBullets().size(); i++) {
 			Collider bullet = getBullets().get(i);
 			if (bullet.getX() <= marker.width && bullet.getX() >= 0 && bullet.getY() <= marker.height && bullet.getY() >= 0 && bullet.getHealth() > 0) {
