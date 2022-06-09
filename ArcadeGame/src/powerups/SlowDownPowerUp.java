@@ -33,7 +33,7 @@ public class SlowDownPowerUp extends PowerUp {
 	public void powerup() {
 		for (Collider c : mobilePieces) {
 			if (c != null && !(c instanceof ShootingPlayer)) {
-				c.scaleVelocities(0.5);
+				c.scaleVelocities(0.25);
 			}
 		}
 		
@@ -66,13 +66,17 @@ public class SlowDownPowerUp extends PowerUp {
 		}
 	}
 	@Override
+	public void intermediate() {
+		scaleBulletVelocities(0.25);
+	}
+	@Override
 	public void reset() {
 		for (Collider c : mobilePieces) {
 			if (c != null && !(c instanceof ShootingPlayer)) {
-				c.scaleVelocities(2);
+				c.descaleVelocities(4);
 			}
 		}
-		descaleVelocities(4);
+		descaleBulletVelocities(4);
 		
 	}
 

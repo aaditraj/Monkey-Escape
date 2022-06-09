@@ -11,9 +11,12 @@ public class ShootingPlayer extends Player{
 	public int points, damage;
 	public boolean damageUp; 
 	public int playerSpeed;
+	public static final String[] defCurrentImgs = new String[] {"assets/Player/Player.png"};
+	public static final String[] defLeftImgs = new String[] {"assets/Player/PlayerLeft.png","assets/Player/PlayerLeft2.png"};
+	public static final String[] defRightImgs = new String[] {"assets/Player/PlayerRight.png","assets/Player/PlayerRight2.png"};
 	public ShootingPlayer(double health, double x, double y, double width, double height, double vx,
 			double vy, int maxAmmo) {
-		super(new String[] {"assets/Player/Player.png"}, health, x, y, width, height, vx, vy, maxAmmo);
+		super(defCurrentImgs,defLeftImgs,defRightImgs, health, x, y, width, height, vx, vy, maxAmmo);
 		setFrequency(3);
 		defaultVx = vx;
 		defaultVy = vy;
@@ -23,7 +26,7 @@ public class ShootingPlayer extends Player{
 	}
 	public ShootingPlayer(double health, double x, double y, double width, double height, double vx,
 			double vy, int maxAmmo,int jumpHeight) {
-		super(new String[] {"assets/Player/Player.png"}, health, x, y, width, height, vx, vy, maxAmmo);
+		super(defCurrentImgs,defLeftImgs,defRightImgs, health, x, y, width, height, vx, vy, maxAmmo);
 		defaultVx = vx;
 		defaultVy = vy;
 		setFrequency(3);

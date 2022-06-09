@@ -16,7 +16,7 @@ public abstract class PowerUp extends Collider {
 	protected ArrayList<Collider> mobilePieces;
 	protected ArrayList<Collider> bullets;
 	public boolean collected, active;
-	
+	private final int frequency = 3;
 	public PowerUp(String[] powerupImage, String[] playerAnimation, ArrayList<Collider> mobilePieces, ArrayList<Collider> bullets, double x, double y, double width, double height, double timeLimit) {
 		super(powerupImage, 10, x, y, width, height, 0, 0);
 		this.timeLimit = timeLimit;
@@ -30,7 +30,7 @@ public abstract class PowerUp extends Collider {
 	class Reset extends TimerTask {
 		
 		Timer timer;
-		
+		int times = 0;
 		public Reset(Timer timer) {
 			super();
 			this.timer = timer;
@@ -38,9 +38,13 @@ public abstract class PowerUp extends Collider {
 
 		@Override
 		public void run() {
-			timer.cancel();
-			reset();
-			active = false;
+			intermediate();
+			times++;
+			if((times * frequency) > timeLimit) {
+				reset();
+				active = false;
+				timer.cancel();
+			}
 		}
 		
 	}
@@ -54,7 +58,7 @@ public abstract class PowerUp extends Collider {
 		Timer timer = new Timer();
 		active = true;
 		powerup();
-		timer.schedule(new Reset(timer), (long) timeLimit);
+		timer.schedule(new Reset(timer), 0,(long)frequency);
 	}
 
 	public void drawPowerupEffects(PApplet marker) {
@@ -62,7 +66,9 @@ public abstract class PowerUp extends Collider {
 	}
 
 	public abstract void reset();
-	
+	public void intermediate() {
+		
+	}
 	public abstract void powerup();
 	
 	

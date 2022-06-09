@@ -10,11 +10,16 @@ public abstract class Player extends Collider{
 	private boolean isJumping; 
 	private float proportion; 
 	private float initHealth;
+	private String[] images;
+	private String[] left;
+	private String[] right;
 
-
-	public Player(String[] images, double health, double x, double y, double width, double height, double vx,
+	public Player(String[] images, String[] left, String[] right, double health, double x, double y, double width, double height, double vx,
 			double vy, int maxAmmo) {
 		super(images, health, x, y, width, height, vx, vy);
+		this.images = images;
+		this.left = left;
+		this.right = right;
 		this.setMobile(true);
 		proportion = (float)getWidth()/(float)getHealth(); 
 		initHealth = (float)getHealth();
@@ -24,8 +29,24 @@ public abstract class Player extends Collider{
 	}
 
 	public abstract Collider shoot(int mouseX, int mouseY);
-	
-
+	public void setLeft(String[] left) {
+		this.left = left;
+	}
+	public void setRight(String[] right) {
+		this.right = right;
+	}
+	public void setCurrent(String[] images) {
+		this.images = images;
+	}
+	public String[] getLeft() {
+		return left;
+	}
+	public String[] getRight() {
+		return right;
+	}
+	public String[] getCurrent() {
+		return images;
+	}
 	public void increaseAmmo() {
 		if (currentAmmo < maxAmmo) {
 			currentAmmo++;

@@ -22,7 +22,7 @@ public class Lava extends Collider{
 	//Reset the height of the lava
 	public void reset()
 	{
-		this.setPoint((int)getInitX(), (int)getInitY());
+		this.moveTo((int)getInitX(), (int)getInitY());
 	}
 	/**
 	 * Move the lava up, and check if the lava collides with the player
