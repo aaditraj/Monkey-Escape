@@ -1,5 +1,6 @@
 package levels;
 
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import core.Bullet;
@@ -227,7 +228,7 @@ public class Level3 extends Level {
 				
 				if(hit) 
 				{
-					if(suspect != null && suspect == currentMobileEnemy && !inDeathAnimation)
+					if(suspect != null && suspect == currentMobileEnemy && !inDeathAnimation && player.canDamage)
 					displayDamage(marker, (float)getPlayer().getCenterX(), (float)getPlayer().getCenterY(), false);
 				}
 				else mobileEnemyHitTime = 0;
@@ -308,7 +309,7 @@ public class Level3 extends Level {
 				powerups.get(i).draw(marker);
 			}
 			if (powerups.get(i).active) {
-				powerups.get(i).drawPowerupEffects(marker);
+				powerups.get(i).drawPowerupEffects(marker, new Point2D.Double(player.getCenterX(), player.getCenterY()));
 			}
 		}
 		if(lava.intersects(getPlayer()))
@@ -318,7 +319,7 @@ public class Level3 extends Level {
 		lava.draw(marker);
 		endPiece.draw(marker);
 		displayCelebrations(marker);
-		displayHit(marker, bulletHitX, bulletHitY);
+		if (player.canDamage) displayHit(marker, bulletHitX, bulletHitY);
 
 	}
 	public boolean isInDeathAnimation() {

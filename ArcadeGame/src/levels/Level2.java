@@ -143,7 +143,7 @@ public class Level2 extends Level {
 				
 				if(hit) 
 				{
-					if(suspect != null && suspect == currentMobileEnemy && !inDeathAnimation)
+					if(suspect != null && suspect == currentMobileEnemy && !inDeathAnimation && player.canDamage)
 					displayDamage(marker, (float)getPlayer().getCenterX(), (float)getPlayer().getCenterY(), false);
 				}
 				else mobileEnemyHitTime = 0;
@@ -231,7 +231,7 @@ public class Level2 extends Level {
 		}
 		lava.draw(marker);
 		displayCelebrations(marker);
-		displayHit(marker, bulletHitX, bulletHitY);
+		if (player.canDamage) displayHit(marker, bulletHitX, bulletHitY);
 
 		endPiece.draw(marker);
 		
