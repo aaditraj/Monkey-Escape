@@ -93,23 +93,16 @@ public class Level1 extends Level{
 		positions[0] = new int[]{1200,640};
 		positions[1] = new int[]{110,440};
 		for(int i = 0; i < 2; i++) {
-			int random = (int)(Math.random() * 4); // TODO this is the powerup to test, can change arguments as needed
+			int random = (int)(Math.random() * 2); // TODO this is the powerup to test, can change arguments as needed
 			PowerUp powerup;
 			switch (random) {
 			case 0:
 				powerup = new DamagePowerUp(mobilePieces, bullets, 0, 0, 50, 50);
 				break;
 			case 1:
-				powerup = new InvincibilityPowerUp(mobilePieces, bullets, 0, 0, 50, 50);
-				break;
-
-			case 2:
 				powerup = new SlowDownPowerUp(mobilePieces, bullets, 0, 0, 50, 50);
 				break;
 
-			case 3:
-				powerup = new SpeedBoostPowerUp(mobilePieces, bullets, 0, 0, 50, 50);
-				break;
 			default:
 				powerup = new DamagePowerUp(mobilePieces, bullets, 0, 0, 50, 50);
 			}
