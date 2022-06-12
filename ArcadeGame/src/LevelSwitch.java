@@ -2,6 +2,7 @@
 import java.util.HashMap;
 
 import core.Bullet;
+import levels.Endless;
 import levels.GameStatus;
 import levels.Level;
 import levels.Level1;
