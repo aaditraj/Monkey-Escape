@@ -86,23 +86,63 @@ public class ShootingPlayer extends Player{
 	}
 	
 	
+	
+
+
+	
+
+//	public void act(List<Sprite> obstacles) {
+//		
+//		yVelocity += 0.3;
+//		xVelocity *= 0.9;
+//
+//		
+//		y += yVelocity; 
+//		
+//		
+//		boolean touchingY = false; 
+//		double spriteY = 0; 
+//		
+//		for(Sprite o : obstacles)
+//		{
+//			if(super.intersects(o.getBounds2D()))
+//			{
+//				touchingY = true; 
+//				spriteY = o.y;
+//			}
+//		}
+//	
+//		if(touchingY)
+//		{
+//			yVelocity = 0;
+//			y = spriteY-super.height;
+//		} 
+//		
+//		x += xVelocity;
+//		
+//		for(Sprite o : obstacles)
+//		{
+//			if(super.intersects(o.getBounds2D()))
+//			{
+//				x -= xVelocity;
+//				xVelocity = 0;
+//			}
+//		}
+//		
+//	}
+	
 	public void jump(ArrayList<Collider> colliders) {
 		if(this.intersects(colliders)[2]) {
-			vy = -jumpHeight;
+			vy = -14;
 		}
 	}
 	public void act(ArrayList<Collider> colliders) {
 		moveBy(vx,vy,colliders);
+
+		vy += 0.9;
+		
 		if (vy < defaultVy) {
-			if(vy <= 0) {
-				vy *= 0.6;
-				if (vy > -0.5) {
-					vy *= -1;
-				}
-			} else {
-				vy *= 4;
-			}
-			
+			y += vy; 
 		} else {
 			vy = defaultVy;
 		}

@@ -44,6 +44,9 @@ public class Level1 extends Level{
 	boolean isDead; 
 	boolean inDeathAnimation;
 	int deathTime;
+	int doorTime;
+	String[] doorAnimation = new String[]{"assets/Open Door.png"};
+
 	String[] deathAnimation = new String[]{"assets/Player/Player.png","assets/Player/Player_body.png","assets/Player/Player_head.png","assets/Player/Player_head_dropped.png"};
 	public void setup(PApplet marker) {
 		staticPieces = new ArrayList<>();
