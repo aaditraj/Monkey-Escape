@@ -83,10 +83,10 @@ public class Level3 extends Level {
 		shooter3 = new SideShooter(10,426, 70, 88,76, 1);
 		coin5 = new Coin(90, 10);
 		
-		platform4 = new Platform(0,300,200,40,false);
+		platform4 = new Platform(0,350,200,40,false);
 		platform5 = new Platform(850,250,200,40,false);
 		platform6 = new Platform(275, 200, 500, 40, false);
-		platformTop = new Platform(0, 75, 100, 20, false);
+		platformTop = new Platform(0, 60, 100, 20, false);
 
 		enemy2 = new MobileEnemy(MobileEnemy.mobileEnemyImages, 10d, 275d, 100d, 600d, 100d, 15d, 0d,424d/4, 464d/4);
 		dropper = new ShootingEnemy(1500, 0, 0, 75, 75);

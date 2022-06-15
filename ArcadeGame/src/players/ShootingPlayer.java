@@ -20,7 +20,7 @@ public class ShootingPlayer extends Player{
 		setFrequency(3);
 		defaultVx = vx;
 		defaultVy = vy;
-		jumpHeight = 50;
+		jumpHeight = -15;
 		damage = 1;
 		playerSpeed = 10;
 	}
@@ -30,7 +30,7 @@ public class ShootingPlayer extends Player{
 		defaultVx = vx;
 		defaultVy = vy;
 		setFrequency(3);
-		this.jumpHeight = jumpHeight;
+		this.jumpHeight = -15;
 		damageUp = false;
 		damage = 1;
 		playerSpeed = 10;
@@ -131,9 +131,14 @@ public class ShootingPlayer extends Player{
 //		
 //	}
 	
+	public void setJumpHeight(int height)
+	{
+		jumpHeight = height;
+	}
+	
 	public void jump(ArrayList<Collider> colliders) {
 		if(this.intersects(colliders)[2]) {
-			vy = -14;
+			vy = jumpHeight;
 		}
 	}
 	public void act(ArrayList<Collider> colliders) {

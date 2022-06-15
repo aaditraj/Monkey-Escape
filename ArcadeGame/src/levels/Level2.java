@@ -41,6 +41,12 @@ public class Level2 extends Level {
 	private Coin coin2;
 	private ShootingEnemy dropper1;
 	private Collider endPiece;
+	
+	
+	boolean inDoorAnimation; 
+	int doorTime;
+	String[] doorAnimation1 = new String[]{"assets/Open Door.png"};
+	String[] doorAnimation2 = new String[]{"assets/DoorLeft.png"};
 	private Lava lava;
 	float bulletHitX = 0;
 	float bulletHitY = 0;
@@ -82,6 +88,7 @@ public class Level2 extends Level {
 
 		
 		player.playerSpeed = 10;
+		player.setJumpHeight(-12);
 		staticPieces.add(platform1);
 		staticPieces.add(platform2);
 		staticPieces.add(platform3);
@@ -143,6 +150,10 @@ public class Level2 extends Level {
 		getObjects().addAll(mobilePieces);
 		getObjects().addAll(staticPieces);
 		
+		
+		endPiece.draw(marker);
+
+		
 		if(time%shooter1.bulletFrequency == 0) {
 			getBullets().add(shooter2.shoot());
 			getBullets().add(shooter1.shoot());
@@ -150,10 +161,6 @@ public class Level2 extends Level {
 			getBullets().add(dropper1.drop(getPlayer().getCenterX(),getPlayer().getCenterY()));
 		}
 		
-		if(getPlayer().intersects(endPiece))
-		{
-			setFinished(true); 
-		}
 		
 		if(time%10 == 0) {
 			getPlayer().increaseAmmo();
@@ -277,10 +284,28 @@ public class Level2 extends Level {
 			lava.increaseHeight(getPlayer());
 		}
 		lava.draw(marker);
+		
+		
+		if(getPlayer().intersects(endPiece)) {
+			inDoorAnimation = true;
+			
+			if(endPiece.getCenterX() > player.getCenterX())
+			{
+				endPiece.setImages(doorAnimation2);
+
+			} else
+			endPiece.setImages(doorAnimation1);
+			
+		}
+		
+		if(inDoorAnimation) doorTime++;
+		
+		if(inDoorAnimation = true && doorTime == 8)
+		setFinished(true);
+		
 		displayCelebrations(marker);
 		if (player.canDamage) displayHit(marker, bulletHitX, bulletHitY);
 
-		endPiece.draw(marker);
 		
 	}
 	public boolean isInDeathAnimation() {

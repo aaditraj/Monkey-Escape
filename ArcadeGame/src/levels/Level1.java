@@ -47,7 +47,8 @@ public class Level1 extends Level{
 	
 	boolean inDoorAnimation; 
 	int doorTime;
-	String[] doorAnimation = new String[]{"assets/Open Door.png"};
+	String[] doorAnimation1 = new String[]{"assets/Open Door.png"};
+	String[] doorAnimation2 = new String[]{"assets/DoorLeft.png"};
 
 	String[] deathAnimation = new String[]{"assets/Player/Player.png","assets/Player/Player_body.png","assets/Player/Player_head.png","assets/Player/Player_head_dropped.png"};
 	public void setup(PApplet marker) {
@@ -127,6 +128,10 @@ public class Level1 extends Level{
 		objects = new ArrayList<>();
 		getObjects().addAll(mobilePieces);
 		getObjects().addAll(staticPieces);
+		
+		endPiece.draw(marker);
+
+		
 		if(time%shooter1.bulletFrequency == 0) {
 			getBullets().add(shooter2.shoot());
 			getBullets().add(shooter1.shoot());
@@ -269,16 +274,21 @@ public class Level1 extends Level{
 			deathTime++;
 		}
 		lava.draw(marker);
-		endPiece.draw(marker);
 		if(getPlayer().intersects(endPiece)) {
 			inDoorAnimation = true;
-			endPiece.setImages(doorAnimation);
+			
+			if(endPiece.getCenterX() > player.getCenterX())
+			{
+				endPiece.setImages(doorAnimation2);
+
+			} else
+			endPiece.setImages(doorAnimation1);
 			
 		}
 		
 		if(inDoorAnimation) doorTime++;
 		
-		if(inDoorAnimation = true && doorTime == 5)
+		if(inDoorAnimation = true && doorTime == 8)
 		setFinished(true);
 		
 		displayCelebrations(marker);
