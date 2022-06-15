@@ -18,11 +18,14 @@ public class InvincibilityPowerUp extends PowerUp {
 		shieldRad = 150;
 	}
 
-
+	
 
 	@Override
 	public void drawPowerupEffects(PApplet drawer, Point2D.Double playerLoc) {
 		drawer.push();
+		drawer.fill(139, 0, 139, 100);
+		drawer.rect(0, 0, drawer.width, drawer.height);
+		
 		drawer.stroke(3, 227, 252, 0);
 		drawer.fill(3, 227, 252, 75);
 		drawer.circle((float) playerLoc.getX(), (float) playerLoc.getY(), (float) shieldRad);
