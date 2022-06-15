@@ -44,6 +44,8 @@ public class Level1 extends Level{
 	boolean isDead; 
 	boolean inDeathAnimation;
 	int deathTime;
+	
+	boolean inDoorAnimation; 
 	int doorTime;
 	String[] doorAnimation = new String[]{"assets/Open Door.png"};
 
@@ -55,6 +57,8 @@ public class Level1 extends Level{
 		totalPieces = new ArrayList<>();
 		objects = new ArrayList<>();
 		inDeathAnimation = false;
+		inDoorAnimation = false;
+		doorTime = 0;
 		deathTime = 0;
 		enemy1 = new MobileEnemy(MobileEnemy.mobileEnemyImages,10,1200,600,800,600,-10,0,80,100);
 		enemy2 = new MobileEnemy(MobileEnemy.mobileEnemyImages,10,1200,200,800,200,-10,0,80,100);
@@ -250,9 +254,12 @@ public class Level1 extends Level{
 		{
 			getPlayer().changeHealth(-1);
 		}
+		
 		if(!inDeathAnimation) {
 			lava.increaseHeight(getPlayer());
 		}
+		
+		
 		if(inDeathAnimation && deathTime == 3 && time % player.getImgFrequency() == player.getImgFrequency()-1) {
 			super.playGameOverSound();
 			isDead = true;
@@ -264,8 +271,16 @@ public class Level1 extends Level{
 		lava.draw(marker);
 		endPiece.draw(marker);
 		if(getPlayer().intersects(endPiece)) {
-			setFinished(true);
+			inDoorAnimation = true;
+			endPiece.setImages(doorAnimation);
+			
 		}
+		
+		if(inDoorAnimation) doorTime++;
+		
+		if(inDoorAnimation = true && doorTime == 5)
+		setFinished(true);
+		
 		displayCelebrations(marker);
 		if (player.canDamage) displayHit(marker, bulletHitX, bulletHitY);
 
