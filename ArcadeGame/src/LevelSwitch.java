@@ -80,8 +80,8 @@ public class LevelSwitch extends PApplet{
 		points = 0;
 		played = false;
 		if (gameStatus == GameStatus.ENDLESS) {
-			level = new Endless();
-			((Endless)level).setup(this);
+//			level = new Endless();
+//			((Endless)level).setup(this);
 		} else {
 			level = new Level1();
 			((Level1)level).setup(this);
