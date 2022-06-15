@@ -67,7 +67,7 @@ public class MainMenu {
 		marker.strokeWeight(10);
 		if(display[0] == true)
 		{
-			marker.text("ENDLESS", (float)(marker.width/4.7), (float)(marker.height/1.5));
+			marker.text("ENDLESS", (float)(marker.width/3.3), (float)(marker.height/1.5));
 			marker.text("INSTRUCTIONS", (float)(marker.width/5.52), (float)(marker.height/1.3));
 			marker.text("LEADERBOARD", (float)(marker.width/4.9), (float)(marker.height/1.15));
 			marker.fill(255,255,0);
@@ -86,7 +86,7 @@ public class MainMenu {
 			marker.text("LEADERBOARD", (float)(marker.width/4.9), (float)(marker.height/1.15));
 			marker.text("INSTRUCTIONS", (float)(marker.width/5.52), (float)(marker.height/1.3));
 			marker.fill(255,255,0);
-			marker.text("ENDLESS", (float)(marker.width/4.7), (float)(marker.height/1.5));
+			marker.text("ENDLESS", (float)(marker.width/3.3), (float)(marker.height/1.5));
 			marker.noFill();
 			marker.stroke(255, 255, 0);
 			if(counter % freq != 0)
@@ -97,7 +97,7 @@ public class MainMenu {
 		}
 		else if(display[2] == true)
 		{
-			marker.text("ENDLESS", (float)(marker.width/4.7), (float)(marker.height/1.5));
+			marker.text("ENDLESS", (float)(marker.width/3.3), (float)(marker.height/1.5));
 			marker.text("SINGLEPLAYER", (float)(marker.width/5.357), (float)(marker.height/1.80));
 			marker.text("LEADERBOARD", (float)(marker.width/4.9), (float)(marker.height/1.15));
 			marker.fill(255,255,0);
@@ -113,7 +113,7 @@ public class MainMenu {
 		else if(display[3] == true)
 		{
 			marker.text("INSTRUCTIONS", (float)(marker.width/5.52), (float)(marker.height/1.3));
-			marker.text("ENDLESS", (float)(marker.width/4.7), (float)(marker.height/1.5));
+			marker.text("ENDLESS", (float)(marker.width/3.3), (float)(marker.height/1.5));
 			marker.text("SINGLEPLAYER", (float)(marker.width/5.357), (float)(marker.height/1.80));
 			marker.fill(255,255,0);
 			marker.text("LEADERBOARD", (float)(marker.width/4.9), (float)(marker.height/1.15));
