@@ -225,17 +225,7 @@ public class Level2 extends Level {
 			}
 		}
 		
-		for(int i = 0; i < powerups.size(); i++) {
-			 if (!powerups.get(i).collected) {
-				if (powerups.get(i).intersects(player)) {
-						powerups.get(i).start();
-				}
-				powerups.get(i).draw(marker);
-			}
-			if (powerups.get(i).active) {
-				powerups.get(i).drawPowerupEffects(marker, new Point2D.Double(player.getCenterX(), player.getCenterY()));
-			} 
-		}
+		
 		
 		for(int i = 0; i < getBullets().size(); i++) {
 			Collider bullet = getBullets().get(i);
@@ -268,6 +258,24 @@ public class Level2 extends Level {
 		for(int i = 0; i < staticPieces.size(); i++) {
 			staticPieces.get(i).draw(marker);
 		}
+		
+		for(int i = 0; i < powerups.size(); i++) {
+			 if (!powerups.get(i).collected) {
+				if (powerups.get(i).intersects(player)) {
+						powerups.get(i).start();
+				}
+				powerups.get(i).draw(marker);
+			}
+			 
+			if (powerups.get(0).active) {
+				powerups.get(0).drawPowerupEffects(marker, new Point2D.Double(player.getCenterX(), player.getCenterY()));
+			} 
+			
+			if (powerups.get(1).active) {
+				powerups.get(1).drawPowerupEffects(marker, new Point2D.Double(player.getCenterX(), player.getCenterY()));
+			} 
+		}
+		
 		if(lava.intersects(getPlayer()))
 		{
 			getPlayer().changeHealth(-1);

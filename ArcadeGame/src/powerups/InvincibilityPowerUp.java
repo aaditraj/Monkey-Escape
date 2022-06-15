@@ -23,7 +23,7 @@ public class InvincibilityPowerUp extends PowerUp {
 	@Override
 	public void drawPowerupEffects(PApplet drawer, Point2D.Double playerLoc) {
 		drawer.push();
-		drawer.fill(139, 0, 139, 100);
+		drawer.fill(140, 200, 210, 35);
 		drawer.rect(0, 0, drawer.width, drawer.height);
 		
 		drawer.stroke(3, 227, 252, 0);

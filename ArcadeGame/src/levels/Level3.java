@@ -286,6 +286,10 @@ public class Level3 extends Level {
 		for(int i = 0; i < staticPieces.size(); i++) {
 			staticPieces.get(i).draw(marker);
 		}
+		
+		endPiece.draw(marker);
+
+		
 		if(inDeathAnimation && deathTime == 3 && time % player.getImgFrequency() == player.getImgFrequency()-1) {
 			super.playGameOverSound();
 			isDead = true;
@@ -312,8 +316,12 @@ public class Level3 extends Level {
 				}
 				powerups.get(i).draw(marker);
 			}
-			if (powerups.get(i).active) {
-				powerups.get(i).drawPowerupEffects(marker, new Point2D.Double(player.getCenterX(), player.getCenterY()));
+			if (powerups.get(0).active) {
+				powerups.get(0).drawPowerupEffects(marker, new Point2D.Double(player.getCenterX(), player.getCenterY()));
+			}
+			
+			if (powerups.get(1).active) {
+				powerups.get(1).drawPowerupEffects(marker, new Point2D.Double(player.getCenterX(), player.getCenterY()));
 			}
 		}
 		if(lava.intersects(getPlayer()))
@@ -321,7 +329,6 @@ public class Level3 extends Level {
 			getPlayer().changeHealth(-1);
 		}
 		lava.draw(marker);
-		endPiece.draw(marker);
 		displayCelebrations(marker);
 		if (player.canDamage) displayHit(marker, bulletHitX, bulletHitY);
 
