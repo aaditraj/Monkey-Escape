@@ -20,7 +20,7 @@ public class ShootingPlayer extends Player{
 		setFrequency(3);
 		defaultVx = vx;
 		defaultVy = vy;
-		jumpHeight = 50;
+		jumpHeight = -15;
 		damage = 1;
 		playerSpeed = 10;
 	}
@@ -30,7 +30,7 @@ public class ShootingPlayer extends Player{
 		defaultVx = vx;
 		defaultVy = vy;
 		setFrequency(3);
-		this.jumpHeight = jumpHeight;
+		this.jumpHeight = -15;
 		damageUp = false;
 		damage = 1;
 		playerSpeed = 10;
@@ -55,36 +55,99 @@ public class ShootingPlayer extends Player{
 	
 	private Bullet constructBullet(double x, double mouseY) {
 		Bullet b;
-		if (mouseY < getY()) {
-			b = new Bullet(x, this.getY(), "player",Bullet.bulletLocation,damage);
+		
+		if(!damageUp)
+		{
+			
+			if (mouseY < getY()) {
+				b = new Bullet(x, this.getY(), "player",Bullet.bulletLocation,damage);
 
-		} else if (mouseY >= getY() && mouseY <= getY() + getHeight()) {
-			b = new Bullet(x, mouseY, "player",Bullet.bulletLocation,damage);
+			} else if (mouseY >= getY() && mouseY <= getY() + getHeight()) {
+				b = new Bullet(x, mouseY, "player",Bullet.bulletLocation,damage);
 
-		} else {
-			b = new Bullet(x, this.getY() + this.getHeight(), "player",Bullet.bulletLocation, damage);
+			} else {
+				b = new Bullet(x, this.getY() + this.getHeight(), "player",Bullet.bulletLocation, damage);
+			}
 		}
+		else {
+//			System.out.println("Hi");
+			if (mouseY < getY()) {
+				b = new Bullet(x, this.getY(), "player",Bullet.bulletLocation2,damage);
+
+			} else if (mouseY >= getY() && mouseY <= getY() + getHeight()) {
+				b = new Bullet(x, mouseY, "player",Bullet.bulletLocation2,damage);
+
+			} else {
+				b = new Bullet(x, this.getY() + this.getHeight(), "player",Bullet.bulletLocation2, damage);
+			}
+		}
+	
 		return b;
 	}
 	
 	
+	
+
+
+	
+
+//	public void act(List<Sprite> obstacles) {
+//		
+//		yVelocity += 0.3;
+//		xVelocity *= 0.9;
+//
+//		
+//		y += yVelocity; 
+//		
+//		
+//		boolean touchingY = false; 
+//		double spriteY = 0; 
+//		
+//		for(Sprite o : obstacles)
+//		{
+//			if(super.intersects(o.getBounds2D()))
+//			{
+//				touchingY = true; 
+//				spriteY = o.y;
+//			}
+//		}
+//	
+//		if(touchingY)
+//		{
+//			yVelocity = 0;
+//			y = spriteY-super.height;
+//		} 
+//		
+//		x += xVelocity;
+//		
+//		for(Sprite o : obstacles)
+//		{
+//			if(super.intersects(o.getBounds2D()))
+//			{
+//				x -= xVelocity;
+//				xVelocity = 0;
+//			}
+//		}
+//		
+//	}
+	
+	public void setJumpHeight(int height)
+	{
+		jumpHeight = height;
+	}
+	
 	public void jump(ArrayList<Collider> colliders) {
 		if(this.intersects(colliders)[2]) {
-			vy = -jumpHeight;
+			vy = jumpHeight;
 		}
 	}
 	public void act(ArrayList<Collider> colliders) {
 		moveBy(vx,vy,colliders);
+
+		vy += 0.9;
+		
 		if (vy < defaultVy) {
-			if(vy <= 0) {
-				vy *= 0.6;
-				if (vy > -0.5) {
-					vy *= -1;
-				}
-			} else {
-				vy *= 4;
-			}
-			
+			y += vy; 
 		} else {
 			vy = defaultVy;
 		}

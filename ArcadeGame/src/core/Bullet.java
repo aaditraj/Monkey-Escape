@@ -7,6 +7,8 @@ public class Bullet extends Collider
 {
 	public static final String bananaLocation = "assets/Projectiles/banana.png";
 	public static final String bulletLocation = "assets/bullet.png";
+	public static final String bulletLocation2 = "assets/red bullet.png";
+
 	public String owner = "";
 	int damage = 1;
 	/**

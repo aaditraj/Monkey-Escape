@@ -1,4 +1,5 @@
 package powerups;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import core.Bullet;
 import core.Collider;
@@ -9,7 +10,7 @@ public class SlowDownPowerUp extends PowerUp {
 	
 	/**<a href="https://www.flaticon.com/free-icons/time" title="time icons">Time icons created by Freepik - Flaticon</a>**/
 	
-	public static final double SLOW_DOWN_PERIOD = 10000;
+	public static final double SLOW_DOWN_PERIOD = 6000;
 	public static final String[] powerupImages = new String[] {"assets/Powerups/time1.png","assets/Powerups/time2.png","assets/Powerups/time3.png","assets/Powerups/time4.png","assets/Powerups/time5.png","assets/Powerups/time6.png"};
 	public static final String[] playerAnimation = null;
 
@@ -20,7 +21,7 @@ public class SlowDownPowerUp extends PowerUp {
 
 
 	@Override
-	public void drawPowerupEffects(PApplet drawer) {
+	public void drawPowerupEffects(PApplet drawer, Point2D.Double playerLoc) {
 		drawer.push();
 		drawer.fill(139, 0, 139, 100);
 		drawer.rect(0, 0, drawer.width, drawer.height);

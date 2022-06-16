@@ -1,5 +1,6 @@
 package powerups;
 
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -15,10 +16,12 @@ public abstract class PowerUp extends Collider {
 	protected ShootingPlayer player;
 	protected ArrayList<Collider> mobilePieces;
 	protected ArrayList<Collider> bullets;
+	protected Timer timer;
 	public boolean collected, active;
-	private final int frequency = 3;
+
 	public PowerUp(String[] powerupImage, String[] playerAnimation, ArrayList<Collider> mobilePieces, ArrayList<Collider> bullets, double x, double y, double width, double height, double timeLimit) {
 		super(powerupImage, 10, x, y, width, height, 0, 0);
+		timer = new Timer();
 		this.timeLimit = timeLimit;
 		this.mobilePieces = mobilePieces;
 		this.bullets = bullets;
@@ -30,7 +33,6 @@ public abstract class PowerUp extends Collider {
 	class Reset extends TimerTask {
 		
 		Timer timer;
-		int times = 0;
 		public Reset(Timer timer) {
 			super();
 			this.timer = timer;
@@ -38,13 +40,22 @@ public abstract class PowerUp extends Collider {
 
 		@Override
 		public void run() {
+			reset();
+			active = false;
+			timer.cancel();
+		}
+		
+	}
+	
+	class Intermediate extends TimerTask {
+		
+		public Intermediate() {
+			super();
+		}
+
+		@Override
+		public void run() {
 			intermediate();
-			times++;
-			if((times * frequency) > timeLimit) {
-				reset();
-				active = false;
-				timer.cancel();
-			}
 		}
 		
 	}
@@ -54,14 +65,16 @@ public abstract class PowerUp extends Collider {
 		if (animation != null) {
 			player.setImages(animation);
 		}
+		
 		collected = true;
-		Timer timer = new Timer();
 		active = true;
 		powerup();
-		timer.schedule(new Reset(timer), 0,(long)frequency);
+		
+		timer.schedule(new Intermediate(), 0, 1);
+		timer.schedule(new Reset(timer), (long)timeLimit);
 	}
 
-	public void drawPowerupEffects(PApplet marker) {
+	public void drawPowerupEffects(PApplet marker, Point2D.Double playerLoc) {
 		
 	}
 

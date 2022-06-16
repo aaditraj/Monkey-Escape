@@ -2,15 +2,14 @@
 import java.util.HashMap;
 
 import core.Bullet;
+import levels.Endless;
 import levels.GameStatus;
 import levels.Level;
 import levels.Level1;
 import levels.Level2;
 import levels.Level3;
-import players.ShootingPlayer;
 import processing.core.PApplet;
 import processing.core.PImage;
-import processing.sound.Sound;
 import processing.sound.SoundFile;
 import startpage.ClickThrough;
 import startpage.Instructions;
@@ -74,14 +73,20 @@ public class LevelSwitch extends PApplet{
 		}
 		start = new StartPage(); 
 		menu = new MainMenu(); 
-		level = new Level1();
 		instructions = new Instructions();
 		leaderboard = new Leaderboard();
 		keysEntered = false;
 		playerName ="Enter Name";
 		points = 0;
 		played = false;
-		((Level1)level).setup(this);
+		if (gameStatus == GameStatus.ENDLESS) {
+			level = new Endless();
+			((Endless)level).setup(this);
+		} else {
+			level = new Level1();
+			((Level1)level).setup(this);
+		}
+		
 		if (level1Music == null || !level1Music.isPlaying()) {
 			startMusic.play();
 		}
@@ -93,12 +98,14 @@ public class LevelSwitch extends PApplet{
 	public void draw() {
 //		System.out.println("Random: " + level.getRandomInt(5, 10));
 		//if(System.currentTimeMillis() % 10 == 0) {
-		if(gameStatus == GameStatus.SINGLE_PLAYER) {
+		if(gameStatus == GameStatus.SINGLE_PLAYER || gameStatus == GameStatus.ENDLESS) {
 			background(50);
 			textFont(createFont("assets/ARCADE_N.TTF", 50));
 			text(points, width-150, 150);
 			image(quit, width-100, 25, 50, 50);
-			image(skip, width-175, 30, 65, 40);
+			if (gameStatus == GameStatus.SINGLE_PLAYER) {
+				image(skip, width-175, 30, 65, 40);
+			}
 			move();
 			level.draw(this);
 			points = level.getPlayer().points;
@@ -180,7 +187,7 @@ public class LevelSwitch extends PApplet{
 	 */
 	public void mousePressed() {
 		if (level.getPlayer().getAmmo() > 0) {
-			if (gameStatus == GameStatus.SINGLE_PLAYER && !shootSound.isPlaying() || gameStatus == GameStatus.MULTI_PLAYER && !shootSound.isPlaying()) {
+			if (gameStatus == GameStatus.SINGLE_PLAYER && !shootSound.isPlaying() || gameStatus == GameStatus.ENDLESS && !shootSound.isPlaying()) {
 				shootSound.play();
 			}
 			Bullet b = level.getPlayer().shoot(mouseX, mouseY);
@@ -222,7 +229,7 @@ public class LevelSwitch extends PApplet{
 				if(mouseY > (int)(height/1.8) && mouseY < (int)(height/1.8) + height/5)
 					if(gameStatus == GameStatus.SINGLE_PLAYER) gameStatus = GameStatus.SINGLE_PLAYER; 
 					else {
-						gameStatus = GameStatus.MULTI_PLAYER; 
+						gameStatus = GameStatus.ENDLESS; 
 					}
 					promptQuit = false;
 				
@@ -230,7 +237,7 @@ public class LevelSwitch extends PApplet{
 					
 			}
 		}
-		if(gameStatus == GameStatus.SINGLE_PLAYER || gameStatus == GameStatus.MULTI_PLAYER)
+		if(gameStatus == GameStatus.SINGLE_PLAYER || gameStatus == GameStatus.ENDLESS)
 		{
 			
 			if(mouseX > width-100 && mouseX < width-100 + 50)
@@ -239,7 +246,7 @@ public class LevelSwitch extends PApplet{
 				promptQuit = true; 
 			}
 			
-			if(mouseX > width-175 && mouseX < width-175 + 65)
+			if(mouseX > width-175 && mouseX < width-175 + 65 && gameStatus == GameStatus.SINGLE_PLAYER)
 			{
 				if(mouseY > 30 && mouseY < 30 + 40) 
 				if(level instanceof Level1)
@@ -303,7 +310,7 @@ public class LevelSwitch extends PApplet{
 			namePage.interpretKeystroke((char)keyCode);
 		} else {
 			if (keyCode == UP) { 
-				if ((gameStatus == GameStatus.SINGLE_PLAYER || gameStatus == GameStatus.MULTI_PLAYER) && !jumpSound.isPlaying()) {
+				if ((gameStatus == GameStatus.SINGLE_PLAYER || gameStatus == GameStatus.ENDLESS) && !jumpSound.isPlaying()) {
 					jumpSound.play();
 				}
 				level.getPlayer().jump(level.getObjects());
@@ -319,7 +326,7 @@ public class LevelSwitch extends PApplet{
 				level.getKeysPressed()[2] = true;
 			}
 			if (key == 'w') {
-				if ((gameStatus == GameStatus.SINGLE_PLAYER || gameStatus == GameStatus.MULTI_PLAYER) && !jumpSound.isPlaying()) {
+				if ((gameStatus == GameStatus.SINGLE_PLAYER || gameStatus == GameStatus.ENDLESS) && !jumpSound.isPlaying()) {
 					jumpSound.play();
 				}
 				level.getPlayer().jump(level.getObjects());
@@ -334,7 +341,7 @@ public class LevelSwitch extends PApplet{
 				level.getKeysPressed()[2] = true;
 			}
 			if(key == ' ') {
-				if ((gameStatus == GameStatus.SINGLE_PLAYER || gameStatus == GameStatus.MULTI_PLAYER) && !jumpSound.isPlaying()) {
+				if ((gameStatus == GameStatus.SINGLE_PLAYER || gameStatus == GameStatus.ENDLESS) && !jumpSound.isPlaying()) {
 					jumpSound.play();
 				}
 				level.getPlayer().jump(level.getObjects());
@@ -395,7 +402,7 @@ public class LevelSwitch extends PApplet{
 			
 			
 			
-				if(gameStatus == GameStatus.SINGLE_PLAYER) {
+				if(gameStatus == GameStatus.SINGLE_PLAYER || gameStatus == GameStatus.ENDLESS) {
 					startMusic.stop();
 					level1Music = new SoundFile(this, "assets/Music/Level1.wav");
 					level2Music = new SoundFile(this, "assets/Music/Level2.wav");

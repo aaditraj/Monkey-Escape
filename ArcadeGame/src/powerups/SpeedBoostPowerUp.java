@@ -1,4 +1,5 @@
 package powerups;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import core.Collider;
@@ -20,7 +21,12 @@ public class SpeedBoostPowerUp extends PowerUp{
 	}
 
 
-
+	public void drawPowerupEffects(PApplet drawer, Point2D.Double playerLoc) {
+		drawer.push();
+		drawer.fill(128, 82, 0, 60);
+		drawer.rect(0, 0, drawer.width, drawer.height);
+		drawer.pop();
+	}
 
 
 	@Override

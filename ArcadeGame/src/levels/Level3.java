@@ -1,5 +1,6 @@
 package levels;
 
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import core.Bullet;
@@ -11,6 +12,11 @@ import obstacles.Lava;
 import obstacles.Platform;
 import players.ShootingPlayer;
 import powerups.Coin;
+import powerups.DamagePowerUp;
+import powerups.InvincibilityPowerUp;
+import powerups.PowerUp;
+import powerups.SlowDownPowerUp;
+import powerups.SpeedBoostPowerUp;
 import processing.core.PApplet;
 
 public class Level3 extends Level {
@@ -76,11 +82,10 @@ public class Level3 extends Level {
 		
 		shooter3 = new SideShooter(10,426, 70, 88,76, 1);
 		coin5 = new Coin(90, 10);
-		
 		platform4 = new Platform(0,300,100,40,false);
 		platform5 = new Platform(850,250,200,40,false);
 		platform6 = new Platform(275, 200, 500, 40, false);
-		platformTop = new Platform(0, 75, 100, 20, false);
+		platformTop = new Platform(0, 60, 100, 20, false);
 
 		enemy2 = new MobileEnemy(MobileEnemy.mobileEnemyImages, 10d, 275d, 100d, 600d, 100d, 15d, 0d,424d/4, 464d/4);
 		dropper = new ShootingEnemy(1500, 0, 0, 75, 75);
@@ -119,6 +124,34 @@ public class Level3 extends Level {
 		mobilePieces.add(getPlayer());
 		mobilePieces.add(enemy1);
 		mobilePieces.add(enemy2);
+		
+		int[][] positions = new int[2][2];
+		positions[0] = new int[]{260, 440};
+		positions[1] = new int[]{900, 965};
+		for(int i = 0; i < 2; i++) {
+			int random = (int)(Math.random() * 4); // TODO this is the powerup to test, can change arguments as needed
+			PowerUp powerup;
+			switch (random) {
+			case 0:
+				powerup = new DamagePowerUp(mobilePieces, bullets, 0, 0, 50, 50);
+				break;
+			case 1:
+				powerup = new InvincibilityPowerUp(mobilePieces, bullets, 0, 0, 50, 50);
+				break;
+
+			case 2:
+				powerup = new SlowDownPowerUp(mobilePieces, bullets, 0, 0, 50, 50);
+				break;
+
+			case 3:
+				powerup = new SpeedBoostPowerUp(mobilePieces, bullets, 0, 0, 50, 50);
+				break;
+			default:
+				powerup = new DamagePowerUp(mobilePieces, bullets, 0, 0, 50, 50);
+			}
+			powerup.moveTo(positions[i][0],positions[i][1]);
+			powerups.add(powerup);
+		}
 		
 		setupSoundEffects(marker);
 
@@ -194,7 +227,7 @@ public class Level3 extends Level {
 				
 				if(hit) 
 				{
-					if(suspect != null && suspect == currentMobileEnemy && !inDeathAnimation)
+					if(suspect != null && suspect == currentMobileEnemy && !inDeathAnimation && player.canDamage)
 					displayDamage(marker, (float)getPlayer().getCenterX(), (float)getPlayer().getCenterY(), false);
 				}
 				else mobileEnemyHitTime = 0;
@@ -252,6 +285,10 @@ public class Level3 extends Level {
 		for(int i = 0; i < staticPieces.size(); i++) {
 			staticPieces.get(i).draw(marker);
 		}
+		
+		endPiece.draw(marker);
+
+		
 		if(inDeathAnimation && deathTime == 3 && time % player.getImgFrequency() == player.getImgFrequency()-1) {
 			super.playGameOverSound();
 			isDead = true;
@@ -267,14 +304,32 @@ public class Level3 extends Level {
 		{
 			setFinished(true); 
 		}
+		for(int i = 0; i < powerups.size(); i++) {
+			 if (!powerups.get(i).collected) {
+				if (powerups.get(i).intersects(player)) {
+						if(powerups.get(i) instanceof DamagePowerUp)
+						{
+							player.damageUp = true;
+						}
+						powerups.get(i).start();
+				}
+				powerups.get(i).draw(marker);
+			}
+			if (powerups.get(0).active) {
+				powerups.get(0).drawPowerupEffects(marker, new Point2D.Double(player.getCenterX(), player.getCenterY()));
+			}
+			
+			if (powerups.get(1).active) {
+				powerups.get(1).drawPowerupEffects(marker, new Point2D.Double(player.getCenterX(), player.getCenterY()));
+			}
+		}
 		if(lava.intersects(getPlayer()))
 		{
 			getPlayer().changeHealth(-1);
 		}
 		lava.draw(marker);
-		endPiece.draw(marker);
 		displayCelebrations(marker);
-		displayHit(marker, bulletHitX, bulletHitY);
+		if (player.canDamage) displayHit(marker, bulletHitX, bulletHitY);
 
 	}
 	public boolean isInDeathAnimation() {

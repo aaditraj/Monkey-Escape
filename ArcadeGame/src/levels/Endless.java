@@ -13,30 +13,14 @@ import obstacles.Platform;
 import players.ShootingPlayer;
 import powerups.Coin;
 import powerups.DamagePowerUp;
-import powerups.InvincibilityPowerUp;
 import powerups.PowerUp;
 import powerups.SlowDownPowerUp;
-import powerups.SpeedBoostPowerUp;
 import processing.core.PApplet;
 import processing.core.PImage;
 
-public class Level1 extends Level{
-	MobileEnemy enemy1;
-	MobileEnemy enemy2;
-	SideShooter shooter1;
-	SideShooter shooter2;
-	Platform platform1;
-	Platform platform2;
-	Platform platform3;
-	Platform platform4;
-	Platform platform5;
-	Coin coin1;
-	Coin coin2;
-	Coin coin3;
-	Coin coin4;
-	ShootingEnemy dropper1;
-	ShootingEnemy dropper2;
-	Collider endPiece;
+public class Endless extends Level {
+	
+
 	Lava lava;
 	PImage bg;
 	float bulletHitX = 0;
@@ -44,59 +28,40 @@ public class Level1 extends Level{
 	boolean isDead; 
 	boolean inDeathAnimation;
 	int deathTime;
-	
-	boolean inDoorAnimation; 
 	int doorTime;
-	String[] doorAnimation1 = new String[]{"assets/Open Door.png"};
-	String[] doorAnimation2 = new String[]{"assets/DoorLeft.png"};
-
+	String[] doorAnimation = new String[]{"assets/Open Door.png"};
 	String[] deathAnimation = new String[]{"assets/Player/Player.png","assets/Player/Player_body.png","assets/Player/Player_head.png","assets/Player/Player_head_dropped.png"};
 	public void setup(PApplet marker) {
+		// TODO Auto-generated method stub
 		staticPieces = new ArrayList<>();
 		mobilePieces = new ArrayList<>();
 		bullets = new ArrayList<>();
 		totalPieces = new ArrayList<>();
 		objects = new ArrayList<>();
 		inDeathAnimation = false;
-		inDoorAnimation = false;
-		doorTime = 0;
 		deathTime = 0;
-		enemy1 = new MobileEnemy(MobileEnemy.mobileEnemyImages,10,1200,600,800,600,-10,0,80,100);
-		enemy2 = new MobileEnemy(MobileEnemy.mobileEnemyImages,10,1200,200,800,200,-10,0,80,100);
-		shooter1 = new SideShooter(10,824,70, 88,76, 1);
-		shooter2 = new SideShooter(10,424, 70, 88,76, 1);
+		
+		
 		player = new ShootingPlayer(50,200,700,100,100,0,10,10,125);
-		platform1 = new Platform("assets/Platform/log-platform.png", 800,700,600,40,false);
-		platform2 = new Platform("assets/Platform/log-platform.png", 800,300,600,40,false);
-		platform3 = new Platform("assets/Platform/log-platform.png", 10,500,600,40,false);
-		platform4 = new Platform("assets/Platform/log-platform.png", 10,900,600,40,false);
-		platform5 = new Platform("assets/Platform/log-platform.png", 10,200,200,40,false);
-		endPiece = new Collider(new String[] {"assets/door.png"},20,1300,200,100,100,0,0);
+		
 		powerups = new ArrayList<>();
-		coin1 = new Coin(750,1400);
-		coin2 = new Coin(350,1400);
-		coin3 = new Coin(550,610);
-		coin4 = new Coin(950,610);
-		coins.add(coin1);
-		coins.add(coin2);
-		coins.add(coin3);
-		coins.add(coin4);
-		dropper1 = new ShootingEnemy(50,100,100,100,100);
+		
+	
 		//platform6 = new Platform(10,900,100,40,false);
 		lava = new Lava(10, 0, 950, 2000, 100, 0.1);
 
 		player.playerSpeed = 10;
-		staticPieces.add(platform1);
-		staticPieces.add(platform2);
-		staticPieces.add(platform3);
-		staticPieces.add(platform4);
-		staticPieces.add(platform5);
-		staticPieces.add(shooter1);
-		staticPieces.add(shooter2);
-		staticPieces.add(dropper1);
-		mobilePieces.add(getPlayer());
-		mobilePieces.add(enemy1);
-		mobilePieces.add(enemy2);
+//		staticPieces.add(platform1);
+//		staticPieces.add(platform2);
+//		staticPieces.add(platform3);
+//		staticPieces.add(platform4);
+//		staticPieces.add(platform5);
+//		staticPieces.add(shooter1);
+//		staticPieces.add(shooter2);
+//		staticPieces.add(dropper1);
+//		mobilePieces.add(getPlayer());
+//		mobilePieces.add(enemy1);
+//		mobilePieces.add(enemy2);
 		int[][] positions = new int[2][2];
 		positions[0] = new int[]{1200,640};
 		positions[1] = new int[]{110,440};
@@ -120,23 +85,21 @@ public class Level1 extends Level{
 
 		setupSoundEffects(marker);
 	}
+	
 	public void setPlayer(ShootingPlayer player) {
 		this.player = player;
 	}
+	
 	public void draw(PApplet marker) {
 		time++;
 		objects = new ArrayList<>();
 		getObjects().addAll(mobilePieces);
 		getObjects().addAll(staticPieces);
-		
-		endPiece.draw(marker);
-
-		
-		if(time%shooter1.bulletFrequency == 0) {
-			getBullets().add(shooter2.shoot());
-			getBullets().add(shooter1.shoot());
-			getBullets().add(dropper1.drop(getPlayer().getCenterX(),getPlayer().getCenterY()));
-		}
+//		if(time%shooter1.bulletFrequency == 0) {
+//			getBullets().add(shooter2.shoot());
+//			getBullets().add(shooter1.shoot());
+//			getBullets().add(dropper1.drop(getPlayer().getCenterX(),getPlayer().getCenterY()));
+//		}
 		if(time%10 == 0) {
 			getPlayer().increaseAmmo();
 		}
@@ -250,13 +213,8 @@ public class Level1 extends Level{
 				}
 				powerups.get(i).draw(marker);
 			}
-			 
-			if (powerups.get(0).active) {
-				powerups.get(0).drawPowerupEffects(marker, new Point2D.Double(player.getCenterX(), player.getCenterY()));
-			}
-			
-			if (powerups.get(1).active) {
-				powerups.get(1).drawPowerupEffects(marker, new Point2D.Double(player.getCenterX(), player.getCenterY()));
+			if (powerups.get(i).active) {
+				powerups.get(i).drawPowerupEffects(marker, new Point2D.Double(player.getCenterX(), player.getCenterY()));
 			}
 
 		}
@@ -264,12 +222,9 @@ public class Level1 extends Level{
 		{
 			getPlayer().changeHealth(-1);
 		}
-		
 		if(!inDeathAnimation) {
 			lava.increaseHeight(getPlayer());
 		}
-		
-		
 		if(inDeathAnimation && deathTime == 3 && time % player.getImgFrequency() == player.getImgFrequency()-1) {
 			super.playGameOverSound();
 			isDead = true;
@@ -279,29 +234,14 @@ public class Level1 extends Level{
 			deathTime++;
 		}
 		lava.draw(marker);
-		if(getPlayer().intersects(endPiece)) {
-			inDoorAnimation = true;
-			
-			if(endPiece.getCenterX() > player.getCenterX())
-			{
-				endPiece.setImages(doorAnimation2);
 
-			} else
-			endPiece.setImages(doorAnimation1);
-			
-		}
-		
-		if(inDoorAnimation) doorTime++;
-		
-		if(inDoorAnimation = true && doorTime == 8)
-		setFinished(true);
-		
 		displayCelebrations(marker);
 		if (player.canDamage) displayHit(marker, bulletHitX, bulletHitY);
 
-
-	}	
+	}
+	
 	public boolean isInDeathAnimation() {
 		return inDeathAnimation;
 	}
+
 }

@@ -1,5 +1,6 @@
 package levels;
 
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import core.Bullet;
@@ -11,6 +12,11 @@ import obstacles.Lava;
 import obstacles.Platform;
 import players.ShootingPlayer;
 import powerups.Coin;
+import powerups.DamagePowerUp;
+import powerups.InvincibilityPowerUp;
+import powerups.PowerUp;
+import powerups.SlowDownPowerUp;
+import powerups.SpeedBoostPowerUp;
 import processing.core.PApplet;
 
 public class Level2 extends Level {
@@ -35,6 +41,12 @@ public class Level2 extends Level {
 	private Coin coin2;
 	private ShootingEnemy dropper1;
 	private Collider endPiece;
+	
+	
+	boolean inDoorAnimation; 
+	int doorTime;
+	String[] doorAnimation1 = new String[]{"assets/Open Door.png"};
+	String[] doorAnimation2 = new String[]{"assets/DoorLeft.png"};
 	private Lava lava;
 	float bulletHitX = 0;
 	float bulletHitY = 0;
@@ -76,6 +88,7 @@ public class Level2 extends Level {
 
 		
 		player.playerSpeed = 10;
+		player.setJumpHeight(-12);
 		staticPieces.add(platform1);
 		staticPieces.add(platform2);
 		staticPieces.add(platform3);
@@ -96,6 +109,34 @@ public class Level2 extends Level {
 		mobilePieces.add(enemy2);
 		mobilePieces.add(enemy3);
 		
+		int[][] positions = new int[2][2];
+		positions[0] = new int[]{1100,720};
+		positions[1] = new int[]{450,450};
+		for(int i = 0; i < 2; i++) {
+			int random = (int)(Math.random() * 4); // TODO this is the powerup to test, can change arguments as needed
+			PowerUp powerup;
+			switch (random) {
+			case 0:
+				powerup = new DamagePowerUp(mobilePieces, bullets, 0, 0, 50, 50);
+				break;
+			case 1:
+				powerup = new InvincibilityPowerUp(mobilePieces, bullets, 0, 0, 50, 50);
+				break;
+
+			case 2:
+				powerup = new SlowDownPowerUp(mobilePieces, bullets, 0, 0, 50, 50);
+				break;
+
+			case 3:
+				powerup = new SpeedBoostPowerUp(mobilePieces, bullets, 0, 0, 50, 50);
+				break;
+			default:
+				powerup = new DamagePowerUp(mobilePieces, bullets, 0, 0, 50, 50);
+			}
+			powerup.moveTo(positions[i][0],positions[i][1]);
+			powerups.add(powerup);
+		}
+		
 		setupSoundEffects(marker);
 		
 	}
@@ -109,6 +150,10 @@ public class Level2 extends Level {
 		getObjects().addAll(mobilePieces);
 		getObjects().addAll(staticPieces);
 		
+		
+		endPiece.draw(marker);
+
+		
 		if(time%shooter1.bulletFrequency == 0) {
 			getBullets().add(shooter2.shoot());
 			getBullets().add(shooter1.shoot());
@@ -116,10 +161,6 @@ public class Level2 extends Level {
 			getBullets().add(dropper1.drop(getPlayer().getCenterX(),getPlayer().getCenterY()));
 		}
 		
-		if(getPlayer().intersects(endPiece))
-		{
-			setFinished(true); 
-		}
 		
 		if(time%10 == 0) {
 			getPlayer().increaseAmmo();
@@ -143,7 +184,7 @@ public class Level2 extends Level {
 				
 				if(hit) 
 				{
-					if(suspect != null && suspect == currentMobileEnemy && !inDeathAnimation)
+					if(suspect != null && suspect == currentMobileEnemy && !inDeathAnimation && player.canDamage)
 					displayDamage(marker, (float)getPlayer().getCenterX(), (float)getPlayer().getCenterY(), false);
 				}
 				else mobileEnemyHitTime = 0;
@@ -183,6 +224,9 @@ public class Level2 extends Level {
 				collectCoin(i);
 			}
 		}
+		
+		
+		
 		for(int i = 0; i < getBullets().size(); i++) {
 			Collider bullet = getBullets().get(i);
 			if (bullet.getX() <= marker.width && bullet.getX() >= 0 && bullet.getY() <= marker.height && bullet.getY() >= 0 && bullet.getHealth() > 0) {
@@ -214,6 +258,24 @@ public class Level2 extends Level {
 		for(int i = 0; i < staticPieces.size(); i++) {
 			staticPieces.get(i).draw(marker);
 		}
+		
+		for(int i = 0; i < powerups.size(); i++) {
+			 if (!powerups.get(i).collected) {
+				if (powerups.get(i).intersects(player)) {
+						powerups.get(i).start();
+				}
+				powerups.get(i).draw(marker);
+			}
+			 
+			if (powerups.get(0).active) {
+				powerups.get(0).drawPowerupEffects(marker, new Point2D.Double(player.getCenterX(), player.getCenterY()));
+			} 
+			
+			if (powerups.get(1).active) {
+				powerups.get(1).drawPowerupEffects(marker, new Point2D.Double(player.getCenterX(), player.getCenterY()));
+			} 
+		}
+		
 		if(lava.intersects(getPlayer()))
 		{
 			getPlayer().changeHealth(-1);
@@ -230,10 +292,28 @@ public class Level2 extends Level {
 			lava.increaseHeight(getPlayer());
 		}
 		lava.draw(marker);
-		displayCelebrations(marker);
-		displayHit(marker, bulletHitX, bulletHitY);
+		
+		
+		if(getPlayer().intersects(endPiece)) {
+			inDoorAnimation = true;
+			
+			if(endPiece.getCenterX() > player.getCenterX())
+			{
+				endPiece.setImages(doorAnimation2);
 
-		endPiece.draw(marker);
+			} else
+			endPiece.setImages(doorAnimation1);
+			
+		}
+		
+		if(inDoorAnimation) doorTime++;
+		
+		if(inDoorAnimation = true && doorTime == 8)
+		setFinished(true);
+		
+		displayCelebrations(marker);
+		if (player.canDamage) displayHit(marker, bulletHitX, bulletHitY);
+
 		
 	}
 	public boolean isInDeathAnimation() {

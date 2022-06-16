@@ -11,6 +11,7 @@ public final class GameStatus {
 	public static final int NAME_PAGE = 9;
 	public static final int SINGLE_PLAYER = 10;
 	public static final int MULTI_PLAYER = 11;
+	public static final int ENDLESS = 12;
 	
 
 
