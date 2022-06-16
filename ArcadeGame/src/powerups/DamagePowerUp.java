@@ -19,7 +19,10 @@ public class DamagePowerUp extends PowerUp {
 		// TODO Auto-generated method stub
 		player.damage = 1;
 	}
-
+	@Override
+	public void intermediate() {
+		
+	}
 
 	public void powerup() {
 		// TODO Auto-generated method stub
