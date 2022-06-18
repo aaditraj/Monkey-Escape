@@ -39,6 +39,11 @@ public class LevelSwitch extends PApplet{
 	Leaderboard leaderboard;
 	boolean promptQuit; 
 	PImage quit; 
+	PImage background;
+	PImage background2;
+
+	PImage background3;
+
 	PImage skip;
 	PImage quitPrompt; 
 	int previousPoints = 0;
@@ -66,6 +71,11 @@ public class LevelSwitch extends PApplet{
 	 */
 	public void setup() {
 		quit = loadImage("assets/SettingSymbol.png");
+		background = loadImage("assets/jungle_background.jpg");
+		background2 = loadImage("assets/level_2_background.jpg");
+
+		background3 = loadImage("assets/level_3_background.jpg");
+
 		skip = loadImage("assets/SkipSymbol.png");
 		quitPrompt = loadImage("assets/QuitPrompt.png");
 		if (startMusic == null) {
@@ -96,10 +106,24 @@ public class LevelSwitch extends PApplet{
 	 * This draw method calls on the draw methods of other classes allowing them to be drawn on the screen
 	 */
 	public void draw() {
+		
+		System.out.println(width);
+		System.out.println(height);
+
 //		System.out.println("Random: " + level.getRandomInt(5, 10));
 		//if(System.currentTimeMillis() % 10 == 0) {
 		if(gameStatus == GameStatus.SINGLE_PLAYER || gameStatus == GameStatus.ENDLESS) {
-			background(50);
+			
+			if(level instanceof Level1)
+			{
+				background(background);
+			} else if(level instanceof Level2)
+			{
+				background(background2);
+			} else {
+				background(background3);
+			}
+			
 			textFont(createFont("assets/ARCADE_N.TTF", 50));
 			text(points, width-150, 150);
 			image(quit, width-100, 25, 50, 50);
