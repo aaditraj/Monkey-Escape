@@ -2,6 +2,7 @@ package levels;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.management.timer.Timer;
 
@@ -37,7 +38,7 @@ public class Endless extends Level {
 	boolean onRightSide;
 	int deathTime;
 	int doorTime;
-	ArrayList<Platform> platforms;
+	ArrayList<Collider> platforms;
 	String[] doorAnimation = new String[]{"assets/Open Door.png"};
 	String[] deathAnimation = new String[]{"assets/Player/Player.png","assets/Player/Player_body.png","assets/Player/Player_head.png","assets/Player/Player_head_dropped.png"};
 	
@@ -53,8 +54,7 @@ public class Endless extends Level {
 		onRightSide = false;
 		
 		
-		player = new ShootingPlayer(50,200,700,100,100,0,10,10,125);
-		
+		player = new ShootingPlayer(50,200,650,100,100,0,10,10,125);
 		int platform1Width = (int) (Math.random() * 250 + 0.5) + 250;
 		Platform platform1 = new Platform(0, 780, platform1Width, platformHeight, false);
 		platforms.add(platform1);
@@ -175,7 +175,9 @@ public class Endless extends Level {
 				}
 			} else {
 				if(!inDeathAnimation) {
-					mobilePieces.get(i).act(getObjects());
+					//if(!(mobilePieces.get(i) instanceof ShootingPlayer)) {
+						mobilePieces.get(i).act(getObjects());
+					//}
 				}
 				mobilePieces.get(i).draw(marker);
 			}
@@ -211,18 +213,18 @@ public class Endless extends Level {
 				getBullets().remove(i);
 			}
 		}
-	
+		getPlayer().updateVelocity();
+		boolean[] directions = getPlayer().intersects(getObjects());
+		System.out.println(Arrays.toString(directions));
 		for(int i = 0; i < platforms.size(); i++) {
 			if (platforms.get(i).getY() > 1040) {
 				platforms.remove(i);
 				addPlatform();
 			}
 			platforms.get(i).draw(marker);
-			if (player.getVY() < 0) {
-				if (player.getY() < 0) {
-					platforms.get(i).moveBy(0, player.getVY() * -1, new ArrayList<Collider>());
-				}
-				platforms.get(i).moveBy(0, player.getVY() * -1, new ArrayList<Collider>());
+			System.out.println(player.getVY() + " " + directions[2]);
+			if(!(player.getVY() < 0 && directions[0]) && !(player.getVY() > 0 && directions[2])) {
+				platforms.get(i).moveBy(0, player.getVY() * -1, new ArrayList<>());
 			}
 		}
 //		for(int i = 0; i < coins.size(); i++) {
@@ -268,7 +270,7 @@ public class Endless extends Level {
 	
 	private void addPlatform() {
 		// TODO Auto-generated method stub
-		Platform prevPlatform = (platforms.get(platforms.size() - 1));
+		Platform prevPlatform = (Platform) (platforms.get(platforms.size() - 1));
 		int maxXDist = (time/platformIncrementFreq >= numPlatformIncrements ? maxHorizDist : time/platformIncrementFreq * platformIncrement + 100);
 		int xDist = (int) (Math.random() * platformIncrement * 2 + 0.5) + maxXDist - 50; 
 		int maxYDist = (time/platformIncrementFreq >= numPlatformIncrements ? maxVerticalDist : time/platformIncrementFreq * platformIncrement + 100);

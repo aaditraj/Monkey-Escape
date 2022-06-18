@@ -143,9 +143,11 @@ public class ShootingPlayer extends Player{
 	}
 	public void act(ArrayList<Collider> colliders) {
 		moveBy(vx,vy,colliders);
-
-		vy += 1;
+		updateVelocity();
 		
+	}
+	public void updateVelocity() {
+		vy += 1;
 		if (vy < defaultVy) {
 			y += vy; 
 		} else {
