@@ -66,11 +66,11 @@ public class Level1 extends Level{
 		shooter1 = new SideShooter(10,824,70, 88,76, 1);
 		shooter2 = new SideShooter(10,424, 70, 88,76, 1);
 		player = new ShootingPlayer(50,200,700,100,100,0,10,10,125);
-		platform1 = new Platform("assets/Platform/log-platform.png", 800,700,600,40,false);
-		platform2 = new Platform("assets/Platform/log-platform.png", 800,300,600,40,false);
-		platform3 = new Platform("assets/Platform/log-platform.png", 10,500,600,40,false);
-		platform4 = new Platform("assets/Platform/log-platform.png", 10,900,600,40,false);
-		platform5 = new Platform("assets/Platform/log-platform.png", 10,200,200,40,false);
+		platform1 = new Platform(800,700,600,40,false);
+		platform2 = new Platform(800,300,600,40,false);
+		platform3 = new Platform(10,500,600,40,false);
+		platform4 = new Platform(10,900,600,40,false);
+		platform5 = new Platform(10,200,200,40,false);
 		endPiece = new Collider(new String[] {"assets/door.png"},20,1300,200,100,100,0,0);
 		powerups = new ArrayList<>();
 		coin1 = new Coin(750,1400);
