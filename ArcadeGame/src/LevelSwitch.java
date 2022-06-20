@@ -69,6 +69,9 @@ public class LevelSwitch extends PApplet{
 	 * The main method that sets up LevelSwitch, a class that allows multiple classes to be drawn
 	 * on a single screen, and allows multiple classes to communicate with each other in a cohesive manner
 	 */
+	public void settings() {
+		noSmooth();
+	}
 	public void setup() {
 		quit = loadImage("assets/SettingSymbol.png");
 		background = loadImage("assets/jungle_background.jpg");
