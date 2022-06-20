@@ -11,7 +11,7 @@ public class SlowDownPowerUp extends PowerUp {
 	/**<a href="https://www.flaticon.com/free-icons/time" title="time icons">Time icons created by Freepik - Flaticon</a>**/
 	
 	public static final double SLOW_DOWN_PERIOD = 6000;
-	public static final String[] powerupImages = new String[] {"assets/Powerups/time1.png","assets/Powerups/time2.png","assets/Powerups/time3.png","assets/Powerups/time4.png","assets/Powerups/time5.png","assets/Powerups/time6.png"};
+	public static final String[] powerupImages = new String[] {"assets/Powerups/Time1.png","assets/Powerups/Time2.png","assets/Powerups/Time3.png"};
 	public static final String[] playerAnimation = null;
 
 	public SlowDownPowerUp(ArrayList<Collider> mobilePieces, ArrayList<Collider> bullets, double x, double y, double width, double height) {

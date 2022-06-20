@@ -77,6 +77,7 @@ public class Level1 extends Level{
 		coin2 = new Coin(350,1400);
 		coin3 = new Coin(550,610);
 		coin4 = new Coin(950,610);
+		coins.clear();
 		coins.add(coin1);
 		coins.add(coin2);
 		coins.add(coin3);
@@ -100,6 +101,7 @@ public class Level1 extends Level{
 		int[][] positions = new int[2][2];
 		positions[0] = new int[]{1200,640};
 		positions[1] = new int[]{110,440};
+		powerups.clear();
 		for(int i = 0; i < 2; i++) {
 			int random = (int)(Math.random() * 2); // TODO this is the powerup to test, can change arguments as needed
 			PowerUp powerup;
@@ -207,7 +209,9 @@ public class Level1 extends Level{
 				bullet.draw(marker);
 				if(!inDeathAnimation) {
 					if(((Bullet)bullet).getOwner().equals("player")) {
-						bullet.act((ArrayList<Collider>)mobilePieces);
+						ArrayList<Collider> nonPlayers = (ArrayList<Collider>)mobilePieces.clone();
+						nonPlayers.remove(player);
+						bullet.act(nonPlayers);
 					} else {
 						ArrayList<Collider> playerList = new ArrayList<>();
 						playerList.add(player);

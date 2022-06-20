@@ -7,7 +7,7 @@ public class Bullet extends Collider
 {
 	public static final String bananaLocation = "assets/Projectiles/banana.png";
 	public static final String bulletLocation = "assets/bullet.png";
-	public static final String bulletLocation2 = "assets/red bullet.png";
+	public static final String[] superLocation = new String[] {"assets/Projectiles/Super1.png","assets/Projectiles/Super2.png","assets/Projectiles/Super3.png","assets/Projectiles/Super4.png","assets/Projectiles/Super5.png","assets/Projectiles/Super6.png","assets/Projectiles/Super7.png"};
 
 	public String owner = "";
 	int damage = 1;
@@ -18,8 +18,8 @@ public class Bullet extends Collider
 	 * @param owner The thing that shot the bullet
 	 * @param image The image to display for the bullet
 	 */
-	public Bullet(double x, double y, String owner, String image) {
-		super(new String[] {image}, 1, x, y, 5.0, 5.0, 0, 0);
+	public Bullet(double x, double y, String owner, String[] images) {
+		super(images, 1, x, y, 5.0, 5.0, 0, 0);
 		this.owner = owner;
 		this.setMobile(true);
 	}
@@ -32,8 +32,8 @@ public class Bullet extends Collider
 	 * @param image The image to display for the bullet
 	 * @param damage The damage of the bullet
 	 */
-	public Bullet(double x, double y, String owner, String image, int damage) {
-		super(new String[] {image}, 1, x, y, 5.0, 5.0, 0, 0);
+	public Bullet(double x, double y, String owner, String[] images, int damage) {
+		super(images, 1, x, y, 5.0, 5.0, 0, 0);
 		this.owner = owner;
 		this.damage = damage;
 		this.setMobile(true);
@@ -49,8 +49,8 @@ public class Bullet extends Collider
 	 * @param height The height of the bullet
 	 * @param damage The damage the bullet causes upon impact
 	 */
-	public Bullet(double x, double y, String owner, String image,double width,double height,int damage) {
-		super(new String[] {image}, 1, x, y, width, height, 0, 0);
+	public Bullet(double x, double y, String owner, String[] images,double width,double height,int damage) {
+		super(images, 1, x, y, width, height, 0, 0);
 		this.owner = owner;
 		this.damage = damage;
 		this.setMobile(true);
