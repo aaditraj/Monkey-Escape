@@ -188,7 +188,11 @@ public class Level2 extends Level {
 					if(suspect != null && suspect == currentMobileEnemy && !inDeathAnimation && player.canDamage)
 					displayDamage(marker, (float)getPlayer().getCenterX(), (float)getPlayer().getCenterY(), false);
 				}
-				else mobileEnemyHitTime = 0;
+				else {
+					mobileEnemyHitTime = 0;
+					growled = false;
+					grunted = false;
+				}
 			}
 			
 			
@@ -262,6 +266,46 @@ public class Level2 extends Level {
 			staticPieces.get(i).draw(marker);
 		}
 		
+		
+		
+		if(lava.intersects(getPlayer()))
+		{
+			getPlayer().changeHealth(-1);
+		}
+		if(inDeathAnimation && deathTime == 3 && time % player.getImgFrequency() == player.getImgFrequency()-1) {
+			super.playGameOverSound();
+			isDead = true;
+			setup(marker);
+		}
+		if(inDeathAnimation && time % player.getImgFrequency() == 0) {
+			deathTime++;
+		}
+		if(!inDeathAnimation) {
+			lava.increaseHeight(getPlayer());
+		}
+		
+		
+		if(getPlayer().intersects(endPiece)) {
+			inDoorAnimation = true;
+			if (!ominous.isPlaying()) {
+				ominous.play();
+			} 
+			if(endPiece.getCenterX() > player.getCenterX())
+			{
+				endPiece.setImages(doorAnimation2);
+
+			} else {
+				endPiece.setImages(doorAnimation1);
+			}
+			
+			
+		}
+		
+		if(inDoorAnimation) doorTime++;
+		
+		if(inDoorAnimation = true && doorTime == 10)
+		setFinished(true);
+		
 		for(int i = 0; i < powerups.size(); i++) {
 			 if (!powerups.get(i).collected) {
 				if (powerups.get(i).intersects(player)) {
@@ -279,41 +323,8 @@ public class Level2 extends Level {
 			} 
 		}
 		
-		if(lava.intersects(getPlayer()))
-		{
-			getPlayer().changeHealth(-1);
-		}
-		if(inDeathAnimation && deathTime == 3 && time % player.getImgFrequency() == player.getImgFrequency()-1) {
-			super.playGameOverSound();
-			isDead = true;
-			setup(marker);
-		}
-		if(inDeathAnimation && time % player.getImgFrequency() == 0) {
-			deathTime++;
-		}
-		if(!inDeathAnimation) {
-			lava.increaseHeight(getPlayer());
-		}
 		lava.draw(marker);
-		
-		
-		if(getPlayer().intersects(endPiece)) {
-			inDoorAnimation = true;
-			
-			if(endPiece.getCenterX() > player.getCenterX())
-			{
-				endPiece.setImages(doorAnimation2);
 
-			} else
-			endPiece.setImages(doorAnimation1);
-			
-		}
-		
-		if(inDoorAnimation) doorTime++;
-		
-		if(inDoorAnimation = true && doorTime == 10)
-		setFinished(true);
-		
 		displayCelebrations(marker);
 		if (player.canDamage) displayHit(marker, bulletHitX, bulletHitY);
 

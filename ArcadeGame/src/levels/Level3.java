@@ -227,7 +227,11 @@ public class Level3 extends Level {
 					if(suspect != null && suspect == currentMobileEnemy && !inDeathAnimation && player.canDamage)
 					displayDamage(marker, (float)getPlayer().getCenterX(), (float)getPlayer().getCenterY(), false);
 				}
-				else mobileEnemyHitTime = 0;
+				else {
+					mobileEnemyHitTime = 0;
+					growled = false;
+					grunted = false;
+				}
 			}
 			
 			if(mobilePieces.get(i).getHealth() <= 0) {
@@ -287,9 +291,7 @@ public class Level3 extends Level {
 		
 		endPiece.draw(marker);
 
-		
-		lava.draw(marker);
-
+	
 		
 		if(lava.intersects(getPlayer()))
 		{
@@ -308,7 +310,10 @@ public class Level3 extends Level {
 			lava.increaseHeight(getPlayer());
 		}
 		if(getPlayer().intersects(endPiece))
-		{
+		{	
+			if (!success.isPlaying()) {
+				success.play();
+			} 
 			setFinished(true); 
 		}
 		for(int i = 0; i < powerups.size(); i++) {
@@ -327,9 +332,7 @@ public class Level3 extends Level {
 //			}
 		}
 		
-		
-		
-		
+		lava.draw(marker);
 		displayCelebrations(marker);
 		if (player.canDamage) displayHit(marker, bulletHitX, bulletHitY);
 

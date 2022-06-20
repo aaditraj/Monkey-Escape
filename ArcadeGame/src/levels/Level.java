@@ -20,8 +20,12 @@ public class Level {
 	ArrayList<Collider> coins = new ArrayList<>();
 	ArrayList<PowerUp> powerups = new ArrayList<>();
 	SoundFile coinCollectSound;
-	SoundFile damageSound;
+	SoundFile bulletImpactSound;
 	SoundFile gameOverSound;
+	SoundFile roarSound;
+	SoundFile gruntSound;
+	SoundFile ominous;
+	SoundFile success;
 	String[] celebrations = new String[] {"Great job!", "Amazing!", "Awesome!", "You're a pro!", "Keep it up!"};
 	String currentCelebration;
 	ArrayList<Collider> defeatedObjects = new ArrayList<Collider>();
@@ -37,7 +41,9 @@ public class Level {
 	boolean isFinished = false;
 	boolean[] keysPressed = new boolean[3];
 	int lavaHitTime = 0;
-	private boolean shot;
+	boolean shot;
+	boolean growled;
+	boolean grunted;
 	
 	/**
 	 * Abstract method to draw a Level, with all its objects
@@ -50,9 +56,14 @@ public class Level {
 	public void setupSoundEffects(PApplet marker) {
 		coinCollectSound = new SoundFile(marker, "assets/SoundEffects/coin-collect.wav");
 		coinCollectSound.amp(0.2f);
-		damageSound = new SoundFile(marker, "assets/SoundEffects/damage.wav");
-		damageSound.amp(0.3f);
+		bulletImpactSound = new SoundFile(marker, "assets/SoundEffects/grunt.wav");
+		bulletImpactSound.amp(0.3f);
 		gameOverSound = new SoundFile(marker, "assets/SoundEffects/game-over.wav");
+		roarSound = new SoundFile(marker, "assets/SoundEffects/roar.wav");
+		gruntSound = new SoundFile(marker, "assets/SoundEffects/grunt.wav");
+		ominous = new SoundFile(marker, "assets/SoundEffects/ominous.wav");
+		ominous.amp(0.75f);
+		success = new SoundFile(marker, "assets/SoundEffects/success.wav");
 	}
 	/**
 	 * Abstract method to move the main character
@@ -101,9 +112,14 @@ public class Level {
 	public void displayHit(PApplet marker, float f, float g)
 	{	
 		if(hitTime <= 8 && hitTime >= 0)
-		{
-			if (!shot && !damageSound.isPlaying()) {
-				damageSound.play();
+		{	
+			if (owner == "ShootingEnemy") {
+				bulletImpactSound.amp(0.75f);
+			} else if (owner == "SideShooter") {
+				bulletImpactSound.amp(0.3f);
+			}
+			if (!shot && !bulletImpactSound.isPlaying()) {
+				bulletImpactSound.play();
 				shot = true;
 			}
 			marker.push();
@@ -139,8 +155,12 @@ public class Level {
 	 */
 	public void displayDamage(PApplet marker, float f, float g, boolean isLava)
 	{	
-		if (!damageSound.isPlaying()) {
-			damageSound.play();
+		if (!isLava && !growled && !roarSound.isPlaying()) {
+			roarSound.play();
+			growled = true;
+		} else if (isLava && !grunted && !gruntSound.isPlaying()) {
+			gruntSound.play();
+			grunted = true;
 		}
 		marker.push();
 		marker.textFont(marker.createFont("assets/ARCADE_N.TTF", 16));
