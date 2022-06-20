@@ -107,8 +107,8 @@ public class LevelSwitch extends PApplet{
 	 */
 	public void draw() {
 		
-		System.out.println(width);
-		System.out.println(height);
+//		System.out.println(width);
+//		System.out.println(height);
 
 //		System.out.println("Random: " + level.getRandomInt(5, 10));
 		//if(System.currentTimeMillis() % 10 == 0) {
