@@ -46,7 +46,7 @@ public class Level3 extends Level {
 	float bulletHitY = 0;
 	private ShootingEnemy dropper;
 	boolean inDeathAnimation;
-	boolean speedReduced;
+	boolean speedReduced = false;
 	int deathTime;
 	String[] deathAnimation = new String[]{"assets/Player/Player.png","assets/Player/Player_body.png","assets/Player/Player_head.png","assets/Player/Player_head_dropped.png"};
 	private Platform platform1Danger;
@@ -191,6 +191,7 @@ public class Level3 extends Level {
 			displayDamage(marker, (float) getPlayer().getCenterX(), (float) getPlayer().getCenterY(), true);
 		} else if(speedReduced) {
 			player.playerSpeed *= 2;
+			speedReduced = false;
 		}
 		
 		if (!platform1Danger.intersects(getPlayer()) && !platform2Danger.intersects(getPlayer())) {
