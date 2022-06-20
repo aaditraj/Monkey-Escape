@@ -25,18 +25,19 @@ public class InvincibilityPowerUp extends PowerUp {
 	public void drawPowerupEffects(PApplet drawer, Point2D.Double playerLoc) {
 		drawer.push();
 		if(pGraphics == null) {
-			
+			pGraphics = drawer.createGraphics((int)shieldRad/4,(int)shieldRad/4);
 		}
 		drawer.fill(140, 200, 210, 35);
-		drawer.beginShape();
-		drawer.circle((float) playerLoc.getX(), (float) playerLoc.getY(),(float) shieldRad);
-		drawer.endShape();
-		
+		pGraphics.beginDraw();
+		pGraphics.circle((float) shieldRad/8, (float) shieldRad/8,(float) shieldRad/16);
+		pGraphics.endDraw();
+		pGraphics.noSmooth();
+		pGraphics.fill(3, 227, 252, 75);
+		drawer.image(pGraphics,(float) (playerLoc.getX()-shieldRad/2),(float) (playerLoc.getY() - shieldRad/2),(float)shieldRad,(float)shieldRad);
 		drawer.rect(0, 0, drawer.width, drawer.height);
 		
-		drawer.stroke(3, 227, 252, 0);
-		drawer.fill(3, 227, 252, 75);
-		drawer.circle((float) playerLoc.getX(), (float) playerLoc.getY(), (float) shieldRad);
+		
+		//drawer.circle((float) playerLoc.getX(), (float) playerLoc.getY(), (float) shieldRad);
 		drawer.pop();
 		shieldRad--;
 	}
