@@ -34,7 +34,7 @@ public class SideShooter extends Collider {
 	 * @return the bullet shot
 	 */
 	public Bullet shoot() {
-		Bullet mc = new Bullet(getCenterX(),getCenterY(),"SideShooter",new String[] {Bullet.bananaLocation}, 193/8d, 161/8d, 1);
+		Bullet mc = new Bullet(getCenterX(),getCenterY(),"SideShooter",new String[] {Bullet.bananaLocation}, 193/8d, 161/8d, 2);
 		mc.setVelocity(direction * bulletSpeed, 0);
 		return mc;
 	}

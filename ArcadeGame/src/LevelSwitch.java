@@ -334,10 +334,10 @@ public class LevelSwitch extends PApplet{
 			namePage.interpretKeystroke((char)keyCode);
 		} else {
 			if (keyCode == UP) { 
-				if ((gameStatus == GameStatus.SINGLE_PLAYER || gameStatus == GameStatus.ENDLESS) && !jumpSound.isPlaying()) {
+				boolean canJump = level.getPlayer().jump(level.getObjects());
+				if ((gameStatus == GameStatus.SINGLE_PLAYER || gameStatus == GameStatus.ENDLESS) && canJump && !jumpSound.isPlaying()) {
 					jumpSound.play();
 				}
-				level.getPlayer().jump(level.getObjects());
 			} 
 			if (keyCode == DOWN) { 
 				if(gameStatus == GameStatus.MAIN_MENU) menu.modifyIndex(1);

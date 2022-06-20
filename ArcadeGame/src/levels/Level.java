@@ -37,6 +37,7 @@ public class Level {
 	boolean isFinished = false;
 	boolean[] keysPressed = new boolean[3];
 	int lavaHitTime = 0;
+	private boolean shot;
 	
 	/**
 	 * Abstract method to draw a Level, with all its objects
@@ -99,11 +100,11 @@ public class Level {
 	 */
 	public void displayHit(PApplet marker, float f, float g)
 	{	
-
 		if(hitTime <= 8 && hitTime >= 0)
 		{
-			if (!damageSound.isPlaying()) {
+			if (!shot && !damageSound.isPlaying()) {
 				damageSound.play();
+				shot = true;
 			}
 			marker.push();
 			marker.textFont(marker.createFont("assets/ARCADE_N.TTF", 16));
@@ -112,22 +113,23 @@ public class Level {
 			if(owner == "ShootingEnemy") {
 				marker.translate(f + 5, g + 5);
 				marker.rotate(PApplet.radians(30));
-				marker.text("-10", 0, 0);
+				marker.text("-5", 0, 0);
 			}
 				
 			if(owner == "SideShooter") {
 				marker.translate(f - 65, g - 15);
 				marker.rotate(PApplet.radians(30));
-				marker.text("-1", 0, 0);
+				marker.text("-2", 0, 0);
 			}
 			
 			marker.pop(); 
 			hitTime++;
 		}
 	
-	if (hitTime >= 8) {
-		hitTime = -1;
-	}
+		if (hitTime >= 8) {
+			shot = false;
+			hitTime = -1;
+		}
 	}
 	/**
 	 * Method to display a dmage, when it is taken

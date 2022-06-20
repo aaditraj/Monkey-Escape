@@ -80,7 +80,6 @@ public class MobileEnemy extends Collider {
 	 */
 	public double collide(Collider collider) {
 		if (collider instanceof Player) {
-			collider.changeHealth(-1);
 			if (getCurrentImage() == 0) {
 				goToImage(2);
 			} else if(getCurrentImage() == 1) {
