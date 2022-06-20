@@ -350,10 +350,10 @@ public class LevelSwitch extends PApplet{
 				level.getKeysPressed()[2] = true;
 			}
 			if (key == 'w') {
-				if ((gameStatus == GameStatus.SINGLE_PLAYER || gameStatus == GameStatus.ENDLESS) && !jumpSound.isPlaying()) {
+				boolean canJump = level.getPlayer().jump(level.getObjects());
+				if ((gameStatus == GameStatus.SINGLE_PLAYER || gameStatus == GameStatus.ENDLESS) && canJump && !jumpSound.isPlaying()) {
 					jumpSound.play();
 				}
-				level.getPlayer().jump(level.getObjects());
 			}
 			if (key == 'd') {
 				level.getKeysPressed()[1] = true;

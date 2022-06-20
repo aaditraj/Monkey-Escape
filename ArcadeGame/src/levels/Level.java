@@ -60,7 +60,7 @@ public class Level {
 		bulletImpactSound.amp(0.3f);
 		gameOverSound = new SoundFile(marker, "assets/SoundEffects/game-over.wav");
 		roarSound = new SoundFile(marker, "assets/SoundEffects/roar.wav");
-		gruntSound = new SoundFile(marker, "assets/SoundEffects/grunt.wav");
+		gruntSound = new SoundFile(marker, "assets/SoundEffects/gruntWithDelay.wav");
 		ominous = new SoundFile(marker, "assets/SoundEffects/ominous.wav");
 		ominous.amp(0.75f);
 		success = new SoundFile(marker, "assets/SoundEffects/success.wav");
