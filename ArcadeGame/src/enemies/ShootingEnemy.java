@@ -35,7 +35,7 @@ public class ShootingEnemy extends Collider{
 	 */
 	public Bullet drop()
 	{
-		Bullet newBullet = new Bullet(getCenterX() - 25,(getCenterY() + getHeight()/2)+5, "ShootingEnemy","assets/Projectiles/Coconut.png",50,50,5);
+		Bullet newBullet = new Bullet(getCenterX() - 25,(getCenterY() + getHeight()/2)+5, "ShootingEnemy",new String[] {"assets/Projectiles/Coconut.png"},50,50,5);
 		newBullet.setVelocity(0,coconutSpeed);
 		return newBullet;
 	}
@@ -47,7 +47,7 @@ public class ShootingEnemy extends Collider{
 	 */
 	public Bullet drop(double playerX, double playerY)
 	{
-		Bullet newBullet = new Bullet(getCenterX() - 25,(getCenterY() + getHeight()/2)+5, "ShootingEnemy","assets/Projectiles/Coconut.png",50,50,5);
+		Bullet newBullet = new Bullet(getCenterX() - 25,(getCenterY() + getHeight()/2)+5, "ShootingEnemy",new String[] {"assets/Projectiles/Coconut.png"},50,50,5);
 		newBullet.setVelocity(playerX - this.getCenterX(), playerY - this.getCenterY());
 		return newBullet;
 	}

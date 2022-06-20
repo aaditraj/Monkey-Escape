@@ -116,14 +116,14 @@ public class LevelSwitch extends PApplet{
 			
 			if(level instanceof Level1)
 			{
-				background(background);
+				//background(background);
 			} else if(level instanceof Level2)
 			{
-				background(background2);
+				//background(background2);
 			} else {
-				background(background3);
+				//background(background3);
 			}
-			
+			background(50);
 			textFont(createFont("assets/ARCADE_N.TTF", 50));
 			text(points, width-150, 150);
 			image(quit, width-100, 25, 50, 50);

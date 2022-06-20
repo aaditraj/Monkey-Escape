@@ -5,14 +5,15 @@ import java.util.ArrayList;
 
 import core.Collider;
 import processing.core.PApplet;
+import processing.core.PGraphics;
 
 public class InvincibilityPowerUp extends PowerUp {
 	
 	public static final double INVINCIBILITY_PERIOD = 6000;
-	public static String[] powerupImages = new String[] {"assets/Powerups/shield.png"};
+	public static String[] powerupImages = new String[] {"assets/Powerups/Shield1.png","assets/Powerups/Shield2.png","assets/Powerups/Shield3.png"};
 	public static final String[] playerAnimation = null;
 	private double shieldRad;
-	
+	private PGraphics pGraphics;
 	public InvincibilityPowerUp(ArrayList<Collider> mobilePieces, ArrayList<Collider> bullets, double x, double y, double width, double height) {
 		super(powerupImages, null, mobilePieces, bullets, x, y, width, height, INVINCIBILITY_PERIOD);
 		shieldRad = 150;
@@ -23,7 +24,14 @@ public class InvincibilityPowerUp extends PowerUp {
 	@Override
 	public void drawPowerupEffects(PApplet drawer, Point2D.Double playerLoc) {
 		drawer.push();
+		if(pGraphics == null) {
+			
+		}
 		drawer.fill(140, 200, 210, 35);
+		drawer.beginShape();
+		drawer.circle((float) playerLoc.getX(), (float) playerLoc.getY(),(float) shieldRad);
+		drawer.endShape();
+		
 		drawer.rect(0, 0, drawer.width, drawer.height);
 		
 		drawer.stroke(3, 227, 252, 0);

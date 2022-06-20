@@ -60,25 +60,25 @@ public class ShootingPlayer extends Player{
 		{
 			
 			if (mouseY < getY()) {
-				b = new Bullet(x, this.getY(), "player",Bullet.bulletLocation,damage);
+				b = new Bullet(x, this.getY(), "player",new String[] {Bullet.bulletLocation},damage);
 
 			} else if (mouseY >= getY() && mouseY <= getY() + getHeight()) {
-				b = new Bullet(x, mouseY, "player",Bullet.bulletLocation,damage);
+				b = new Bullet(x, mouseY, "player",new String[] {Bullet.bulletLocation},damage);
 
 			} else {
-				b = new Bullet(x, this.getY() + this.getHeight(), "player",Bullet.bulletLocation, damage);
+				b = new Bullet(x, this.getY() + this.getHeight(), "player",new String[] {Bullet.bulletLocation}, damage);
 			}
 		}
 		else {
 //			System.out.println("Hi");
 			if (mouseY < getY()) {
-				b = new Bullet(x, this.getY(), "player",Bullet.bulletLocation2,damage);
+				b = new Bullet(x, this.getY(),"player",Bullet.superLocation,32,32,damage);
 
 			} else if (mouseY >= getY() && mouseY <= getY() + getHeight()) {
-				b = new Bullet(x, mouseY, "player",Bullet.bulletLocation2,damage);
+				b = new Bullet(x, mouseY,"player",Bullet.superLocation,damage);
 
 			} else {
-				b = new Bullet(x, this.getY() + this.getHeight(), "player",Bullet.bulletLocation2, damage);
+				b = new Bullet(x, this.getY() + this.getHeight(), "player",Bullet.superLocation,32,32, damage);
 			}
 		}
 	
@@ -143,9 +143,11 @@ public class ShootingPlayer extends Player{
 	}
 	public void act(ArrayList<Collider> colliders) {
 		moveBy(vx,vy,colliders);
-
-		vy += 1;
+		updateVelocity();
 		
+	}
+	public void updateVelocity() {
+		vy += 1;
 		if (vy < defaultVy) {
 			y += vy; 
 		} else {

@@ -7,7 +7,7 @@ import processing.core.PApplet;
 public class DamagePowerUp extends PowerUp {
 	
 	public static final double DAMAGE_PERIOD = 7500;
-	public static final String[] powerupImages = new String[] {"assets/Powerups/Damage.png"};
+	public static final String[] powerupImages = new String[] {"assets/Powerups/Damage1.png","assets/Powerups/Damage2.png","assets/Powerups/Damage3.png","assets/Powerups/Damage4.png","assets/Powerups/Damage5.png","assets/Powerups/Damage6.png","assets/Powerups/Damage7.png"};
 	public static final String[] playerAnimation = null;
 
 	public DamagePowerUp(ArrayList<Collider> mobilePieces, ArrayList<Collider> bullets, double x, double y, double width, double height) {
@@ -16,10 +16,6 @@ public class DamagePowerUp extends PowerUp {
 	
 	
 	public void drawPowerupEffects(PApplet drawer, Point2D.Double playerLoc) {
-		drawer.push();
-		drawer.fill(150, 0, 0, 100);
-		drawer.rect(0, 0, drawer.width, drawer.height);
-		drawer.pop();
 	}
 	
 	@Override
