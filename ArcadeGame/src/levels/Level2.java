@@ -311,7 +311,7 @@ public class Level2 extends Level {
 		
 		if(inDoorAnimation) doorTime++;
 		
-		if(inDoorAnimation = true && doorTime == 8)
+		if(inDoorAnimation = true && doorTime == 10)
 		setFinished(true);
 		
 		displayCelebrations(marker);
