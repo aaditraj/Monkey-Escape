@@ -99,6 +99,11 @@ public class Bullet extends Collider
 		return getHealth();  
 	}
 	
+	public double getDamage() {
+		// TODO Auto-generated method stub
+		return damage;
+	}
+	
 	
 
 }

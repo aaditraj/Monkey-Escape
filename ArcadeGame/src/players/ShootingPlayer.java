@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 import core.Bullet;
 import core.Collider;
+import enemies.MobileEnemy;
 
 public class ShootingPlayer extends Player{
 	int jumpHeight;
@@ -136,10 +137,13 @@ public class ShootingPlayer extends Player{
 		jumpHeight = height;
 	}
 	
-	public void jump(ArrayList<Collider> colliders) {
-		if(this.intersects(colliders)[2]) {
+	public boolean jump(ArrayList<Collider> colliders) {
+		boolean canJump;
+		canJump = this.intersects(colliders)[2];
+		if(canJump) {
 			vy = jumpHeight;
-		}
+		} 
+		return canJump;
 	}
 	public void act(ArrayList<Collider> colliders) {
 		moveBy(vx,vy,colliders);
@@ -158,12 +162,8 @@ public class ShootingPlayer extends Player{
 		points+=amount;
 	}
 	public double collide(Collider collider) {
-		if (collider instanceof Bullet) {
-			Bullet bullet = (Bullet) collider;
-			if (bullet.getOwner() != "player") {
-				bullet.changeHealth(bullet.getHealth() * -1);
-				return 1;
-			}
+		if (collider instanceof MobileEnemy) {
+			return 1;
 		}
 		return 0.0;
 	}
