@@ -152,6 +152,7 @@ public class ShootingPlayer extends Player{
 	}
 	public void updateVelocity() {
 		vy += 1;
+		
 		if (vy < defaultVy) {
 			y += vy; 
 		} else {
