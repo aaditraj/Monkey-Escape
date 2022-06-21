@@ -110,12 +110,15 @@ public class LevelSwitch extends PApplet{
 	 */
 	public void draw() {
 		
+		
 //		System.out.println(width);
 //		System.out.println(height);
 
 //		System.out.println("Random: " + level.getRandomInt(5, 10));
 		//if(System.currentTimeMillis() % 10 == 0) {
 		if(gameStatus == GameStatus.SINGLE_PLAYER || gameStatus == GameStatus.ENDLESS) {
+//			if(startMusic.isPlaying()) startMusic.stop();
+			
 			
 			if(level instanceof Level1)
 			{
@@ -289,6 +292,7 @@ public class LevelSwitch extends PApplet{
 				else {
 					level.getPlayer().points = previousPoints; 
 					level.setFinished(true); 
+					
 				}
 			}
 		}
