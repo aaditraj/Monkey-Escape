@@ -328,7 +328,7 @@ public class Level2 extends Level {
 
 		
 	}
-	public boolean isInDeathAnimation() {
+	public boolean isInAnimation() {
 		return inDeathAnimation;
 	}
 }

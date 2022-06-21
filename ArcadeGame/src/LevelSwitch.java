@@ -304,30 +304,30 @@ public class LevelSwitch extends PApplet{
 	 *The method that uses the keys pressed to determine which direction to move the main player. 
 	 */
 	public void move() {
-		if(level.getKeysPressed()[0] && !level.isInDeathAnimation()) {
+		if(level.getKeysPressed()[0] && !level.isInAnimation()) {
 			level.getPlayer().moveBy(0, level.getPlayerSpeed(),  level.getObjects());
 			if(playerState != 1) {
 				playerState = 1;
 				level.getPlayer().setImages(level.getPlayer().getCurrent());
 			}
 		}
-		if(level.getKeysPressed()[1] && !level.isInDeathAnimation()) {
+		if(level.getKeysPressed()[1] && !level.isInAnimation()) {
 			level.getPlayer().moveBy(level.getPlayerSpeed(), 0,level.getObjects());
 			if(playerState != 2) {
 				playerState = 2;
 				level.getPlayer().setImages(level.getPlayer().getRight());
 			}
-		} else if (playerState == 2 && !level.isInDeathAnimation()) {
+		} else if (playerState == 2 && !level.isInAnimation()) {
 			playerState = 1;
 			level.getPlayer().setImages(level.getPlayer().getCurrent());
 		}
-		if(level.getKeysPressed()[2] && !level.isInDeathAnimation()) {
+		if(level.getKeysPressed()[2] && !level.isInAnimation()) {
 			level.getPlayer().moveBy(-level.getPlayerSpeed(),0, level.getObjects());
 			if(playerState != 3) {
 				playerState = 3;
 				level.getPlayer().setImages(level.getPlayer().getLeft());
 			}
-		} else if(playerState == 3 && !level.isInDeathAnimation()) {
+		} else if(playerState == 3 && !level.isInAnimation()) {
 			playerState = 1;
 			level.getPlayer().setImages(level.getPlayer().getCurrent());
 		}

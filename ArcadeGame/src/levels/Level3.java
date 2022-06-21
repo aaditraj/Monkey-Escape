@@ -306,13 +306,13 @@ public class Level3 extends Level {
 			getPlayer().changeHealth(-1);
 		}
 		
-		if(inAnimation && deathTime == 3 && time % player.getImgFrequency() == player.getImgFrequency()-2 && animationType == deathAnim) {
+		if(inAnimation && deathTime == 3 && animationType == deathAnim) {
 			super.playGameOverSound();
 			isDead = true;
 			setup(marker);
 			
 		}
-		if(inAnimation && successTime == 3 && time % player.getImgFrequency() == player.getImgFrequency()-2 && animationType == successAnim) {
+		if(inAnimation && successTime == 3 && animationType == successAnim) {
 			if (!success.isPlaying()) {
 				success.play();
 			} 
@@ -335,7 +335,6 @@ public class Level3 extends Level {
 			animationType = successAnim;
 			player.setImages(successAnimation);
 			player.setFrequency(10);
-			player.setHealth(0);
 		}
 		for(int i = 0; i < powerups.size(); i++) {
 			 if (!powerups.get(i).collected) {
@@ -358,7 +357,7 @@ public class Level3 extends Level {
 		if (player.canDamage) displayHit(marker, bulletHitX, bulletHitY);
 
 	}
-	public boolean isinAnimation() {
+	public boolean isInAnimation() {
 		return inAnimation;
 	}
 }

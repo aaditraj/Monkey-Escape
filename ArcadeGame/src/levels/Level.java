@@ -36,7 +36,6 @@ public class Level {
 	int mobileEnemyHitTime = 0;
 
 	String owner = ""; 
-
 	int time = 0;
 	boolean isFinished = false;
 	boolean[] keysPressed = new boolean[3];
@@ -71,7 +70,7 @@ public class Level {
 	public void move() {
 		
 	}
-	public boolean isInDeathAnimation() {
+	public boolean isInAnimation() {
 		return false;
 	}
 	/**
