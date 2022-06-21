@@ -56,7 +56,7 @@ public class Level {
 	public void setupSoundEffects(PApplet marker) {
 		coinCollectSound = new SoundFile(marker, "assets/SoundEffects/coin-collect.wav");
 		coinCollectSound.amp(0.2f);
-		bulletImpactSound = new SoundFile(marker, "assets/SoundEffects/grunt.wav");
+		bulletImpactSound = new SoundFile(marker, "assets/SoundEffects/damage.wav");
 		bulletImpactSound.amp(0.3f);
 		gameOverSound = new SoundFile(marker, "assets/SoundEffects/game-over.wav");
 		roarSound = new SoundFile(marker, "assets/SoundEffects/roar.wav");
