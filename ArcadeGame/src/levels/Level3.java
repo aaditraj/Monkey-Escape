@@ -97,7 +97,7 @@ public class Level3 extends Level {
 		endPiece = new Collider(new String[] {"assets/Player/KidTarzan.png"},275,990,170,80,80,0,0);
 
 
-		player.playerSpeed = 15;
+		player.playerSpeed = 10;
 		staticPieces.add(platform2);
 		staticPieces.add(platform1);
 		staticPieces.add(platform3);
@@ -107,6 +107,7 @@ public class Level3 extends Level {
 		staticPieces.add(platform5);
 		staticPieces.add(platform6);
 		staticPieces.add(platform4);
+		coins.clear();
 		coins.add(coin1);
 		coins.add(coin2);
 		coins.add(coin3);
