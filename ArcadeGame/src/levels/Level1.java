@@ -302,13 +302,13 @@ public class Level1 extends Level{
 				powerups.get(i).draw(marker);
 			}
 			 
-			if (powerups.get(0).active) {
-				powerups.get(0).drawPowerupEffects(marker, new Point2D.Double(player.getCenterX(), player.getCenterY()));
+			if (powerups.get(i).active) {
+				powerups.get(i).drawPowerupEffects(marker, new Point2D.Double(player.getCenterX(), player.getCenterY()));
 			}
 			
-			if (powerups.get(1).active) {
-				powerups.get(1).drawPowerupEffects(marker, new Point2D.Double(player.getCenterX(), player.getCenterY()));
-			}
+//			if (powerups.get(1).active) {
+//				powerups.get(1).drawPowerupEffects(marker, new Point2D.Double(player.getCenterX(), player.getCenterY()));
+//			}
 
 		}
 		lava.draw(marker);
@@ -319,7 +319,7 @@ public class Level1 extends Level{
 
 
 	}	
-	public boolean isInDeathAnimation() {
+	public boolean isInAnimation() {
 		return inDeathAnimation;
 	}
 }

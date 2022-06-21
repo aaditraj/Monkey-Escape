@@ -27,9 +27,7 @@ public class InvincibilityPowerUp extends PowerUp {
 		if(pg == null) { pg = drawer.createGraphics((int)shieldRad/4,(int)shieldRad/4); }
 		drawer.fill(140, 200, 210, 35);
 
-		pg.noSmooth();
 		pg.beginDraw();
-		pg.noStroke();
 
 		pg.fill(255);
 		
@@ -41,7 +39,7 @@ public class InvincibilityPowerUp extends PowerUp {
 	
 		
 
-		drawer.image(pg, (float) (playerLoc.getX()/0.95-shieldRad/2),(float) (playerLoc.getY() - shieldRad/2), (int)shieldRad, (int)shieldRad);
+		drawer.image(pg, (float) (playerLoc.getX()/0.98-shieldRad/2),(float) (playerLoc.getY() - shieldRad/2), (int)shieldRad, (int)shieldRad);
 //		if(pGraphics == null) {
 //			pGraphics = drawer.createGraphics((int)shieldRad/4,(int)shieldRad/4);
 //		}
