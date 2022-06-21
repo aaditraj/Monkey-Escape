@@ -201,6 +201,7 @@ public class Level2 extends Level {
 				if(mobilePieces.get(i) instanceof ShootingPlayer) {
 					if(!inDeathAnimation) {
 						inDeathAnimation = true;
+						super.playGameOverSound();
 						player.setImages(deathAnimation);
 						player.setFrequency(10);
 						player.setHealth(0);
@@ -273,7 +274,6 @@ public class Level2 extends Level {
 			getPlayer().changeHealth(-1);
 		}
 		if(inDeathAnimation && deathTime == 3 && time % player.getImgFrequency() == player.getImgFrequency()-1) {
-			super.playGameOverSound();
 			isDead = true;
 			setup(marker);
 		}
