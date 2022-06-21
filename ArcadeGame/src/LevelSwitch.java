@@ -76,14 +76,15 @@ public class LevelSwitch extends PApplet{
 		quit = loadImage("assets/SettingSymbol.png");
 		background = loadImage("assets/jungle_background.jpg");
 		background2 = loadImage("assets/level_2_background.jpg");
-
 		background3 = loadImage("assets/level_3_background.jpg");
-
 		skip = loadImage("assets/SkipSymbol.png");
 		quitPrompt = loadImage("assets/QuitPrompt.png");
-		if (startMusic == null) {
-			startMusic = new SoundFile(this, "assets/Music/StartMusic.wav");
-		}
+		
+		if (startMusic == null) startMusic = new SoundFile(this, "assets/Music/StartMusic.wav");
+		if (level1Music == null) level1Music = new SoundFile(this, "assets/Music/Level1.wav");
+		if (level2Music == null) level2Music = new SoundFile(this, "assets/Music/Level2.wav");
+		if (level3Music == null) level3Music = new SoundFile(this, "assets/Music/Level3.wav");
+		
 		start = new StartPage(); 
 		menu = new MainMenu(); 
 		instructions = new Instructions();
@@ -100,7 +101,7 @@ public class LevelSwitch extends PApplet{
 			((Level1)level).setup(this);
 		}
 		
-		if (level1Music == null || !level1Music.isPlaying()) {
+		if (level1Music != null && !level1Music.isPlaying()) {
 			startMusic.play();
 		}
 	}
@@ -431,9 +432,6 @@ public class LevelSwitch extends PApplet{
 			
 				if(gameStatus == GameStatus.SINGLE_PLAYER || gameStatus == GameStatus.ENDLESS) {
 					startMusic.stop();
-					level1Music = new SoundFile(this, "assets/Music/Level1.wav");
-					level2Music = new SoundFile(this, "assets/Music/Level2.wav");
-					level3Music = new SoundFile(this, "assets/Music/Level3.wav");
 					jumpSound = new SoundFile(this, "assets/SoundEffects/jump.wav");
 					shootSound = new SoundFile(this, "assets/SoundEffects/shoot.wav");
 					shootSound.amp(0.2f);

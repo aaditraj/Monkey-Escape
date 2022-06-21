@@ -102,23 +102,29 @@ public class Level1 extends Level{
 		positions[0] = new int[]{1200,640};
 		positions[1] = new int[]{110,440};
 		powerups.clear();
-		for(int i = 0; i < 2; i++) {
-			int random = (int)(Math.random() * 2); // TODO this is the powerup to test, can change arguments as needed
-			PowerUp powerup;
-			switch (random) {
-			case 0:
-				powerup = new DamagePowerUp(mobilePieces, bullets, 0, 0, 50, 50);
-				break;
-			case 1:
-				powerup = new SlowDownPowerUp(mobilePieces, bullets, 0, 0, 50, 50);
-				break;
-
-			default:
-				powerup = new DamagePowerUp(mobilePieces, bullets, 0, 0, 50, 50);
-			}
-			powerup.moveTo(positions[i][0],positions[i][1]);
-			powerups.add(powerup);
-		}
+//		for(int i = 0; i < 2; i++) {
+//			int random = (int)(Math.random() * 2); // TODO this is the powerup to test, can change arguments as needed
+//			PowerUp powerup;
+//			switch (random) {
+//			case 0:
+//				powerup = new DamagePowerUp(mobilePieces, bullets, 0, 0, 50, 50);
+//				break;
+//			case 1:
+//				powerup = new SlowDownPowerUp(mobilePieces, bullets, 0, 0, 50, 50);
+//				break;
+//
+//			default:
+//				powerup = new DamagePowerUp(mobilePieces, bullets, 0, 0, 50, 50);
+//			}
+//			powerup.moveTo(positions[i][0],positions[i][1]);
+//			powerups.add(powerup);
+//		}
+		PowerUp damageBoost = new DamagePowerUp(mobilePieces, bullets, 0, 0, 50, 50);
+		damageBoost.moveTo(positions[0][0], positions[0][1]);
+		powerups.add(damageBoost);
+		PowerUp slowDown = new SlowDownPowerUp(mobilePieces, bullets, 0, 0, 50, 50);
+		slowDown.moveTo(positions[1][0], positions[1][1]);
+		powerups.add(slowDown);
 
 		setupSoundEffects(marker);
 	}

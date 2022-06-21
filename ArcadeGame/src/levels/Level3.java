@@ -131,30 +131,36 @@ public class Level3 extends Level {
 		positions[0] = new int[]{260, 440};
 		positions[1] = new int[]{900, 965};
 		powerups.clear();
-		for(int i = 0; i < 2; i++) {
-			int random = (int)(Math.random() * 4); // TODO this is the powerup to test, can change arguments as needed
-			PowerUp powerup;
-			switch (random) {
-			case 0:
-				powerup = new DamagePowerUp(mobilePieces, bullets, 0, 0, 50, 50);
-				break;
-			case 1:
-				powerup = new InvincibilityPowerUp(mobilePieces, bullets, 0, 0, 50, 50);
-				break;
-
-			case 2:
-				powerup = new SlowDownPowerUp(mobilePieces, bullets, 0, 0, 50, 50);
-				break;
-
-			case 3:
-				powerup = new SpeedBoostPowerUp(mobilePieces, bullets, 0, 0, 50, 50);
-				break;
-			default:
-				powerup = new DamagePowerUp(mobilePieces, bullets, 0, 0, 50, 50);
-			}
-			powerup.moveTo(positions[i][0],positions[i][1]);
-			powerups.add(powerup);
-		}
+//		for(int i = 0; i < 2; i++) {
+//			int random = (int)(Math.random() * 4); // TODO this is the powerup to test, can change arguments as needed
+//			PowerUp powerup;
+//			switch (random) {
+//			case 0:
+//				powerup = new DamagePowerUp(mobilePieces, bullets, 0, 0, 50, 50);
+//				break;
+//			case 1:
+//				powerup = new InvincibilityPowerUp(mobilePieces, bullets, 0, 0, 50, 50);
+//				break;
+//
+//			case 2:
+//				powerup = new SlowDownPowerUp(mobilePieces, bullets, 0, 0, 50, 50);
+//				break;
+//
+//			case 3:
+//				powerup = new SpeedBoostPowerUp(mobilePieces, bullets, 0, 0, 50, 50);
+//				break;
+//			default:
+//				powerup = new DamagePowerUp(mobilePieces, bullets, 0, 0, 50, 50);
+//			}
+//			powerup.moveTo(positions[i][0],positions[i][1]);
+//			powerups.add(powerup);
+//		}
+		PowerUp invincibility = new InvincibilityPowerUp(mobilePieces, bullets, 0, 0, 50, 50);
+		invincibility.moveTo(positions[0][0], positions[0][1]);
+		powerups.add(invincibility);
+		PowerUp damageUp = new DamagePowerUp(mobilePieces, bullets, 0, 0, 50, 50);
+		damageUp.moveTo(positions[1][0], positions[1][1]);
+		powerups.add(damageUp);
 		
 		setupSoundEffects(marker);
 
