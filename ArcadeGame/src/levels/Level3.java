@@ -45,13 +45,18 @@ public class Level3 extends Level {
 	float bulletHitX = 0;
 	float bulletHitY = 0;
 	private ShootingEnemy dropper;
-	boolean inDeathAnimation;
+	boolean inAnimation;
 	boolean speedReduced = false;
 	int deathTime;
+	int successTime;
 	String[] deathAnimation = new String[]{"assets/Player/Player.png","assets/Player/Player_body.png","assets/Player/Player_head.png","assets/Player/Player_head_dropped.png"};
+	String[] successAnimation = new String[] {"assets/Player/Success1.png","assets/Player/Success2.png","assets/Player/Success3.png","assets/Player/Success4.png"};
+	int animationType = 0;
+	public final static int deathAnim = 1;
+	public final static int successAnim = 2;
 	private Platform platform1Danger;
 	private Platform platform2Danger;
-
+	
 	public void setup(PApplet marker) {
 		staticPieces = new ArrayList<>();
 		mobilePieces = new ArrayList<>();
@@ -60,7 +65,7 @@ public class Level3 extends Level {
 		objects = new ArrayList<>();
 		keysPressed = new boolean[5];
 		player = new ShootingPlayer(110,0,900,100d,100d,0,10, 7,90);
-		inDeathAnimation = false;
+		inAnimation = false;
 		deathTime = 0;
 		platformBottom = new Platform(0,1000,1050,40,false);
 		enemy1 = new MobileEnemy(MobileEnemy.mobileEnemyImages,10,525,900,900,900,15,0,100,125);
@@ -226,7 +231,7 @@ public class Level3 extends Level {
 				
 				if(hit) 
 				{
-					if(suspect != null && suspect == currentMobileEnemy && !inDeathAnimation && player.canDamage)
+					if(suspect != null && suspect == currentMobileEnemy && !inAnimation && player.canDamage)
 					displayDamage(marker, (float)getPlayer().getCenterX(), (float)getPlayer().getCenterY(), false);
 				}
 				else {
@@ -238,9 +243,9 @@ public class Level3 extends Level {
 			
 			if(mobilePieces.get(i).getHealth() <= 0) {
 				if(mobilePieces.get(i) instanceof ShootingPlayer) {
-					if(!inDeathAnimation) {
-						inDeathAnimation = true;
-						super.playGameOverSound();
+					if(!inAnimation) {
+						inAnimation = true;
+						animationType = deathAnim;
 						player.setImages(deathAnimation);
 						player.setFrequency(10);
 						player.setHealth(0);
@@ -252,7 +257,7 @@ public class Level3 extends Level {
 					}
 				}
 			} else {
-				if(!inDeathAnimation) {
+				if(!inAnimation) {
 					mobilePieces.get(i).act(getObjects());
 				}
 				mobilePieces.get(i).draw(marker);
@@ -262,7 +267,7 @@ public class Level3 extends Level {
 			Collider bullet = getBullets().get(i);
 			if (bullet.getX() <= marker.width && bullet.getX() >= 0 && bullet.getY() <= marker.height && bullet.getY() >= 0 && bullet.getHealth() > 0) {
 				bullet.draw(marker);
-				if(!inDeathAnimation) {
+				if(!inAnimation) {
 					if(((Bullet)bullet).getOwner().equals("player")) {
 						ArrayList<Collider> nonPlayers = (ArrayList<Collider>)mobilePieces.clone();
 						nonPlayers.remove(player);
@@ -301,22 +306,36 @@ public class Level3 extends Level {
 			getPlayer().changeHealth(-1);
 		}
 		
-		if(inDeathAnimation && deathTime == 3 && time % player.getImgFrequency() == player.getImgFrequency()-1) {
+		if(inAnimation && deathTime == 3 && time % player.getImgFrequency() == player.getImgFrequency()-2 && animationType == deathAnim) {
+			super.playGameOverSound();
 			isDead = true;
 			setup(marker);
+			
 		}
-		if(inDeathAnimation && time % player.getImgFrequency() == 0) {
-			deathTime++;
-		}
-		if(!inDeathAnimation) {
-			lava.increaseHeight(getPlayer());
-		}
-		if(getPlayer().intersects(endPiece))
-		{	
+		if(inAnimation && successTime == 3 && time % player.getImgFrequency() == player.getImgFrequency()-2 && animationType == successAnim) {
 			if (!success.isPlaying()) {
 				success.play();
 			} 
 			setFinished(true); 
+		}
+		if(inAnimation && time % player.getImgFrequency() == 0) {
+			if(animationType == deathAnim) {
+				deathTime++;
+			}
+			if(animationType == successAnim) {
+				successTime++;
+			}
+		}
+		if(!inAnimation) {
+			lava.increaseHeight(getPlayer());
+		}
+		if(getPlayer().intersects(endPiece))
+		{	
+			inAnimation = true;
+			animationType = successAnim;
+			player.setImages(successAnimation);
+			player.setFrequency(10);
+			player.setHealth(0);
 		}
 		for(int i = 0; i < powerups.size(); i++) {
 			 if (!powerups.get(i).collected) {
@@ -339,8 +358,8 @@ public class Level3 extends Level {
 		if (player.canDamage) displayHit(marker, bulletHitX, bulletHitY);
 
 	}
-	public boolean isInDeathAnimation() {
-		return inDeathAnimation;
+	public boolean isinAnimation() {
+		return inAnimation;
 	}
 }
 
