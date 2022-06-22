@@ -9,37 +9,40 @@ import processing.core.PGraphics;
 
 public class InvincibilityPowerUp extends PowerUp {
 	
-	public static final double INVINCIBILITY_PERIOD = 6000;
+	public static final double INVINCIBILITY_PERIOD = 5000;
 	public static String[] powerupImages = new String[] {"assets/Powerups/Shield1.png","assets/Powerups/Shield2.png","assets/Powerups/Shield3.png"};
 	public static final String[] playerAnimation = null;
 	private double shieldRad;
 	private PGraphics pg;
 	public InvincibilityPowerUp(ArrayList<Collider> mobilePieces, ArrayList<Collider> bullets, double x, double y, double width, double height) {
 		super(powerupImages, null, mobilePieces, bullets, x, y, width, height, INVINCIBILITY_PERIOD);
-		shieldRad = 150;
+		shieldRad = 170;
 	}
 
 	
 
 	@Override
 	public void drawPowerupEffects(PApplet drawer, Point2D.Double playerLoc) {
-		drawer.push();
+		
 		if(pg == null) { pg = drawer.createGraphics((int)shieldRad/4,(int)shieldRad/4); }
+
+		
+		drawer.push();
 		drawer.fill(140, 200, 210, 35);
 
 		pg.beginDraw();
-
+//		pg.translate((float) shieldRad/4, 0);
 		pg.fill(255);
 		
 		pg.background(0,0);
 		pg.fill(3, 227, 252, 75);
-		pg.ellipse((int)shieldRad/8, (int)shieldRad/8, (int)shieldRad/4, (int)shieldRad/4);
+		pg.ellipse((float)shieldRad/8, (float)shieldRad/8, (float)shieldRad/4, (float)shieldRad/4);
 		pg.endDraw();
 		
-	
 		
-
-		drawer.image(pg, (float) (playerLoc.getX()/0.98-shieldRad/2),(float) (playerLoc.getY() - shieldRad/2), (int)shieldRad, (int)shieldRad);
+		
+		drawer.imageMode(drawer.CENTER);
+		drawer.image(pg, (float) (playerLoc.x * 1.03),(float) (playerLoc.y), (float)shieldRad, (float)shieldRad);
 //		if(pGraphics == null) {
 //			pGraphics = drawer.createGraphics((int)shieldRad/4,(int)shieldRad/4);
 //		}
@@ -56,6 +59,7 @@ public class InvincibilityPowerUp extends PowerUp {
 		//drawer.circle((float) playerLoc.getX(), (float) playerLoc.getY(), (float) shieldRad);
 		drawer.pop();
 		shieldRad--;
+		
 	}
 	
 	@Override

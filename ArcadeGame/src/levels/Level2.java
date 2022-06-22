@@ -88,7 +88,7 @@ public class Level2 extends Level {
 
 		
 		player.playerSpeed = 10;
-		player.setJumpHeight(-12);
+		player.setJumpHeight(-17);
 		staticPieces.add(platform1);
 		staticPieces.add(platform2);
 		staticPieces.add(platform3);
