@@ -262,7 +262,7 @@ public class Level1 extends Level{
 		}
 		
 		
-		if(inDeathAnimation && deathTime == 3 && time % player.getImgFrequency() == player.getImgFrequency()-1) {
+		if(inDeathAnimation && deathTime == 2 && time % player.getImgFrequency() == player.getImgFrequency()-1) {
 			isDead = true;
 			setup(marker);
 		}
