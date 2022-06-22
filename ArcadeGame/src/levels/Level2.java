@@ -72,6 +72,7 @@ public class Level2 extends Level {
 		dropper1 = new ShootingEnemy(1500, 300, 0, 75, 75);
 		coin2 = new Coin(10,775);
 		coin1 = new Coin(10,375);
+		coins.clear();
 		coins.add(coin1);
 		coins.add(coin2);
 		player = new ShootingPlayer(80,250,700,100,100,0,10,10);
@@ -280,7 +281,7 @@ public class Level2 extends Level {
 		{
 			getPlayer().changeHealth(-1);
 		}
-		if(inDeathAnimation && deathTime == 3 && time % player.getImgFrequency() == player.getImgFrequency()-1) {
+		if(inDeathAnimation && deathTime == 2 && time % player.getImgFrequency() == player.getImgFrequency()-1) {
 			isDead = true;
 			setup(marker);
 		}

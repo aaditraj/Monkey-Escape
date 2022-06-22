@@ -47,8 +47,8 @@ public class Level3 extends Level {
 	private ShootingEnemy dropper;
 	boolean inAnimation;
 	boolean speedReduced = false;
-	int deathTime;
-	int successTime;
+	int deathTime = 0;
+	int successTime = 0;
 	String[] deathAnimation = new String[]{"assets/Player/Player.png","assets/Player/Player_body.png","assets/Player/Player_head.png","assets/Player/Player_head_dropped.png"};
 	String[] successAnimation = new String[] {"assets/Player/Success1.png","assets/Player/Success2.png","assets/Player/Success3.png","assets/Player/Success4.png"};
 	int animationType = 0;
@@ -312,17 +312,20 @@ public class Level3 extends Level {
 			getPlayer().changeHealth(-1);
 		}
 		
-		if(inAnimation && deathTime == 3 && animationType == deathAnim) {
+		if(inAnimation && deathTime == 2 && time % player.getImgFrequency() == player.getImgFrequency() - 2 && animationType == deathAnim) {
 			super.playGameOverSound();
 			isDead = true;
 			setup(marker);
 			
 		}
-		if(inAnimation && successTime == 3 && animationType == successAnim) {
+		if(inAnimation && successTime == 2 && time % player.getImgFrequency() == player.getImgFrequency() - 2 && animationType == successAnim) {
 			if (!success.isPlaying()) {
 				success.play();
-			} 
-			setFinished(true); 
+			} 	
+			player.setAnimationFalse();
+		}
+		if(successTime == 6) {
+			setFinished(true);
 		}
 		if(inAnimation && time % player.getImgFrequency() == 0) {
 			if(animationType == deathAnim) {
@@ -330,12 +333,13 @@ public class Level3 extends Level {
 			}
 			if(animationType == successAnim) {
 				successTime++;
+				System.out.println(successTime + " " + player.getImgFrequency());
 			}
 		}
 		if(!inAnimation) {
 			lava.increaseHeight(getPlayer());
 		}
-		if(getPlayer().intersects(endPiece))
+		if(getPlayer().intersects(endPiece) && !inAnimation)
 		{	
 			inAnimation = true;
 			animationType = successAnim;
