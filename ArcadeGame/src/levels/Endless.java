@@ -62,18 +62,18 @@ public class Endless extends Level {
 		player = new ShootingPlayer(50,200,650,100,100,0,10,10,125);
 		int platform1Width = 300;
 		Platform platform1 = new Platform(0, 780, platform1Width, platformHeight, false);
-		Platform platform2 = new Platform(marker.width/2, 780, platform1Width, platformHeight, false);
+		//Platform platform2 = new Platform(marker.width/2, 780, platform1Width, platformHeight, false);
 		platforms1.add(platform1);
-		platforms2.add(platform2);
+		//platforms2.add(platform2);
 		onRightSide = !onRightSide;
 		player.setJumpHeight(-25);
 		
 		while(platforms1.get(platforms1.size() - 1).getY() > 0) {
 			addPlatform(marker,platforms1,true);
 		}
-		while(platforms2.get(platforms2.size() - 1).getY() > 0) {
+		/*while(platforms2.get(platforms2.size() - 1).getY() > 0) {
 			addPlatform(marker,platforms2,false);
-		}
+		}*/
 		
 		
 		
@@ -256,7 +256,7 @@ public class Endless extends Level {
 			player.setImages(deathAnimation);
 			player.setFrequency(10);
 		}
-		for(int i = 0; i < platforms2.size(); i++) {
+		/*for(int i = 0; i < platforms2.size(); i++) {
 			for(int j = 0; j < platforms2.size(); j++) {
 				if(platforms2.get(j).intersects(player)) {
 					System.out.println(platforms2.get(j));
@@ -282,7 +282,7 @@ public class Endless extends Level {
 			inAnimation = true;
 			player.setImages(deathAnimation);
 			player.setFrequency(10);
-		}
+		}*/
 //		for(int i = 0; i < coins.size(); i++) {
 //			coins.get(i).draw(marker);
 //			if(coins.get(i).intersects(getPlayer()))
@@ -342,12 +342,13 @@ public class Endless extends Level {
 			if (width > 600) {
 				width = 600;
 			}
-			if(left) {
+			//if(left) {
 				p = new Platform(x, prevPlatform.getY() - platformHeight - yDist, width, platformHeight, false);
-			} else {
+			//} 
+		/*else {
 				System.out.println(marker.width/2 + " HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHhh");
 				p = new Platform(x+marker.width/2, prevPlatform.getY() - platformHeight - yDist, width, platformHeight, false);
-			}
+			}*/
 			
 		} else {
 			
