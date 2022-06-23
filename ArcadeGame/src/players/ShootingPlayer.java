@@ -146,12 +146,9 @@ public class ShootingPlayer extends Player{
 		return canJump;
 	}
 	public void act(ArrayList<Collider> colliders) {
-		updateVelocity();
 		moveBy(vx,vy,colliders);
 	}
-	public void updateVelocity() {
-	
-		
+	public void updateVelocity() {	
 		if (vy > defaultVy) {
 			vy = defaultVy;
 		} else {
