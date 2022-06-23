@@ -139,7 +139,7 @@ public class Endless extends Level {
 		}
 		
 		
-		
+		boolean[] directions = getPlayer().intersects(getObjects());
 		for(int i = 0; i < mobilePieces.size(); i++) {
 			
 			if(mobilePieces.get(i) instanceof MobileEnemy)
@@ -193,6 +193,17 @@ public class Endless extends Level {
 				}
 				mobilePieces.get(i).draw(marker);
 			}
+			
+			if(!(player.getVY() < 0 && directions[0]) && !(player.getVY() > 0 && directions[2])) {
+				ArrayList<Collider> playerList = new ArrayList<Collider>();
+				playerList.add(player);
+				mobilePieces.get(i).moveBy(0, player.getVY() * -1, playerList);
+			}
+			if (mobilePieces.get(i).getY() > 1040) {
+				mobilePieces.remove(i);
+			} else if (mobilePieces.get(i).getY() < -300) {
+				mobilePieces.remove(i);
+			}
 		}
 		
 		
@@ -225,7 +236,9 @@ public class Endless extends Level {
 				getBullets().remove(i);
 			}
 		}
+		directions = getPlayer().intersects(getObjects());
 		getPlayer().updateVelocity();
+
 		boolean[] directions = getPlayer().intersects(getObjects());
 		ArrayList<Collider> removeList = new ArrayList<>();
 		for(int i = 0; i < platforms1.size(); i++) {
