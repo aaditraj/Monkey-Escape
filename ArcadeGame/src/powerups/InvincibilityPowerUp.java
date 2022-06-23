@@ -42,7 +42,7 @@ public class InvincibilityPowerUp extends PowerUp {
 		
 		
 		drawer.imageMode(drawer.CENTER);
-		drawer.image(pg, (float) (playerLoc.x * 1.03),(float) (playerLoc.y), (float)shieldRad, (float)shieldRad);
+		drawer.image(pg, (float) (playerLoc.x),(float) (playerLoc.y), (float)shieldRad, (float)shieldRad);
 //		if(pGraphics == null) {
 //			pGraphics = drawer.createGraphics((int)shieldRad/4,(int)shieldRad/4);
 //		}
