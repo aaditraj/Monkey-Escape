@@ -298,7 +298,10 @@ public class Endless extends Level {
 			}
 			x = x - width;
 			p = new Platform(x, prevPlatform.getY() - platformHeight - yDist, width, platformHeight, false);
+			MobileEnemy enemy = new MobileEnemy(MobileEnemy.mobileEnemyImages,10,p.getX(),p.getY() - 90,p.getX() + p.getWidth() - 72,p.getY() - 90, 10, 0,72,90);
+			mobilePieces.add(enemy);
 		}
+		
 		onRightSide = !onRightSide;
 		platforms.add(p);
 	}
