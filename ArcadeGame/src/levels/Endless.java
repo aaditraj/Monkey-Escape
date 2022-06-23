@@ -41,13 +41,15 @@ public class Endless extends Level {
 	int deathTime;
 	int doorTime;
 	boolean inAnimation;
-	ArrayList<Collider> platforms;
+	ArrayList<Collider> platforms1;
+	ArrayList<Collider> platforms2;
 	String[] doorAnimation = new String[]{"assets/Open Door.png"};
 	String[] deathAnimation = new String[]{"assets/Player/PlayerFalling1.png","assets/Player/PlayerFalling2.png","assets/Player/PlayerFalling3.png","assets/Player/PlayerFalling4.png"};
 	
 	public void setup(PApplet marker) {
 		// TODO Auto-generated method stub
-		platforms = new ArrayList<>();
+		platforms1 = new ArrayList<>();
+		platforms2 = new ArrayList<>();
 		mobilePieces = new ArrayList<>();
 		bullets = new ArrayList<>();
 		totalPieces = new ArrayList<>();
@@ -60,14 +62,18 @@ public class Endless extends Level {
 		player = new ShootingPlayer(50,200,650,100,100,0,10,10,125);
 		int platform1Width = 300;
 		Platform platform1 = new Platform(0, 780, platform1Width, platformHeight, false);
-		platforms.add(platform1);
+		Platform platform2 = new Platform(marker.width/2, 780, platform1Width, platformHeight, false);
+		platforms1.add(platform1);
+		platforms2.add(platform2);
 		onRightSide = !onRightSide;
 		player.setJumpHeight(-25);
 		
-		while(platforms.get(platforms.size() - 1).getY() > 0) {
-			addPlatform();
+		while(platforms1.get(platforms1.size() - 1).getY() > 0) {
+			addPlatform(marker,platforms1,true);
 		}
-		
+		while(platforms2.get(platforms2.size() - 1).getY() > 0) {
+			addPlatform(marker,platforms2,false);
+		}
 		
 		
 		
@@ -117,7 +123,8 @@ public class Endless extends Level {
 		objects = new ArrayList<>();
 		getObjects().clear();
 		getObjects().addAll(mobilePieces);
-		getObjects().addAll(platforms);
+		getObjects().addAll(platforms1);
+		getObjects().addAll(platforms2);
 		getObjects().remove(getPlayer());
 //		if(time%shooter1.bulletFrequency == 0) {
 //			getBullets().add(shooter2.shoot());
@@ -220,33 +227,58 @@ public class Endless extends Level {
 		}
 		getPlayer().updateVelocity();
 		boolean[] directions = getPlayer().intersects(getObjects());
-		System.out.println(Arrays.toString(directions));
 		ArrayList<Collider> removeList = new ArrayList<>();
-		for(int i = 0; i < platforms.size(); i++) {
-			for(int j = 0; j < platforms.size(); j++) {
-				if(platforms.get(j).intersects(player)) {
-					System.out.println(platforms.get(j));
-					System.out.println(platforms);
+		for(int i = 0; i < platforms1.size(); i++) {
+			for(int j = 0; j < platforms1.size(); j++) {
+				if(platforms1.get(j).intersects(player)) {
+					System.out.println(platforms1.get(j));
+					System.out.println(platforms1);
 					System.out.println(i);
 				}
 			}
 			if(!(player.getVY() < 0 && directions[0]) && !(player.getVY() > 0 && directions[2])) {
 				ArrayList<Collider> playerList = new ArrayList<Collider>();
 				playerList.add(player);
-				platforms.get(i).moveBy(0, player.getVY() * -1, playerList);
+				platforms1.get(i).moveBy(0, player.getVY() * -1, playerList);
 			}
-			if (platforms.get(i).getY() > 1040) {
-				platforms.remove(i);
-				addPlatform();
-			} else if (platforms.get(i).getY() < -300) {
-				platforms.remove(i);
+			if (platforms1.get(i).getY() > 1040) {
+				platforms1.remove(i);
+				addPlatform(marker,platforms1,true);
+			} else if (platforms1.get(i).getY() < -300) {
+				platforms1.remove(i);
 			} else {
-				platforms.get(i).draw(marker);
-				System.out.println(player.getVY() + " " + directions[2]);
+				platforms1.get(i).draw(marker);
 			}
 		}
 		
-		if(platforms.size() == 0 && !inAnimation) {
+		if(platforms1.size() == 0 && !inAnimation) {
+			inAnimation = true;
+			player.setImages(deathAnimation);
+			player.setFrequency(10);
+		}
+		for(int i = 0; i < platforms2.size(); i++) {
+			for(int j = 0; j < platforms2.size(); j++) {
+				if(platforms2.get(j).intersects(player)) {
+					System.out.println(platforms2.get(j));
+					System.out.println(platforms2);
+					System.out.println(i);
+				}
+			}
+			if(!(player.getVY() < 0 && directions[0]) && !(player.getVY() > 0 && directions[2])) {
+				ArrayList<Collider> playerList = new ArrayList<Collider>();
+				playerList.add(player);
+				platforms2.get(i).moveBy(0, player.getVY() * -1, playerList);
+			}
+			if (platforms2.get(i).getY() > 1040) {
+				platforms2.remove(i);
+				addPlatform(marker,platforms2,false);
+			} else if (platforms2.get(i).getY() < -300) {
+				platforms2.remove(i);
+			} else {
+				platforms2.get(i).draw(marker);
+			}
+		}
+		if(platforms2.size() == 0 && !inAnimation) {
 			inAnimation = true;
 			player.setImages(deathAnimation);
 			player.setFrequency(10);
@@ -292,7 +324,7 @@ public class Endless extends Level {
 
 	}
 	
-	private void addPlatform() {
+	private void addPlatform(PApplet marker, ArrayList<Collider> platforms, boolean left) {
 		// TODO Auto-generated method stub
 		Platform prevPlatform = (Platform) (platforms.get(platforms.size() - 1));
 		int maxXDist = (time/platformIncrementFreq >= numPlatformIncrements ? maxHorizDist : time/platformIncrementFreq * platformIncrement + 100);
@@ -305,12 +337,18 @@ public class Endless extends Level {
 			 
 			
 			x = prevPlatform.getX() + prevPlatform.getWidth() + xDist;
-			width = (int)(Math.random() * (1150 - (x + minPlatformWidth)) + 0.5) + minPlatformWidth;
+			width = (int)(Math.random() * (marker.width/2 - (x + minPlatformWidth)) + 0.5) + minPlatformWidth;
 			width = ((int)width/100 * 100);
 			if (width > 600) {
 				width = 600;
 			}
-			p = new Platform(x, prevPlatform.getY() - platformHeight - yDist, width, platformHeight, false);
+			if(left) {
+				p = new Platform(x, prevPlatform.getY() - platformHeight - yDist, width, platformHeight, false);
+			} else {
+				System.out.println(marker.width/2 + " HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHhh");
+				p = new Platform(x+marker.width/2, prevPlatform.getY() - platformHeight - yDist, width, platformHeight, false);
+			}
+			
 		} else {
 			
 			
