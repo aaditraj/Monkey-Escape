@@ -51,6 +51,7 @@ public class Level3 extends Level {
 	int successTime = 0;
 	String[] deathAnimation = new String[]{"assets/Player/Player.png","assets/Player/Player_body.png","assets/Player/Player_head.png","assets/Player/Player_head_dropped.png"};
 	String[] successAnimation = new String[] {"assets/Player/Success1.png","assets/Player/Success2.png","assets/Player/Success3.png","assets/Player/Success4.png"};
+	String[] kidSuccessAnimation = new String[] {"assets/Player/kidSuccess1.png","assets/Player/kidSuccess2.png","assets/Player/kidSuccess3.png","assets/Player/kidSuccess4.png"};
 	int animationType = 0;
 	public final static int deathAnim = 1;
 	public final static int successAnim = 2;
@@ -131,7 +132,6 @@ public class Level3 extends Level {
 		mobilePieces.add(getPlayer());
 		mobilePieces.add(enemy1);
 		mobilePieces.add(enemy2);
-		
 		int[][] positions = new int[2][2];
 		positions[0] = new int[]{260, 440};
 		positions[1] = new int[]{900, 965};
@@ -323,6 +323,7 @@ public class Level3 extends Level {
 				success.play();
 			} 	
 			player.setAnimationFalse();
+			endPiece.setAnimationFalse();
 		}
 		if(successTime == 6) {
 			setFinished(true);
@@ -344,6 +345,7 @@ public class Level3 extends Level {
 			inAnimation = true;
 			animationType = successAnim;
 			player.setImages(successAnimation);
+			endPiece.setImages(kidSuccessAnimation);
 			player.setFrequency(10);
 		}
 		for(int i = 0; i < powerups.size(); i++) {
@@ -353,13 +355,13 @@ public class Level3 extends Level {
 				}
 				powerups.get(i).draw(marker);
 			}
-			if (powerups.get(i).active) {
-				powerups.get(i).drawPowerupEffects(marker, new Point2D.Double(player.getCenterX(), player.getCenterY()));
+			if (powerups.get(0).active) {
+				powerups.get(0).drawPowerupEffects(marker, new Point2D.Double(player.getCenterX(), player.getCenterY()));
 			}
 //			
-//			if (powerups.get(1).active) {
-//				powerups.get(1).drawPowerupEffects(marker, new Point2D.Double(player.getCenterX(), player.getCenterY()));
-//			}
+			if (powerups.get(1).active) {
+				powerups.get(1).drawPowerupEffects(marker, new Point2D.Double(player.getCenterX(), player.getCenterY()));
+			}
 		}
 		
 		lava.draw(marker);
