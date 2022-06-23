@@ -31,7 +31,7 @@ public class ShootingPlayer extends Player{
 		defaultVx = vx;
 		defaultVy = vy;
 		setFrequency(3);
-		this.jumpHeight = -15;
+		this.jumpHeight = -22;
 		damageUp = false;
 		damage = 1;
 		playerSpeed = 10;
@@ -148,19 +148,15 @@ public class ShootingPlayer extends Player{
 	public void act(ArrayList<Collider> colliders) {
 		updateVelocity();
 		moveBy(vx,vy,colliders);
-	
-		
 	}
 	public void updateVelocity() {
 	
 		
-		if (vy < defaultVy) {
-			y += vy; 
-		} else {
+		if (vy > defaultVy) {
 			vy = defaultVy;
+		} else {
+			vy += 1;
 		}
-		
-		vy += 1;
 	}
 	public void changePoints(int amount) {
 		points+=amount;

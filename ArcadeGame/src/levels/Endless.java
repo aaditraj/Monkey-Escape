@@ -26,8 +26,10 @@ public class Endless extends Level {
 	final int platformHeight = 40;	
 	final int minPlatformWidth = 100;
 	final int platformIncrementFreq = 20000;
-	final int maxHorizDist = 125;
-	final int maxVerticalDist = 125;
+	final int maxHorizDist = 300;
+	final int maxVerticalDist = 300;
+	final int minHorizDist = 300;
+	final int minVerticalDist = 300;
 	final int numPlatformIncrements = 5;
 	final int platformIncrement = 25;
 	PImage bg;
@@ -38,9 +40,10 @@ public class Endless extends Level {
 	boolean onRightSide;
 	int deathTime;
 	int doorTime;
+	boolean inAnimation;
 	ArrayList<Collider> platforms;
 	String[] doorAnimation = new String[]{"assets/Open Door.png"};
-	String[] deathAnimation = new String[]{"assets/Player/Player.png","assets/Player/Player_body.png","assets/Player/Player_head.png","assets/Player/Player_head_dropped.png"};
+	String[] deathAnimation = new String[]{"assets/Player/PlayerFalling1.png","assets/Player/PlayerFalling2.png","assets/Player/PlayerFalling3.png","assets/Player/PlayerFalling4.png"};
 	
 	public void setup(PApplet marker) {
 		// TODO Auto-generated method stub
@@ -49,17 +52,17 @@ public class Endless extends Level {
 		bullets = new ArrayList<>();
 		totalPieces = new ArrayList<>();
 		objects = new ArrayList<>();
-		inDeathAnimation = false;
+		inAnimation = false;
 		deathTime = 0;
 		onRightSide = false;
-		
+		isDead = false;
 		
 		player = new ShootingPlayer(50,200,650,100,100,0,10,10,125);
-		int platform1Width = (int) (Math.random() * 250 + 0.5) + 250;
+		int platform1Width = 300;
 		Platform platform1 = new Platform(0, 780, platform1Width, platformHeight, false);
 		platforms.add(platform1);
 		onRightSide = !onRightSide;
-		
+		player.setJumpHeight(-25);
 		
 		while(platforms.get(platforms.size() - 1).getY() > 0) {
 			addPlatform();
@@ -112,8 +115,10 @@ public class Endless extends Level {
 	public void draw(PApplet marker) {
 		time++;
 		objects = new ArrayList<>();
+		getObjects().clear();
 		getObjects().addAll(mobilePieces);
 		getObjects().addAll(platforms);
+		getObjects().remove(getPlayer());
 //		if(time%shooter1.bulletFrequency == 0) {
 //			getBullets().add(shooter2.shoot());
 //			getBullets().add(shooter1.shoot());
@@ -175,9 +180,9 @@ public class Endless extends Level {
 				}
 			} else {
 				if(!inDeathAnimation) {
-					//if(!(mobilePieces.get(i) instanceof ShootingPlayer)) {
+					if(!(mobilePieces.get(i) instanceof ShootingPlayer)) {
 						mobilePieces.get(i).act(getObjects());
-					//}
+					}
 				}
 				mobilePieces.get(i).draw(marker);
 			}
@@ -216,16 +221,35 @@ public class Endless extends Level {
 		getPlayer().updateVelocity();
 		boolean[] directions = getPlayer().intersects(getObjects());
 		System.out.println(Arrays.toString(directions));
+		ArrayList<Collider> removeList = new ArrayList<>();
 		for(int i = 0; i < platforms.size(); i++) {
+			for(int j = 0; j < platforms.size(); j++) {
+				if(platforms.get(j).intersects(player)) {
+					System.out.println(platforms.get(j));
+					System.out.println(platforms);
+					System.out.println(i);
+				}
+			}
+			if(!(player.getVY() < 0 && directions[0]) && !(player.getVY() > 0 && directions[2])) {
+				ArrayList<Collider> playerList = new ArrayList<Collider>();
+				playerList.add(player);
+				platforms.get(i).moveBy(0, player.getVY() * -1, playerList);
+			}
 			if (platforms.get(i).getY() > 1040) {
 				platforms.remove(i);
 				addPlatform();
+			} else if (platforms.get(i).getY() < -300) {
+				platforms.remove(i);
+			} else {
+				platforms.get(i).draw(marker);
+				System.out.println(player.getVY() + " " + directions[2]);
 			}
-			platforms.get(i).draw(marker);
-			System.out.println(player.getVY() + " " + directions[2]);
-			if(!(player.getVY() < 0 && directions[0]) && !(player.getVY() > 0 && directions[2])) {
-				platforms.get(i).moveBy(0, player.getVY() * -1, new ArrayList<>());
-			}
+		}
+		
+		if(platforms.size() == 0 && !inAnimation) {
+			inAnimation = true;
+			player.setImages(deathAnimation);
+			player.setFrequency(10);
 		}
 //		for(int i = 0; i < coins.size(); i++) {
 //			coins.get(i).draw(marker);
@@ -252,12 +276,12 @@ public class Endless extends Level {
 		}
 
 	
-		if(inDeathAnimation && deathTime == 3 && time % player.getImgFrequency() == player.getImgFrequency()-1) {
+		if(inAnimation && deathTime == 3 && time % player.getImgFrequency() == player.getImgFrequency()-1) {
 			super.playGameOverSound();
 			isDead = true;
 			setup(marker);
 		}
-		if(inDeathAnimation && time % player.getImgFrequency() == 0) {
+		if(inAnimation && time % player.getImgFrequency() == 0) {
 			deathTime++;
 		}
 
@@ -272,9 +296,9 @@ public class Endless extends Level {
 		// TODO Auto-generated method stub
 		Platform prevPlatform = (Platform) (platforms.get(platforms.size() - 1));
 		int maxXDist = (time/platformIncrementFreq >= numPlatformIncrements ? maxHorizDist : time/platformIncrementFreq * platformIncrement + 100);
-		int xDist = (int) (Math.random() * platformIncrement * 2 + 0.5) + maxXDist - 50; 
+		int xDist = (int) (Math.random() * platformIncrement * 2 + 0.5) + maxXDist; 
 		int maxYDist = (time/platformIncrementFreq >= numPlatformIncrements ? maxVerticalDist : time/platformIncrementFreq * platformIncrement + 100);
-		int yDist = (int) (Math.random() * platformIncrement * 2 + 0.5) + maxYDist - 50;
+		int yDist = (int) (Math.random() * platformIncrement * 2 + 0.5) + maxYDist;
 		Platform p;
 		double x, width;
 		if (onRightSide) {
@@ -291,7 +315,7 @@ public class Endless extends Level {
 			
 			
 			x = prevPlatform.getX() - xDist;
-			width = (int)(Math.random() * x + 0.5);
+			width = (int)(Math.random() * x + 0.5) + minPlatformWidth;
 			width = ((int)width/100 * 100);
 			if (width > 600) {
 				width = 600;
@@ -303,8 +327,8 @@ public class Endless extends Level {
 		platforms.add(p);
 	}
 
-	public boolean isInDeathAnimation() {
-		return inDeathAnimation;
+	public boolean isInAnimation() {
+		return inAnimation;
 	}
 
 }

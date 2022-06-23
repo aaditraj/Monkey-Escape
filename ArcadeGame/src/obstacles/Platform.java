@@ -24,6 +24,9 @@ public class Platform extends Collider {
 			case 200:
 				setImages(new String[] {"assets/Platform/platform200.png"});
 				break;
+			case 300:
+				setImages(new String[] {"assets/Platform/platform300.png"});
+				break;	
 			case 400:
 				setImages(new String[] {"assets/Platform/platform400.png"});
 				break;
