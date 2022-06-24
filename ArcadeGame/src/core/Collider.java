@@ -323,7 +323,14 @@ public class Collider {
 		public double getVY() {
 			return vy;
 		}
-		
+		public void setVX(double vx) {
+			this.vx = vx;
+		}
+
+		public void setVY(double vy) {
+			this.vy = vy;
+		}
+
 		public int getCurrentImage() {
 			return displayer.getPosition();
 		}

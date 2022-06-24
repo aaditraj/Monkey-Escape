@@ -63,7 +63,7 @@ public class AnimationDisplayer {
 	 */
 	public void goToImage(int position) {
 		this.position = position;
-		System.out.println(this.position);
+		//System.out.println(this.position);
 	}
 	/**
 	 * Sets the frequency/speed of the animation to the passed in speed
