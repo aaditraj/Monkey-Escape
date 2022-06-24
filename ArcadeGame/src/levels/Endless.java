@@ -48,7 +48,7 @@ public class Endless extends Level {
 	Platform prevPlatformLeft;
 	String[] doorAnimation = new String[]{"assets/Open Door.png"};
 	String[] deathAnimation = new String[]{"assets/Player/PlayerFalling1.png","assets/Player/PlayerFalling2.png","assets/Player/PlayerFalling3.png","assets/Player/PlayerFalling4.png"};
-	
+	Platform border;
 	public void setup(PApplet marker) {
 		// TODO Auto-generated method stub
 		platforms1 = new ArrayList<>();
@@ -67,6 +67,7 @@ public class Endless extends Level {
 		int platform1Width = 300;
 		Platform platform1 = new Platform(0, 780, platform1Width, platformHeight, false);
 		Platform platform2 = new Platform("assets/Platform/rock-platform.png",marker.displayWidth/2, 780, platform1Width, platformHeight, false);
+		border = new Platform("assets/Platform/Border.png",marker.displayWidth/2-20,0,40,1200,false);
 		platforms1.add(platform1);
 		platforms2.add(platform2);
 		prevPlatformLeft = platform1;
@@ -131,6 +132,7 @@ public class Endless extends Level {
 		getObjects().addAll(platforms1);
 		getObjects().addAll(platforms2);
 		getObjects().remove(getPlayer());
+		border.draw(marker);
 //		if(time%shooter1.bulletFrequency == 0) {
 //			getBullets().add(shooter2.shoot());
 //			getBullets().add(shooter1.shoot());
@@ -325,7 +327,7 @@ public class Endless extends Level {
 			}
 
 		}
-
+		getObjects().add(border);
 	
 		if(inAnimation && deathTime == 3 && time % player.getImgFrequency() == player.getImgFrequency()-1) {
 			super.playGameOverSound();
