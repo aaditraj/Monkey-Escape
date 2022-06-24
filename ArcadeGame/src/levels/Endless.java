@@ -66,8 +66,8 @@ public class Endless extends Level {
 		player = new ShootingPlayer(50,200,650,100,100,0,10,10,125);
 		int platform1Width = 300;
 		Platform platform1 = new Platform(0, 780, platform1Width, platformHeight, false);
-		Platform platform2 = new Platform("assets/Platform/rock-platform.png",marker.displayWidth/2, 780, platform1Width, platformHeight, false);
-		border = new Platform("assets/Platform/Border.png",marker.displayWidth/2-20,0,40,1200,false);
+		Platform platform2 = new Platform("assets/Platform/rock-platform.png",marker.width/2, 780, platform1Width, platformHeight, false);
+		border = new Platform("assets/Platform/Border.png",marker.width/2-20,0,40,1200,false);
 		platforms1.add(platform1);
 		platforms2.add(platform2);
 		prevPlatformLeft = platform1;
@@ -363,7 +363,7 @@ public class Endless extends Level {
 			 
 			
 			x = prevPlatform.getX() + prevPlatform.getWidth() + xDist;
-			width = (Math.random() * (marker.displayWidth/2 - (x + minPlatformWidth))) + minPlatformWidth;
+			width = (Math.random() * (marker.width/2 - (x + minPlatformWidth))) + minPlatformWidth;
 			if(width < 100) {
 				width = 100;
 			}
