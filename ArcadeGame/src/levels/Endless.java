@@ -31,7 +31,7 @@ public class Endless extends Level {
 	final int minHorizDist = 300;
 	final int minVerticalDist = 300;
 	final int numPlatformIncrements = 5;
-	final int platformIncrement = 25;
+	final int platformIncrement =50;
 	PImage bg;
 	float bulletHitX = 0;
 	float bulletHitY = 0;
@@ -366,8 +366,8 @@ public class Endless extends Level {
 				width = 100;
 			}
 			width = ((int)width/100 * 100);
-			if (width > 600) {
-				width = 600;
+			if (width > 300) {
+				width = 300;
 			}
 			System.out.println(marker.displayWidth + " " + x + " " + " " + xDist + " " + yDist);
 			if(left) {
@@ -384,8 +384,8 @@ public class Endless extends Level {
 			System.out.println(x + " " + prevPlatform.getX() + " reduction");
 			width = (int)(Math.random() * x + 0.5) + minPlatformWidth;
 			width = ((int)width/100 * 100);
-			if (width > 600) {
-				width = 600;
+			if (width > 300) {
+				width = 300;
 			}
 			if(width < 100) {
 				width = 100;
