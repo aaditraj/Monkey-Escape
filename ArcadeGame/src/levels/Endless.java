@@ -26,10 +26,10 @@ public class Endless extends Level {
 	final int platformHeight = 40;	
 	final int minPlatformWidth = 100;
 	final int platformIncrementFreq = 20000;
-	final int maxHorizDist = 300;
-	final int maxVerticalDist = 300;
-	final int minHorizDist = 300;
-	final int minVerticalDist = 300;
+	final int maxHorizDist = 200;
+	final int maxVerticalDist = 200;
+	final int minHorizDist = 100;
+	final int minVerticalDist = 100;
 	final int numPlatformIncrements = 5;
 	final int platformIncrement =50;
 	PImage bg;
@@ -345,7 +345,7 @@ public class Endless extends Level {
 
 	}
 	
-	private void addPlatform(PApplet marker, ArrayList<Collider> platforms, boolean left) {
+	private void addPlatform(PApplet marker, ArrayList<Collider> platforms,boolean left) {
 		// TODO Auto-generated method stub
 		Platform prevPlatform;
 		if(left) {
@@ -353,20 +353,26 @@ public class Endless extends Level {
 		} else {
 			prevPlatform = prevPlatformRight;
 		}
-		int maxXDist = (time/platformIncrementFreq >= numPlatformIncrements ? maxHorizDist : time/platformIncrementFreq * platformIncrement + 100);
-		int xDist = (int) (Math.random() * platformIncrement * 2) + maxXDist; 
-		int maxYDist = (time/platformIncrementFreq >= numPlatformIncrements ? maxVerticalDist : time/platformIncrementFreq * platformIncrement + 100);
-		int yDist = (int) (Math.random() * platformIncrement * 2 ) + maxYDist;
+		
+//		int maxXDist = (time/platformIncrementFreq >= numPlatformIncrements ? maxHorizDist : time/platformIncrementFreq * platformIncrement + 100);
+		int xDist = (int) (Math.random() * (maxHorizDist-minHorizDist)) + minHorizDist; 
+//		int maxYDist = (time/platformIncrementFreq >= numPlatformIncrements ? maxVerticalDist : time/platformIncrementFreq * platformIncrement + 100);
+		int yDist = (int) (Math.random() * (maxVerticalDist-minVerticalDist)) + minVerticalDist;
 		Platform p;
 		double x, width;
 		if ((onRightSideLeft && left) || (onRightSideRight && !left)) {
-			 
-			
-			x = prevPlatform.getX() + prevPlatform.getWidth() + xDist;
-			width = (Math.random() * (marker.width/2 - (x + minPlatformWidth))) + minPlatformWidth;
-			if(width < 100) {
-				width = 100;
+			int maxWidth = (int) (marker.width/2 - (prevPlatform.getX() +prevPlatform.getWidth() + xDist));
+			if(left) {
+				maxWidth = (int) (marker.width/2 - (prevPlatform.getX() +prevPlatform.getWidth() + xDist));
+			} else {
+				maxWidth = (int) (marker.width - (prevPlatform.getX() +prevPlatform.getWidth() + xDist));
 			}
+			if (maxWidth < 100) {
+				xDist = (int) (xDist -(100 - maxWidth));
+				maxWidth = 100;
+			}
+			x = prevPlatform.getX() + prevPlatform.getWidth() + xDist;
+			width = (Math.random() * (maxWidth - minPlatformWidth)) + minPlatformWidth;
 			width = ((int)width/100 * 100);
 			if (width > 300) {
 				width = 300;
@@ -384,15 +390,21 @@ public class Endless extends Level {
 			
 			x = prevPlatform.getX() - xDist;
 			System.out.println(x + " " + prevPlatform.getX() + " reduction");
-			width = (int)(Math.random() * x + 0.5) + minPlatformWidth;
+			width = (Math.random() * (300 - minPlatformWidth)) + minPlatformWidth;
 			width = ((int)width/100 * 100);
+			if(left) {
+				if(x-width < 0) {
+					x = width;
+				}
+			} else {
+				if(x-width < marker.width/2) {
+					x = marker.width/2+width;
+				}
+			}
+			
 			if (width > 300) {
 				width = 300;
 			}
-			if(width < 100) {
-				width = 100;
-			}
-			
 			x = x - width;
 			if(left) {
 				p = new Platform(x, prevPlatform.getY() - platformHeight - yDist, width, platformHeight, false);
