@@ -306,11 +306,7 @@ public class LevelSwitch extends PApplet{
 	 */
 	public void move() {
 		if(level.getKeysPressed()[0] && !level.isInAnimation()) {
-			level.getPlayer().moveBy(0, level.getPlayerSpeed(),  level.getObjects());
-			if(playerState != 1) {
-				playerState = 1;
-				level.getPlayer().setImages(level.getPlayer().getCurrent());
-			}
+			
 		}
 		if(level.getKeysPressed()[1] && !level.isInAnimation()) {
 			level.getPlayer().moveBy(level.getPlayerSpeed(), 0,level.getObjects());
