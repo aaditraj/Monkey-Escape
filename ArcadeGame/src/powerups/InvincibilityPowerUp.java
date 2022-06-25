@@ -9,7 +9,7 @@ import processing.core.PGraphics;
 
 public class InvincibilityPowerUp extends PowerUp {
 	
-	public static final double INVINCIBILITY_PERIOD = 5000;
+	public static final double INVINCIBILITY_PERIOD = 4250;
 	public static String[] powerupImages = new String[] {"assets/Powerups/Shield1.png","assets/Powerups/Shield2.png","assets/Powerups/Shield3.png"};
 	public static final String[] playerAnimation = null;
 	private double shieldRad;
@@ -42,7 +42,7 @@ public class InvincibilityPowerUp extends PowerUp {
 		
 		
 		drawer.imageMode(drawer.CENTER);
-		drawer.image(pg, (float) (playerLoc.x * 1.03),(float) (playerLoc.y), (float)shieldRad, (float)shieldRad);
+		drawer.image(pg, (float) (playerLoc.x * 1.035),(float) (playerLoc.y), (float)shieldRad, (float)shieldRad);
 //		if(pGraphics == null) {
 //			pGraphics = drawer.createGraphics((int)shieldRad/4,(int)shieldRad/4);
 //		}
