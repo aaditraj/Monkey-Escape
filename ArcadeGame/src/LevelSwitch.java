@@ -288,7 +288,9 @@ public class LevelSwitch extends PApplet{
 			{
 				if(mouseY > (int)(height/1.8) && mouseY < (int)(height/1.8) + height/5) 
 					gameStatus = GameStatus.SINGLE_PLAYER; 
+				
 					level.setFinished(true);
+					
 					promptSkip = false;
 			}
 			
