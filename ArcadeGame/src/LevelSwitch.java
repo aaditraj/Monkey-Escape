@@ -38,6 +38,7 @@ public class LevelSwitch extends PApplet{
 	Instructions instructions; 
 	Leaderboard leaderboard;
 	boolean promptQuit; 
+	boolean promptSkip;
 	PImage quit; 
 	PImage background;
 	PImage background2;
@@ -46,6 +47,8 @@ public class LevelSwitch extends PApplet{
 
 	PImage skip;
 	PImage quitPrompt; 
+	PImage skipPrompt; 
+
 	int previousPoints = 0;
 	SoundFile startMusic;
 	SoundFile level1Music;
@@ -80,6 +83,7 @@ public class LevelSwitch extends PApplet{
 		background3 = loadImage("assets/level_3_background.jpg");
 		skip = loadImage("assets/SkipSymbol.png");
 		quitPrompt = loadImage("assets/QuitPrompt.png");
+		skipPrompt = loadImage("assets/SkipPrompt.png");
 		
 		if (startMusic == null) startMusic = new SoundFile(this, "assets/Music/StartMusic.wav");
 		if (level1Music == null) level1Music = new SoundFile(this, "assets/Music/Level1.wav");
@@ -175,6 +179,11 @@ public class LevelSwitch extends PApplet{
 			}
 			
 			
+			if(promptSkip)
+			{
+				promptSkip();
+				gameStatus = GameStatus.PROMPT_SKIP;
+			}
 
 			
 			if(promptQuit)
@@ -182,6 +191,8 @@ public class LevelSwitch extends PApplet{
 				promptQuit();
 				gameStatus = GameStatus.PROMPT_QUIT;
 			}
+			
+			
 		} else {
 			if (!startMusic.isPlaying() && gameStatus != GameStatus.PROMPT_QUIT) {
 				startMusic.jump(14.5f);
@@ -263,19 +274,56 @@ public class LevelSwitch extends PApplet{
 					else {
 						gameStatus = GameStatus.ENDLESS; 
 					}
+				
 					promptQuit = false;
 				
 				
 					
 			}
 		}
+		
+		if(gameStatus == GameStatus.PROMPT_SKIP)
+		{
+			
+			if(mouseX > (int)(width/3.5) && mouseX < (int)(width/3.5) + width/5)
+			{
+				if(mouseY > (int)(height/1.8) && mouseY < (int)(height/1.8) + height/5) 
+					gameStatus = GameStatus.SINGLE_PLAYER; 
+				
+					level.setFinished(true);
+					
+					promptSkip = false;
+			}
+			
+			
+			
+			if(mouseX > (int)(width/1.95) && mouseX < (int)(width/1.95) + width/5)
+			{
+				if(mouseY > (int)(height/1.8) && mouseY < (int)(height/1.8) + height/5)
+					if(gameStatus == GameStatus.SINGLE_PLAYER) gameStatus = GameStatus.SINGLE_PLAYER; 
+					else {
+						gameStatus = GameStatus.ENDLESS; 
+					}
+				
+					promptSkip = false;
+				
+				
+					
+			}
+		}
+		
+		
 		if(gameStatus == GameStatus.SINGLE_PLAYER || gameStatus == GameStatus.ENDLESS)
 		{
 			
 			if(mouseX > width-100 && mouseX < width-100 + 50)
 			{
 				if(mouseY > 25 && mouseY < 25 + 50) 
-				promptQuit = true; 
+				{
+					promptQuit = true; 
+					
+				}
+				
 			}
 			
 			if(mouseX > width-175 && mouseX < width-175 + 65 && gameStatus == GameStatus.SINGLE_PLAYER)
@@ -284,16 +332,19 @@ public class LevelSwitch extends PApplet{
 				if(level instanceof Level1)
 				{
 					level.getPlayer().points = 0;
-					level.setFinished(true); 
+					promptSkip = true;
+				
 				}
 				else if (level instanceof Level2)
 				{
 					level.getPlayer().points = previousPoints; 
-					level.setFinished(true); 
+					promptSkip = true;
+					
 				}
 				else {
 					level.getPlayer().points = previousPoints; 
-					level.setFinished(true); 
+					promptSkip = true;
+					
 					
 				}
 			}
@@ -567,6 +618,14 @@ public class LevelSwitch extends PApplet{
 		
 		
 
+	}
+	
+	/**
+	 * Used to display the skip menu
+	 */
+	public void promptSkip()
+	{
+		image(skipPrompt, width/4, height/4, width/2, height/2);
 	}
 	
 	
