@@ -26,10 +26,10 @@ public class Endless extends Level {
 	final int platformHeight = 40;	
 	final int minPlatformWidth = 100;
 	final int platformIncrementFreq = 20000;
-	final int maxHorizDist = 200;
-	final int maxVerticalDist = 200;
-	final int minHorizDist = 100;
-	final int minVerticalDist = 100;
+	final int maxHorizDist = 260;
+	final int maxVerticalDist = 260;
+	int minHorizDist;
+	int minVerticalDist;
 	final int numPlatformIncrements = 5;
 	final int platformIncrement =50;
 	PImage bg;
@@ -48,7 +48,11 @@ public class Endless extends Level {
 	Platform prevPlatformLeft;
 	String[] doorAnimation = new String[]{"assets/Open Door.png"};
 	String[] deathAnimation = new String[]{"assets/Player/PlayerFalling1.png","assets/Player/PlayerFalling2.png","assets/Player/PlayerFalling3.png","assets/Player/PlayerFalling4.png"};
+	String[] player2Death = new String[]{"assets/Player/PlayerBlueFalling1.png","assets/Player/PlayerBlueFalling2.png","assets/Player/PlayerBlueFalling3.png","assets/Player/PlayerBlueFalling4.png"};
 	Platform border;
+	Platform greenPlace;
+	Platform bluePlace;
+	boolean player2Dead;
 	public void setup(PApplet marker) {
 		// TODO Auto-generated method stub
 		platforms1 = new ArrayList<>();
@@ -62,18 +66,27 @@ public class Endless extends Level {
 		onRightSideLeft = true;
 		onRightSideRight = true;
 		isDead = false;
-		
+		minHorizDist = 150;
+		minVerticalDist = 150;
+		player2Dead = false;
 		player = new ShootingPlayer(50,200,650,100,100,0,10,10,125);
+		player2 = new ShootingPlayer(50,200+marker.width/2,650,100,100,0,10,10,125);
 		int platform1Width = 300;
 		Platform platform1 = new Platform(0, 780, platform1Width, platformHeight, false);
 		Platform platform2 = new Platform("assets/Platform/rock-platform.png",marker.width/2, 780, platform1Width, platformHeight, false);
 		border = new Platform("assets/Platform/Border.png",marker.width/2-20,0,40,1200,false);
+		bluePlace = new Platform("assets/Platform/BlueProgress.png",0,680,marker.width/2,10,false);
+		greenPlace = new Platform("assets/Platform/GreenProgress.png",marker.width/2,680,marker.width/2,10,false);
 		platforms1.add(platform1);
 		platforms2.add(platform2);
 		prevPlatformLeft = platform1;
 		prevPlatformRight = platform2;
 		player.setJumpHeight(-25);
-		
+		player2.setJumpHeight(-25);
+		player2.setLeft(new String[] {"assets/Player/PlayerBlueLeft.png","assets/Player/PlayerBlueLeft2.png"});
+		player2.setRight(new String[] {"assets/Player/PlayerBlueRight.png","assets/Player/PlayerBlueRight2.png"});
+		player2.setCurrent(new String[] {"assets/Player/PlayerBlue.png"});
+		player2.setImages(new String[] {"assets/Player/PlayerBlue.png"});
 		while(platforms1.get(platforms1.size() - 1).getY() > 0) {
 			addPlatform(marker,platforms1,true);
 		}
@@ -94,6 +107,9 @@ public class Endless extends Level {
 //		platforms.add(shooter2);
 //		platforms.add(dropper1);
 		mobilePieces.add(getPlayer());
+		mobilePieces.add(getPlayer2());
+		//player.setMobile(false);
+		//player2.setMobile(false);
 //		mobilePieces.add(enemy1);
 //		mobilePieces.add(enemy2);
 //		int[][] positions = new int[2][2];
@@ -132,7 +148,9 @@ public class Endless extends Level {
 		getObjects().addAll(platforms1);
 		getObjects().addAll(platforms2);
 		getObjects().remove(getPlayer());
-		border.draw(marker);
+		getObjects().add(border);
+		bluePlace.draw(marker);
+		greenPlace.draw(marker);
 //		if(time%shooter1.bulletFrequency == 0) {
 //			getBullets().add(shooter2.shoot());
 //			getBullets().add(shooter1.shoot());
@@ -141,12 +159,10 @@ public class Endless extends Level {
 		if(time%10 == 0) {
 			getPlayer().increaseAmmo();
 		}
-		if(inDeathAnimation) {
-			
-		}
 		
 		
 		boolean[] directions = getPlayer().intersects(getObjects());
+		boolean[] directionsPlayer2 = getPlayer2().intersects(getObjects());
 		for(int i = 0; i < mobilePieces.size(); i++) {
 			
 			if(mobilePieces.get(i) instanceof MobileEnemy)
@@ -172,22 +188,12 @@ public class Endless extends Level {
 				}
 				else mobileEnemyHitTime = 0;
 			}
-			if(mobilePieces.get(i).getHealth() <= 0) {
-				if(mobilePieces.get(i) instanceof ShootingPlayer) {
-					if(!inDeathAnimation) {
-						inDeathAnimation = true;
-						player.setImages(deathAnimation);
-						player.setFrequency(10);
-						player.setHealth(0);
-					}
-					mobilePieces.get(i).draw(marker);
-				} else {
-					if(mobilePieces.get(i) instanceof MobileEnemy) {
-						defeatMobileEnemy(i);
-					}
-					else {
-						mobilePieces.remove(i);
-					}
+			if(mobilePieces.get(i).getHealth() <= 0 && !(mobilePieces.get(i) instanceof ShootingPlayer) ) {
+				if(mobilePieces.get(i) instanceof MobileEnemy) {
+					defeatMobileEnemy(i);
+				}
+				else {
+					mobilePieces.remove(i);
 				}
 			} else {
 				if(!inDeathAnimation) {
@@ -241,8 +247,17 @@ public class Endless extends Level {
 			}
 		}
 		getPlayer().updateVelocity();
-
+		getPlayer2().updateVelocity();
+		if(!(player.getVY() < 0 && directions[0]) && !(player.getVY() > 0 && directions[2])) {
+			bluePlace.moveBy(0, player.getVY() * -1, new ArrayList<>());
+			greenPlace.moveBy(0, player.getVY() * 1, new ArrayList<>());
+		}
+		if(!(player2.getVY() < 0 && directionsPlayer2[0]) && !(player2.getVY() > 0 && directionsPlayer2[2])) {
+			bluePlace.moveBy(0, player2.getVY() * 1, new ArrayList<>());
+			greenPlace.moveBy(0, player2.getVY() * -1, new ArrayList<>());
+		}
 		//boolean[] directions = getPlayer().intersects(getObjects());
+		int platforms1MinHeight = -Integer.MAX_VALUE;
 		ArrayList<Collider> removeList = new ArrayList<>();
 		for(int i = 0; i < platforms1.size(); i++) {
 			/*for(int j = 0; j < platforms1.size(); j++) {
@@ -257,22 +272,24 @@ public class Endless extends Level {
 				playerList.add(player);
 				platforms1.get(i).moveBy(0, player.getVY() * -1, playerList);
 			}
-			if (platforms1.get(i).getY() > 1040) {
+			if (platforms1.get(i).getY() > 1090) {
 				platforms1.remove(i);
 				addPlatform(marker,platforms1,true);
-			} else if (platforms1.get(i).getY() < -300) {
-				platforms1.remove(i);
 			} else {
 				platforms1.get(i).draw(marker);
 			}
+			if(platforms1.get(i).getY() > platforms1MinHeight) {
+				platforms1MinHeight = (int)platforms1.get(i).getY();
+			}
 		}
 		
-		if(platforms1.size() == 0 && !inAnimation) {
+		if((platforms1MinHeight < -300 || player.getHealth() <= 0)&& !inAnimation) {
 			inAnimation = true;
 			player.setImages(deathAnimation);
-			player.setFrequency(10);
+			player.setFrequency(15);
 		}
 		
+		int platforms2MinHeight = -Integer.MAX_VALUE;
 		
 		for(int i = 0; i < platforms2.size(); i++) {
 			/*for(int j = 0; j < platforms2.size(); j++) {
@@ -282,27 +299,26 @@ public class Endless extends Level {
 					System.out.println(i);
 				}
 			}*/
-			if(!(player.getVY() < 0 && directions[0]) && !(player.getVY() > 0 && directions[2])) {
+			if(!(player2.getVY() < 0 && directionsPlayer2[0]) && !(player2.getVY() > 0 && directionsPlayer2[2])) {
 				ArrayList<Collider> playerList = new ArrayList<Collider>();
-				playerList.add(player);
-				platforms2.get(i).moveBy(0, player.getVY() * -1, playerList);
+				playerList.add(player2);
+				platforms2.get(i).moveBy(0, player2.getVY() * -1, playerList);
 			}
-			if (platforms2.get(i).getY() > 1040) {
+			if (platforms2.get(i).getY() > 1090) {
 				platforms2.remove(i);
 				addPlatform(marker,platforms2,false);
-				for(Collider j : platforms2) {
-					System.out.println(j.getX() + " " + j.getY());
-				}
-			} else if (platforms2.get(i).getY() < -300) {
-				platforms2.remove(i);
 			} else {
 				platforms2.get(i).draw(marker);
 			}
+			if(platforms2.get(i).getY() > platforms2MinHeight) {
+				platforms2MinHeight = (int)platforms2.get(i).getY();
+			}
 		}
-		if(platforms2.size() == 0 && !inAnimation) {
+		if((platforms2MinHeight < -300 || player2.getHealth() <= 0)&& !inAnimation) {
 			inAnimation = true;
-			player.setImages(deathAnimation);
-			player.setFrequency(10);
+			player2Dead = true;
+			player2.setImages(player2Death);
+			player2.setFrequency(15);
 		}
 //		for(int i = 0; i < coins.size(); i++) {
 //			coins.get(i).draw(marker);
@@ -327,17 +343,32 @@ public class Endless extends Level {
 			}
 
 		}
-		getObjects().add(border);
-	
-		if(inAnimation && deathTime == 3 && time % player.getImgFrequency() == player.getImgFrequency()-1) {
-			super.playGameOverSound();
-			isDead = true;
-			setup(marker);
+		border.draw(marker);
+		if(player2Dead) {
+			if(inAnimation && deathTime == 3 && time % player2.getImgFrequency() == player2.getImgFrequency()-1) {
+				super.playGameOverSound();
+				isDead = true;
+				setup(marker);
+			}
+			if(inAnimation && time % player2.getImgFrequency() == 0) {
+				deathTime++;
+			}
+		} else {
+			if(inAnimation && deathTime == 3 && time % player.getImgFrequency() == player.getImgFrequency()-1) {
+				super.playGameOverSound();
+				isDead = true;
+				setup(marker);
+			}
+			if(inAnimation && time % player.getImgFrequency() == 0) {
+				deathTime++;
+			}
 		}
-		if(inAnimation && time % player.getImgFrequency() == 0) {
-			deathTime++;
+		if(player.getY() > bluePlace.getY()) {
+			player.changeHealth(-0.1);
 		}
-
+		if(player2.getY() > greenPlace.getY()) {
+			player2.changeHealth(-0.1);
+		}
 		displayCelebrations(marker);
 		if (player.canDamage) displayHit(marker, bulletHitX, bulletHitY);
 		
@@ -412,6 +443,7 @@ public class Endless extends Level {
 				System.out.println("HHHHHHHHHHHHHHHHHHHHHHHHH");
 				p = new Platform("assets/Platform/rock-platform.png",x, prevPlatform.getY() - platformHeight - yDist, width, platformHeight, false);
 			}
+			
 			//MobileEnemy enemy = new MobileEnemy(MobileEnemy.mobileEnemyImages,10,p.getX(),p.getY() - 90,p.getX() + p.getWidth() - 72,p.getY() - 90, 10, 0,72,90);
 			//mobilePieces.add(enemy);
 		}
@@ -424,6 +456,13 @@ public class Endless extends Level {
 			System.out.println(onRightSideRight);
 			prevPlatformRight = p;
 		}
+		if(minHorizDist < maxHorizDist) {
+			minHorizDist += 10;
+		}
+		if(minVerticalDist < maxVerticalDist) {
+			minVerticalDist += 10;
+		}
+		//minVerticalDist += 10;
 		platforms.add(p);
 	}
 

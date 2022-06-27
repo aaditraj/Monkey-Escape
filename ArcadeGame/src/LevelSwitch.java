@@ -58,6 +58,7 @@ public class LevelSwitch extends PApplet{
 	String[] playerRightImgs = new String[]{"assets/Player/PlayerRight.png","assets/Player/PlayerRight2.png"};
 	String[] playerImg = new String[]{"assets/Player/Player.png"};
 	int playerState = 1; 
+	int playerState2 = 1;
 	int points = 0;
 	ClickThrough clickThrough = new ClickThrough("realSet");
 	int gameStatus = GameStatus.NOT_STARTED;
@@ -305,32 +306,90 @@ public class LevelSwitch extends PApplet{
 	 *The method that uses the keys pressed to determine which direction to move the main player. 
 	 */
 	public void move() {
-		if(level.getKeysPressed()[0] && !level.isInAnimation()) {
-			level.getPlayer().moveBy(0, level.getPlayerSpeed(),  level.getObjects());
-			if(playerState != 1) {
+		if(gameStatus == GameStatus.ENDLESS) {
+			if(level.getKeysPressed()[0] && !level.isInAnimation()) {
+				level.getPlayer().moveBy(0, level.getPlayerSpeed(),  level.getObjects());
+				if(playerState != 1) {
+					playerState = 1;
+					level.getPlayer().setImages(level.getPlayer().getCurrent());
+				}
+			}
+			if(level.getKeysPressed()[1] && !level.isInAnimation()) {
+				level.getPlayer().moveBy(level.getPlayerSpeed(), 0,level.getObjects());
+				if(playerState != 2) {
+					playerState = 2;
+					level.getPlayer().setImages(level.getPlayer().getRight());
+				}
+			} else if (playerState == 2 && !level.isInAnimation()) {
 				playerState = 1;
 				level.getPlayer().setImages(level.getPlayer().getCurrent());
 			}
-		}
-		if(level.getKeysPressed()[1] && !level.isInAnimation()) {
-			level.getPlayer().moveBy(level.getPlayerSpeed(), 0,level.getObjects());
-			if(playerState != 2) {
-				playerState = 2;
-				level.getPlayer().setImages(level.getPlayer().getRight());
+			if(level.getKeysPressed()[2] && !level.isInAnimation()) {
+				level.getPlayer().moveBy(-level.getPlayerSpeed(),0, level.getObjects());
+				if(playerState != 3) {
+					playerState = 3;
+					level.getPlayer().setImages(level.getPlayer().getLeft());
+				}
+			} else if(playerState == 3 && !level.isInAnimation()) {
+				playerState = 1;
+				level.getPlayer().setImages(level.getPlayer().getCurrent());
 			}
-		} else if (playerState == 2 && !level.isInAnimation()) {
-			playerState = 1;
-			level.getPlayer().setImages(level.getPlayer().getCurrent());
-		}
-		if(level.getKeysPressed()[2] && !level.isInAnimation()) {
-			level.getPlayer().moveBy(-level.getPlayerSpeed(),0, level.getObjects());
-			if(playerState != 3) {
-				playerState = 3;
-				level.getPlayer().setImages(level.getPlayer().getLeft());
+			
+			if(level.getKeysPressed2()[0] && !level.isInAnimation()) {
+				level.getPlayer2().moveBy(0, level.getPlayerSpeed(),  level.getObjects());
+				if(playerState2 != 1) {
+					playerState2 = 1;
+					level.getPlayer2().setImages(level.getPlayer2().getCurrent());
+				}
 			}
-		} else if(playerState == 3 && !level.isInAnimation()) {
-			playerState = 1;
-			level.getPlayer().setImages(level.getPlayer().getCurrent());
+			if(level.getKeysPressed2()[1] && !level.isInAnimation()) {
+				level.getPlayer2().moveBy(level.getPlayerSpeed(), 0,level.getObjects());
+				if(playerState2 != 2) {
+					playerState2 = 2;
+					level.getPlayer2().setImages(level.getPlayer2().getRight());
+				}
+			} else if (playerState2 == 2 && !level.isInAnimation()) {
+				playerState2 = 1;
+				level.getPlayer2().setImages(level.getPlayer2().getCurrent());
+			}
+			if(level.getKeysPressed2()[2] && !level.isInAnimation()) {
+				level.getPlayer2().moveBy(-level.getPlayerSpeed(),0, level.getObjects());
+				if(playerState2 != 3) {
+					playerState2 = 3;
+					level.getPlayer2().setImages(level.getPlayer2().getLeft());
+				}
+			} else if(playerState2 == 3 && !level.isInAnimation()) {
+				playerState2 = 1;
+				level.getPlayer2().setImages(level.getPlayer2().getCurrent());
+			}
+		} else {
+			if(level.getKeysPressed()[0] && !level.isInAnimation()) {
+				level.getPlayer().moveBy(0, level.getPlayerSpeed(),  level.getObjects());
+				if(playerState != 1) {
+					playerState = 1;
+					level.getPlayer().setImages(level.getPlayer().getCurrent());
+				}
+			}
+			if(level.getKeysPressed()[1] && !level.isInAnimation()) {
+				level.getPlayer().moveBy(level.getPlayerSpeed(), 0,level.getObjects());
+				if(playerState != 2) {
+					playerState = 2;
+					level.getPlayer().setImages(level.getPlayer().getRight());
+				}
+			} else if (playerState == 2 && !level.isInAnimation()) {
+				playerState = 1;
+				level.getPlayer().setImages(level.getPlayer().getCurrent());
+			}
+			if(level.getKeysPressed()[2] && !level.isInAnimation()) {
+				level.getPlayer().moveBy(-level.getPlayerSpeed(),0, level.getObjects());
+				if(playerState != 3) {
+					playerState = 3;
+					level.getPlayer().setImages(level.getPlayer().getLeft());
+				}
+			} else if(playerState == 3 && !level.isInAnimation()) {
+				playerState = 1;
+				level.getPlayer().setImages(level.getPlayer().getCurrent());
+			}
 		}
 	}
 	/**
@@ -340,10 +399,35 @@ public class LevelSwitch extends PApplet{
 	public void keyPressed() {
 		if(gameStatus == GameStatus.NAME_PAGE) {
 			namePage.interpretKeystroke((char)keyCode);
-		} else {
+		} else if (gameStatus == GameStatus.ENDLESS) {
 			if (keyCode == UP) { 
 				boolean canJump = level.getPlayer().jump(level.getObjects());
-				if ((gameStatus == GameStatus.SINGLE_PLAYER || gameStatus == GameStatus.ENDLESS) && canJump && !jumpSound.isPlaying()) {
+				if (canJump && !jumpSound.isPlaying()) {
+					jumpSound.play();
+				}
+			} 
+			if (keyCode == RIGHT) {
+				level.getKeysPressed()[1] = true;
+			}
+			if (keyCode == LEFT) {
+				level.getKeysPressed()[2] = true;
+			}
+			if (key == 'w') {
+				boolean canJump = level.getPlayer2().jump(level.getObjects());
+				if (canJump && !jumpSound.isPlaying()) {
+					jumpSound.play();
+				}
+			}
+			if (key == 'd') {
+				level.getKeysPressed2()[1] = true;
+			}
+			if (key == 'a') {
+				level.getKeysPressed2()[2] = true;
+			}
+		}else {
+			if (keyCode == UP) { 
+				boolean canJump = level.getPlayer().jump(level.getObjects());
+				if ((gameStatus == GameStatus.SINGLE_PLAYER) && canJump && !jumpSound.isPlaying()) {
 					jumpSound.play();
 				}
 			} 
@@ -384,30 +468,55 @@ public class LevelSwitch extends PApplet{
 	 * Removes the pressed key from the keys pressed array
 	 */
 	public void keyReleased() {
-		if (keyCode == DOWN) { 
-			level.getKeysPressed()[0] = false;
-		}
-		if (keyCode == RIGHT) {
-			level.getKeysPressed()[1] = false;
+		if(gameStatus == GameStatus.ENDLESS) {
+			if (keyCode == DOWN) { 
+				level.getKeysPressed()[0] = false;
+			}
+			if (keyCode == RIGHT) {
+				level.getKeysPressed()[1] = false;
 
-		}
-		if (keyCode == LEFT) {
-			level.getKeysPressed()[2] = false;
+			}
+			if (keyCode == LEFT) {
+				level.getKeysPressed()[2] = false;
 
-		}
-		if (key == 'd') {
-			level.getKeysPressed()[1] = false;
+			}
+			if (key == 'd') {
+				level.getKeysPressed2()[1] = false;
 
-		}
-		if (key == 's') {
-			level.getKeysPressed()[0] = false;
+			}
+			if (key == 's') {
+				level.getKeysPressed2()[0] = false;
+			
+			}
+			if (key == 'a') {
+				level.getKeysPressed2()[2] = false;
 		
-		}
-		if (key == 'a') {
-			level.getKeysPressed()[2] = false;
-	
-		}
+			}
+		} else {
+			if (keyCode == DOWN) { 
+				level.getKeysPressed()[0] = false;
+			}
+			if (keyCode == RIGHT) {
+				level.getKeysPressed()[1] = false;
 
+			}
+			if (keyCode == LEFT) {
+				level.getKeysPressed()[2] = false;
+
+			}
+			if (key == 'd') {
+				level.getKeysPressed()[1] = false;
+
+			}
+			if (key == 's') {
+				level.getKeysPressed()[0] = false;
+			
+			}
+			if (key == 'a') {
+				level.getKeysPressed()[2] = false;
+		
+			}
+		}
 		if(key == 'r') {
 			if(!clickThrough.isFinished) {
 				clickThrough.next();

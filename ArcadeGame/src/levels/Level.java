@@ -12,6 +12,7 @@ import processing.sound.SoundFile;
 
 public class Level {
 	ShootingPlayer player;
+	ShootingPlayer player2;
 	ArrayList<Collider> staticPieces = new ArrayList<>();
 	ArrayList<Collider> mobilePieces = new ArrayList<>();
 	ArrayList<Collider> bullets = new ArrayList<>();
@@ -39,6 +40,7 @@ public class Level {
 	int time = 0;
 	boolean isFinished = false;
 	boolean[] keysPressed = new boolean[3];
+	boolean[] keysPressedPlayer2 = new boolean[3];
 	int lavaHitTime = 0;
 	boolean shot;
 	boolean growled;
@@ -219,6 +221,9 @@ public class Level {
 	public ShootingPlayer getPlayer() {
 		return player;
 	}
+	public ShootingPlayer getPlayer2() {
+		return player2;
+	}
 	//Checks if the level is finished
 	public boolean isFinished() {
 		return isFinished;
@@ -233,6 +238,9 @@ public class Level {
 	}
 	public boolean[] getKeysPressed() {
 		return keysPressed;
+	}
+	public boolean[] getKeysPressed2() {
+		return keysPressedPlayer2;
 	}
 	public ArrayList<Collider> getObjects() {
 		return objects;
