@@ -2,6 +2,7 @@ package enemies;
 import java.util.ArrayList;
 
 import core.Collider;
+import obstacles.Platform;
 import players.Player;
 import processing.core.PApplet;
 
@@ -10,8 +11,7 @@ public class MobileEnemy extends Collider {
 	private double endX, endY;
 	private float proportion; 
 	private float initHealth;
-	private boolean isHittingPlayer;
-	private int numHits;
+	private Platform platform;
 	public static final String[] mobileEnemyImages = new String[] {"assets/MobileEnemy/left.png",
 			"assets/MobileEnemy/right.png", "assets/MobileEnemy/mad-left-1.png", 
 			"assets/MobileEnemy/mad-right-1.png"};
@@ -30,10 +30,19 @@ public class MobileEnemy extends Collider {
 		} else {
 			goToImage(0);
 		}
+		this.platform = null;
+	}
+	
+	public MobileEnemy(String[] images, double health, Platform p, double vx, double vy, double width, double height) {
+		this(images, health, p.getX(), p.getY() - height, p.getX() + p.getWidth() - width, p.getY() - height, vx, vy, width, height);
+		this.platform = p;
 	}
 	
 	// call this method before draw
 	public void act(ArrayList<Collider> colliders) {
+		if (platform != null) {			
+			this.moveTo((int) this.getX(), (int) (platform.getY() - this.getHeight()));
+		}
 		super.moveBy(vx, vy, colliders);
 		double largerX = Math.max(getInitX(), endX);
 		double smallerX = Math.min(getInitX(), endX);
@@ -85,7 +94,6 @@ public class MobileEnemy extends Collider {
 			} else if(getCurrentImage() == 1) {
 				goToImage(3);
 			}
-			isHittingPlayer = true;
 		}
 		return 0.0;
 	}

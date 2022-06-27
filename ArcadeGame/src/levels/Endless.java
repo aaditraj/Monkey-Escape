@@ -2,22 +2,12 @@ package levels;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
-import java.util.Arrays;
-
-import javax.management.timer.Timer;
-
 import core.Bullet;
 import core.Collider;
 import enemies.MobileEnemy;
-import enemies.ShootingEnemy;
-import enemies.SideShooter;
-import obstacles.Lava;
 import obstacles.Platform;
 import players.ShootingPlayer;
-import powerups.Coin;
 import powerups.DamagePowerUp;
-import powerups.PowerUp;
-import powerups.SlowDownPowerUp;
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -41,6 +31,8 @@ public class Endless extends Level {
 	boolean onRightSideRight;
 	int deathTime;
 	int doorTime;
+	int leftCounter;
+	int rightCounter;
 	boolean inAnimation;
 	ArrayList<Collider> platforms1;
 	ArrayList<Collider> platforms2;
@@ -59,6 +51,8 @@ public class Endless extends Level {
 		objects = new ArrayList<>();
 		inAnimation = false;
 		deathTime = 0;
+		leftCounter = 0;
+		rightCounter = 0;
 		onRightSideLeft = true;
 		onRightSideRight = true;
 		isDead = false;
@@ -194,11 +188,6 @@ public class Endless extends Level {
 					if(!(mobilePieces.get(i) instanceof ShootingPlayer)) {
 						mobilePieces.get(i).act(getObjects());
 					}
-					if(!(player.getVY() < 0 && directions[0]) && !(player.getVY() > 0 && directions[2]) && !(mobilePieces.get(i) instanceof ShootingPlayer)) {
-						ArrayList<Collider> playerList = new ArrayList<Collider>();
-						playerList.add(player);
-						mobilePieces.get(i).setVY(player.getVY() * -1);
-					}
 					if (mobilePieces.get(i).getY() > 1040) {
 						mobilePieces.remove(i);
 					} else if (mobilePieces.get(i).getY() < -300) {
@@ -218,7 +207,10 @@ public class Endless extends Level {
 				bullet.draw(marker);
 				if(!inDeathAnimation) {
 					if(((Bullet)bullet).getOwner().equals("player")) {
-						bullet.act((ArrayList<Collider>)mobilePieces);
+						ArrayList<Collider> checkPieces = new ArrayList<Collider>();
+						checkPieces.addAll(mobilePieces);
+						checkPieces.add(border);
+						bullet.act((checkPieces));
 					} else {
 						ArrayList<Collider> playerList = new ArrayList<>();
 						playerList.add(player);
@@ -260,9 +252,11 @@ public class Endless extends Level {
 			if (platforms1.get(i).getY() > 1040) {
 				platforms1.remove(i);
 				addPlatform(marker,platforms1,true);
-			} else if (platforms1.get(i).getY() < -300) {
-				platforms1.remove(i);
-			} else {
+			} 
+//			else if (platforms1.get(i).getY() < -300) {
+//				platforms1.remove(i);
+//			} 
+			else {
 				platforms1.get(i).draw(marker);
 			}
 		}
@@ -293,9 +287,11 @@ public class Endless extends Level {
 				for(Collider j : platforms2) {
 					System.out.println(j.getX() + " " + j.getY());
 				}
-			} else if (platforms2.get(i).getY() < -300) {
-				platforms2.remove(i);
-			} else {
+			} 
+//			else if (platforms2.get(i).getY() < -300) {
+//				platforms2.remove(i);
+//			} 
+			else {
 				platforms2.get(i).draw(marker);
 			}
 		}
@@ -412,18 +408,34 @@ public class Endless extends Level {
 				System.out.println("HHHHHHHHHHHHHHHHHHHHHHHHH");
 				p = new Platform("assets/Platform/rock-platform.png",x, prevPlatform.getY() - platformHeight - yDist, width, platformHeight, false);
 			}
-			//MobileEnemy enemy = new MobileEnemy(MobileEnemy.mobileEnemyImages,10,p.getX(),p.getY() - 90,p.getX() + p.getWidth() - 72,p.getY() - 90, 10, 0,72,90);
-			//mobilePieces.add(enemy);
 		}
 		
+		int counter = 0;
+	
 		if(left) {
+			counter = leftCounter;
+			leftCounter++;
 		 	onRightSideLeft = !onRightSideLeft;
 		 	prevPlatformLeft = p;
 		} else {
+			counter = rightCounter;
+			rightCounter++;
 			onRightSideRight = !onRightSideRight;
 			System.out.println(onRightSideRight);
 			prevPlatformRight = p;
 		}
+		
+		if (counter % 3 == 0) {
+			MobileEnemy enemy;
+			if (p.getWidth() == 100.0) {
+				enemy = new MobileEnemy(MobileEnemy.mobileEnemyImages, 10, p, 2.5, 0, 54, 67);
+			} else {
+				enemy = new MobileEnemy(MobileEnemy.mobileEnemyImages, 10, p, 5, 0, 72, 90);
+			}
+			mobilePieces.add(enemy);
+		}
+		
+		
 		platforms.add(p);
 	}
 
