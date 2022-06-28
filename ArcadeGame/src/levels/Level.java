@@ -46,6 +46,7 @@ public class Level {
 	boolean growled;
 	boolean grunted;
 	
+	
 	/**
 	 * Abstract method to draw a Level, with all its objects
 	 * @param marker
@@ -102,8 +103,25 @@ public class Level {
 		if (messageTime >= 30) {
 			messageTime = -1;
 			defeatedObjects.clear();
+			
 		}
 	}
+	
+	/**
+	 * Method to display celebratory message when a player dies in endless
+	 * @param marker
+	 */
+	public void endMessage(PApplet marker, String winningPlayer) {
+		marker.push();
+		marker.textFont(marker.createFont("assets/ARCADE_N.TTF", 64));
+		marker.textAlign(PApplet.CENTER, PApplet.CENTER);
+		marker.textSize(80);
+		marker.fill(135,206,235);
+		marker.text(winningPlayer + " WINS!", 0, 0, marker.width, marker.height);
+		marker.pop();
+	}
+	
+
 	/**
 	 * Method to display a hit
 	 * @param marker

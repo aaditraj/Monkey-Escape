@@ -63,8 +63,8 @@ public class Endless extends Level {
 		minHorizDist = 150;
 		minVerticalDist = 150;
 		player2Dead = false;
-		player = new ShootingPlayer(50,200,650,100,100,0,10,10,125);
-		player2 = new ShootingPlayer(50,200+marker.width/2,650,100,100,0,10,10,125);
+		player = new ShootingPlayer(200,200,650,100,100,0,10,10,125);
+		player2 = new ShootingPlayer(200,200+marker.width/2,650,100,100,0,10,10,125);
 		int platform1Width = 300;
 		Platform platform1 = new Platform(0, 780, platform1Width, platformHeight, false);
 		Platform platform2 = new Platform("assets/Platform/rock-platform.png",marker.width/2, 780, platform1Width, platformHeight, false);
@@ -138,7 +138,6 @@ public class Endless extends Level {
 		time++;
 		objects = new ArrayList<>();
 		getObjects().clear();
-		getObjects().addAll(mobilePieces);
 		getObjects().addAll(platforms1);
 		getObjects().addAll(platforms2);
 		getObjects().remove(getPlayer());
@@ -146,7 +145,7 @@ public class Endless extends Level {
 		bluePlace.draw(marker);
 		greenPlace.draw(marker);
 //		if(time%shooter1.bulletFrequency == 0) {
-//			getBullets().add(shooter2.shoot());
+//			getBullets().add(shooter2.sho
 //			getBullets().add(shooter1.shoot());
 //			getBullets().add(dropper1.drop(getPlayer().getCenterX(),getPlayer().getCenterY()));
 //		}
@@ -164,23 +163,40 @@ public class Endless extends Level {
 				boolean hit = false;
 				MobileEnemy currentMobileEnemy = (MobileEnemy) mobilePieces.get(i);
 				MobileEnemy suspect = null;
-
+				MobileEnemy suspect2 = null;
 				
-				for(int k = 0; k < mobilePieces.size(); k++)
-				if(mobilePieces.get(k).intersects(getPlayer()) && mobilePieces.get(k) instanceof MobileEnemy) 
-				{
-					suspect = (MobileEnemy) mobilePieces.get(k); 
-					hit = true;
+				for(int k = 0; k < mobilePieces.size(); k++) {
+					if(mobilePieces.get(k).intersects(getPlayer()) && mobilePieces.get(k) instanceof MobileEnemy) 
+					{
+						suspect = (MobileEnemy) mobilePieces.get(k); 
+						hit = true;
+					}
+					if(mobilePieces.get(k).intersects(getPlayer2()) && mobilePieces.get(k) instanceof MobileEnemy) 
+					{
+						suspect2 = (MobileEnemy) mobilePieces.get(k); 
+						hit = true;
+					}
+					
+					
 				}
-				
 				
 				if(hit) 
 				{
 					if(suspect != null && suspect == currentMobileEnemy && !inDeathAnimation && player.canDamage) {
+						getPlayer().changeHealth(-1);
 						displayDamage(marker, (float)getPlayer().getCenterX(), (float)getPlayer().getCenterY(), false);
 					}
+					if(suspect2 != null && suspect2 == currentMobileEnemy && !inDeathAnimation && player2.canDamage) {
+						getPlayer2().changeHealth(-1);
+						displayDamage(marker, (float)getPlayer2().getCenterX(), (float)getPlayer2().getCenterY(), false);
+					}
 				}
-				else mobileEnemyHitTime = 0;
+				else {
+					growled = false;
+					mobileEnemyHitTime = 0;
+				}
+				
+				
 			}
 			if(mobilePieces.get(i).getHealth() <= 0 && !(mobilePieces.get(i) instanceof ShootingPlayer) ) {
 				if(mobilePieces.get(i) instanceof MobileEnemy) {
@@ -196,9 +212,11 @@ public class Endless extends Level {
 					}
 					if (mobilePieces.get(i).getY() > 1040) {
 						mobilePieces.remove(i);
-					} else if (mobilePieces.get(i).getY() < -300) {
-						mobilePieces.remove(i);
-					} else {
+					} 
+//					else if (mobilePieces.get(i).getY() < -300) {
+//						mobilePieces.remove(i);
+//					} 
+					else {
 						mobilePieces.get(i).draw(marker);
 					}
 				}
@@ -207,37 +225,37 @@ public class Endless extends Level {
 		
 		
 	
-		for(int i = 0; i < getBullets().size(); i++) {
-			Collider bullet = getBullets().get(i);
-			if (bullet.getX() <= marker.width && bullet.getX() >= 0 && bullet.getY() <= marker.height && bullet.getY() >= 0 && bullet.getHealth() > 0) {
-				bullet.draw(marker);
-				if(!inDeathAnimation) {
-					if(((Bullet)bullet).getOwner().equals("player")) {
-						ArrayList<Collider> checkPieces = new ArrayList<Collider>();
-						checkPieces.addAll(mobilePieces);
-						checkPieces.add(border);
-						bullet.act((checkPieces));
-					} else {
-						ArrayList<Collider> playerList = new ArrayList<>();
-						playerList.add(player);
-						bullet.act(playerList);
-					}
-				}
-				if(bullet.getHealth() <= 0) {
-					getBullets().remove(i);
-					
-					if(bullet.intersects(getPlayer()))
-					{
-						Bullet bullet2 = (Bullet)bullet; 
-						bulletHitX = (float)bullet2.getCenterX(); 
-						bulletHitY = (float)bullet2.getCenterY(); 
-						getHit(bullet2.owner); 
-					}
-				}
-			} else {
-				getBullets().remove(i);
-			}
-		}
+//		for(int i = 0; i < getBullets().size(); i++) {
+//			Collider bullet = getBullets().get(i);
+//			if (bullet.getX() <= marker.width && bullet.getX() >= 0 && bullet.getY() <= marker.height && bullet.getY() >= 0 && bullet.getHealth() > 0) {
+//				bullet.draw(marker);
+//				if(!inDeathAnimation) {
+//					if(((Bullet)bullet).getOwner().equals("player")) {
+//						ArrayList<Collider> checkPieces = new ArrayList<Collider>();
+//						checkPieces.addAll(mobilePieces);
+//						checkPieces.add(border);
+//						bullet.act((checkPieces));
+//					} else {
+//						ArrayList<Collider> playerList = new ArrayList<>();
+//						playerList.add(player);
+//						bullet.act(playerList);
+//					}
+//				}
+//				if(bullet.getHealth() <= 0) {
+//					getBullets().remove(i);
+//					
+//					if(bullet.intersects(getPlayer()))
+//					{
+//						Bullet bullet2 = (Bullet)bullet; 
+//						bulletHitX = (float)bullet2.getCenterX(); 
+//						bulletHitY = (float)bullet2.getCenterY(); 
+//						getHit(bullet2.owner); 
+//					}
+//				}
+//			} else {
+//				getBullets().remove(i);
+//			}
+//		}
 		getPlayer().updateVelocity();
 		getPlayer2().updateVelocity();
 		if(!(player.getVY() < 0 && directions[0]) && !(player.getVY() > 0 && directions[2])) {
@@ -345,6 +363,9 @@ public class Endless extends Level {
 			if(inAnimation && time % player2.getImgFrequency() == 0) {
 				deathTime++;
 			}
+			if (inAnimation) {
+				endMessage(marker, "PLAYER 1");
+			}
 		} else {
 			if(inAnimation && deathTime == 3 && time % player.getImgFrequency() == player.getImgFrequency()-1) {
 				super.playGameOverSound();
@@ -353,6 +374,9 @@ public class Endless extends Level {
 			}
 			if(inAnimation && time % player.getImgFrequency() == 0) {
 				deathTime++;
+			}
+			if (inAnimation) {
+				endMessage(marker, "PLAYER 2");
 			}
 		}
 		if(player.getY() > bluePlace.getY()) {
@@ -437,30 +461,30 @@ public class Endless extends Level {
 			}
 		}
 		
-		int counter = 0;
+//		int counter = 0;
 	
 		if(left) {
-			counter = leftCounter;
-			leftCounter++;
+//			counter = leftCounter;
+//			leftCounter++;
 		 	onRightSideLeft = !onRightSideLeft;
 		 	prevPlatformLeft = p;
 		} else {
-			counter = rightCounter;
-			rightCounter++;
+//			counter = rightCounter;
+//			rightCounter++;
 			onRightSideRight = !onRightSideRight;
 			System.out.println(onRightSideRight);
 			prevPlatformRight = p;
 		}
 		
-		if (counter % 3 == 0) {
+//		if (counter % 3 == 0) {
 			MobileEnemy enemy;
 			if (p.getWidth() == 100.0) {
-				enemy = new MobileEnemy(MobileEnemy.mobileEnemyImages, 10, p, 2.5, 0, 54, 67);
+				enemy = new MobileEnemy(MobileEnemy.mobileEnemyImages, 10, p, 1, 0, 36, 45);
 			} else {
 				enemy = new MobileEnemy(MobileEnemy.mobileEnemyImages, 10, p, 5, 0, 72, 90);
 			}
 			mobilePieces.add(enemy);
-		}
+//		}
 		
 		
 		if(minHorizDist < maxHorizDist) {

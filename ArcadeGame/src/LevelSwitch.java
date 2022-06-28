@@ -136,8 +136,10 @@ public class LevelSwitch extends PApplet{
 				//background(background3);
 			}
 			background(50);
-			textFont(createFont("assets/ARCADE_N.TTF", 50));
-			text(points, width-150, 150);
+			if (gameStatus == GameStatus.SINGLE_PLAYER) {
+				textFont(createFont("assets/ARCADE_N.TTF", 50));
+				text(points, width-150, 150);
+			}
 			image(quit, width-100, 25, 50, 50);
 			if (gameStatus == GameStatus.SINGLE_PLAYER) {
 				image(skip, width-175, 30, 65, 40);
@@ -229,16 +231,17 @@ public class LevelSwitch extends PApplet{
 	 *  so that class can determine whether to change the window or not.
 	 */
 	public void mousePressed() {
-		if (level.getPlayer().getAmmo() > 0) {
-			if (gameStatus == GameStatus.SINGLE_PLAYER && !shootSound.isPlaying() || gameStatus == GameStatus.ENDLESS && !shootSound.isPlaying()) {
-				shootSound.play();
+		if (gameStatus == GameStatus.SINGLE_PLAYER) {
+			if (level.getPlayer().getAmmo() > 0) {
+				if (gameStatus == GameStatus.SINGLE_PLAYER && !shootSound.isPlaying() || gameStatus == GameStatus.ENDLESS && !shootSound.isPlaying()) {
+					shootSound.play();
+				}
+				Bullet b = level.getPlayer().shoot(mouseX, mouseY);
+				level.getBullets().add(b);
 			}
-			Bullet b = level.getPlayer().shoot(mouseX, mouseY);
-			level.getBullets().add(b);
 		}
 		
-		
-		
+	
 		if(gameStatus == GameStatus.INSTRUCTIONS)
 		{
 			
@@ -452,28 +455,28 @@ public class LevelSwitch extends PApplet{
 			namePage.interpretKeystroke((char)keyCode);
 		} else if (gameStatus == GameStatus.ENDLESS) {
 			if (keyCode == UP) { 
-				boolean canJump = level.getPlayer().jump(level.getObjects());
+				boolean canJump = level.getPlayer2().jump(level.getObjects());
 				if (canJump && !jumpSound.isPlaying()) {
 					jumpSound.play();
 				}
 			} 
 			if (keyCode == RIGHT) {
-				level.getKeysPressed()[1] = true;
+				level.getKeysPressed2()[1] = true;
 			}
 			if (keyCode == LEFT) {
-				level.getKeysPressed()[2] = true;
+				level.getKeysPressed2()[2] = true;
 			}
 			if (key == 'w') {
-				boolean canJump = level.getPlayer2().jump(level.getObjects());
+				boolean canJump = level.getPlayer().jump(level.getObjects());
 				if (canJump && !jumpSound.isPlaying()) {
 					jumpSound.play();
 				}
 			}
 			if (key == 'd') {
-				level.getKeysPressed2()[1] = true;
+				level.getKeysPressed()[1] = true;
 			}
 			if (key == 'a') {
-				level.getKeysPressed2()[2] = true;
+				level.getKeysPressed()[2] = true;
 			}
 		}else {
 			if (keyCode == UP) { 
@@ -521,26 +524,26 @@ public class LevelSwitch extends PApplet{
 	public void keyReleased() {
 		if(gameStatus == GameStatus.ENDLESS) {
 			if (keyCode == DOWN) { 
-				level.getKeysPressed()[0] = false;
+				level.getKeysPressed2()[0] = false;
 			}
 			if (keyCode == RIGHT) {
-				level.getKeysPressed()[1] = false;
-
-			}
-			if (keyCode == LEFT) {
-				level.getKeysPressed()[2] = false;
-
-			}
-			if (key == 'd') {
 				level.getKeysPressed2()[1] = false;
 
 			}
+			if (keyCode == LEFT) {
+				level.getKeysPressed2()[2] = false;
+
+			}
+			if (key == 'd') {
+				level.getKeysPressed()[1] = false;
+
+			}
 			if (key == 's') {
-				level.getKeysPressed2()[0] = false;
+				level.getKeysPressed()[0] = false;
 			
 			}
 			if (key == 'a') {
-				level.getKeysPressed2()[2] = false;
+				level.getKeysPressed()[2] = false;
 		
 			}
 		} else {
