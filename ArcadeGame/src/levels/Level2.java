@@ -70,13 +70,11 @@ public class Level2 extends Level {
 		lava = new Lava(10, 0, 950, 2000, 100, 0.2);
 		shooter3 = new SideShooter(1100,530, 50, 88,76, -1);
 		dropper1 = new ShootingEnemy(1500, 300, 0, 75, 75);
-		coin2 = new Coin(10,775);
 		coin1 = new Coin(10,375);
 		coins.clear();
 		coins.add(coin1);
-		coins.add(coin2);
 		player = new ShootingPlayer(80,250,700,100,100,0,10,10);
-		platformTop = new Platform(0, 75, 1100, 40, false);
+		platformTop = new Platform(0, 75, 600, 40, false);
 		platform1 = new Platform(650,800,500,40,false);
 		platform2 = new Platform(650,600,500,40,false);
 		platform3 = new Platform(10,700,500,40,false);

@@ -86,7 +86,7 @@ public class Level {
 			marker.textFont(marker.createFont("assets/ARCADE_N.TTF", 64));
 			marker.textAlign(PApplet.CENTER, PApplet.CENTER);
 			marker.textSize(60);
-			marker.fill(135,206,235);
+			marker.fill(238,75,43);
 			marker.text(currentCelebration, 0, 0, marker.width, marker.height);
 			marker.textSize(15);
 			marker.fill(255, 255, 0);
