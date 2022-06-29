@@ -103,7 +103,10 @@ public class Leaderboard {
 	}
 	public void writeData() {
 		try {
-			
+			FileOutputStream stream = new FileOutputStream("data/leaderboard.dat");
+			ObjectOutputStream writer = new ObjectOutputStream(stream);
+			writer.writeObject(leaderboard);
+			writer.close();
 		} catch (Exception e) {
 			System.out.println("Could not serialize leaderboard");
 			e.printStackTrace();
@@ -133,12 +136,7 @@ public class Leaderboard {
 			}
 			constructNames();
 			constructPoints();
-			constructAllNames();
-			System.out.println(names);
-			System.out.println(points);
-			System.out.println(allNames);
-			System.out.println(leaderboard);
-			
+			constructAllNames();			
 		} else {
 			System.out.println("Please enter a unique name.");
 		}
