@@ -12,6 +12,7 @@ public class MobileEnemy extends Collider {
 	private float proportion; 
 	private float initHealth;
 	private Platform platform;
+	private boolean showHealthBar = true;
 	public static final String[] mobileEnemyImages = new String[] {"assets/MobileEnemy/left.png",
 			"assets/MobileEnemy/right.png", "assets/MobileEnemy/mad-left-1.png", 
 			"assets/MobileEnemy/mad-right-1.png"};
@@ -36,6 +37,11 @@ public class MobileEnemy extends Collider {
 	public MobileEnemy(String[] images, double health, Platform p, double vx, double vy, double width, double height) {
 		this(images, health, p.getX(), p.getY() - height, p.getX() + p.getWidth() - width, p.getY() - height, vx, vy, width, height);
 		this.platform = p;
+	}
+	
+	public void setHealthBar(boolean state)
+	{
+		showHealthBar = state;
 	}
 	
 	// call this method before draw
@@ -77,11 +83,15 @@ public class MobileEnemy extends Collider {
 	public void draw(PApplet marker) {
 		super.draw(marker);
 		
-		marker.push();
-		marker.rect((float)getX(), (float)getY() - (float)getHeight()/2, (float)getWidth(), 10);
-		marker.fill(marker.color(0,255,0));
-		marker.rect((float)getX(), (float)getY() - (float)getHeight()/2, (float)(getWidth() - proportion*Math.abs(initHealth-getHealth())), 10);
-		marker.pop();
+		if(showHealthBar)
+		{
+			marker.push();
+			marker.rect((float)getX(), (float)getY() - (float)getHeight()/2, (float)getWidth(), 10);
+			marker.fill(marker.color(0,255,0));
+			marker.rect((float)getX(), (float)getY() - (float)getHeight()/2, (float)(getWidth() - proportion*Math.abs(initHealth-getHealth())), 10);
+			marker.pop();
+		}
+		
 	}
 	/**
 	 * Do damage if hitting player, and change the image to the angry gorilla image.

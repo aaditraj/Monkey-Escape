@@ -22,8 +22,8 @@ public class Instructions  {
 		
 		marker.textFont(marker.createFont("assets/ARCADE_N.TTF", marker.width/50));
 		marker.text("1. Use A/D or Left/Right Arrows to move", (float)(marker.width/7), (float)(marker.height/2.2));
-		marker.text("2. Use Spacebar to jump", (float)(marker.width/7), (float)(marker.height/2));
-		marker.text("3. Left-Click to Shoot", (float)(marker.width/7), (float)(marker.height/1.82));
+		marker.text("2. Use W or Up Arrow to jump", (float)(marker.width/7), (float)(marker.height/2));
+		marker.text("3. Click to Shoot", (float)(marker.width/7), (float)(marker.height/1.82));
 
 
 		marker.text("1. Reach Doors and advance to next level", (float)(marker.width/7), (float)(marker.height/1.5));
@@ -32,10 +32,12 @@ public class Instructions  {
 		marker.text("1. Kill enemies & Collect coins", (float)(marker.width/7), (float)(marker.height/1.2));
 		marker.text("2. Reach the top of the leaderboard!", (float)(marker.width/7), (float)(marker.height/1.13));
 		
+		
 		marker.fill(255,255,0);
 		marker.text("Points", (float)(marker.width/2.3), (float)(marker.height/1.3));
 		marker.text("Objective", (float)(marker.width/2.4), (float)(marker.height/1.65));
 		marker.text("Controls", (float)(marker.width/2.4), (float)(marker.height/2.5));
+
 
 		marker.pop(); 
 	}

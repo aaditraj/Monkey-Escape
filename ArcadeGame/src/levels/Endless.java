@@ -480,6 +480,7 @@ public class Endless extends Level {
 			MobileEnemy enemy;
 			if (p.getWidth() >= 200.0) {
 				enemy = new MobileEnemy(MobileEnemy.mobileEnemyImages, 10, p, 1, 0, 54, 68);
+				enemy.setHealthBar(false);
 				mobilePieces.add(enemy);
 			} /*else {
 				enemy = new MobileEnemy(MobileEnemy.mobileEnemyImages, 10, p, 5, 0, 72, 90);

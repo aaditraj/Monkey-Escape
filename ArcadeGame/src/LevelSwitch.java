@@ -1,4 +1,5 @@
 
+import java.awt.Color;
 import java.util.HashMap;
 
 import core.Bullet;
@@ -69,6 +70,7 @@ public class LevelSwitch extends PApplet{
 	boolean keysEntered = false;
 	boolean played;
 	private NameEnterPage namePage;
+	int previousGameStatus;
 	/**
 	 * The main method that sets up LevelSwitch, a class that allows multiple classes to be drawn
 	 * on a single screen, and allows multiple classes to communicate with each other in a cohesive manner
@@ -78,13 +80,10 @@ public class LevelSwitch extends PApplet{
 	}
 	public void setup() {
 		quit = loadImage("assets/SettingSymbol.png");
-		background = loadImage("assets/jungle_background.jpg");
-		background2 = loadImage("assets/level_2_background.jpg");
-		background3 = loadImage("assets/level_3_background.jpg");
+		background = loadImage("assets/Backgrounds/background.png");
 		skip = loadImage("assets/SkipSymbol.png");
 		quitPrompt = loadImage("assets/QuitPrompt.png");
 		skipPrompt = loadImage("assets/SkipPrompt.png");
-		
 		if (startMusic == null) startMusic = new SoundFile(this, "assets/Music/StartMusic.wav");
 		if (level1Music == null) level1Music = new SoundFile(this, "assets/Music/Level1.wav");
 		if (level2Music == null) level2Music = new SoundFile(this, "assets/Music/Level2.wav");
@@ -124,18 +123,14 @@ public class LevelSwitch extends PApplet{
 		//if(System.currentTimeMillis() % 10 == 0) {
 		if(gameStatus == GameStatus.SINGLE_PLAYER || gameStatus == GameStatus.ENDLESS) {
 //			if(startMusic.isPlaying()) startMusic.stop();
-			
-			
-			if(level instanceof Level1)
-			{
-				//background(background);
-			} else if(level instanceof Level2)
-			{
-				//background(background2);
+//			System.out.println(width + " " + height);
+			if(gameStatus == GameStatus.SINGLE_PLAYER) {
+				image(background,0,0,width,height);
 			} else {
-				//background(background3);
+				background(53,81,92);
 			}
-			background(50);
+			
+			//background(50);
 			if (gameStatus == GameStatus.SINGLE_PLAYER) {
 				textFont(createFont("assets/ARCADE_N.TTF", 50));
 				text(points, width-150, 150);
@@ -183,6 +178,7 @@ public class LevelSwitch extends PApplet{
 			
 			if(promptSkip)
 			{
+				previousGameStatus = gameStatus;
 				promptSkip();
 				gameStatus = GameStatus.PROMPT_SKIP;
 			}
@@ -190,13 +186,14 @@ public class LevelSwitch extends PApplet{
 			
 			if(promptQuit)
 			{
+				previousGameStatus = gameStatus;
 				promptQuit();
 				gameStatus = GameStatus.PROMPT_QUIT;
 			}
 			
 			
 		} else {
-			if (!startMusic.isPlaying() && gameStatus != GameStatus.PROMPT_QUIT) {
+			if (!startMusic.isPlaying() && gameStatus != GameStatus.PROMPT_QUIT && gameStatus != GameStatus.PROMPT_SKIP) {
 				startMusic.jump(14.5f);
 				startMusic.play();
 			}
@@ -273,10 +270,7 @@ public class LevelSwitch extends PApplet{
 			if(mouseX > (int)(width/1.95) && mouseX < (int)(width/1.95) + width/5)
 			{
 				if(mouseY > (int)(height/1.8) && mouseY < (int)(height/1.8) + height/5)
-					if(gameStatus == GameStatus.SINGLE_PLAYER) gameStatus = GameStatus.SINGLE_PLAYER; 
-					else {
-						gameStatus = GameStatus.ENDLESS; 
-					}
+					gameStatus = previousGameStatus;
 				
 					promptQuit = false;
 				
@@ -302,11 +296,11 @@ public class LevelSwitch extends PApplet{
 			
 			if(mouseX > (int)(width/1.95) && mouseX < (int)(width/1.95) + width/5)
 			{
+				
 				if(mouseY > (int)(height/1.8) && mouseY < (int)(height/1.8) + height/5)
-					if(gameStatus == GameStatus.SINGLE_PLAYER) gameStatus = GameStatus.SINGLE_PLAYER; 
-					else {
-						gameStatus = GameStatus.ENDLESS; 
-					}
+					gameStatus = GameStatus.SINGLE_PLAYER; 
+				
+					
 				
 					promptSkip = false;
 				
