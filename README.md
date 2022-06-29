@@ -4,7 +4,7 @@
 This project requires a Java setup. 
 
 ## Installation
-Download the jar file from the 'dist' folder, navigate to where it is located using the command line, and execute the following command:
+Download the zip file from the Github repo. Then, unzip the MonkeyEscape file and download the jar file from the folder. Navigate to where it is located using the command line, and execute the following command:
 ```
 java -jar MonkeyEscape.jar
 ```
