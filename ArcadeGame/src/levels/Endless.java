@@ -67,7 +67,7 @@ public class Endless extends Level {
 		player2 = new ShootingPlayer(200,200+marker.width/2,650,100,100,0,10,10,125);
 		int platform1Width = 300;
 		Platform platform1 = new Platform(0, 780, platform1Width, platformHeight, false);
-		Platform platform2 = new Platform("assets/Platform/rock-platform.png",marker.width/2, 780, platform1Width, platformHeight, false);
+		Platform platform2 = new Platform(marker.width/2, 780, platform1Width, platformHeight, false);
 		border = new Platform("assets/Platform/Border.png",marker.width/2-20,0,40,1200,false);
 		bluePlace = new Platform("assets/Platform/BlueProgress.png",0,680,marker.width/2,10,false);
 		greenPlace = new Platform("assets/Platform/GreenProgress.png",marker.width/2,680,marker.width/2,10,false);
@@ -380,10 +380,10 @@ public class Endless extends Level {
 			}
 		}
 		if(player.getY() > bluePlace.getY()) {
-			player.changeHealth(-0.1);
+			player.changeHealth(-0.3);
 		}
 		if(player2.getY() > greenPlace.getY()) {
-			player2.changeHealth(-0.1);
+			player2.changeHealth(-0.3);
 		}
 		displayCelebrations(marker);
 		if (player.canDamage) displayHit(marker, bulletHitX, bulletHitY);
@@ -424,12 +424,12 @@ public class Endless extends Level {
 			if (width > 300) {
 				width = 300;
 			}
-			System.out.println(marker.displayWidth + " " + x + " " + " " + xDist + " " + yDist);
+//			System.out.println(marker.displayWidth + " " + x + " " + " " + xDist + " " + yDist);
 			if(left) {
 				p = new Platform(x, prevPlatform.getY() - platformHeight - yDist, width, platformHeight, false);
 			} else {
-				System.out.println("JJJJJJJJJJJJJJJJJJJJJJJJJJJ");
-				p = new Platform("assets/Platform/rock-platform.png",x, prevPlatform.getY() - platformHeight - yDist, width, platformHeight, false);
+//				System.out.println("JJJJJJJJJJJJJJJJJJJJJJJJJJJ");
+				p = new Platform(x, prevPlatform.getY() - platformHeight - yDist, width, platformHeight, false);
 			}
 			
 		} else {
@@ -456,8 +456,8 @@ public class Endless extends Level {
 			if(left) {
 				p = new Platform(x, prevPlatform.getY() - platformHeight - yDist, width, platformHeight, false);
 			} else {
-				System.out.println("HHHHHHHHHHHHHHHHHHHHHHHHH");
-				p = new Platform("assets/Platform/rock-platform.png",x, prevPlatform.getY() - platformHeight - yDist, width, platformHeight, false);
+//				System.out.println("HHHHHHHHHHHHHHHHHHHHHHHHH");
+				p = new Platform(x, prevPlatform.getY() - platformHeight - yDist, width, platformHeight, false);
 			}
 		}
 		
@@ -472,18 +472,19 @@ public class Endless extends Level {
 //			counter = rightCounter;
 //			rightCounter++;
 			onRightSideRight = !onRightSideRight;
-			System.out.println(onRightSideRight);
+//			System.out.println(onRightSideRight);
 			prevPlatformRight = p;
 		}
 		
 //		if (counter % 3 == 0) {
 			MobileEnemy enemy;
-			if (p.getWidth() == 100.0) {
-				enemy = new MobileEnemy(MobileEnemy.mobileEnemyImages, 10, p, 1, 0, 36, 45);
-			} else {
+			if (p.getWidth() >= 200.0) {
+				enemy = new MobileEnemy(MobileEnemy.mobileEnemyImages, 10, p, 1, 0, 54, 68);
+				mobilePieces.add(enemy);
+			} /*else {
 				enemy = new MobileEnemy(MobileEnemy.mobileEnemyImages, 10, p, 5, 0, 72, 90);
-			}
-			mobilePieces.add(enemy);
+			}*/
+			//mobilePieces.add(enemy);
 //		}
 		
 		

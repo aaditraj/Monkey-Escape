@@ -34,15 +34,35 @@ public class Collider {
 	    public void setMobile(boolean b) {
 	    	stationary = !b;
 	    }
+	    
+	    /** 
+	     * The array of images 
+	     * 
+		 * @param images The array of images 
+		 */
 	    public void setImages(String[] images) {
 	    	displayer.setImages(images);
 	    }
+	    
+	    /** 
+		 * @returns Returns whether or not the Collider is a static object or movable object. 
+		 */
 	    public boolean isMovable() {
 	    	return !stationary;
 	    }
+	    
+	    /** 
+		 * @return Returns the displayer's frequency. 
+		 */
 	    public int getImgFrequency() {
 	    	return displayer.getFrequency();
 	    }
+	    
+	    /** 
+		 * Checks in which directions the collider's directions are intersected with the colliders in the colliderList
+		 * 
+		 * @param colliderList 
+		 */
 	    public boolean[] intersects(ArrayList<Collider> colliderList) {
 			boolean[] data = new boolean[4]; // north, east, south, west
 			for (int i = 0; i < colliderList.size(); i++) {
@@ -99,7 +119,7 @@ public class Collider {
 			return data;
 		}
 		/**
-		 * use this method for checking if something collides with a specific object. E.g. mobile enemy
+		 * Use this method for checking if something collides with a specific object. E.g. mobile enemy
 		 * collides with player.
 		 */
 		public boolean intersects(Collider collider) {
