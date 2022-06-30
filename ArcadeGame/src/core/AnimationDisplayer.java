@@ -8,6 +8,8 @@ import processing.core.PImage;
  * determine how fast to iterate though the image set.
  * eg. Running animation
  *
+ *
+ *@author Adithya
  */
 public class AnimationDisplayer {
 	String[] images;

@@ -31,6 +31,8 @@ import startpage.StartPage;
  */
 /**
  * The main Level class that allows us to draw the correct UI based on the Game's Status
+ * 
+ * @author Julian, Aditya, Adithya
  */
 public class LevelSwitch extends PApplet{
 	Level level;
@@ -71,6 +73,7 @@ public class LevelSwitch extends PApplet{
 	boolean played;
 	private NameEnterPage namePage;
 	int previousGameStatus;
+	
 	/**
 	 * The main method that sets up LevelSwitch, a class that allows multiple classes to be drawn
 	 * on a single screen, and allows multiple classes to communicate with each other in a cohesive manner
@@ -78,6 +81,11 @@ public class LevelSwitch extends PApplet{
 	public void settings() {
 		noSmooth();
 	}
+	
+	/**
+	 * This method sets up the initial window, starting by loading the main menu and then the rest of the levels. 
+	 * 
+	 */
 	public void setup() {
 		quit = loadImage("assets/SettingSymbol.png");
 		background = loadImage("assets/Backgrounds/background.png");
@@ -109,28 +117,24 @@ public class LevelSwitch extends PApplet{
 			startMusic.play();
 		}
 	}
+	
 	/**
 	 * A processing methods that allows something to be rendered on the screen
 	 * This draw method calls on the draw methods of other classes allowing them to be drawn on the screen
+	 * 
+	 * @post The background of the PApplet will be changed
+	 * @post Text and images will be drawn on the image
 	 */
 	public void draw() {
 		
-		
-//		System.out.println(width);
-//		System.out.println(height);
-
-//		System.out.println("Random: " + level.getRandomInt(5, 10));
-		//if(System.currentTimeMillis() % 10 == 0) {
 		if(gameStatus == GameStatus.SINGLE_PLAYER || gameStatus == GameStatus.ENDLESS) {
-//			if(startMusic.isPlaying()) startMusic.stop();
-//			System.out.println(width + " " + height);
 			if(gameStatus == GameStatus.SINGLE_PLAYER) {
 				image(background,0,0,width,height);
 			} else {
 				background(53,81,92);
 			}
 			
-			//background(50);
+			//Draws the levels
 			if (gameStatus == GameStatus.SINGLE_PLAYER) {
 				textFont(createFont("assets/ARCADE_N.TTF", 50));
 				text(points, width-150, 150);
@@ -149,6 +153,7 @@ public class LevelSwitch extends PApplet{
 				level.setDead(false); 
 			}
 			
+			//Checks if the levels are finished
 			if(level.isFinished() == true) {
 				if(level instanceof Level1) {
 					level1Music.stop();
@@ -175,7 +180,7 @@ public class LevelSwitch extends PApplet{
 				}
 			}
 			
-			
+			//Checks if the skip option has been clicked
 			if(promptSkip)
 			{
 				previousGameStatus = gameStatus;
@@ -184,6 +189,7 @@ public class LevelSwitch extends PApplet{
 			}
 
 			
+			//Checks if the quit option has been clicked
 			if(promptQuit)
 			{
 				previousGameStatus = gameStatus;
@@ -254,6 +260,7 @@ public class LevelSwitch extends PApplet{
 		if(gameStatus == GameStatus.PROMPT_QUIT)
 		{
 			
+			//Yes Option
 			if(mouseX > (int)(width/3.5) && mouseX < (int)(width/3.5) + width/5)
 			{
 				if(mouseY > (int)(height/1.8) && mouseY < (int)(height/1.8) + height/5) 
@@ -266,7 +273,7 @@ public class LevelSwitch extends PApplet{
 			}
 			
 			
-			
+			//No Option
 			if(mouseX > (int)(width/1.95) && mouseX < (int)(width/1.95) + width/5)
 			{
 				if(mouseY > (int)(height/1.8) && mouseY < (int)(height/1.8) + height/5)
@@ -282,6 +289,7 @@ public class LevelSwitch extends PApplet{
 		if(gameStatus == GameStatus.PROMPT_SKIP)
 		{
 			
+			//Yes Option
 			if(mouseX > (int)(width/3.5) && mouseX < (int)(width/3.5) + width/5)
 			{
 				if(mouseY > (int)(height/1.8) && mouseY < (int)(height/1.8) + height/5) 
@@ -293,7 +301,7 @@ public class LevelSwitch extends PApplet{
 			}
 			
 			
-			
+			//No Option
 			if(mouseX > (int)(width/1.95) && mouseX < (int)(width/1.95) + width/5)
 			{
 				
@@ -309,7 +317,7 @@ public class LevelSwitch extends PApplet{
 			}
 		}
 		
-		
+		//Checks if skip button was clicked
 		if(gameStatus == GameStatus.SINGLE_PLAYER || gameStatus == GameStatus.ENDLESS)
 		{
 			
@@ -346,10 +354,12 @@ public class LevelSwitch extends PApplet{
 				}
 			}
 		}
+		//Manages the clickthrough
 		if(gameStatus == GameStatus.IN_CLICKTHROUGH) {
 			clickThrough.next();
 		}
 	}
+	
 	/**
 	 *The method that uses the keys pressed to determine which direction to move the main player. 
 	 */

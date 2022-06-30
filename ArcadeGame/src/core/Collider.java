@@ -2,6 +2,13 @@ package core;
 import java.util.ArrayList;
 
 import processing.core.PApplet;
+
+/** 
+ * The Collider class represents all objects within the game. Colliders can be both stationary and mobile objects. 
+ * 
+ * @author Julian, Adithya, Aaditya
+ * 
+ */
 public class Collider {
 	    protected double x;
 		protected double y;
@@ -31,6 +38,11 @@ public class Collider {
 	    	stationary = true;
 	    }
 	    
+	    /** 
+		 * Makes the collider mobile
+		 * 
+		 * @param b The boolean to set the collider mobile or stationary
+		 */
 	    public void setMobile(boolean b) {
 	    	stationary = !b;
 	    }
@@ -198,65 +210,117 @@ public class Collider {
 			}
 		}
 		
-		/*
+		/**
 		 * @pre imageIndex must be within range of how many images there are for this Collider
 		 * remember that currentImage is an index as well
 		 */
 		public void goToImage(int imageIndex) {
 			displayer.goToImage(imageIndex);
 		}
+		
+		/** 
+		 * Makes the collider damagable
+		 * 
+		 * @param damagable To set the collider as being able to be damaged or not. 
+		 */
 		public void setDamagable(boolean damagable) {
 			canDamage = damagable;
 		}
+		
+		/** 
+		 * Makes the collider mobile
+		 * 
+		 * @param b The boolean to set the collider mobile or stationary
+		 */
 		public void changeHealth(double d) {
 			if(canDamage) {
 				health += d;
 			}
 		}
-		
-
-
+		/**
+		 * Returns the y of the collider
+		 * @return y the y value of the collider
+		 */
 		public double getY() {
 			return y;
 		}
-
+		/**
+		 * Returns the x of the collider
+		 * @return x the x value of the collider
+		 */
 		public double getX() {
 			return x;
 		}
-
+		/**
+		 * Resizes the collider with the given scaling factor
+		 * @param scale the scaling factor for the image
+		 */
 		public void resize(double scale) {
 			width *= scale;
 			height *= scale;
 		}
 		
+		/**
+		 * Returns the health of the collider
+		 * @return health The health of the collider
+		 */
 		public double getHealth() {
 			return health;
 		}
 
+		/**
+		 * Returns the center x of the collider
+		 * @return The center X of the collider
+		 */
 		public double getCenterX() {
 			return getX() + width/2.0;
 		}
 
+		/**
+		 * Returns the center y of the collider
+		 * @return The center y of the collider
+		 */
 		public double getCenterY() {
 			return getY() + height/2.0;
 		}
 		
+		/**
+		 * Returns the width of the collider
+		 * @return The width of the collider
+		 */
 		public double getWidth() {
 			return width;
 		}
 		
+		/**
+		 * Returns the height of the collider
+		 * @return The height of the collider
+		 */
 		public double getHeight() {
 			return height;
 		}
 		
+		/**
+		 * Changes the width of the Collider
+		 * @param The width to increment the collider by
+		 */
 		public void changeWidth(double width) {
 			this.width += width;
 		}
 		
+		/**
+		 * Changes the height of the Collider
+		 * @param The height to increment the collider by
+		 */
 		public void changeHeight(double height) {
 			this.height += height;
 		}
 		
+		
+		/**
+		 * Returns the set of lines that bound the Collider
+		 * @param maxSpeed The speed of the program to prevent bugs and glitches.
+		 */
 		public Line[] getLinesBundle(int maxSpeed) {
 			Line[] lines = new Line[4*maxSpeed];
 			for(int i = 0; i < maxSpeed; i++) {
@@ -283,6 +347,12 @@ public class Collider {
 			return lines;
 			
 		}
+		
+		/** 
+		 * Returns an array of lines that bound the collider. 
+		 * 
+		 * @return Line[] The set of lines that bound the collider 
+		 */
 		public Line[] getLines() {
 			Line[] lines = new Line[4];
 			lines[0] = new Line((int)x, (int)y, (int)x + width, (int)y); // top
@@ -293,10 +363,21 @@ public class Collider {
 			
 		}
 		
+		/** 
+		 * Makes the Collider act, moving by vx and vy
+		 * 
+		 * @param colliders The set of colliders to check for intersections.
+		 */
 		public void act(ArrayList<Collider> colliders) {
 			moveBy(vx, vy, colliders);
 		}
-		//returns how much damage to take and does other actions to collider
+		
+		
+		/** 
+		 * Calculates and returns the collider
+		 * 
+		 * @return returns 0.0 
+		 */
 		public double collide(Collider collider) {
 			return 0.0;
 		};
@@ -328,34 +409,76 @@ public class Collider {
 			return super.toString() + "\nWidth: " + width + "\nHeight: " + height;
 		}
 
+		/**
+		 * Returns a double containing the value of the Collider's initial x position.
+		 * 
+		 * @return initX The initial position of the Collider 
+		 */
 		public double getInitX() {
 			return initX;
 		}
 
+		/**
+		 * Returns a double containing the value of the Collider's initial y position.
+		 * 
+		 * @return initY The initial position of the Collider 
+		 */
 		public double getInitY() {
 			return initY;
 		}
 		
+		/**
+		 * Returns a double containing the value of the Collider's velocity x value.
+		 * 
+		 * @return vx The velocity x of the Collider. 
+		 */
 		public double getVX() {
 			return vx;
 		}
 
+		/**
+		 * Returns a double containing the value of the Collider's velocity y value.
+		 * 
+		 * @return vy The velocity y of the Collider. 
+		 */
 		public double getVY() {
 			return vy;
 		}
+		
+		/**
+		 * Sets the value of the Collider's velocity x
+		 * 
+		 * @param vx The velocity x of the Collider. 
+		 */
 		public void setVX(double vx) {
 			this.vx = vx;
 		}
 
+		/**
+		 * Sets the value of the Collider's velocity y
+		 * 
+		 * @param vy The velocity y of the Collider. 
+		 */
 		public void setVY(double vy) {
 			this.vy = vy;
 		}
 
+		/**
+		 * Returns an int containing the value of the Collider's image position
+		 * 
+		 * @return An int that represents the current image of the Collider in its image array. 
+		 */
 		public int getCurrentImage() {
 			return displayer.getPosition();
 		}
    
    
+		/**
+		 * Sets the velocity of the Collider
+		 * 
+		 * @param run The x component of the new velocity
+		 * @param rise The y component of the new velocity
+		 */
 		public void setVelocity(double run, double rise) {
 			double currentSpeed = Math.sqrt(Math.pow(rise, 2) + Math.pow(run, 2));
 			if (currentSpeed > DEFAULT_SPEED) {
@@ -369,15 +492,31 @@ public class Collider {
 			this.vy = rise;
 		}
 		
+		/**
+		 * Sets the value of the Collider's velocity y
+		 * 
+		 * @return Returns the absolute value of the velocity of the Collider 
+		 */
 		public double getAbsVelocity() {
 			return Math.sqrt(Math.pow(vx, 2) + Math.pow(vy, 2));
 		}
 
+		/**
+		 * Scales the velocity of the Collider
+		 * 
+		 * @return d The scale at which the velocity will be scaled
+		 */
 		public void scaleVelocities(double d) {
 			vx *= d;
 			vy *= d;
 			scaled = true;
 		}
+		
+		/**
+		 * Descales the velocity of the Collider
+		 * 
+		 * @return d The scale at which the velocity will be descaled
+		 */
 		public void descaleVelocities(double d) {
 			vx *= d;
 			vy *= d;

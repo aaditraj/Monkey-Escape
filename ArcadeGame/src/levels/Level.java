@@ -10,6 +10,11 @@ import powerups.PowerUp;
 import processing.core.PApplet;
 import processing.sound.SoundFile;
 
+/**
+ * The main Level class that is the basis for all levels
+ * 
+ * @author Julian, Aditya, Adithya
+ */
 public class Level {
 	ShootingPlayer player;
 	ShootingPlayer player2;
@@ -49,7 +54,7 @@ public class Level {
 	
 	/**
 	 * Abstract method to draw a Level, with all its objects
-	 * @param marker
+	 * @param marker The PApplet to be drawn on
 	 */
 	public void draw(PApplet marker) {
 		
@@ -73,9 +78,16 @@ public class Level {
 	public void move() {
 		
 	}
+	
+	/**
+	 * Checks if the player is currently in an animation
+	 * 
+	 * @return boolean Whether or not the character is in an animation
+	 */
 	public boolean isInAnimation() {
 		return false;
 	}
+	
 	/**
 	 * Method to display celebratory message when you collect a coin
 	 * @param marker
@@ -124,9 +136,9 @@ public class Level {
 
 	/**
 	 * Method to display a hit
-	 * @param marker
-	 * @param f
-	 * @param g
+	 * @param marker The PApplet display to be drawn on
+	 * @param f The center x location of the player
+	 * @param g The center y location of the player
 	 */
 	public void displayHit(PApplet marker, float f, float g)
 	{	
@@ -168,9 +180,9 @@ public class Level {
 	}
 	/**
 	 * Method to display a dmage, when it is taken
-	 * @param marker
-	 * @param f
-	 * @param g
+	 * @param marker The PApplet display to be drawn on
+	 * @param f The center x location of the player
+	 * @param g The center y location of the player
 	 */
 	public void displayDamage(PApplet marker, float f, float g, boolean isLava)
 	{	
@@ -198,7 +210,7 @@ public class Level {
 	}
 	/**
 	 * collect a coin, given the coins position
-	 * @param i
+	 * @param i The index of the coin in the array
 	 */
 	
 	public void collectCoin(int i) {
@@ -215,7 +227,7 @@ public class Level {
 	}
 	/**
 	 * Tracks the hits on the owner
-	 * @param owner
+	 * @param owner A string that describes the owner of the bullet 
 	 */
 	public void getHit(String owner) {
 		hitTime = 0;
@@ -235,38 +247,80 @@ public class Level {
 		getPlayer().changePoints(50);
 		mobilePieces.remove(i);
 	}
-	//Returns the main player
+	
+	/**
+	 * Returns the player 1 object
+	 * @return The player 1 object reference
+	 */
 	public ShootingPlayer getPlayer() {
 		return player;
 	}
+	
+	/**
+	 * Returns the player 2 object
+	 * @return The player 2 object reference
+	 */
 	public ShootingPlayer getPlayer2() {
 		return player2;
 	}
-	//Checks if the level is finished
+	
+	/**
+	 * Returns the status of the level (if it is finished or not)
+	 * @return boolean Whether or not the level has been completed
+	 */
 	public boolean isFinished() {
 		return isFinished;
 	}
-	//Finishes the level
+	
+	/**
+	 * Sets the status of the level
+	 * @param isFinished Whether or not the level has been completed
+	 */
 	public void setFinished(boolean isFinished) {
 		this.isFinished = isFinished;
 	}
-	//Gets all the bullets in the level
+	
+	/**
+	 * Returns the current exisitng bullets in the level
+	 * @return Arraylist<Collider> The set of bullets that exist in the program
+	 */
 	public ArrayList<Collider> getBullets() {
 		return bullets;
 	}
+	/**
+	 * Returns a boolean array of all the keys pressed, used to move the player
+	 * @return keysPressed a boolean array that describes the directions to move
+	 */
 	public boolean[] getKeysPressed() {
 		return keysPressed;
 	}
+	/**
+	 * Returns a boolean array of all the keys pressed, used to move the second player
+	 * @return keysPressed a boolean array that describes the directions for the second player to move
+	 */
 	public boolean[] getKeysPressed2() {
 		return keysPressedPlayer2;
 	}
+	/**
+	 * Returns an array list of all the objects
+	 * @return ArrayList<Collider> The objects that currently exist in the level 
+	 */
 	public ArrayList<Collider> getObjects() {
 		return objects;
 	}
+	
+	/**
+	 * Returns the player speed
+	 * @return An int that contains the value of the player's speed
+	 */
 	public int getPlayerSpeed() {
 		return player.playerSpeed;
 	}
 
+	/**
+	 * Plays the game over sound
+	 * 
+	 */
 	public void playGameOverSound() {
 		if (!gameOverSound.isPlaying()) {
 			gameOverSound.play();
@@ -274,16 +328,28 @@ public class Level {
 		
 	}
 	
+	/**
+	 * Checks whether or not the player is dead
+	 * @return boolean if player has died
+	 */
 	public boolean getDead()
 	{
 		return isDead;
 	}
 	
+	/**
+	 * Sets the player's death state
+	 * @param Sets the player's state as dead
+	 */
 	public void setDead(boolean dead)
 	{
 		isDead = dead;
 	}
 	
+	/**
+	 * Gets a random integer between the starting to ending
+	 * @return int The random number
+	 */
 	public int getRandomInt(int starting, int ending)
 	{
 		double r = Math.random() * (ending-starting);
