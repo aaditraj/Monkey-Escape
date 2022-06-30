@@ -24,18 +24,20 @@ public class Instructions  {
 		marker.text("1. Use A/D or Left/Right Arrows to move", (float)(marker.width/7), (float)(marker.height/2.2));
 		marker.text("2. Use W or Up Arrow to jump", (float)(marker.width/7), (float)(marker.height/2));
 		marker.text("3. Click to Shoot", (float)(marker.width/7), (float)(marker.height/1.82));
+		marker.text("4. For Multiplayer use WASD for Player 1, and Arrows for Player 2", (float)(marker.width/7), (float)(marker.height/1.64));
 
 
-		marker.text("1. Reach Doors and advance to next level", (float)(marker.width/7), (float)(marker.height/1.5));
-		marker.text("2. Kill enemies & Dodge enemy projectiles", (float)(marker.width/7), (float)(marker.height/1.4));
 
-		marker.text("1. Kill enemies & Collect coins", (float)(marker.width/7), (float)(marker.height/1.2));
-		marker.text("2. Reach the top of the leaderboard!", (float)(marker.width/7), (float)(marker.height/1.13));
+		marker.text("1. Reach Doors and advance to next level", (float)(marker.width/7), (float)(marker.height/1.4));
+		marker.text("2. Kill enemies & Dodge enemy projectiles", (float)(marker.width/7), (float)(marker.height/1.3));
+
+		marker.text("1. Kill enemies & Collect coins", (float)(marker.width/7), (float)(marker.height/1.13));
+		marker.text("2. Reach the top of the leaderboard!", (float)(marker.width/7), (float)(marker.height/1.05));
 		
 		
 		marker.fill(255,255,0);
-		marker.text("Points", (float)(marker.width/2.3), (float)(marker.height/1.3));
-		marker.text("Objective", (float)(marker.width/2.4), (float)(marker.height/1.65));
+		marker.text("Points", (float)(marker.width/2.3), (float)(marker.height/1.2));
+		marker.text("Objective", (float)(marker.width/2.4), (float)(marker.height/1.5));
 		marker.text("Controls", (float)(marker.width/2.4), (float)(marker.height/2.5));
 
 
