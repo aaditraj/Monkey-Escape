@@ -67,7 +67,7 @@ public class Level2 extends Level {
 		enemy3 = new MobileEnemy(MobileEnemy.mobileEnemyImages,10,1000,710,650,200,-10,0,72,90);
 		shooter1 = new SideShooter(10,830,50, 88,76, 1);
 		shooter2 = new SideShooter(10,430, 50, 88,76, 1);
-		lava = new Lava(10, 0, 950, 2000, 100, 0.2);
+		lava = new Lava(10, 0, 1040, 2000, 100, 0.2);
 		shooter3 = new SideShooter(1100,530, 50, 88,76, -1);
 		dropper1 = new ShootingEnemy(1500, 300, 0, 75, 75);
 		coin1 = new Coin(10,375);

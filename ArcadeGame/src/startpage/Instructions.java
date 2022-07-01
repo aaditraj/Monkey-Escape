@@ -24,7 +24,7 @@ public class Instructions  {
 		marker.text("1. Use A/D or Left/Right Arrows to move", (float)(marker.width/7), (float)(marker.height/2.2));
 		marker.text("2. Use W or Up Arrow to jump", (float)(marker.width/7), (float)(marker.height/2));
 		marker.text("3. Click to Shoot", (float)(marker.width/7), (float)(marker.height/1.82));
-		marker.text("4. For Multiplayer use WASD for Player 1, and Arrows for Player 2", (float)(marker.width/7), (float)(marker.height/1.64));
+		marker.text("4. Multiplayer: WASD for P1, Arrows for P2", (float)(marker.width/7), (float)(marker.height/1.66));
 
 
 

@@ -13,7 +13,7 @@ public class Platform extends Collider {
 	 * @param y Platforms y-position
 	 * @param width platform's width
 	 * @param height platforms height
-	 * @param doesDamage Checks if the platform does damamge or not.
+	 * @param doesDamage Checks if the platform does damage or not.
 	 */
 	public Platform(double x, double y, double width, double height, boolean doesDamage) {
 			super(new String[] {"assets/Platform/rock-platform.png"}, 10, x, y, width, height, 0, 0);
@@ -35,6 +35,9 @@ public class Platform extends Collider {
 				break;
 			case 600:
 				setImages(new String[] {"assets/Platform/platform600.png"});
+				break;
+			case 1000:
+				setImages(new String[] {"assets/Platform/platform1000.png"});
 				break;
 			}
 			this.doesDamage = doesDamage;

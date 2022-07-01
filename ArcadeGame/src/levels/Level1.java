@@ -84,7 +84,7 @@ public class Level1 extends Level{
 		coins.add(coin4);
 		dropper1 = new ShootingEnemy(50,100,100,100,100);
 		//platform6 = new Platform(10,900,100,40,false);
-		lava = new Lava(10, 0, 950, 2000, 100, 0.1);
+		lava = new Lava(10, 0, 1040, 2000, 100, 0.1);
 
 		player.playerSpeed = 10;
 		staticPieces.add(platform1);

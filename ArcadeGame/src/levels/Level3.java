@@ -68,10 +68,10 @@ public class Level3 extends Level {
 		player = new ShootingPlayer(120,0,900,100d,100d,0,10, 7,90);
 		inAnimation = false;
 		deathTime = 0;
-		platformBottom = new Platform(0,1000,1050,40,false);
-		enemy1 = new MobileEnemy(MobileEnemy.mobileEnemyImages,10,525,900,900,900,15,0,100,125);
-		coin1 = new Coin(950,950);
-		coin2 = new Coin(950, 850);
+		platformBottom = new Platform(0,1000,1000,40,false);
+		enemy1 = new MobileEnemy(MobileEnemy.mobileEnemyImages,10,525,875,900,875,15,0,100,125);
+		coin1 = new Coin(950,920);
+		coin2 = new Coin(950, 820);
 
 
 		platform1 = new Platform(10,780,500,40,false);
@@ -98,7 +98,7 @@ public class Level3 extends Level {
 		dropper = new ShootingEnemy(1500, 0, 0, 75, 75);
 		coin6 = new Coin(435, 100);
 		
-		lava = new Lava(10, 0, 1050, 2000, 50, 0.2);
+		lava = new Lava(10, 0, 1055, 2000, 50, 0.2);
 		
 		endPiece = new Collider(new String[] {"assets/Player/KidTarzan.png"},275,990,170,80,80,0,0);
 
@@ -134,7 +134,7 @@ public class Level3 extends Level {
 		mobilePieces.add(enemy2);
 		int[][] positions = new int[2][2];
 		positions[0] = new int[]{260, 440};
-		positions[1] = new int[]{900, 965};
+		positions[1] = new int[]{200, 930};
 		powerups.clear();
 //		for(int i = 0; i < 2; i++) {
 //			int random = (int)(Math.random() * 4); // TODO this is the powerup to test, can change arguments as needed

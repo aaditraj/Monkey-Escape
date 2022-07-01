@@ -76,7 +76,7 @@ public class ShootingPlayer extends Player{
 				b = new Bullet(x, this.getY(),"player",Bullet.superLocation,32,32,damage);
 
 			} else if (mouseY >= getY() && mouseY <= getY() + getHeight()) {
-				b = new Bullet(x, mouseY,"player",Bullet.superLocation,damage);
+				b = new Bullet(x, mouseY,"player",Bullet.superLocation,32,32,damage);
 
 			} else {
 				b = new Bullet(x, this.getY() + this.getHeight(), "player",Bullet.superLocation,32,32, damage);
